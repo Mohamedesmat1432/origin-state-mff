@@ -1,0 +1,75 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: app
+    container_name: origins_state_app
+    restart: unless-stopped
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306      
+      DB_DATABASE: origins_state_db
+      DB_USERNAME: root
+      DB_PASSWORD: ${DB_PASSWORD}
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+      # - ./storage:/var/www/storage
+      # - ./public:/var/www/public
+    # ports:
+    #   - "9000:9000"
+    # depends_on:
+    #   - db
+    networks:
+      - app_network_origins_state
+
+  nginx:
+    image: nginx:alpine
+    container_name: origins_state_nginx
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    depends_on:
+      - app
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www
+    networks:
+      - app_network_origins_state
+
+  db:
+    image: mysql:8.0
+    container_name: origins_state_mysql
+    restart: unless-stopped
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: origins_state_db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app_network_origins_state
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: origins_state_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8091:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORDd}
+    depends_on:
+      - db
+    networks:
+      - app_network_origins_state
+
+volumes:
+  db_data:
+
+networks:
+  app_network_origins_state:
+    driver: bridge
