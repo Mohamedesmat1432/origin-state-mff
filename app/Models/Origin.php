@@ -60,7 +60,12 @@ class Origin extends Model
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query) use ($search) {
-            $query->where('name', 'like', "%{$search}%")
+            $query->where('decision_num', 'like', "%{$search}%")
+                ->orWhere('decision_date', 'like', "%{$search}%")
+                ->orWhere('location', 'like', "%{$search}%")
+                ->orWhere('area', 'like', "%{$search}%")
+                ->orWhere('internal_incoming_num', 'like', "%{$search}%")
+                ->orWhere('internal_incoming_date', 'like', "%{$search}%")
                 ->orWhere('id', 'like', "%{$search}%");
         });
     }}
