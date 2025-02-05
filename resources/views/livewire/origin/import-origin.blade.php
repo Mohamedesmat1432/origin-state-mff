@@ -15,17 +15,17 @@
                 @php
                 $extension = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
                 $icons = [
-                'xlsx' => asset('images/icon-excel.png'),
-                'xls' => asset('images/icon-excel.png'),
-                'pdf' => asset('images/icon-pdf.png'),
-                'doc' => asset('images/icon-word.png'),
-                'docx' => asset('images/icon-word.png'),
+                'xlsx' => asset('icons/icon-excel.png'),
+                'xls' => asset('icons/icon-excel.png'),
+                'pdf' => asset('icons/icon-pdf.png'),
+                'doc' => asset('icons/icon-word.png'),
+                'docx' => asset('icons/icon-word.png'),
                 ];
-                $icon_image = $icons[$extension] ?? asset('images/icon-file.png');
+                $icon = $icons[$extension] ?? asset('icons/icon-file.png');
                 @endphp
 
                 <div class="mt-4 flex items-center">
-                    <img src="{{ $icon_image }}" alt="{{ $extension }} Icon" class="w-8 h-8 mr-2">
+                    <img src="{{ $icon }}" alt="{{ $extension }} Icon" class="w-8 h-8 mr-2">
                     <span>{{ $file->getClientOriginalName() }}</span>
                 </div>
                 @endif

@@ -12,7 +12,7 @@ class Statement extends Model
 
     protected $table = 'statements';
 
-    protected $filable = [
+    protected $fillable = [
         'name'
     ];    
 

@@ -12,7 +12,7 @@ class Project extends Model
 
     protected $table = 'projects';
 
-    protected $filable = [
+    protected $fillable = [
         'name'
     ]; 
     

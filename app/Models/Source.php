@@ -12,7 +12,7 @@ class Source extends Model
 
     protected $table = 'sources';
 
-    protected $filable = [
+    protected $fillable = [
         'name'
     ];    
 

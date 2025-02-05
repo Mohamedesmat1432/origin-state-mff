@@ -12,7 +12,7 @@ class Origin extends Model
 
     protected $table = 'origins';
 
-    protected $filable = [
+    protected $fillable = [
         'decision_num',
         'decision_date',
         'source_id',

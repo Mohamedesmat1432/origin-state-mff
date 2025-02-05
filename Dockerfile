@@ -14,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     pkg-config \
     libzip-dev \
     nano \
-    iputils-ping
+    iputils-ping \
+    default-mysql-client
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip

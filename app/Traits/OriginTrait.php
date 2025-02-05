@@ -26,7 +26,7 @@ trait OriginTrait
     {
         return [
             'decision_num' => 'required|numeric',
-            'decision_date' => 'required|string',
+            'decision_date' => 'required|numeric',
             'source_id' => 'required|string|exists:sources,id',
             'project_id' => 'required|string|exists:projects,id',
             'statement_id' => 'required|string|exists:statements,id',
@@ -36,7 +36,7 @@ trait OriginTrait
             'area' => 'required|numeric',
             'internal_incoming_num' => 'required|numeric',
             'internal_incoming_date' => 'required|date',
-            'decision_image' => 'nullable|mimes:pdf,jpg,jpeg,png|max:5120',
+            'decision_image' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'notes' => 'nullable|string',
         ];
     }
@@ -89,8 +89,10 @@ trait OriginTrait
     public function storeOrigin()
     {
         $validated = $this->validate();
-        $imagePath = $this->decision_image->store('decision-images', 'public');
-        $validated['decision_image'] = $imagePath;
+        if($this->decision_image) {
+            $imagePath = $this->decision_image->store('decision-images', 'public');
+            $validated['decision_image'] = $imagePath;
+        }
         Origin::create($validated);
         $this->dispatch('refresh-list-origin');
         $this->successNotify(__('site.origin_created'));
