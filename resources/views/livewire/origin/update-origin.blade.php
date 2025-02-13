@@ -127,12 +127,12 @@
                     @if ($decision_image)
                     <div class="mt-4 flex items-center">
                         <img src="{{ $icon }}" alt="{{ $extension }} Icon" class="w-8 h-8 mr-2">
-                        <span>{{ $decision_image }}</span>
+                        <span>{{ $decision_image->temporaryUrl() }}</span>
                     </div>
-                    <div class="mt-4">
+                    <!-- <div class="mt-4">
                         <h4>Preview of Uploaded PDF:</h4>
-                        <iframe src="{{ asset('storage/decision-images/' . $decision_image) }}" width="100%" height="600px"></iframe>
-                    </div>
+                        <iframe src="{{ $decision_image->temporaryUrl() }}" width="100%" height="600px"></iframe>
+                    </div> -->
                     @elseif($old_decision_image)
                     <div class="mt-4 flex items-center">
                         <img src="{{ $icon }}" alt="{{ $extension }} Icon" class="w-8 h-8 mr-2">

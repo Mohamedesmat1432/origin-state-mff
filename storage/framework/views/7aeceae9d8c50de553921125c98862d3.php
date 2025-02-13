@@ -865,12 +865,12 @@
                     <!--[if BLOCK]><![endif]--><?php if($decision_image): ?>
                     <div class="mt-4 flex items-center">
                         <img src="<?php echo e($icon); ?>" alt="<?php echo e($extension); ?> Icon" class="w-8 h-8 mr-2">
-                        <span><?php echo e($decision_image); ?></span>
+                        <span><?php echo e($decision_image->temporaryUrl()); ?></span>
                     </div>
-                    <div class="mt-4">
+                    <!-- <div class="mt-4">
                         <h4>Preview of Uploaded PDF:</h4>
-                        <iframe src="<?php echo e(asset('storage/decision-images/' . $decision_image)); ?>" width="100%" height="600px"></iframe>
-                    </div>
+                        <iframe src="<?php echo e($decision_image->temporaryUrl()); ?>" width="100%" height="600px"></iframe>
+                    </div> -->
                     <?php elseif($old_decision_image): ?>
                     <div class="mt-4 flex items-center">
                         <img src="<?php echo e($icon); ?>" alt="<?php echo e($extension); ?> Icon" class="w-8 h-8 mr-2">
