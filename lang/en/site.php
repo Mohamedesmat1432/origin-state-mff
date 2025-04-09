@@ -373,7 +373,7 @@ return [
     'company_deleted' => 'Company has been deleted successfully',
     'company_delete_all' => 'Companies has been deleted successfully',
     'export_company' => 'Export Companies',
-    'sale_exported' => 'Companies has been exported successfully',
+    'company_exported' => 'Companies has been exported successfully',
     'import_company' => 'Import Companies',
     'company_imported' => 'Companies has been imported successfully',
     'decision_num' => 'Decision Number',
@@ -386,4 +386,8 @@ return [
     'internal_incoming_date' =>  'Internal Incoming Date',
     'decision_image' => 'Decision Image',
     'notes' => 'Notes',
+    'export_origin' => 'Export Origins',
+    'origin_exported' => 'Origins has been exported successfully',
+    'import_origin' => 'Import Origins',
+    'origin_imported' => 'Origins has been imported successfully',
 ];

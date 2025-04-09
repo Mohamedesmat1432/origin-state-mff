@@ -402,4 +402,8 @@ return [
     'internal_incoming_date' =>  'تاريخ الوارد الداخلي',
     'decision_image' => 'صورة القرار',
     'notes' => 'ملاحظات',
+    'export_origin' => 'تصدير الأصول ',
+    'origin_exported' => 'تم تصدير الأصول بنجاح',
+    'import_origin' => 'استرداد الأصول',
+    'origin_imported' => 'تم استرداد الأصول بنجاح',
 ];
