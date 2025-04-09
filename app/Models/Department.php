@@ -13,14 +13,8 @@ class Department extends Model
     protected $table = 'departments';
 
     protected $fillable = [
-        'name_ar',
-        'name_en'
+        'name',
     ];
-
-    public function getNameAttribute()
-    {
-        return (app()->getLocale() === 'ar') ? $this->name_ar : $this->name_en;
-    }
 
     public function users()
     {
@@ -30,8 +24,7 @@ class Department extends Model
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query) use ($search) {
-            $query->where('name_ar', 'like', "%{$search}%")
-                ->orWhere('name_en', 'like', "%{$search}%")
+            $query->where('name', 'like', "%{$search}%")
                 ->orWhere('id', 'like', "%{$search}%");
         });
     }

@@ -15,20 +15,19 @@ class DepartmentSeeder extends Seeder
     public function run(): void
     {
         $departments = [
-            ['نظم المعلومات', 'IT'],
-            ['المالية', 'Financial'],
-            ['الهندسية', 'Engineering'],
-            ['المكتب الفني', 'COE'],
-            ['الدعم', 'Support'],
-            ['البحوث', 'Research'],
-            ['الاستثمار', 'Investment'],
-            ['القانونية', 'Law'],
+            'نظم المعلومات',
+            'المالية',
+            'الهندسية',
+            'المكتب الفني',
+            'الدعم',
+            'البحوث',
+            'الاستثمار',
+            'القانونية',
         ];
 
         foreach ($departments as $department) {
             Department::create([
-                'name_ar' => $department[0],
-                'name_en' => $department[1],
+                'name' => $department,
             ]);
         }
     }

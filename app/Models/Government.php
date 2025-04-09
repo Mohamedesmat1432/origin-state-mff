@@ -13,14 +13,8 @@ class Government extends Model
     protected $table = 'governments';
 
     protected $fillable = [
-        'name_ar',
-        'name_en'
+        'name',
     ];
-
-    public function getNameAttribute()
-    {
-        return (app()->getLocale() === 'ar') ? $this->name_ar : $this->name_en;
-    }
 
     public function cities()
     {
@@ -35,8 +29,7 @@ class Government extends Model
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query) use ($search) {
-            $query->where('name_ar', 'like', "%{$search}%")
-                ->orWhere('name_en', 'like', "%{$search}%");
+            $query->where('name', 'like', "%{$search}%");
         });
     }
 }

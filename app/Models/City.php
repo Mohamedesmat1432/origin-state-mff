@@ -14,14 +14,8 @@ class City extends Model
 
     protected $fillable = [
         'government_id', 
-        'name_ar', 
-        'name_en'
+        'name', 
     ];
-
-    public function getNameAttribute()
-    {
-        return (app()->getLocale() === 'ar') ? $this->name_ar : $this->name_en;
-    }
 
     public function government()
     {
@@ -36,8 +30,7 @@ class City extends Model
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query) use ($search) {
-            $query->where('name_ar', 'like', "%{$search}%")
-                ->orWhere('name_en', 'like', "%{$search}%");
+            $query->where('name', 'like', "%{$search}%");
         });
     }
 }

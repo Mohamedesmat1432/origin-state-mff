@@ -7,7 +7,7 @@ use Spatie\Permission\Models\Role as ModelsRole;
 
 class Role extends ModelsRole
 {
-    // use UuidTrait;
+    use UuidTrait;
 
     public function scopeSearch($query, $search)
     {

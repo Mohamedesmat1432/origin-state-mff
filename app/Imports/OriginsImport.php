@@ -39,14 +39,23 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'name' => $row['statement_id'],
         ]);
 
+        $government = Government::firstOrCreate([
+            'name' => $row['government_id'],
+        ]);
+
+        $city = City::firstOrCreate([
+            'government_id' => $government->id,
+            'name' => $row['city_id'],
+        ]);
+
         $origin = Origin::firstOrCreate([
             'decision_num' => $row['decision_num'],
             'decision_date' => $row['decision_date'],
             'source_id' => $source->id,
             'project_id' => $project->id,
             'statement_id' => $statement->id,
-            'government_id' => Government::where('name_ar', $row['government_id'])->orWhere('name_en', $row['government_id'])->first()?->id,
-            'city_id'  => City::where('name_ar', $row['city_id'])->orWhere('name_en', $row['city_id'])->first()?->id,
+            'government_id' => $government->id,
+            'city_id'  => $city->id,
             'location' => $row['location'],
             'area' => $row['area'],
             'internal_incoming_num' => $row['internal_incoming_num'],

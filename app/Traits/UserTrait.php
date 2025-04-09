@@ -44,7 +44,7 @@ trait UserTrait
 
     public function departments()
     {
-        return Department::pluck('name_' . app()->getLocale(), 'id')->toArray();
+        return Department::pluck('name', 'id')->toArray();
     }
 
     public function roles()

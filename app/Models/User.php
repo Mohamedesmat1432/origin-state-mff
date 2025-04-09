@@ -25,7 +25,7 @@ class User extends Authenticatable
     use TwoFactorAuthenticatable;
     use HasRoles;
     use SoftDeletes;
-    // use UuidTrait;
+    use UuidTrait;
 
     /**
      * The attributes that are mass assignable.

@@ -11,13 +11,12 @@ trait DepartmentTrait
 
     public ?Department $department;
 
-    public $name_ar, $name_en, $department_id;
+    public $name, $department_id;
 
     protected function rules()
     {
         return [
-            'name_ar' => 'required|string|max:255|unique:departments,name_ar,' . $this->department_id,
-            'name_en' => 'required|string|max:255|unique:departments,name_en,' . $this->department_id,
+            'name' => 'required|string|max:255|unique:departments,name,' . $this->department_id,
         ];
     }
 
@@ -25,8 +24,7 @@ trait DepartmentTrait
     {
         $this->department = Department::findOrFail($id);
         $this->department_id = $this->department->id;
-        $this->name_ar = $this->department->name_ar;
-        $this->name_en = $this->department->name_en;
+        $this->name = $this->department->name;
     }
 
     public function storeDepartment()
