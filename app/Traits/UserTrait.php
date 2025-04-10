@@ -26,7 +26,7 @@ trait UserTrait
         $rules = [
             'name' => 'required|string|min:4',
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->user_id,
-            'role' => 'nullable|exists:roles,id',
+            'role' => 'required|exists:roles,name',
             'status' => 'required|boolean',
             'department_id' => 'required|string|exists:departments,id',
         ];
@@ -49,17 +49,17 @@ trait UserTrait
 
     public function roles()
     {
-        return Role::pluck('name', 'id')->toArray();
+        return Role::pluck('name', 'name')->toArray();
     }
 
     public function setUser($id)
     {
-        $this->user = User::findOrFail($id);
+        $this->user = User::with('roles')->findOrFail($id);
         $this->user_id = $this->user->id;
         $this->name = $this->user->name;
         $this->email = $this->user->email;
         $this->status = $this->user->status;
-        $this->role = $this->user->roles->pluck('id');
+        $this->role = $this->user->roles->pluck('name')->toArray();
         $this->department_id = $this->user->department->id ?? '';
     }
 

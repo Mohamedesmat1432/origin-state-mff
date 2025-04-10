@@ -390,4 +390,5 @@ return [
     'origin_exported' => 'Origins has been exported successfully',
     'import_origin' => 'Import Origins',
     'origin_imported' => 'Origins has been imported successfully',
+    'guard_name' => 'Guard Name',
 ];

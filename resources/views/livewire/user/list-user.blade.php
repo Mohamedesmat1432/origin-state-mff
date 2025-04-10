@@ -160,7 +160,7 @@
                                     {{ $user->department?->name }}
                                 </td>    
                                 <td class="p-2 border">
-                                    {{ $user->getRoleNames()[0] }}
+                                    {{ $user->getRoleNames() }}
                                 </td>
                                 <td class="p-2 border">
                                     @if ($user->status)

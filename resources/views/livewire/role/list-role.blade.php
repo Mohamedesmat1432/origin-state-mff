@@ -52,6 +52,14 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
+                                    <button wire:click="sortByField('guard_name')">
+                                        {{ __('site.guard_name') }}
+                                    </button>
+                                    <x-sort-icon sort_field="guard_name" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
                             </td>
@@ -65,6 +73,9 @@
                                 </td>
                                 <td class="p-2 border">
                                     {{ $role->name }}
+                                </td>
+                                <td class="p-2 border">
+                                    {{ $role->guard_name }}
                                 </td>
                                 <td class="p-2 border">
                                     <div class="flex justify-center">

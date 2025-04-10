@@ -579,7 +579,7 @@ if (isset($__slots)) unset($__slots);
 
                                 </td>    
                                 <td class="p-2 border">
-                                    <?php echo e($user->getRoleNames()[0]); ?>
+                                    <?php echo e($user->getRoleNames()); ?>
 
                                 </td>
                                 <td class="p-2 border">

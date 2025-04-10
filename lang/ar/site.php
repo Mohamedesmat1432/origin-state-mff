@@ -406,4 +406,5 @@ return [
     'origin_exported' => 'تم تصدير الأصول بنجاح',
     'import_origin' => 'استرداد الأصول',
     'origin_imported' => 'تم استرداد الأصول بنجاح',
+    'guard_name' => 'اسم الحماية',
 ];

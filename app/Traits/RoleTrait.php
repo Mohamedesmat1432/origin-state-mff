@@ -19,13 +19,13 @@ trait RoleTrait
     {
         return [
             'name' => 'required|string|min:2|unique:roles,name,' . $this->role_id,
-            'permission' => 'required',
+            'permission' => 'required|array',
         ];
     }
 
     public function permissions()
     {
-        return Permission::pluck('name', 'id');
+        return Permission::pluck('name', 'name')->toArray();
     }
 
     public function setRole($id)
@@ -33,7 +33,7 @@ trait RoleTrait
         $this->role = Role::findOrFail($id);
         $this->role_id = $this->role->id;
         $this->name = $this->role->name;
-        $this->permission = $this->role->permissions->pluck('id');
+        $this->permission = $this->role->permissions->pluck('name')->toArray();
     }
 
     public function storeRole()
