@@ -2,28 +2,34 @@
 
 namespace App\Models;
 
+use App\Traits\LoggableTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Origin extends Model
 {
-    use HasFactory, UuidTrait;
+    use HasFactory, UuidTrait, LoggableTrait;
 
     protected $table = 'origins';
 
     protected $fillable = [
+        'project_id',
         'decision_num',
         'decision_date',
-        'source_id',
-        'project_id',
+        'decision_type_id',
+        'total_area_allocated',
+        'total_area_coords',
         'statement_id',
+        'used_area',
+        'executing_entity_num',
         'government_id',
         'city_id',
         'location',
-        'area',
-        'internal_incoming_num',
-        'internal_incoming_date',
+        'location_status',
+        'available_area',
+        'vacant_buildings',
+        'remaining_area',
         'decision_image',
         'notes',
     ];  
@@ -32,9 +38,9 @@ class Origin extends Model
         'decision_date' => 'integer',
     ];
 
-    public function source()
+    public function decisionType()
     {
-        return $this->belongsTo(Source::class);
+        return $this->belongsTo(DecisionType::class);
     }
     
     public function project()

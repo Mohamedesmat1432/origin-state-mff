@@ -1,8 +1,8 @@
 <div>
     <x-page-content page-name="{{ __('site.dashboard') }}">
-        <h1 class="p-2 text-2xl font-semibold text-gray-700 text-center">
+        {{-- <h1 class="p-2 text-2xl font-semibold text-gray-700 text-center">
             {{ __('site.wellcome_to_dashboard') }} {{ auth()->user()->name ?? '' }}
-        </h1>
+        </h1> --}}
 
         <div class="p-6 lg:p-6 bg-white border-b border-gray-200 rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
@@ -26,6 +26,9 @@
                 @endcan
                 @endforeach
             </div>
+        </div>
+
+        <div class="p-6 lg:p-6 mt-3 bg-white border-b border-gray-200 rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
                 @can('view-chart-user')
                 <livewire:chart.chart-user />

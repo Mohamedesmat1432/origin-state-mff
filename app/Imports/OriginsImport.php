@@ -2,11 +2,12 @@
 
 namespace App\Imports;
 
-use App\Models\Source;
+use App\Models\decision_type;
 use App\Models\Project;
 use App\Models\Statement;
 use App\Models\Government;
 use App\Models\City;
+use App\Models\DecisionType;
 use App\Models\Origin;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\Importable;
@@ -27,12 +28,12 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
 
     public function model(array $row)
     {
-        $source = Source::firstOrCreate([
-            'name' => $row['source_id'],
-        ]);
-
         $project = Project::firstOrCreate([
             'name' => $row['project_id'],
+        ]);
+
+        $decision_type = DecisionType::firstOrCreate([
+            'name' => $row['decision_type_id'],
         ]);
 
         $statement = Statement::firstOrCreate([
@@ -51,15 +52,19 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
         $origin = Origin::firstOrCreate([
             'decision_num' => $row['decision_num'],
             'decision_date' => $row['decision_date'],
-            'source_id' => $source->id,
+            'decision_type_id' => $decision_type->id,
             'project_id' => $project->id,
+            'total_area_allocated' => $row['total_area_allocated'],
+            'total_area_coords' => $row['total_area_coords'],
             'statement_id' => $statement->id,
+            'used_area' => $row['used_area'],
+            'executing_entity_num' => $row['executing_entity_num'],
             'government_id' => $government->id,
             'city_id'  => $city->id,
             'location' => $row['location'],
-            'area' => $row['area'],
-            'internal_incoming_num' => $row['internal_incoming_num'],
-            'internal_incoming_date' => $row['internal_incoming_date'],
+            'available_area' => $row['available_area'],
+            'vacant_buildings' => $row['vacant_buildings'],
+            'remaining_area' => $row['remaining_area'],
             'notes' => $row['notes'],
         ]);
     }
@@ -67,17 +72,21 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
     public function rules(): array
     {
         return [
+            'project_id' => 'required|string',
             'decision_num' => 'required|numeric',
             'decision_date' => 'required|numeric',
-            'source_id' => 'required|string',
-            'project_id' => 'required|string',
+            'decision_type_id' => 'required|string',
+            'total_area_allocated' => 'required|numeric',
+            'total_area_coords' => 'required|numeric',
             'statement_id' => 'required|string',
+            'used_area' => 'required|numeric',
+            'executing_entity_num' => 'required|numeric',
             'government_id' => 'required|string',
             'city_id' => 'required|string',
-            'location' => 'nullable|string|max:255',
-            'area' => 'required|numeric',
-            'internal_incoming_num' => 'required|numeric',
-            'internal_incoming_date' => 'required|date',
+            'location' => 'nullable|string|max:500',
+            'available_area' => 'required|numeric',
+            'vacant_buildings' => 'required|numeric',
+            'remaining_area' => 'required|numeric',
             'notes' => 'nullable|string',
         ];
     }

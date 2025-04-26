@@ -40,10 +40,10 @@ class NavigateMenu extends NavigationMenu
                 'role' => 'view-permission',
             ],
             [
-                'name' => 'sources',
-                'value' => 'site.sources',
+                'name' => 'decision.types',
+                'value' => 'site.decision_types',
                 'icon' => 'receipt-percent',
-                'role' => 'view-source',
+                'role' => 'view-decision-type',
             ],
             [
                 'name' => 'projects',
@@ -56,6 +56,18 @@ class NavigateMenu extends NavigationMenu
                 'value' => 'site.statements',
                 'icon' => 'receipt-percent',
                 'role' => 'view-statement',
+            ],
+            [
+                'name' => 'job.titles',
+                'value' => 'site.job_titles',
+                'icon' => 'receipt-percent',
+                'role' => 'view-job-title',
+            ],
+            [
+                'name' => 'responsibilities',
+                'value' => 'site.responsibilities',
+                'icon' => 'receipt-percent',
+                'role' => 'view-responsibility',
             ],
             [
                 'name' => 'backup',

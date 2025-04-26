@@ -66,6 +66,14 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
+                                    <button wire:click="sortByField('project_id')">
+                                        {{ __('site.project_id') }}
+                                    </button>
+                                    <x-sort-icon sort_field="project_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
                                     <button wire:click="sortByField('decision_num')">
                                         {{ __('site.decision_num') }}
                                     </button>
@@ -82,18 +90,29 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button wire:click="sortByField('source_id')">
-                                        {{ __('site.source_id') }}
+                                    <button wire:click="sortByField('decision_type_id')">
+                                        {{ __('site.decision_type_id') }}
                                     </button>
-                                    <x-sort-icon sort_field="source_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    <x-sort-icon sort_field="decision_type_id" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button wire:click="sortByField('project_id')">
-                                        {{ __('site.project_id') }}
+                                    <button wire:click="sortByField('total_area_allocated')">
+                                        {{ __('site.total_area_allocated') }}
                                     </button>
-                                    <x-sort-icon sort_field="project_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    <x-sort-icon sort_field="total_area_allocated" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('total_area_coords')">
+                                        {{ __('site.total_area_coords') }}
+                                    </button>
+                                    <x-sort-icon sort_field="total_area_coords" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
@@ -102,6 +121,24 @@
                                         {{ __('site.statement_id') }}
                                     </button>
                                     <x-sort-icon sort_field="statement_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('used_area')">
+                                        {{ __('site.used_area') }}
+                                    </button>
+                                    <x-sort-icon sort_field="used_area" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('executing_entity_num')">
+                                        {{ __('site.executing_entity_num') }}
+                                    </button>
+                                    <x-sort-icon sort_field="executing_entity_num" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
@@ -130,26 +167,29 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button wire:click="sortByField('area')">
-                                        {{ __('site.area') }}
+                                    <button wire:click="sortByField('available_area')">
+                                        {{ __('site.available_area') }}
                                     </button>
-                                    <x-sort-icon sort_field="area" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    <x-sort-icon sort_field="available_area" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button wire:click="sortByField('internal_incoming_num')">
-                                        {{ __('site.internal_incoming_num') }}
+                                    <button wire:click="sortByField('vacant_buildings')">
+                                        {{ __('site.vacant_buildings') }}
                                     </button>
-                                    <x-sort-icon sort_field="internal_incoming_num" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    <x-sort-icon sort_field="vacant_buildings" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
-                                    <button wire:click="sortByField('internal_incoming_date')">
-                                        {{ __('site.internal_incoming_date') }}
+                                    <button wire:click="sortByField('remaining_area')">
+                                        {{ __('site.remaining_area') }}
                                     </button>
-                                    <x-sort-icon sort_field="internal_incoming_date" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                    <x-sort-icon sort_field="remaining_area" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
@@ -179,16 +219,28 @@
                                 {{ $origin->id }}
                             </td>
                             <td class="p-2 border">
+                                {{ $origin->project?->name }}
+                            </td>
+                            <td class="p-2 border">
                                 {{ $origin->decision_num }}
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->decision_date }}
                             </td>
                             <td class="p-2 border">
-                                {{ $origin->source?->name }}
+                                {{ $origin->decisionType?->name }}
                             </td>
                             <td class="p-2 border">
-                                {{ $origin->project?->name }}
+                                {{ $origin->total_area_allocated }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $origin->total_area_coords }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $origin->used_area }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $origin->executing_entity_num }}
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->statement?->name }}
@@ -203,13 +255,13 @@
                                 {{ $origin->location }}
                             </td>
                             <td class="p-2 border">
-                                {{ $origin->area }}
+                                {{ $origin->available_area }}
                             </td>
                             <td class="p-2 border">
-                                {{ $origin->internal_incoming_num }}
+                                {{ $origin->vacant_buildings }}
                             </td>
                             <td class="p-2 border">
-                                {{ $origin->internal_incoming_date }}
+                                {{ $origin->remaining_area }}
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->notes }}
@@ -219,13 +271,13 @@
                                     <x-edit-button permission="edit-origin" id="{{ $origin->id }}" />
                                     <div class="mx-1"></div>
                                     <x-delete-button permission="delete-origin" id="{{ $origin->id }}"
-                                        name="{{ $origin->name }}" />
+                                        name="{{ $origin->decision_num }}" />
                                 </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="12" class="p-2 border text-center">
+                            <td colspan="15" class="p-2 border text-center">
                                 {{ __('site.no_data_found') }}
                             </td>
                         </tr>

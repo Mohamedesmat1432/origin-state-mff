@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Livewire\{{ namespace }};
+
+use App\Traits\{{ trait }};
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
+use Livewire\Component;
+
+#[Layout('layouts.app')]
+class Create{{ class }} extends Component
+{
+    use {{ trait }};
+
+    #[On('create-modal')]
+    public function createModal()
+    {
+        $this->reset();
+        $this->resetValidation();
+        $this->create_modal = true;
+    }
+
+    public function save()
+    {
+        $this->store{{ class }}();
+    }
+
+    public function render()
+    {
+        $this->authorize('create-{{ kebabView }}');
+
+        return view('livewire.{{ kebabView }}.create-{{ kebabView }}');
+    }
+}

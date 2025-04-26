@@ -2,10 +2,17 @@
 
 namespace App\Livewire\Dashboard;
 
+use App\Models\City;
+use App\Models\DecisionType;
 use App\Models\Role;
 use App\Models\Permission;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\Government;
+use App\Models\Origin;
+use App\Models\Project;
+use App\Models\Source;
+use App\Models\Statement;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -20,42 +27,98 @@ class DashboardComponent extends Component
                 'value' => __('site.users'),
                 'icon' => 'user-group',
                 'role' => 'view-user',
-                'bg' => 'bg-green-500',
-                'hover' => 'hover:bg-green-600',
+                'bg' => 'bg-cyan-600',
+                'hover' => 'hover:bg-cyan-700',
                 'count' => User::count(),
             ],
             [
                 'name' => 'roles',
                 'value' => __('site.roles'),
-                'icon' => 'lock-closed',
+                'icon' => 'shield-check',
                 'role' => 'view-role',
-                'bg' => 'bg-blue-500',
-                'hover' => 'hover:bg-blue-600',
+                'bg' => 'bg-indigo-600',
+                'hover' => 'hover:bg-indigo-700',
                 'count' => Role::count(),
             ],
-            // [
-            //     'name' => 'permissions',
-            //     'value' => __('site.permissions'),
-            //     'icon' => 'lock-open',
-            //     'role' => 'view-permission',
-            //     'bg' => 'bg-red-500',
-            //     'hover' => 'hover:bg-red-600',
-            //     'count' => Permission::count(),
-            // ],
-            // [
-            //     'name' => 'departments',
-            //     'value' => __('site.departments'),
-            //     'icon' => 'squares-2x2',
-            //     'role' => 'view-department',
-            //     'bg' => 'bg-red-500',
-            //     'hover' => 'hover:bg-red-600',
-            //     'count' => Department::count(),
-            // ],
+            [
+                'name' => 'permissions',
+                'value' => __('site.permissions'),
+                'icon' => 'key',
+                'role' => 'view-permission',
+                'bg' => 'bg-purple-600',
+                'hover' => 'hover:bg-purple-700',
+                'count' => Permission::count(),
+            ],
+            [
+                'name' => 'departments',
+                'value' => __('site.departments'),
+                'icon' => 'building-office',
+                'role' => 'view-department',
+                'bg' => 'bg-teal-600',
+                'hover' => 'hover:bg-teal-700',
+                'count' => Department::count(),
+            ],
+            [
+                'name' => 'decision.types',
+                'value' => __('site.decision_types'),
+                'icon' => 'bolt',
+                'role' => 'view-decision-type',
+                'bg' => 'bg-amber-600',
+                'hover' => 'hover:bg-amber-700',
+                'count' => DecisionType::count(),
+            ],
+            [
+                'name' => 'projects',
+                'value' => __('site.projects'),
+                'icon' => 'briefcase',
+                'role' => 'view-project',
+                'bg' => 'bg-blue-600',
+                'hover' => 'hover:bg-blue-700',
+                'count' => Project::count(),
+            ],
+            [
+                'name' => 'statements',
+                'value' => __('site.statements'),
+                'icon' => 'document-text',
+                'role' => 'view-statement',
+                'bg' => 'bg-rose-600',
+                'hover' => 'hover:bg-rose-700',
+                'count' => Statement::count(),
+            ],
+            [
+                'name' => 'origins',
+                'value' => __('site.origins'),
+                'icon' => 'globe-alt',
+                'role' => 'view-origin',
+                'bg' => 'bg-emerald-600',
+                'hover' => 'hover:bg-emerald-700',
+                'count' => Origin::count(),
+            ],
+            [
+                'name' => 'governments',
+                'value' => __('site.governments'),
+                'icon' => 'map',
+                'role' => 'view-government',
+                'bg' => 'bg-orange-600',
+                'hover' => 'hover:bg-orange-700',
+                'count' => Government::count(),
+            ],
+            [
+                'name' => 'cities',
+                'value' => __('site.cities'),
+                'icon' => 'building-library',
+                'role' => 'view-city',
+                'bg' => 'bg-lime-600',
+                'hover' => 'hover:bg-lime-700',
+                'count' => City::count(),
+            ],
         ];
     }
 
+
+
     public function render()
-    {      
+    {
         return view('livewire.dashboard.dashboard-component');
     }
 }

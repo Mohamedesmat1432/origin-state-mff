@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Livewire\{{ namespace }};
+
+use App\Models\{{ class }};
+use App\Traits\{{ trait }};
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
+use Livewire\Component;
+
+#[Layout('layouts.app')]
+class List{{ class }} extends Component
+{
+    use {{ trait }};
+
+    #[On('refresh-list-{{ kebabView }}')]
+    public function render()
+    {
+        $this->authorize('view-{{ kebabView }}');
+
+        ${{ snakView }}s = {{ class }}::search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
+
+        $this->checkbox_all = {{ class }}::pluck('id')->toArray();
+
+        return view('livewire.{{ kebabView }}.list-{{ kebabView }}', [
+            '{{ snakView }}s' => ${{ snakView }}s,
+        ]);
+        
+    }
+}

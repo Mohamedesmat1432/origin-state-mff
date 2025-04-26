@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Livewire\{{ namespace }};
+
+use App\Traits\{{ trait }};
+use Livewire\Attributes\Layout;
+use Livewire\Attributes\On;
+use Livewire\Component;
+
+#[Layout('layouts.app')]
+class Update{{ class }} extends Component
+{
+    use {{ trait }};
+
+    #[On('edit-modal')]
+    public function confirmEdit($id)
+    {
+        $this->reset();
+        $this->resetValidation();
+        $this->set{{ class }}($id);
+        $this->edit_modal = true;
+    }
+
+    public function save()
+    {
+        $this->update{{ class }}();
+    }
+
+    public function render()
+    {
+        $this->authorize('edit-{{ kebabView }}');
+
+        return view('livewire.{{ kebabView }}.update-{{ kebabView }}');
+    }
+}

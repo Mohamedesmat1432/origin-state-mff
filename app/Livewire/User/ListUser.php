@@ -18,7 +18,9 @@ class ListUser extends Component
     {
         $this->authorize('view-user');
 
-        $users = $this->trash ? User::with('roles')->onlyTrashed() : User::with('roles')->withoutTrashed();
+        $users = $this->trash
+            ? User::with(['roles', 'responsibilities', 'department', 'jobTitle'])->onlyTrashed()
+            : User::with(['roles', 'responsibilities', 'department', 'jobTitle'])->withoutTrashed();
 
         $users = $users->search($this->search)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')

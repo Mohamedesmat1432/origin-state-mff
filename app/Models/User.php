@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Traits\LoggableTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +27,7 @@ class User extends Authenticatable
     use HasRoles;
     use SoftDeletes;
     use UuidTrait;
+    use LoggableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +37,16 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected $fillable = ['name', 'email', 'password', 'status', 'department_id'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'status',
+        'department_id',
+        'job_title_id',
+        'national_number',
+        'phone_number',
+    ];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -65,6 +76,17 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
+    public function jobTitle(): BelongsTo
+    {
+        return $this->belongsTo(JobTitle::class);
+    }
+
+    public function responsibilities()
+    {
+        return $this->belongsToMany(Responsibility::class, 'responsibility_user', 'user_id', 'responsibility_id')
+            ->withTimestamps();
+    }
+
     protected function name(): Attribute
     {
         return Attribute::make(get: fn(string $value) => ucwords($value));
@@ -78,4 +100,3 @@ class User extends Authenticatable
         });
     }
 }
-

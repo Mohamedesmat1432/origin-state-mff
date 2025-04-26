@@ -9,10 +9,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['page-name' => ''.e(__('site.dashboard')).'']); ?>
-        <h1 class="p-2 text-2xl font-semibold text-gray-700 text-center">
-            <?php echo e(__('site.wellcome_to_dashboard')); ?> <?php echo e(auth()->user()->name ?? ''); ?>
-
-        </h1>
+        
 
         <div class="p-6 lg:p-6 bg-white border-b border-gray-200 rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
@@ -55,6 +52,9 @@
                 <?php endif; ?>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
             </div>
+        </div>
+
+        <div class="p-6 lg:p-6 mt-3 bg-white border-b border-gray-200 rounded-lg">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view-chart-user')): ?>
                 <?php
@@ -86,5 +86,4 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal562cb1477a8769da678d472fe5deeba8; ?>
 <?php unset($__componentOriginal562cb1477a8769da678d472fe5deeba8); ?>
 <?php endif; ?>
-</div>
-<?php /**PATH /var/www/resources/views/livewire/dashboard/dashboard-component.blade.php ENDPATH**/ ?>
+</div><?php /**PATH /var/www/resources/views/livewire/dashboard/dashboard-component.blade.php ENDPATH**/ ?>

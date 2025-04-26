@@ -9,6 +9,8 @@ class Kernel extends ConsoleKernel
 {
     protected $commands = [
         \App\Console\Commands\DbBackup::class,  
+        \App\Console\Commands\CustomModel::class,  
+        \App\Console\Commands\CustomLivewire::class,  
     ];
 
     /**

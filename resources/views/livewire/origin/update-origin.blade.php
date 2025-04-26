@@ -8,28 +8,6 @@
         <x-slot name="content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mt-2">
-                    <x-label for="decision_num" value="{{ __('site.decision_num') }}" />
-                    <x-input type="number" class="mt-1 block w-full" wire:model="decision_num"
-                        placeholder="{{ __('site.decision_num') }}" />
-                    <x-input-error for="decision_num" class="mt-2" />
-                </div>
-                <div class="mt-2">
-                    <x-label for="decision_date" value="{{ __('site.decision_date') }}" />
-                    <x-input type="number" class="mt-1 block w-full" wire:model="decision_date"
-                        min="1990" max="{{date('Y')}}" placeholder="{{ __('site.decision_date') }}" />
-                    <x-input-error for="decision_date" class="mt-2" />
-                </div>
-                <div class="mt-2">
-                    <x-label for="source_id" value="{{ __('site.source_id') }}" />
-                    <x-select class="mt-1 block w-full" wire:model="source_id">
-                        <option value="">{{ __('site.select') }}</option>
-                        @foreach ($this->sources() as $key => $val)
-                        <option value="{{ $key }}">{{ $val }}</option>
-                        @endforeach
-                    </x-select>
-                    <x-input-error for="source_id" class="mt-2" />
-                </div>
-                <div class="mt-2">
                     <x-label for="project_id" value="{{ __('site.project_id') }}" />
                     <x-select class="mt-1 block w-full" wire:model="project_id">
                         <option value="">{{ __('site.select') }}</option>
@@ -38,6 +16,40 @@
                         @endforeach
                     </x-select>
                     <x-input-error for="project_id" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="decision_num" value="{{ __('site.decision_num') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="decision_num"
+                        placeholder="{{ __('site.decision_num') }}" />
+                    <x-input-error for="decision_num" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="decision_date" value="{{ __('site.decision_date') }}" />
+                    <x-input type="number" class="mt-1 block w-full" min="1900" max="{{date('Y')}}"
+                        wire:model="decision_date" placeholder="{{ __('site.decision_date') }}" />
+                    <x-input-error for="decision_date" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="decision_type_id" value="{{ __('site.decision_type_id') }}" />
+                    <x-select class="mt-1 block w-full" wire:model="decision_type_id">
+                        <option value="">{{ __('site.select') }}</option>
+                        @foreach ($this->decisionTypes() as $key => $val)
+                        <option value="{{ $key }}">{{ $val }}</option>
+                        @endforeach
+                    </x-select>
+                    <x-input-error for="decision_type_id" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="total_area_allocated" value="{{ __('site.total_area_allocated') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="total_area_allocated"
+                        placeholder="{{ __('site.total_area_allocated') }}" />
+                    <x-input-error for="total_area_allocated" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="total_area_coords" value="{{ __('site.total_area_coords') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="total_area_coords"
+                        placeholder="{{ __('site.total_area_coords') }}" />
+                    <x-input-error for="total_area_coords" class="mt-2" />
                 </div>
                 <div class="mt-2">
                     <x-label for="statement_id" value="{{ __('site.statement_id') }}" />
@@ -72,12 +84,6 @@
                     </x-select>
                     <x-input-error for="city_id" class="mt-2" />
                 </div>
-                <div class="mt-2">
-                    <x-label for="area" value="{{ __('site.area') }}" />
-                    <x-input type="number" class="mt-1 block w-full" wire:model="area"
-                        placeholder="{{ __('site.area') }}" />
-                    <x-input-error for="area" class="mt-2" />
-                </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <div class="mt-2">
@@ -89,23 +95,40 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mt-2">
-                    <x-label for="internal_incoming_num" value="{{ __('site.internal_incoming_num') }}" />
-                    <x-input type="number" class="mt-1 block w-full" wire:model="internal_incoming_num"
-                        placeholder="{{ __('site.internal_incoming_num') }}" />
-                    <x-input-error for="internal_incoming_num" class="mt-2" />
+                    <x-label for="used_area" value="{{ __('site.used_area') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="used_area"
+                        placeholder="{{ __('site.used_area') }}" />
+                    <x-input-error for="used_area" class="mt-2" />
                 </div>
                 <div class="mt-2">
-                    <x-label for="internal_incoming_date" value="{{ __('site.internal_incoming_date') }}" />
-                    <x-input type="date" class="mt-1 block w-full" wire:model="internal_incoming_date"
-                        placeholder="{{ __('site.internal_incoming_date') }}" />
-                    <x-input-error for="internal_incoming_date" class="mt-2" />
+                    <x-label for="executing_entity_num" value="{{ __('site.executing_entity_num') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="executing_entity_num"
+                        placeholder="{{ __('site.executing_entity_num') }}" />
+                    <x-input-error for="executing_entity_num" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="available_area" value="{{ __('site.available_area') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="available_area"
+                        placeholder="{{ __('site.available_area') }}" />
+                    <x-input-error for="available_area" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="vacant_buildings" value="{{ __('site.vacant_buildings') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="vacant_buildings"
+                        placeholder="{{ __('site.vacant_buildings') }}" />
+                    <x-input-error for="vacant_buildings" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="remaining_area" value="{{ __('site.remaining_area') }}" />
+                    <x-input type="number" class="mt-1 block w-full" wire:model="remaining_area"
+                        placeholder="{{ __('site.remaining_area') }}" />
+                    <x-input-error for="remaining_area" class="mt-2" />
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <div class="mt-2">
                     <x-label for="notes" value="{{ __('site.notes') }}" />
-                    <x-textarea class="mt-1 block w-full" wire:model="notes"
-                        placeholder="{{ __('site.notes') }}">
+                    <x-textarea class="mt-1 block w-full" wire:model="notes" placeholder="{{ __('site.notes') }}">
                     </x-textarea>
                     <x-input-error for="notes" class="mt-2" />
                 </div>
@@ -140,7 +163,8 @@
                     </div>
                     <div class="mt-4">
                         <h4>Preview of Uploaded PDF:</h4>
-                        <iframe src="{{ asset('storage/' . $old_decision_image) }}" width="100%" height="600px"></iframe>
+                        <iframe src="{{ asset('storage/' . $old_decision_image) }}" width="100%"
+                            height="600px"></iframe>
                     </div>
                     @endif
                 </div>

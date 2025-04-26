@@ -11,7 +11,7 @@
 <?php $component->withAttributes(['page-name' => ''.e(__('site.users')).'']); ?>
 
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('create-user')): ?>
-            <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
@@ -29,7 +29,7 @@ if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit-user')): ?>
-            <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
@@ -47,7 +47,7 @@ if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('restore-user')): ?>
-            <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
@@ -65,7 +65,7 @@ if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('delete-user')): ?>
-            <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
@@ -83,7 +83,7 @@ if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-user')): ?>
-            <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
@@ -101,7 +101,7 @@ if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-delete-user')): ?>
-            <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
@@ -119,7 +119,7 @@ if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-bulk-delete-user')): ?>
-            <?php
+        <?php
 $__split = function ($name, $params = []) {
     return [$name, $params];
 };
@@ -218,8 +218,8 @@ if (isset($__slots)) unset($__slots);
                     </div>
                 </div>
                 <!--[if BLOCK]><![endif]--><?php if($this->trash): ?>
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-bulk-delete-user')): ?>
-                        <?php if (isset($component)) { $__componentOriginal057a65c738b8fae1e968954f85c17432 = $component; } ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-bulk-delete-user')): ?>
+                <?php if (isset($component)) { $__componentOriginal057a65c738b8fae1e968954f85c17432 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal057a65c738b8fae1e968954f85c17432 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.force-bulk-delete-button','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('force-bulk-delete-button'); ?>
@@ -239,10 +239,10 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal057a65c738b8fae1e968954f85c17432; ?>
 <?php unset($__componentOriginal057a65c738b8fae1e968954f85c17432); ?>
 <?php endif; ?>
-                    <?php endif; ?>
+                <?php endif; ?>
                 <?php else: ?>
-                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-user')): ?>
-                        <?php if (isset($component)) { $__componentOriginal6c52264334eecd11608d21550eaa588a = $component; } ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-user')): ?>
+                <?php if (isset($component)) { $__componentOriginal6c52264334eecd11608d21550eaa588a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal6c52264334eecd11608d21550eaa588a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.bulk-delete-button','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('bulk-delete-button'); ?>
@@ -262,7 +262,7 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal6c52264334eecd11608d21550eaa588a; ?>
 <?php unset($__componentOriginal6c52264334eecd11608d21550eaa588a); ?>
 <?php endif; ?>
-                    <?php endif; ?>
+                <?php endif; ?>
                 <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
 
                 <?php if (isset($component)) { $__componentOriginal163c8ba6efb795223894d5ffef5034f5 = $component; } ?>
@@ -278,10 +278,10 @@ if (isset($__slots)) unset($__slots);
                      <?php $__env->slot('thead', null, []); ?> 
                         <tr>
                             <!--[if BLOCK]><![endif]--><?php if($this->trash): ?>
-                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-bulk-delete-user')): ?>
-                                    <td class="px-4 py-2 border">
-                                        <div class="text-center">
-                                            <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-bulk-delete-user')): ?>
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal74b62b190a03153f11871f645315f4de = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.checkbox','data' => ['wire:click' => 'checkboxAll','wire:model.live' => 'checkbox_status']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('checkbox'); ?>
@@ -301,14 +301,14 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal74b62b190a03153f11871f645315f4de; ?>
 <?php unset($__componentOriginal74b62b190a03153f11871f645315f4de); ?>
 <?php endif; ?>
-                                        </div>
-                                    </td>
-                                <?php endif; ?>
+                                </div>
+                            </td>
+                            <?php endif; ?>
                             <?php else: ?>
-                                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-user')): ?>
-                                    <td class="px-4 py-2 border">
-                                        <div class="text-center">
-                                            <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-user')): ?>
+                            <td class="px-4 py-2 border">
+                                <div class="text-center">
+                                    <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal74b62b190a03153f11871f645315f4de = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.checkbox','data' => ['wire:click' => 'checkboxAll','wire:model.live' => 'checkbox_status']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('checkbox'); ?>
@@ -328,9 +328,9 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal74b62b190a03153f11871f645315f4de; ?>
 <?php unset($__componentOriginal74b62b190a03153f11871f645315f4de); ?>
 <?php endif; ?>
-                                        </div>
-                                    </td>
-                                <?php endif; ?>
+                                </div>
+                            </td>
+                            <?php endif; ?>
                             <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                             <td class="p-2 border">
                                 <div class="flex justify-center">
@@ -418,6 +418,62 @@ if (isset($__slots)) unset($__slots);
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
+                                    <button wire:click="sortByField('national_number')">
+                                        <?php echo e(__('site.national_number')); ?>
+
+                                    </button>
+                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'national_number','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('sort-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['sort_field' => 'national_number','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('phone_number')">
+                                        <?php echo e(__('site.phone_number')); ?>
+
+                                    </button>
+                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'phone_number','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('sort-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['sort_field' => 'phone_number','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
                                     <button wire:click="sortByField('department_id')">
                                         <?php echo e(__('site.department_id')); ?>
 
@@ -432,6 +488,62 @@ if (isset($__slots)) unset($__slots);
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['sort_field' => 'department_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('job_title_id')">
+                                        <?php echo e(__('site.job_title_id')); ?>
+
+                                    </button>
+                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'job_title_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('sort-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['sort_field' => 'job_title_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('responsibility_id')">
+                                        <?php echo e(__('site.responsibility_id')); ?>
+
+                                    </button>
+                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'responsibility_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('sort-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['sort_field' => 'responsibility_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
@@ -510,11 +622,11 @@ if (isset($__slots)) unset($__slots);
                      <?php $__env->endSlot(); ?>
                      <?php $__env->slot('tbody', null, []); ?> 
                         <!--[if BLOCK]><![endif]--><?php $__empty_1 = true; $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                            <tr wire:key="user-<?php echo e($user->id); ?>" class="odd:bg-gray-100">
-                                <!--[if BLOCK]><![endif]--><?php if($this->trash): ?>
-                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-bulk-delete-user')): ?>
-                                        <td class="p-2 border">
-                                            <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
+                        <tr wire:key="user-<?php echo e($user->id); ?>" class="odd:bg-gray-100">
+                            <!--[if BLOCK]><![endif]--><?php if($this->trash): ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('force-bulk-delete-user')): ?>
+                            <td class="p-2 border">
+                                <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal74b62b190a03153f11871f645315f4de = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.checkbox','data' => ['wire:model.live' => 'checkbox_arr','value' => ''.e($user->id).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('checkbox'); ?>
@@ -534,12 +646,12 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal74b62b190a03153f11871f645315f4de; ?>
 <?php unset($__componentOriginal74b62b190a03153f11871f645315f4de); ?>
 <?php endif; ?>
-                                        </td>
-                                    <?php endif; ?>
-                                <?php else: ?>
-                                    <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-user')): ?>
-                                        <td class="p-2 border">
-                                            <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
+                            </td>
+                            <?php endif; ?>
+                            <?php else: ?>
+                            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-user')): ?>
+                            <td class="p-2 border">
+                                <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal74b62b190a03153f11871f645315f4de = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.checkbox','data' => ['wire:model.live' => 'checkbox_arr','value' => ''.e($user->id).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('checkbox'); ?>
@@ -559,46 +671,78 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal74b62b190a03153f11871f645315f4de; ?>
 <?php unset($__componentOriginal74b62b190a03153f11871f645315f4de); ?>
 <?php endif; ?>
-                                        </td>
-                                    <?php endif; ?>
-                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                <td class="p-2 border">
-                                    <?php echo e($user->id); ?>
+                            </td>
+                            <?php endif; ?>
+                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                            <td class="p-2 border">
+                                <?php echo e($user->id); ?>
 
-                                </td>
-                                <td class="p-2 border">
-                                    <?php echo e($user->name); ?>
+                            </td>
+                            <td class="p-2 border">
+                                <?php echo e($user->name); ?>
 
-                                </td>
-                                <td class="p-2 border">
-                                    <?php echo e($user->email); ?>
+                            </td>
+                            <td class="p-2 border">
+                                <?php echo e($user->email); ?>
 
-                                </td>
-                                <td class="p-2 border">
+                            </td>
+                            <td class="p-2 border">
+                                <?php echo e($user->national_number); ?>
+
+                            </td>
+                            <td class="p-2 border">
+                                <?php echo e($user->phone_number); ?>
+
+                            </td>
+                            <td class="p-2 border">
+                                <span
+                                    class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-1 px-2.5 py-0.5 rounded">
                                     <?php echo e($user->department?->name); ?>
 
-                                </td>    
-                                <td class="p-2 border">
-                                    <?php echo e($user->getRoleNames()); ?>
+                                </span>
+                            </td>
+                            <td class="p-2 border">
+                                <span
+                                    class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-1 px-2.5 py-0.5 rounded">
+                                    <?php echo e($user->jobTitle?->name); ?>
 
-                                </td>
-                                <td class="p-2 border">
-                                    <!--[if BLOCK]><![endif]--><?php if($user->status): ?>
-                                        <span class="p-2 bg-green-500 rounded-full text-white">
-                                            <?php echo e(__('site.active')); ?>
+                                </span>
+                            </td>
+                            <td class="p-2 border">
+                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $user->responsibilities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $res): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <span
+                                    class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-1 px-2.5 py-0.5 rounded">
+                                    <?php echo e($res?->name); ?>
 
-                                        </span>
-                                    <?php else: ?>
-                                        <span class="p-2 bg-red-500 rounded-full text-white">
-                                            <?php echo e(__('site.not_active')); ?>
+                                </span>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                            </td>
+                            <td class="p-2 border">
+                                <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $user->getRoleNames(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <span
+                                    class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold mr-1 px-2.5 py-0.5 rounded">
+                                    <?php echo e($role); ?>
 
-                                        </span>
-                                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                                </td>
-                                <!--[if BLOCK]><![endif]--><?php if($this->trash): ?>
-                                    <td class="p-2 border">
-                                        <div class="flex justify-center">
-                                            <?php if (isset($component)) { $__componentOriginal8673fbfffc9980e28be6848c8f0f0b91 = $component; } ?>
+                                </span>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                            </td>
+                            <td class="p-2 border">
+                                <!--[if BLOCK]><![endif]--><?php if($user->status): ?>
+                                <span class="p-2 bg-green-500 rounded-full text-white">
+                                    <?php echo e(__('site.active')); ?>
+
+                                </span>
+                                <?php else: ?>
+                                <span class="p-2 bg-red-500 rounded-full text-white">
+                                    <?php echo e(__('site.not_active')); ?>
+
+                                </span>
+                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                            </td>
+                            <!--[if BLOCK]><![endif]--><?php if($this->trash): ?>
+                            <td class="p-2 border">
+                                <div class="flex justify-center">
+                                    <?php if (isset($component)) { $__componentOriginal8673fbfffc9980e28be6848c8f0f0b91 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal8673fbfffc9980e28be6848c8f0f0b91 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.restore-button','data' => ['permission' => 'restore-user','id' => ''.e($user->id).'','name' => ''.e($user->name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('restore-button'); ?>
@@ -618,8 +762,8 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal8673fbfffc9980e28be6848c8f0f0b91; ?>
 <?php unset($__componentOriginal8673fbfffc9980e28be6848c8f0f0b91); ?>
 <?php endif; ?>
-                                            <div class="mx-1"></div>
-                                            <?php if (isset($component)) { $__componentOriginalafbedbf045382560df5d0775a10bca6a = $component; } ?>
+                                    <div class="mx-1"></div>
+                                    <?php if (isset($component)) { $__componentOriginalafbedbf045382560df5d0775a10bca6a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalafbedbf045382560df5d0775a10bca6a = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.force-delete-button','data' => ['permission' => 'force-delete-user','id' => ''.e($user->id).'','name' => ''.e($user->name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('force-delete-button'); ?>
@@ -639,12 +783,12 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginalafbedbf045382560df5d0775a10bca6a; ?>
 <?php unset($__componentOriginalafbedbf045382560df5d0775a10bca6a); ?>
 <?php endif; ?>
-                                        </div>
-                                    </td>
-                                <?php else: ?>
-                                    <td class="p-2 border">
-                                        <div class="flex justify-center">
-                                            <?php if (isset($component)) { $__componentOriginal8417baeedcb6c131165d53e37e61cc07 = $component; } ?>
+                                </div>
+                            </td>
+                            <?php else: ?>
+                            <td class="p-2 border">
+                                <div class="flex justify-center">
+                                    <?php if (isset($component)) { $__componentOriginal8417baeedcb6c131165d53e37e61cc07 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal8417baeedcb6c131165d53e37e61cc07 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.edit-button','data' => ['permission' => 'edit-user','id' => ''.e($user->id).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('edit-button'); ?>
@@ -664,8 +808,8 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal8417baeedcb6c131165d53e37e61cc07; ?>
 <?php unset($__componentOriginal8417baeedcb6c131165d53e37e61cc07); ?>
 <?php endif; ?>
-                                            <div class="mx-1"></div>
-                                            <?php if (isset($component)) { $__componentOriginalec2502b834f860c8e30d229aa8f280e2 = $component; } ?>
+                                    <div class="mx-1"></div>
+                                    <?php if (isset($component)) { $__componentOriginalec2502b834f860c8e30d229aa8f280e2 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalec2502b834f860c8e30d229aa8f280e2 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.delete-button','data' => ['permission' => 'delete-user','id' => ''.e($user->id).'','name' => ''.e($user->name).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('delete-button'); ?>
@@ -685,17 +829,17 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginalec2502b834f860c8e30d229aa8f280e2; ?>
 <?php unset($__componentOriginalec2502b834f860c8e30d229aa8f280e2); ?>
 <?php endif; ?>
-                                        </div>
-                                    </td>
-                                <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
-                            </tr>
+                                </div>
+                            </td>
+                            <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+                        </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                            <tr>
-                                <td colspan="12" class="p-2 border text-center">
-                                    <?php echo e(__('site.no_data_found')); ?>
+                        <tr>
+                            <td colspan="12" class="p-2 border text-center">
+                                <?php echo e(__('site.no_data_found')); ?>
 
-                                </td>
-                            </tr>
+                            </td>
+                        </tr>
                         <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                      <?php $__env->endSlot(); ?>
                  <?php echo $__env->renderComponent(); ?>
@@ -710,7 +854,7 @@ if (isset($__slots)) unset($__slots);
 <?php endif; ?>
 
                 <!--[if BLOCK]><![endif]--><?php if($users->hasPages()): ?>
-                    <?php if (isset($component)) { $__componentOriginalbef3dc49b19880cf96603fc512407156 = $component; } ?>
+                <?php if (isset($component)) { $__componentOriginalbef3dc49b19880cf96603fc512407156 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalbef3dc49b19880cf96603fc512407156 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.paginate','data' => ['dataLinks' => $users->links()]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('paginate'); ?>
@@ -743,5 +887,4 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal562cb1477a8769da678d472fe5deeba8; ?>
 <?php unset($__componentOriginal562cb1477a8769da678d472fe5deeba8); ?>
 <?php endif; ?>
-</div>
-<?php /**PATH /var/www/resources/views/livewire/user/list-user.blade.php ENDPATH**/ ?>
+</div><?php /**PATH /var/www/resources/views/livewire/user/list-user.blade.php ENDPATH**/ ?>

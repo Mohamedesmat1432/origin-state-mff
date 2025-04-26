@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Traits;
+
+use App\Models\{{ class }};
+use Livewire\WithPagination;
+
+trait {{ trait }}
+{
+    use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
+
+    public ?{{ class }} ${{ snakView }};
+
+    public $name, ${{ snakView }}_id;
+
+    protected function rules()
+    {
+        return [
+            'name' => 'required|string|max:255|unique:{{ snakView }}s,name,' . $this->{{ snakView }}_id,
+        ];
+    }
+
+    public function set{{ class }}($id)
+    {
+        $this->{{ snakView }} = {{ class }}::findOrFail($id);
+        $this->{{ snakView }}_id = $this->{{ snakView }}->id;
+        $this->name = $this->{{ snakView }}->name;
+    }
+
+    public function store{{ class }}()
+    {
+        $validated = $this->validate();
+        {{ class }}::create($validated);
+        $this->dispatch('refresh-list-{{ snakView }}');
+        $this->successNotify(__('site.{{ snakView }}_created'));
+        $this->create_modal = false;
+        $this->reset();
+    }
+
+    public function update{{ class }}()
+    {
+        $validated = $this->validate();
+        $this->{{ snakView }}->update($validated);
+        $this->dispatch('refresh-list-{{ snakView }}');
+        $this->successNotify(__('site.{{ snakView }}_updated'));
+        $this->edit_modal = false;
+        $this->reset();
+    }
+
+    public function delete{{ class }}($id)
+    {
+        ${{ snakView }} = {{ class }}::findOrFail($id);
+        ${{ snakView }}->delete();
+        $this->dispatch('refresh-list-{{ snakView }}');
+        $this->successNotify(__('site.{{ snakView }}_deleted'));
+        $this->delete_modal = false;
+        $this->reset();
+    }
+
+    public function bulkDelete{{ class }}($arr)
+    {
+        ${{ snakView }}s = {{ class }}::whereIn('id', $arr);
+        ${{ snakView }}s->delete();
+        $this->dispatch('refresh-list-{{ snakView }}');
+        $this->dispatch('checkbox-clear');
+        $this->successNotify(__('site.{{ snakView }}_delete_all'));
+        $this->bulk_delete_modal = false;
+        $this->reset();
+    }
+}

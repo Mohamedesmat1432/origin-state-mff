@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\LoggableTrait;
 use App\Traits\UuidTrait;
 use Spatie\Permission\Models\Role as ModelsRole;
 
 class Role extends ModelsRole
 {
-    use UuidTrait;
+    use UuidTrait, LoggableTrait;
 
     protected $guard_name = 'web';
 

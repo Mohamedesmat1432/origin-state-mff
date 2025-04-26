@@ -1,7 +1,7 @@
 @props(['permission', 'id', 'name'])
 
 @can($permission)
-    <x-danger-button wire:click.live="$dispatch('force-delete-modal',{id:'{{ $id }}',name:'{{ $name }}'})"
+    <x-danger-button wire:click="$dispatch('force-delete-modal',{id:'{{ $id }}',name:'{{ $name }}'})"
         wire:loading.attr="disabled">
         <x-icon class="w-4 h-4" name="trash" />
     </x-danger-button>

@@ -6,7 +6,7 @@ use App\Models\City;
 use App\Models\Government;
 use App\Models\Origin;
 use App\Models\Project;
-use App\Models\Source;
+use App\Models\DecisionType;
 use App\Models\Statement;
 use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
@@ -18,32 +18,38 @@ trait OriginTrait
 
     public ?Origin $origin;
 
-    public $origin_id, $decision_num, $decision_date, $source_id, $project_id, $statement_id,
-        $government_id, $city_id, $location, $area, $internal_incoming_num,
-        $internal_incoming_date, $decision_image, $old_decision_image, $notes;
+    public $origin_id, $project_id, $decision_num, $decision_date, $decision_type_id, $statement_id,
+        $total_area_allocated, $total_area_coords, $executing_entity_num, $used_area,
+        $government_id, $city_id, $location,  $location_status,
+        $available_area, $vacant_buildings, $remaining_area, $decision_image, $old_decision_image, $notes;
 
     protected function rules()
     {
         return [
-            'decision_num' => 'required|numeric',
-            'decision_date' => 'required|numeric',
-            'source_id' => 'required|string|exists:sources,id',
             'project_id' => 'required|string|exists:projects,id',
+            'decision_num' => 'required|numeric',
+            'decision_date' => 'required|digits:4|integer|min:1900|max:' . date('Y'),
+            'decision_type_id' => 'required|string|exists:decision_types,id',
+            'total_area_allocated' => 'required|numeric',
+            'total_area_coords' => 'required|numeric',
+            'executing_entity_num' => 'required|numeric',
+            'used_area' => 'required|numeric',
             'statement_id' => 'required|string|exists:statements,id',
             'government_id' => 'required|string|exists:governments,id',
             'city_id' => 'required|string|exists:cities,id',
-            'location' => 'nullable|string|max:255',
-            'area' => 'required|numeric',
-            'internal_incoming_num' => 'required|numeric',
-            'internal_incoming_date' => 'required|date',
+            'location' => 'nullable|string|max:500',
+            'location_status' => 'nullable|string|max:255',
+            'available_area' => 'required|numeric',
+            'vacant_buildings' => 'required|numeric',
+            'remaining_area' => 'required|numeric',
             'decision_image' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'notes' => 'nullable|string',
         ];
     }
 
-    public function sources()
+    public function decisionTypes()
     {
-        return Source::pluck('name', 'id')->toArray();
+        return DecisionType::pluck('name', 'id')->toArray();
     }
 
     public function projects()
@@ -71,17 +77,22 @@ trait OriginTrait
     {
         $this->origin = Origin::findOrFail($id);
         $this->origin_id = $this->origin->id;
+        $this->project_id = $this->origin->project_id;
         $this->decision_num = $this->origin->decision_num;
         $this->decision_date = $this->origin->decision_date;
-        $this->source_id = $this->origin->source_id;
-        $this->project_id = $this->origin->project_id;
+        $this->decision_type_id = $this->origin->decision_type_id;
+        $this->total_area_allocated = $this->origin->total_area_allocated;
+        $this->total_area_coords = $this->origin->total_area_coords;
+        $this->executing_entity_num = $this->origin->executing_entity_num;
+        $this->used_area = $this->origin->used_area;
         $this->statement_id = $this->origin->statement_id;
         $this->government_id = $this->origin->government_id;
         $this->city_id = $this->origin->city_id;
         $this->location = $this->origin->location;
-        $this->area = $this->origin->area;
-        $this->internal_incoming_num = $this->origin->internal_incoming_num;
-        $this->internal_incoming_date = $this->origin->internal_incoming_date;
+        $this->location_status = $this->origin->location_status;
+        $this->available_area = $this->origin->available_area;
+        $this->vacant_buildings = $this->origin->vacant_buildings;
+        $this->remaining_area = $this->origin->remaining_area;
         $this->old_decision_image = $this->origin->decision_image;
         $this->notes = $this->origin->notes;
     }
