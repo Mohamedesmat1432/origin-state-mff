@@ -55,10 +55,12 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
             $origin->government?->name,
             $origin->city?->name,
             $origin->location,
+            $origin->location_status,
             $origin->available_area,
             $origin->vacant_buildings,
             $origin->remaining_area,
             $origin->notes,
+            $origin->origin_status,
             $origin->decision_image,
         ];
     }
@@ -80,10 +82,12 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
                 __('site.government_id'),
                 __('site.city_id'),
                 __('site.location'),
+                __('site.location_status'),
                 __('site.available_area'),
                 __('site.vacant_buildings'),
                 __('site.remaining_area'),
                 __('site.notes'),
+                __('site.origin_status'),
                 __('site.decision_image'),
             ];
         } else {
@@ -101,10 +105,12 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
                 'government_id',
                 'city_id',
                 'location',
+                'location_status',
                 'available_area',
                 'vacant_buildings',
                 'remaining_area',
                 'notes',
+                'origin_status',
                 'decision_image',
             ];
         }

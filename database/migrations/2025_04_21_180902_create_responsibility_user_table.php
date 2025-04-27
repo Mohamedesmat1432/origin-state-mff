@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('responsibility_user', function (Blueprint $table) {
             $table->uuid('user_id');
-            $table->uuid('responsibility_id');
-            $table->timestamps();
-            $table->primary(['user_id', 'responsibility_id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->uuid('responsibility_id');
             $table->foreign('responsibility_id')->references('id')->on('responsibilities')->onDelete('cascade');
+            $table->primary(['user_id', 'responsibility_id']);
+            $table->timestamps();
         });
     }
 

@@ -2,7 +2,7 @@
     @if ($this->create_modal)
     <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">
         <x-slot name="title">
-            {{ __('site.create_source') }}
+            {{ __('site.create_decision_type') }}
         </x-slot>
 
         <x-slot name="content">

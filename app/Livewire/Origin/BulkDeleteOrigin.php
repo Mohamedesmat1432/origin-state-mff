@@ -11,6 +11,7 @@ use Livewire\Component;
 class BulkDeleteOrigin extends Component
 {
     use OriginTrait;
+    
     public $count;
 
     #[On('bulk-delete-modal')]

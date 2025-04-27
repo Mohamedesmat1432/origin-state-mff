@@ -2,7 +2,7 @@
     @if ($this->export_modal)
     <x-dialog-modal wire:model.live="export_modal" submit="export()" method="POST">
         <x-slot name="title">
-            {{ __('site.export_source') }}
+            {{ __('site.export_decision_type') }}
         </x-slot>
 
         <x-slot name="content">

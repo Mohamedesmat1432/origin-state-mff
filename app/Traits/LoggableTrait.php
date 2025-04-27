@@ -24,16 +24,8 @@ trait LoggableTrait
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->useLogName('user')
-            ->logOnly([
-                'name',
-                'email',
-                'status',
-                'department_id',
-                'job_title_id',
-                'national_number',
-                'phone_number',
-            ])
+            ->useLogName(property_exists($this, 'logName') ? $this->logName : 'default')
+            ->logOnly($this->getFillable())
             ->logOnlyDirty()
             ->dontSubmitEmptyLogs();
     }

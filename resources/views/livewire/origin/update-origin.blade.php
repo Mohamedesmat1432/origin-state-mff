@@ -84,16 +84,23 @@
                     </x-select>
                     <x-input-error for="city_id" class="mt-2" />
                 </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <div class="mt-2">
                     <x-label for="location" value="{{ __('site.location') }}" />
                     <x-input type="text" class="mt-1 block w-full" wire:model="location"
                         placeholder="{{ __('site.location') }}" />
                     <x-input-error for="location" class="mt-2" />
                 </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="mt-2">
+                    <x-label for="location_status" value="{{ __('site.location_status') }}" />
+                    <x-select wire:model="location_status" class="mt-1 block w-full">
+                        @foreach(\App\Enums\LocationStatus::cases() as $status)
+                            <option value="{{ $status->value }}">
+                                {{ $status->label() }}
+                            </option>
+                        @endforeach
+                    </x-select>
+                    <x-input-error for="location_status" class="mt-2" />
+                </div>
                 <div class="mt-2">
                     <x-label for="used_area" value="{{ __('site.used_area') }}" />
                     <x-input type="number" class="mt-1 block w-full" wire:model="used_area"
@@ -123,6 +130,17 @@
                     <x-input type="number" class="mt-1 block w-full" wire:model="remaining_area"
                         placeholder="{{ __('site.remaining_area') }}" />
                     <x-input-error for="remaining_area" class="mt-2" />
+                </div>
+                <div class="mt-2">
+                    <x-label for="origin_status" value="{{ __('site.origin_status') }}" />
+                    <x-select wire:model="origin_status" class="mt-1 block w-full">
+                        @foreach(\App\Enums\OriginStatus::cases() as $status)
+                            <option value="{{ $status->value }}">
+                                {{ $status->label() }}
+                            </option>
+                        @endforeach
+                    </x-select>
+                    <x-input-error for="origin_status" class="mt-2" />
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">

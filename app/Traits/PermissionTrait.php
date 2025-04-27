@@ -10,8 +10,8 @@ trait PermissionTrait
     use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
 
     public ?Permission $permission;
-    public $permission_id;
-    public $name;
+    
+    public $permission_id, $name;
 
     protected function rules()
     {

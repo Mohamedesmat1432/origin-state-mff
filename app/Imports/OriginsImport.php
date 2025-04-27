@@ -2,7 +2,6 @@
 
 namespace App\Imports;
 
-use App\Models\decision_type;
 use App\Models\Project;
 use App\Models\Statement;
 use App\Models\Government;
@@ -56,16 +55,18 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'project_id' => $project->id,
             'total_area_allocated' => $row['total_area_allocated'],
             'total_area_coords' => $row['total_area_coords'],
-            'statement_id' => $statement->id,
+            'statement_id' => $statement->id ?? '',
             'used_area' => $row['used_area'],
             'executing_entity_num' => $row['executing_entity_num'],
             'government_id' => $government->id,
             'city_id'  => $city->id,
             'location' => $row['location'],
+            'location_status' => $row['location_status'] ?? 'accept',
             'available_area' => $row['available_area'],
             'vacant_buildings' => $row['vacant_buildings'],
             'remaining_area' => $row['remaining_area'],
             'notes' => $row['notes'],
+            'origin_status' => $row['origin_status'] ?? 'inprogress',
         ]);
     }
 
@@ -78,16 +79,18 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'decision_type_id' => 'required|string',
             'total_area_allocated' => 'required|numeric',
             'total_area_coords' => 'required|numeric',
-            'statement_id' => 'required|string',
+            'statement_id' => 'nullable|string',
             'used_area' => 'required|numeric',
             'executing_entity_num' => 'required|numeric',
             'government_id' => 'required|string',
             'city_id' => 'required|string',
-            'location' => 'nullable|string|max:500',
+            'location' => 'required|string|max:500',
+            'location_status' => 'required|in:accept,good,very_good,excellent',
             'available_area' => 'required|numeric',
             'vacant_buildings' => 'required|numeric',
             'remaining_area' => 'required|numeric',
             'notes' => 'nullable|string',
+            'origin_status' => 'required|in:inprogress,revision,completed',
         ];
     }
 }

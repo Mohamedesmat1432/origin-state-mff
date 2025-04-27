@@ -167,6 +167,14 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
+                                    <button wire:click="sortByField('location_status')">
+                                        {{ __('site.location_status') }}
+                                    </button>
+                                    <x-sort-icon sort_field="location_status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
                                     <button wire:click="sortByField('available_area')">
                                         {{ __('site.available_area') }}
                                     </button>
@@ -198,6 +206,14 @@
                                         {{ __('site.notes') }}
                                     </button>
                                     <x-sort-icon sort_field="notes" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
+                                    <button wire:click="sortByField('origin_status')">
+                                        {{ __('site.origin_status') }}
+                                    </button>
+                                    <x-sort-icon sort_field="origin_status" :sort_by="$sort_by" :sort_asc="$sort_asc" />
                                 </div>
                             </td>
                             <td class="px-4 py-2 border">
@@ -237,13 +253,13 @@
                                 {{ $origin->total_area_coords }}
                             </td>
                             <td class="p-2 border">
+                                {{ $origin->statement?->name }}
+                            </td>
+                            <td class="p-2 border">
                                 {{ $origin->used_area }}
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->executing_entity_num }}
-                            </td>
-                            <td class="p-2 border">
-                                {{ $origin->statement?->name }}
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->government?->name }}
@@ -253,6 +269,9 @@
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->location }}
+                            </td>
+                            <td class="p-2 border">
+                                {{ $origin->location_status->label() }}
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->available_area }}
@@ -267,6 +286,9 @@
                                 {{ $origin->notes }}
                             </td>
                             <td class="p-2 border">
+                                {{ $origin->origin_status->label() }}
+                            </td>
+                            <td class="p-2 border">
                                 <div class="flex justify-center">
                                     <x-edit-button permission="edit-origin" id="{{ $origin->id }}" />
                                     <div class="mx-1"></div>
@@ -277,7 +299,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="15" class="p-2 border text-center">
+                            <td colspan="22" class="p-2 border text-center">
                                 {{ __('site.no_data_found') }}
                             </td>
                         </tr>

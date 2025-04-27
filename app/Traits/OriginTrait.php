@@ -18,9 +18,9 @@ trait OriginTrait
 
     public ?Origin $origin;
 
-    public $origin_id, $project_id, $decision_num, $decision_date, $decision_type_id, $statement_id,
-        $total_area_allocated, $total_area_coords, $executing_entity_num, $used_area,
-        $government_id, $city_id, $location,  $location_status,
+    public $origin_id, $project_id, $decision_num, $decision_date, $decision_type_id, 
+        $statement_id, $total_area_allocated, $total_area_coords, $executing_entity_num, $used_area,
+        $government_id, $city_id, $location,  $location_status = 'accept', $origin_status = 'inprogress',
         $available_area, $vacant_buildings, $remaining_area, $decision_image, $old_decision_image, $notes;
 
     protected function rules()
@@ -38,12 +38,13 @@ trait OriginTrait
             'government_id' => 'required|string|exists:governments,id',
             'city_id' => 'required|string|exists:cities,id',
             'location' => 'nullable|string|max:500',
-            'location_status' => 'nullable|string|max:255',
+            'location_status' => 'required|in:accept,good,very_good,excellent',
             'available_area' => 'required|numeric',
             'vacant_buildings' => 'required|numeric',
             'remaining_area' => 'required|numeric',
             'decision_image' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'notes' => 'nullable|string',
+            'origin_status' => 'required|in:inprogress,revision,completed',
         ];
     }
 
@@ -90,6 +91,7 @@ trait OriginTrait
         $this->city_id = $this->origin->city_id;
         $this->location = $this->origin->location;
         $this->location_status = $this->origin->location_status;
+        $this->origin_status = $this->origin->origin_status;
         $this->available_area = $this->origin->available_area;
         $this->vacant_buildings = $this->origin->vacant_buildings;
         $this->remaining_area = $this->origin->remaining_area;

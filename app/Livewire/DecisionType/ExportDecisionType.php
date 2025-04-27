@@ -35,8 +35,8 @@ class ExportDecisionType extends Component
     
     public function render()
     {
-        $this->authorize('export-DecisionType');
+        $this->authorize('export-decision-type');
         
-        return view('livewire.DecisionType.export-DecisionType');
+        return view('livewire.decision-type.export-decision-type');
     }
 }

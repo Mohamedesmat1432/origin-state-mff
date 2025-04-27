@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\LocationStatus;
+use App\Enums\OriginStatus;
 use App\Traits\LoggableTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,19 +32,22 @@ class Origin extends Model
         'available_area',
         'vacant_buildings',
         'remaining_area',
-        'decision_image',
         'notes',
-    ];  
-
+        'origin_status',
+        'decision_image',
+    ];
+    
     protected $casts = [
         'decision_date' => 'integer',
+        'location_status' => LocationStatus::class,
+        'origin_status' => OriginStatus::class,
     ];
 
     public function decisionType()
     {
         return $this->belongsTo(DecisionType::class);
     }
-    
+
     public function project()
     {
         return $this->belongsTo(Project::class);
@@ -66,12 +71,28 @@ class Origin extends Model
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query) use ($search) {
-            $query->where('decision_num', 'like', "%{$search}%")
+            $query->where('total_area_allocated', 'like', "%{$search}%")
+                ->orWhere('total_area_coords', 'like', "%{$search}%")
+                ->orWhere('decision_num', 'like', "%{$search}%")
                 ->orWhere('decision_date', 'like', "%{$search}%")
                 ->orWhere('location', 'like', "%{$search}%")
-                ->orWhere('area', 'like', "%{$search}%")
-                ->orWhere('internal_incoming_num', 'like', "%{$search}%")
-                ->orWhere('internal_incoming_date', 'like', "%{$search}%")
-                ->orWhere('id', 'like', "%{$search}%");
+                ->orWhere('used_area', 'like', "%{$search}%")
+                ->orWhere('executing_entity_num', 'like', "%{$search}%")
+                ->orWhere('available_area', 'like', "%{$search}%")
+                ->orWhere('vacant_buildings', 'like', "%{$search}%")
+                ->orWhere('remaining_area', 'like', "%{$search}%")
+                ->orWhere('id', 'like', "%{$search}%")
+                ->orWhereHas('decisionType', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                })->orWhereHas('project', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                })->orWhereHas('statement', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                })->orWhereHas('government', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                })->orWhereHas('city', function ($query) use ($search) {
+                    $query->where('name', 'like', "%{$search}%");
+                });
         });
-    }}
+    }
+}

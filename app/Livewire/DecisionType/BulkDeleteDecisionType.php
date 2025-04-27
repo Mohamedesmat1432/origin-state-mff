@@ -11,6 +11,7 @@ use Livewire\Component;
 class BulkDeleteDecisionType extends Component
 {
     use DecisionTypeTrait;
+    
     public $count;
 
     #[On('bulk-delete-modal')]

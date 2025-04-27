@@ -430,4 +430,5 @@ return [
     'available_area' => 'Available Area',
     'vacant_buildings' => 'Vacant Buildings',
     'remaining_area' => 'Remaining Area',
+    'origin_status' => 'Origin Status',
 ];
