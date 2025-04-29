@@ -19,7 +19,7 @@ class CompanysExport implements FromCollection, WithHeadings, WithStyles, Should
      * @return \Illuminate\Support\Collection
      */
 
-    protected $search = 'f';
+    protected $search = '';
     protected $originalCoulmns = false;
 
     public function __construct($search)
