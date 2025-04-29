@@ -1,6 +1,6 @@
 <div>
     <div x-data="chartUser" class="grid grid-cols-1 place-items-center gap-6 mt-3">
-        <canvas id="chartUserId" x-init="initChartUser()"></canvas>
+        <canvas id="chartUserId" x-init="initChartUser()" width="600" height="400"></canvas>
         <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['xModel' => 'chartType','@change' => 'updateChartUserType']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -48,11 +48,11 @@
                         type: this.chartType,
                         data: chartDataUser,
                         options: {
-                            responsive: true,
-                            maintainAspectRatio: true,
+                            responsive: false,
+                            maintainAspectRatio: false,
                             scales: {
                                 y: {
-                                    beginAtZero: true
+                                    beginAtZero: false
                                 }
                             }
                         },

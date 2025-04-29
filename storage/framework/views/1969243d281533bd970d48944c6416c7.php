@@ -28,6 +28,24 @@ unset($__split);
 if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('show-origin')): ?>
+        <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('origin.show-origin', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-1', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+        <?php endif; ?>
         <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('edit-origin')): ?>
         <?php
 $__split = function ($name, $params = []) {
@@ -35,7 +53,7 @@ $__split = function ($name, $params = []) {
 };
 [$__name, $__params] = $__split('origin.update-origin', []);
 
-$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-1', $__slots ?? [], get_defined_vars());
+$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-2', $__slots ?? [], get_defined_vars());
 
 echo $__html;
 
@@ -53,7 +71,7 @@ $__split = function ($name, $params = []) {
 };
 [$__name, $__params] = $__split('origin.delete-origin', []);
 
-$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-2', $__slots ?? [], get_defined_vars());
+$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-3', $__slots ?? [], get_defined_vars());
 
 echo $__html;
 
@@ -71,7 +89,7 @@ $__split = function ($name, $params = []) {
 };
 [$__name, $__params] = $__split('origin.bulk-delete-origin', []);
 
-$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-3', $__slots ?? [], get_defined_vars());
+$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-4', $__slots ?? [], get_defined_vars());
 
 echo $__html;
 
@@ -89,7 +107,7 @@ $__split = function ($name, $params = []) {
 };
 [$__name, $__params] = $__split('origin.import-origin', []);
 
-$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-4', $__slots ?? [], get_defined_vars());
+$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-5', $__slots ?? [], get_defined_vars());
 
 echo $__html;
 
@@ -107,7 +125,7 @@ $__split = function ($name, $params = []) {
 };
 [$__name, $__params] = $__split('origin.export-origin', []);
 
-$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-5', $__slots ?? [], get_defined_vars());
+$__html = app('livewire')->mount($__name, $__params, 'lw-2892259335-6', $__slots ?? [], get_defined_vars());
 
 echo $__html;
 
@@ -812,6 +830,34 @@ if (isset($__slots)) unset($__slots);
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
+                                    <button wire:click="sortByField('user_id')">
+                                        <?php echo e(__('site.user_id')); ?>
+
+                                    </button>
+                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'user_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('sort-icon'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['sort_field' => 'user_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
+<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
+<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
+<?php endif; ?>
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
                                     <?php echo e(__('site.action')); ?>
 
                                 </div>
@@ -898,8 +944,10 @@ if (isset($__slots)) unset($__slots);
 
                             </td>
                             <td class="p-2 border">
-                                <?php echo e($origin->location_status->label()); ?>
+                                <span class="<?php echo e($origin->location_status->color()); ?>">
+                                    <?php echo e($origin->location_status->label()); ?>
 
+                                </span>
                             </td>
                             <td class="p-2 border">
                                 <?php echo e($origin->available_area); ?>
@@ -918,11 +966,38 @@ if (isset($__slots)) unset($__slots);
 
                             </td>
                             <td class="p-2 border">
-                                <?php echo e($origin->origin_status->label()); ?>
+                                <span class="<?php echo e($origin->origin_status->color()); ?>">
+                                    <?php echo e($origin->origin_status->label()); ?>
+
+                                </span>
+                            </td>
+                            <td class="p-2 border">
+                                <?php echo e($origin->user?->name); ?>
 
                             </td>
                             <td class="p-2 border">
                                 <div class="flex justify-center">
+                                    <?php if (isset($component)) { $__componentOriginal1552aa883fbbe3ec28d1bd1905fbebcf = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal1552aa883fbbe3ec28d1bd1905fbebcf = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.show-button','data' => ['permission' => 'show-origin','id' => ''.e($origin->id).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('show-button'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['permission' => 'show-origin','id' => ''.e($origin->id).'']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal1552aa883fbbe3ec28d1bd1905fbebcf)): ?>
+<?php $attributes = $__attributesOriginal1552aa883fbbe3ec28d1bd1905fbebcf; ?>
+<?php unset($__attributesOriginal1552aa883fbbe3ec28d1bd1905fbebcf); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal1552aa883fbbe3ec28d1bd1905fbebcf)): ?>
+<?php $component = $__componentOriginal1552aa883fbbe3ec28d1bd1905fbebcf; ?>
+<?php unset($__componentOriginal1552aa883fbbe3ec28d1bd1905fbebcf); ?>
+<?php endif; ?>
+                                    <div class="mx-1"></div>
                                     <?php if (isset($component)) { $__componentOriginal8417baeedcb6c131165d53e37e61cc07 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal8417baeedcb6c131165d53e37e61cc07 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.edit-button','data' => ['permission' => 'edit-origin','id' => ''.e($origin->id).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>

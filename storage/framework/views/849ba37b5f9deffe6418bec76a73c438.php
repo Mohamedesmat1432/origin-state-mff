@@ -23,7 +23,7 @@ $maxWidth = [
 '2xl' => 'sm:max-w-2xl',
 '3xl' => 'sm:max-w-3xl',
 '4xl' => 'sm:max-w-4xl',
-][$maxWidth ?? '2xl'];
+][$maxWidth ?? '4xl'];
 ?>
 
 <div x-data="{ show: <?php if ((object) ($attributes->wire('model')) instanceof \Livewire\WireDirective) : ?>window.Livewire.find('<?php echo e($__livewire->getId()); ?>').entangle('<?php echo e($attributes->wire('model')->value()); ?>')<?php echo e($attributes->wire('model')->hasModifier('live') ? '.live' : ''); ?><?php else : ?>window.Livewire.find('<?php echo e($__livewire->getId()); ?>').entangle('<?php echo e($attributes->wire('model')); ?>')<?php endif; ?> }" x-on:close.stop="show = false"

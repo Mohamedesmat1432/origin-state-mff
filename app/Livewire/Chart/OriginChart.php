@@ -12,6 +12,8 @@ class OriginChart extends Component
 {
     public $chartDataOrigin;
 
+    public $relation = 'city';
+
     protected ChartByRelationCountInterface $chartByRelationCount;
     
     public function mount()
@@ -20,10 +22,16 @@ class OriginChart extends Component
         $this->loadData();
     }
 
+    public function updatedRelation()
+    {
+        $this->loadData();
+        $this->dispatch('chart-updated');
+    }
+
     public function loadData()
     {
         $this->chartByRelationCount = app(ChartByRelationCountInterface::class);
-        $this->chartDataOrigin = $this->chartByRelationCount->generateData(Origin::class, __('site.origins'), 'government');
+        $this->chartDataOrigin = $this->chartByRelationCount->generateData(Origin::class, __('site.origins'), $this->relation);
     }
 
 

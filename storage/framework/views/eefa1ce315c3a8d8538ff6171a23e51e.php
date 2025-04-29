@@ -55,7 +55,7 @@
         </div>
 
         <div class="p-6 lg:p-6 mt-3 bg-white border-b border-gray-200 rounded-lg">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view-chart-user')): ?>
                 <?php
 $__split = function ($name, $params = []) {
@@ -64,6 +64,24 @@ $__split = function ($name, $params = []) {
 [$__name, $__params] = $__split('chart.chart-user', []);
 
 $__html = app('livewire')->mount($__name, $__params, 'lw-346497878-0', $__slots ?? [], get_defined_vars());
+
+echo $__html;
+
+unset($__html);
+unset($__name);
+unset($__params);
+unset($__split);
+if (isset($__slots)) unset($__slots);
+?>
+                <?php endif; ?>
+                <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view-chart-origin')): ?>
+                <?php
+$__split = function ($name, $params = []) {
+    return [$name, $params];
+};
+[$__name, $__params] = $__split('chart.origin-chart', []);
+
+$__html = app('livewire')->mount($__name, $__params, 'lw-346497878-1', $__slots ?? [], get_defined_vars());
 
 echo $__html;
 

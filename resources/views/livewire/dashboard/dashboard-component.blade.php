@@ -29,7 +29,7 @@
         </div>
 
         <div class="p-6 lg:p-6 mt-3 bg-white border-b border-gray-200 rounded-lg">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
                 @can('view-chart-user')
                 <livewire:chart.chart-user />
                 @endcan

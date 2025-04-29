@@ -1,6 +1,6 @@
 <div>
     <div x-data="chartUser" class="grid grid-cols-1 place-items-center gap-6 mt-3">
-        <canvas id="chartUserId" x-init="initChartUser()"></canvas>
+        <canvas id="chartUserId" x-init="initChartUser()" width="600" height="400"></canvas>
         <x-select x-model="chartType" @change="updateChartUserType">
             <option value="doughnut">{{ __('site.doughnut') }}</option>
             <option value="bar">{{ __('site.bar') }}</option>
@@ -30,11 +30,11 @@
                         type: this.chartType,
                         data: chartDataUser,
                         options: {
-                            responsive: true,
-                            maintainAspectRatio: true,
+                            responsive: false,
+                            maintainAspectRatio: false,
                             scales: {
                                 y: {
-                                    beginAtZero: true
+                                    beginAtZero: false
                                 }
                             }
                         },
