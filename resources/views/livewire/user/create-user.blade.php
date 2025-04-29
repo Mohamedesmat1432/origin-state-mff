@@ -70,28 +70,40 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <div class="mt-2">
-                    <x-label for="responsibility" value="{{ __('site.responsibilities') }}" />
-                    <div class="block">
+                    <x-label for="responsibility_ids" value="{{ __('site.responsibilities') }}" />
+                    <div
+                        class="mt-1 w-full grid grid-cols-1 md:grid-cols-4 gap-4 py-2 border p-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
                         @foreach ($this->responsibilities() as $key => $val)
-                        <x-checkbox wire:model="responsibilityIds" value="{{ $key }}" />
-                        <x-label for="responsibility" value="{{ $val }}" class="ltr:mr-2 rtl:ml-2" />
+                        <div>
+                            <x-checkbox wire:model="responsibility_ids" value="{{ $key }}" />
+                            <x-label for="responsibility_ids" value="{{ $val }}" class="ltr:mr-2 rtl:ml-2" />
+                        </div>
                         @endforeach
                     </div>
-                    {{-- <x-select class="mt-1 block w-full" wire:model="responsibilityIds" multiple>
+                    {{-- <x-select class="mt-1 block w-full" wire:model="responsibility_ids" multiple>
                         @foreach ($this->responsibilities() as $key => $val)
                         <option value="{{ $key }}">{{ $val }}</option>
                         @endforeach
                     </x-select> --}}
-                    <x-input-error for="responsibilityIds" class="mt-2" />
+                    <x-input-error for="responsibility_ids" class="mt-2" />
                 </div>
                 <div class="mt-2">
-                    <x-label for="role" value="{{ __('site.roles') }}" />
-                    <x-select class="mt-1 block w-full" wire:model="role" multiple>
+                    <x-label for="role_ids" value="{{ __('site.roles') }}" />
+                    <div
+                        class="mt-1 w-full grid grid-cols-1 md:grid-cols-4 gap-4 py-2 border p-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
+                        @foreach ($this->roles() as $role)
+                        <div>
+                            <x-checkbox wire:model="role_ids" value="{{ $role }}" />
+                            <x-label for="role_ids" value="{{ $role }}" class="ltr:mr-2 rtl:ml-2" />
+                        </div>
+                        @endforeach
+                    </div>
+                    {{-- <x-select class="mt-1 block w-full" wire:model="role" multiple>
                         @foreach ($this->roles() as $role)
                         <option value="{{ $role }}">{{ $role }}</option>
                         @endforeach
-                    </x-select>
-                    <x-input-error for="role" class="mt-2" />
+                    </x-select> --}}
+                    <x-input-error for="role_ids" class="mt-2" />
                 </div>
                 <div class="mt-2">
                     <x-toggle-status :status="$status" />

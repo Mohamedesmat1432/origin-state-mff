@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Log;
 
+use App\Models\ActivityLog;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Spatie\Activitylog\Models\Activity;
 
 class ListActivityLog extends Component
 {
@@ -15,7 +15,7 @@ class ListActivityLog extends Component
 
     public function render()
     {
-        $logs = Activity::with('causer')
+        $logs = ActivityLog::with('causer')
             ->when($this->search, fn($query) =>
                 $query->where('description', 'like', "%{$this->search}%")
             )

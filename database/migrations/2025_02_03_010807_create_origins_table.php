@@ -37,6 +37,8 @@ return new class extends Migration
             $table->foreign('government_id')->references('id')->on('governments')->onDelete('cascade');
             $table->uuid('city_id')->nullable();
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->uuid('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

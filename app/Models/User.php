@@ -8,7 +8,6 @@ use App\Traits\LoggableTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -71,14 +70,19 @@ class User extends Authenticatable
      */
     protected $appends = ['profile_photo_url'];
 
-    public function department(): BelongsTo
+    public function department()
     {
         return $this->belongsTo(Department::class);
     }
 
-    public function jobTitle(): BelongsTo
+    public function jobTitle()
     {
         return $this->belongsTo(JobTitle::class);
+    }
+
+    public function origins()
+    {
+        return $this->hasMany(Origin::class);
     }
 
     public function responsibilities()

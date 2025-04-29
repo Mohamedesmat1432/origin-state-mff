@@ -12,4 +12,13 @@ enum OriginStatus: string
     {
         return __('enums.origin_status.' . $this->value);
     }
+
+    public function color(): string
+    {
+        return match($this) {
+            self::InProgress => 'rounded p-2 inline-block text-white bg-yellow-600',
+            self::Revision => 'rounded p-2 inline-block text-white bg-green-500',
+            self::Completed => 'rounded p-2 inline-block text-white bg-blue-500',
+        };
+    }
 }

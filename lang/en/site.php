@@ -201,6 +201,7 @@ return [
     'project_delete_all' =>'Projects has been deleted successfully',
     'origins' => 'Origins',
     'create_origin' => 'Create New Origin',
+    'show_origin' => 'Show Origin',
     'update_origin' => 'Update Origin',
     'delete_origin' => 'Delete Origin',
     'bulk_delete_origin' => 'Delete Origins',
@@ -431,4 +432,8 @@ return [
     'vacant_buildings' => 'Vacant Buildings',
     'remaining_area' => 'Remaining Area',
     'origin_status' => 'Origin Status',
+    'user' => 'User',
+    'user_id' => 'User',
+    'event' => 'Event',
+    'properties' => 'Properties',
 ];

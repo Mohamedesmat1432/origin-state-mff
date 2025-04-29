@@ -81,9 +81,11 @@ class UserSeeder extends Seeder
         ]);
 
         $role = Role::where('name', 'Super Admin')->first();
+
         if (!$role) {
             dd('Role not found');
         }
+        
         $user->assignRole($role->name);
     }
 }

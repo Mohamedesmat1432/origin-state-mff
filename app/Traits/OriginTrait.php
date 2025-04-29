@@ -18,7 +18,7 @@ trait OriginTrait
 
     public ?Origin $origin;
 
-    public $origin_id, $project_id, $decision_num, $decision_date, $decision_type_id, 
+    public $origin_id, $project_id, $decision_num, $decision_date, $decision_type_id, $user_id,
         $statement_id, $total_area_allocated, $total_area_coords, $executing_entity_num, $used_area,
         $government_id, $city_id, $location,  $location_status = 'accept', $origin_status = 'inprogress',
         $available_area, $vacant_buildings, $remaining_area, $decision_image, $old_decision_image, $notes;
@@ -45,6 +45,7 @@ trait OriginTrait
             'decision_image' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
+            'user_id' => 'required|string|exists:users,id',
         ];
     }
 
@@ -74,9 +75,29 @@ trait OriginTrait
             ->pluck('name', 'id')->toArray() ?? [];
     }
 
+    public function originsCheckboxAll()
+    {
+        return Origin::pluck('id')->toArray();
+    }
+
+    public function originList()
+    {
+        return Origin::with(['decisionType', 'project', 'statement', 'government', 'city', 'user'])
+            ->search($this->search)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
+            ->paginate($this->page_element);
+    }
+
+    public function showOrigin($id)
+    {
+        $this->origin =  Origin::with(['decisionType', 'project', 'statement', 'government', 'city', 'user'])
+            ->findOrFail($id);
+    }
+
     public function setOrigin($id)
     {
-        $this->origin = Origin::findOrFail($id);
+        $this->origin = Origin::with(['decisionType', 'project', 'statement', 'government', 'city', 'user'])
+            ->findOrFail($id);
         $this->origin_id = $this->origin->id;
         $this->project_id = $this->origin->project_id;
         $this->decision_num = $this->origin->decision_num;
@@ -97,15 +118,20 @@ trait OriginTrait
         $this->remaining_area = $this->origin->remaining_area;
         $this->old_decision_image = $this->origin->decision_image;
         $this->notes = $this->origin->notes;
+        $this->user_id = $this->origin->user_id;
     }
 
     public function storeOrigin()
     {
         $validated = $this->validate();
-        if($this->decision_image) {
+
+        $validated['user_id'] = auth()->user()->id;
+
+        if ($this->decision_image) {
             $imagePath = $this->decision_image->store('decision-images', 'public');
             $validated['decision_image'] = $imagePath;
         }
+
         Origin::create($validated);
         $this->dispatch('refresh-list-origin');
         $this->successNotify(__('site.origin_created'));
@@ -116,6 +142,8 @@ trait OriginTrait
     public function updateOrigin()
     {
         $validated = $this->validate();
+        $validated['user_id'] = auth()->user()->id;
+
         if ($this->decision_image) {
             if ($this->origin->decision_image) {
                 Storage::disk('public')->delete($this->origin->decision_image);
@@ -124,7 +152,9 @@ trait OriginTrait
         } else {
             $imagePath = $this->old_decision_image;
         }
+
         $validated['decision_image'] = $imagePath;
+
         $this->origin->update($validated);
         $this->dispatch('refresh-list-origin');
         $this->successNotify(__('site.origin_updated'));

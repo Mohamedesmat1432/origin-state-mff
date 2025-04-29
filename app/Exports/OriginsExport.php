@@ -55,12 +55,12 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
             $origin->government?->name,
             $origin->city?->name,
             $origin->location,
-            $origin->location_status,
+            $origin->location_status->label(),
             $origin->available_area,
             $origin->vacant_buildings,
             $origin->remaining_area,
             $origin->notes,
-            $origin->origin_status,
+            $origin->origin_status->label(),
             $origin->decision_image,
         ];
     }

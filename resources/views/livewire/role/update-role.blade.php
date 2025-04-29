@@ -13,13 +13,21 @@
                     <x-input-error for="name" class="mt-2" />
                 </div>
                 <div class="col-span-6 sm:col-span-4 mt-3">
-                    <x-label for="permission" value="{{ __('site.permissions') }}" />
-                    <x-select class="mt-1 block w-full h-48" wire:model="permission" multiple>
-                        @foreach ($this->permissions() as $key => $val)
-                            <option value="{{ $key }}">{{ $val }}</option>
+                    <x-label for="permission_ids" value="{{ __('site.permissions') }}" />
+                    <div class="mt-1 w-full grid grid-cols-1 md:grid-cols-4 gap-4 py-2 border p-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
+                        @foreach ($this->permissions() as $permission)
+                        <div>
+                            <x-checkbox wire:model="permission_ids" value="{{ $permission }}" />
+                            <x-label for="permission_ids" value="{{ $permission }}" class="ltr:mr-2 rtl:ml-2" />
+                        </div>
                         @endforeach
-                    </x-select>
-                    <x-input-error for="permission" class="mt-2" />
+                    </div>
+                    {{-- <x-select class="mt-1 block w-full h-48" wire:model="permission_ids" multiple>
+                        @foreach ($this->permissions() as $permission)
+                            <option value="{{ $permission }}">{{ $permission }}</option>
+                        @endforeach
+                    </x-select> --}}
+                    <x-input-error for="permission_ids" class="mt-2" />
                 </div>
             </x-slot>
 

@@ -1,7 +1,6 @@
-# Use the official PHP image as a base
 FROM php:8.3-fpm
 
-# Install system dependencies
+# Install system dependencies and MySQL client
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -15,7 +14,8 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     nano \
     iputils-ping \
-    default-mysql-client
+    default-mysql-client && \
+    rm -rf /var/lib/apt/lists/*  # Clean up apt cache to reduce image size
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
@@ -24,9 +24,9 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
 COPY --from=composer:2.6 /usr/bin/composer /usr/bin/composer
 
 # Install Node.js and npm
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npm@latest
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@latest
 
 # Set working directory
 WORKDIR /var/www
@@ -41,8 +41,11 @@ RUN if [ -f composer.json ]; then composer install --no-dev --optimize-autoloade
 RUN if [ -f package.json ]; then npm install && npm run build; fi
 
 # Set permissions
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
-RUN chmod -R 777 /var/www/bootstrap/cache /var/www/storage
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
+    chmod -R 777 /var/www/bootstrap/cache /var/www/storage
+
+# Expose port for PHP-FPM
+EXPOSE 9000
 
 # Start PHP-FPM
 CMD ["php-fpm", "-F"]

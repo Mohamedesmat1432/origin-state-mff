@@ -4,6 +4,9 @@
         @can('create-origin')
         <livewire:origin.create-origin />
         @endcan
+        @can('show-origin')
+        <livewire:origin.show-origin />
+        @endcan
         @can('edit-origin')
         <livewire:origin.update-origin />
         @endcan
@@ -218,6 +221,14 @@
                             </td>
                             <td class="px-4 py-2 border">
                                 <div class="flex justify-center">
+                                    <button wire:click="sortByField('user_id')">
+                                        {{ __('site.user_id') }}
+                                    </button>
+                                    <x-sort-icon sort_field="user_id" :sort_by="$sort_by" :sort_asc="$sort_asc" />
+                                </div>
+                            </td>
+                            <td class="px-4 py-2 border">
+                                <div class="flex justify-center">
                                     {{ __('site.action') }}
                                 </div>
                             </td>
@@ -271,7 +282,9 @@
                                 {{ $origin->location }}
                             </td>
                             <td class="p-2 border">
-                                {{ $origin->location_status->label() }}
+                                <span class="{{ $origin->location_status->color() }}">
+                                    {{ $origin->location_status->label() }}
+                                </span>
                             </td>
                             <td class="p-2 border">
                                 {{ $origin->available_area }}
@@ -286,10 +299,17 @@
                                 {{ $origin->notes }}
                             </td>
                             <td class="p-2 border">
-                                {{ $origin->origin_status->label() }}
+                                <span class="{{ $origin->origin_status->color() }}">
+                                    {{ $origin->origin_status->label() }}
+                                </span>
+                            </td>
+                            <td class="p-2 border">
+                                {{ $origin->user?->name }}
                             </td>
                             <td class="p-2 border">
                                 <div class="flex justify-center">
+                                    <x-show-button permission="show-origin" id="{{ $origin->id }}" />
+                                    <div class="mx-1"></div>
                                     <x-edit-button permission="edit-origin" id="{{ $origin->id }}" />
                                     <div class="mx-1"></div>
                                     <x-delete-button permission="delete-origin" id="{{ $origin->id }}"

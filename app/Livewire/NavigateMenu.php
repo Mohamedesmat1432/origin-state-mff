@@ -24,37 +24,37 @@ class NavigateMenu extends NavigationMenu
             [
                 'name' => 'departments',
                 'value' => 'site.departments',
-                'icon' => 'squares-2x2',
+                'icon' => 'building-office',
                 'role' => 'view-department',
             ],
             [
                 'name' => 'roles',
                 'value' => 'site.roles',
-                'icon' => 'lock-closed',
+                'icon' => 'shield-check',
                 'role' => 'view-role',
             ],
             [
                 'name' => 'permissions',
                 'value' => 'site.permissions',
-                'icon' => 'receipt-percent',
+                'icon' => 'key',
                 'role' => 'view-permission',
             ],
             [
                 'name' => 'decision.types',
                 'value' => 'site.decision_types',
-                'icon' => 'receipt-percent',
+                'icon' => 'bolt',
                 'role' => 'view-decision-type',
             ],
             [
                 'name' => 'projects',
                 'value' => 'site.projects',
-                'icon' => 'receipt-percent',
+                'icon' => 'briefcase',
                 'role' => 'view-project',
             ],
             [
                 'name' => 'statements',
                 'value' => 'site.statements',
-                'icon' => 'receipt-percent',
+                'icon' => 'document-text',
                 'role' => 'view-statement',
             ],
             [
@@ -90,7 +90,7 @@ class NavigateMenu extends NavigationMenu
             [
                 'name' => 'origins',
                 'value' => 'site.origins',
-                'icon' => 'user-group',
+                'icon' => 'globe-alt',
                 'role' => 'view-origin',
             ],
         ];

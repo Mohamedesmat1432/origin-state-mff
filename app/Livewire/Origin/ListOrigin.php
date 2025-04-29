@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Origin;
 
-use App\Models\Origin;
 use App\Traits\OriginTrait;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -18,11 +17,9 @@ class ListOrigin extends Component
     {
         $this->authorize('view-origin');
 
-        $origins = Origin::search($this->search)
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        $origins = $this->originList();
 
-        $this->checkbox_all = Origin::pluck('id')->toArray();
+        $this->checkbox_all = $this->originsCheckboxAll();
 
         return view('livewire.origin.list-origin', [
             'origins' => $origins,

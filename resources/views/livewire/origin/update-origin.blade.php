@@ -92,13 +92,32 @@
                 </div>
                 <div class="mt-2">
                     <x-label for="location_status" value="{{ __('site.location_status') }}" />
-                    <x-select wire:model="location_status" class="mt-1 block w-full">
+                    <div class="flex justify-between mt-2">
                         @foreach(\App\Enums\LocationStatus::cases() as $status)
-                            <option value="{{ $status->value }}">
+                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" wire:model="location_status" value="{{ $status->value }}"
+                                class="hidden peer">
+
+                            <div class="flex items-center justify-center px-4 py-2 rounded-lg border
+                                    peer-checked:border-2
+                                    peer-checked:p-1
+                                    font-semibold
+                                    transition
+                                    {{ $status->color() }}">
+
                                 {{ $status->label() }}
-                            </option>
+                            </div>
+                        </label>
                         @endforeach
-                    </x-select>
+                    </div>
+
+                    {{-- <x-select wire:model="location_status" class="mt-1 block w-full">
+                        @foreach(\App\Enums\LocationStatus::cases() as $status)
+                        <option value="{{ $status->value }}">
+                            {{ $status->label() }}
+                        </option>
+                        @endforeach
+                    </x-select> --}}
                     <x-input-error for="location_status" class="mt-2" />
                 </div>
                 <div class="mt-2">
@@ -133,13 +152,29 @@
                 </div>
                 <div class="mt-2">
                     <x-label for="origin_status" value="{{ __('site.origin_status') }}" />
-                    <x-select wire:model="origin_status" class="mt-1 block w-full">
+                    <div class="flex justify-between mt-2">
                         @foreach(\App\Enums\OriginStatus::cases() as $status)
-                            <option value="{{ $status->value }}">
+                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" wire:model="origin_status" value="{{ $status->value }}"
+                                class="hidden peer">
+
+                            <div class="flex items-center justify-center px-4 py-2 rounded-lg border
+                                    peer-checked:border-2 peer-checked:p-1
+                                    font-semibold transition
+                                    {{ $status->color() }}">
+
                                 {{ $status->label() }}
-                            </option>
+                            </div>
+                        </label>
                         @endforeach
-                    </x-select>
+                    </div>
+                    {{-- <x-select wire:model="origin_status" class="mt-1 block w-full">
+                        @foreach(\App\Enums\OriginStatus::cases() as $status)
+                        <option value="{{ $status->value }}">
+                            {{ $status->label() }}
+                        </option>
+                        @endforeach
+                    </x-select> --}}
                     <x-input-error for="origin_status" class="mt-2" />
                 </div>
             </div>

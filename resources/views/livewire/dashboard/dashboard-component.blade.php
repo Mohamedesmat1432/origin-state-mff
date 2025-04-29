@@ -33,6 +33,9 @@
                 @can('view-chart-user')
                 <livewire:chart.chart-user />
                 @endcan
+                @can('view-chart-origin')
+                <livewire:chart.origin-chart />
+                @endcan
             </div>
         </div>
     </x-page-content>

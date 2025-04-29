@@ -18,7 +18,7 @@ class ListRole extends Component
     {
         $this->authorize('view-role');
 
-        $roles =  Role::search($this->search)
+        $roles =  Role::with(['permissions'])->search($this->search)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
             ->paginate($this->page_element);
 

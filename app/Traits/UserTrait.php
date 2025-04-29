@@ -20,12 +20,12 @@ trait UserTrait
     public $email;
     public $password;
     public $new_password;
-    public $role;
     public $department_id;
     public $job_title_id;
     public $national_number;
     public $phone_number;
-    public $responsibilityIds;
+    public $role_ids = [];
+    public $responsibility_ids = [];
     public $check_all_roles = false;
 
     protected function rules()
@@ -35,12 +35,11 @@ trait UserTrait
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->user_id,
             'national_number' => 'required|string|min:14|max:14|unique:users,national_number,' . $this->user_id,
             'phone_number' => 'required|string|min:10|max:15|unique:users,phone_number,' . $this->user_id,
-            'role' => 'required|exists:roles,name',
+            'role_ids' => 'required|array|exists:roles,name',
             'status' => 'required|boolean',
             'department_id' => 'required|string|exists:departments,id',
             'job_title_id' => 'required|string|exists:job_titles,id',
-            'responsibilityIds' => 'nullable|array',
-            'responsibilityIds.*' => 'exists:responsibilities,id',
+            'responsibility_ids' => 'nullable|array|exists:responsibilities,id',
         ];
 
         if ($this->password) {
@@ -77,7 +76,7 @@ trait UserTrait
     public function checkALlRole()
     {
 
-        $this->role = $this->check_all_roles ? $this->roles() : [];
+        $this->role_ids = $this->check_all_roles ? $this->roles() : [];
     }
 
     public function setUser($id)
@@ -89,10 +88,10 @@ trait UserTrait
         $this->national_number = $this->user->national_number;
         $this->phone_number = $this->user->phone_number;
         $this->status = $this->user->status;
-        $this->role = $this->user->roles->pluck('name')->toArray();
+        $this->role_ids = $this->user->roles->pluck('name')->toArray();
         $this->department_id = $this->user->department->id ?? '';
         $this->job_title_id = $this->user->jobTitle->id ?? '';
-        $this->responsibilityIds = $this->user->responsibilities->pluck('id')->toArray();
+        $this->responsibility_ids = $this->user->responsibilities->pluck('id')->toArray();
     }
 
     public function storeUser()
@@ -100,9 +99,9 @@ trait UserTrait
         $validated = $this->validate();
         $validated['password'] = Hash::make($this->password);
         $user = User::create($validated);
-        $user->syncRoles($this->role);
-        if (!empty($this->responsibilityIds)) {
-            $user->responsibilities()->sync($this->responsibilityIds);
+        $user->syncRoles($this->role_ids);
+        if (!empty($this->responsibility_ids)) {
+            $user->responsibilities()->sync($this->responsibility_ids);
         }
         $this->dispatch('refresh-list-user');
         $this->successNotify(__('site.user_created'));
@@ -117,9 +116,9 @@ trait UserTrait
             $validated['password'] = Hash::make($this->new_password);
         }
         $this->user->update($validated);
-        $this->user->syncRoles($this->role);
-        if (!empty($this->responsibilityIds)) {
-            $this->user->responsibilities()->sync($this->responsibilityIds);
+        $this->user->syncRoles($this->role_ids);
+        if (!empty($this->responsibility_ids)) {
+            $this->user->responsibilities()->sync($this->responsibility_ids);
         } else {
             $this->user->responsibilities()->detach(); // Remove all if none selected
         }

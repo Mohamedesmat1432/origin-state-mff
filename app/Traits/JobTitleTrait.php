@@ -31,7 +31,7 @@ trait JobTitleTrait
     {
         $validated = $this->validate();
         JobTitle::create($validated);
-        $this->dispatch('refresh-list-job_title');
+        $this->dispatch('refresh-list-job-title');
         $this->successNotify(__('site.job_title_created'));
         $this->create_modal = false;
         $this->reset();
@@ -41,7 +41,7 @@ trait JobTitleTrait
     {
         $validated = $this->validate();
         $this->job_title->update($validated);
-        $this->dispatch('refresh-list-job_title');
+        $this->dispatch('refresh-list-job-title');
         $this->successNotify(__('site.job_title_updated'));
         $this->edit_modal = false;
         $this->reset();
@@ -51,7 +51,7 @@ trait JobTitleTrait
     {
         $job_title = JobTitle::findOrFail($id);
         $job_title->delete();
-        $this->dispatch('refresh-list-job_title');
+        $this->dispatch('refresh-list-job-title');
         $this->successNotify(__('site.job_title_deleted'));
         $this->delete_modal = false;
         $this->reset();
@@ -61,7 +61,7 @@ trait JobTitleTrait
     {
         $job_titles = JobTitle::whereIn('id', $arr);
         $job_titles->delete();
-        $this->dispatch('refresh-list-job_title');
+        $this->dispatch('refresh-list-job-title');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.job_title_delete_all'));
         $this->bulk_delete_modal = false;

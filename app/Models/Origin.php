@@ -35,6 +35,7 @@ class Origin extends Model
         'notes',
         'origin_status',
         'decision_image',
+        'user_id',
     ];
     
     protected $casts = [
@@ -66,6 +67,11 @@ class Origin extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     public function scopeSearch($query, $search)
