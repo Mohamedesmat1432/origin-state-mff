@@ -436,4 +436,9 @@ return [
     'user_id' => 'User',
     'event' => 'Event',
     'properties' => 'Properties',
+    'government' => 'Government',
+    'city' => 'City',
+    'project' => 'Project',
+    'statement' => 'Statement',
+    'decisionType' => 'Decision Type',
 ];

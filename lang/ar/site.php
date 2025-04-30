@@ -452,4 +452,9 @@ return [
     'user_id' => 'المستخدم',
     'event' => 'الحدث',
     'properties' => 'الخصائص',
+    'government' => 'المحافظة',
+    'city' => 'المدينة',
+    'project' => 'المشروع',
+    'statement' => 'جهة التنفيذ',
+    'decisionType' => 'نوع القرار',
 ];

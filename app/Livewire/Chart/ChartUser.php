@@ -3,7 +3,7 @@
 namespace App\Livewire\Chart;
 
 use App\Models\User;
-use App\Services\Chart\ChartByMonthCountInterface;
+use App\Services\ChartService;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -12,15 +12,18 @@ class ChartUser extends Component
 {
     public $chartDataUser;
 
-    protected ChartByMonthCountInterface $chartByMonthCount;
-    
+    protected ChartService $service;
+
+    public function boot(ChartService $service)
+    {
+        $this->service = $service;
+    }
+
     public function mount()
     {
         $this->authorize('view-chart-user');
 
-        $this->chartByMonthCount = app(ChartByMonthCountInterface::class);
-        
-        $this->chartDataUser = $this->chartByMonthCount->generateData(User::class, __('site.users'));
+        $this->chartDataUser = $this->service->chartByDate(User::class, __('site.users'));
     }
 
     public function render()
