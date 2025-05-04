@@ -1,6 +1,6 @@
 <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view-trash-group-button')): ?>
     <div
-        class="inline-flex <?php echo e(LaravelLocalization::getCurrentLocale() === 'en' ? 'flex-row-reverse' : ''); ?> rounded-md shadow-sm">
+        class="inline-flex ltr:flex-row-reverse rounded-md shadow-sm">
         <?php if (isset($component)) { $__componentOriginal7fa57d00c29530b074487861a28c29f3 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7fa57d00c29530b074487861a28c29f3 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.indigo-button','data' => ['wire:click.debounce.500ms' => '$set(\'trash\',false)','class' => 'flex rounded-r-md rounded-l-none '.e($this->trash ? '' : 'opacity-60 cursor-not-allowed').'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>

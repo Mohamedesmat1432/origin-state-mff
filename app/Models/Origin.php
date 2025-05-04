@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Enums\LocationStatus;
 use App\Enums\OriginStatus;
+use App\Observers\OriginObserver;
 use App\Traits\LoggableTrait;
 use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Origin extends Model
 {
@@ -35,15 +37,56 @@ class Origin extends Model
         'notes',
         'origin_status',
         'decision_image',
-        'user_id',
+        'created_by',
+        'revised_by',
+        'completed_by',
     ];
-    
+
     protected $casts = [
         'decision_date' => 'integer',
         'location_status' => LocationStatus::class,
         'origin_status' => OriginStatus::class,
     ];
 
+    // protected static function booted()
+    // {
+    //     static::observe(OriginObserver::class);
+    // }
+
+    public function getColumnValue(string $key): mixed
+    {
+        return match ($key) {
+            'project_id' => $this->project?->name,
+            'decision_type_id' => $this->decisionType?->name,
+            'statement_id' => $this->statement?->name,
+            'government_id' => $this->government?->name,
+            'city_id' => $this->city?->name,
+            'created_by' => $this->createdBy?->name,
+            'revised_by' => $this->revisedBy?->name,
+            'completed_by' => $this->completedBy?->name,
+            'location_status' => '<span class="rounded ' . $this->location_status->color() . '">' . $this->location_status->label() . '</span>',
+            'origin_status' => '<span class="rounded ' . $this->origin_status->color() . '">' . $this->origin_status->label() . '</span>',
+            default => e(data_get($this, $key)),
+        };
+    }
+
+    // User actions
+    public function createdBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function revisedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'revised_by');
+    }
+
+    public function completedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'completed_by');
+    }
+
+    // Other relationships
     public function decisionType()
     {
         return $this->belongsTo(DecisionType::class);
@@ -67,11 +110,6 @@ class Origin extends Model
     public function city()
     {
         return $this->belongsTo(City::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 
     public function scopeSearch($query, $search)
@@ -99,6 +137,20 @@ class Origin extends Model
                 })->orWhereHas('city', function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%");
                 });
+        });
+    }
+
+    public function scopeFilterByOriginStatus($query, $status)
+    {
+        return $query->when($status, function ($query) use ($status) {
+            $query->where('origin_status', $status);
+        });
+    }
+
+    public function scopeFilterByLocationStatus($query, $status)
+    {
+        return $query->when($status, function ($query) use ($status) {
+            $query->where('location_status', $status);
         });
     }
 }

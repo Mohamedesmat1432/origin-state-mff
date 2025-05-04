@@ -1,6 +1,6 @@
 @can('view-trash-group-button')
     <div
-        class="inline-flex {{ LaravelLocalization::getCurrentLocale() === 'en' ? 'flex-row-reverse' : '' }} rounded-md shadow-sm">
+        class="inline-flex ltr:flex-row-reverse rounded-md shadow-sm">
         <x-indigo-button wire:click.debounce.500ms="$set('trash',false)"
             class="flex rounded-r-md rounded-l-none {{ $this->trash ? '' : 'opacity-60 cursor-not-allowed' }}">
             <x-icon class="w-4 h-4" name="clipboard-document-list" />

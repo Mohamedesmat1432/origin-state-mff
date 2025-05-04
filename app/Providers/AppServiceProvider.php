@@ -29,6 +29,7 @@ class AppServiceProvider extends ServiceProvider
                 $activity->causer_type = get_class(Auth::user());
             }
         });
+
         
     }
 }

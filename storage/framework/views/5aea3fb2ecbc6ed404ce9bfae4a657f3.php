@@ -10,6 +10,7 @@
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['wire:model' => 'show_modal']); ?>
+        
          <?php $__env->slot('title', null, []); ?> 
             <?php echo e(__('site.show_origin')); ?>
 
@@ -17,6 +18,7 @@
 
          <?php $__env->slot('content', null, []); ?> 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -43,6 +45,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -69,6 +72,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -95,6 +99,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -121,6 +126,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -147,6 +153,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -173,6 +180,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -199,6 +207,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -225,6 +234,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -251,6 +261,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -277,6 +288,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -299,12 +311,13 @@
 <?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
 <?php endif; ?>
                     <div class="mt-1 block w-full">
-                        <span class="<?php echo e($this->origin->location_status->color()); ?>">
+                        <span class="rounded <?php echo e($this->origin->location_status->color()); ?>">
                             <?php echo e($this->origin->location_status->label()); ?>
 
                         </span>
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -331,6 +344,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -357,6 +371,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -383,6 +398,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -409,6 +425,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -435,6 +452,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -457,12 +475,13 @@
 <?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
 <?php endif; ?>
                     <div class="mt-1 block w-full">
-                        <span class="<?php echo e($this->origin->origin_status->color()); ?>">
+                        <span class="rounded <?php echo e($this->origin->origin_status->color()); ?>">
                             <?php echo e($this->origin->origin_status->label()); ?>
 
                         </span>
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -489,6 +508,7 @@
 
                     </div>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -510,23 +530,33 @@
 <?php $component = $__componentOriginald8ba2b4c22a13c55321e34443c386276; ?>
 <?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
 <?php endif; ?>
-                    <!--[if BLOCK]><![endif]--><?php if($decision_image): ?>
-                    <?php
-                    $extension = pathinfo($decision_image->getClientOriginalName(), PATHINFO_EXTENSION);
-                    $icons = [
-                    'xlsx' => asset('icons/icon-excel.png'),
-                    'xls' => asset('icons/icon-excel.png'),
-                    'pdf' => asset('icons/icon-pdf.png'),
-                    'doc' => asset('icons/icon-word.png'),
-                    'docx' => asset('icons/icon-word.png'),
-                    ];
-                    $icon = $icons[$extension] ?? asset('icons/icon-file.png');
-                    ?>
+                    <!--[if BLOCK]><![endif]--><?php if($this->origin->decision_image): ?>
+                        <?php
+                            $extension = pathinfo($this->origin->decision_image, PATHINFO_EXTENSION);
+                            $fileUrl = asset('storage/' . $this->origin->decision_image);
+                            $fileName = basename($fileUrl);
+                            $availableExts = ['png', 'jpg', 'gif', 'jpeg', 'webp'];
+                            $icons = [
+                            'xlsx' => asset('icons/icon-excel.png'),
+                            'xls' => asset('icons/icon-excel.png'),
+                            'pdf' => asset('icons/icon-pdf.png'),
+                            'doc' => asset('icons/icon-word.png'),
+                            'docx' => asset('icons/icon-word.png'),
+                            ];
+                            $icon = $icons[$extension] ?? asset('icons/icon-file.png');
+                        ?>
 
-                    <div class="mt-4 flex items-center">
-                        <img src="<?php echo e($icon); ?>" alt="<?php echo e($extension); ?> Icon" class="w-8 h-8 mr-2">
-                        <span><?php echo e($this->origin->decision_image->getClientOriginalName()); ?></span>
-                    </div>
+                        <div class="mt-4 flex items-center">
+                            <img src="<?php echo e($icon); ?>" alt="<?php echo e($extension); ?> Icon" class="w-8 h-8 mr-2">
+                            <span><?php echo e($fileName); ?></span>
+                        </div>
+
+                        <!--[if BLOCK]><![endif]--><?php if(in_array(strtolower($extension), $availableExts)): ?>
+                        <div class="mt-4">
+                            <h4 class="font-semibold">Preview of Uploaded:</h4>
+                            <img src="<?php echo e($fileUrl); ?>" alt="Preview of Uploaded" width="100%" height="600px">
+                        </div>
+                    <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>

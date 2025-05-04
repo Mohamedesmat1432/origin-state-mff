@@ -1,18 +1,18 @@
 <div>
     @if ($this->export_modal)
-    <x-dialog-modal wire:model.live="export_modal" submit="export()" method="POST">
+    <x-dialog-modal wire:model="export_modal" submit="export()" method="POST">
         <x-slot name="title">
             {{ __('site.export_origin') }}
         </x-slot>
 
         <x-slot name="content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="mt-3">
+                {{-- <div class="mt-3">
                     <x-label for="search" value="{{ __('site.search') }}" />
                     <x-input type="search" placeholder="{{ __('site.search') }}" class="mt-1 block w-full border p-1"
                         wire:model.live="search" />
                     <x-input-error for="search" class="mt-2" />
-                </div>
+                </div> --}}
                 <div class="mt-3">
                     <x-label for="extension" value="{{ __('site.extension') }}" />
                     <x-select class="block w-full" wire:model.live="extension">

@@ -137,20 +137,12 @@ if (isset($__slots)) unset($__slots);
 ?>
         <?php endif; ?>
 
-        <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
+        <div class="p-6 bg-white border-b border-gray-200 rounded-md">
 
-            <div class="flex justify-between">
-                <h1 class=" text-2xl font-medium text-gray-900">
-                    <?php echo e(__('site.origins')); ?>
-
-                </h1>
-            </div>
-
-            <div class="mt-6 text-gray-500 leading-relaxed">
-                <div class="mt-3">
-                    <div class="md:flex justify-between">
-                        <div class="mb-2">
-                            <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
+            <div class=" text-gray-500 leading-relaxed text-xs">
+                <div class="md:flex justify-between">
+                    <div class="mt-2">
+                        <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'search','wire:model.live.debounce.500ms' => 'search','placeholder' => ''.e(__('site.search')).'...']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
@@ -170,9 +162,9 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
 <?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
 <?php endif; ?>
-                        </div>
-                        <div class="mb-2 grid grid-cols-3 md:grid-cols-3 gap-4">
-                            <?php if (isset($component)) { $__componentOriginala6d15d77335de01bd81addac814f21ff = $component; } ?>
+                    </div>
+                    <div class="grid grid-cols-3 md:grid-cols-3 gap-4 mt-2">
+                        <?php if (isset($component)) { $__componentOriginala6d15d77335de01bd81addac814f21ff = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginala6d15d77335de01bd81addac814f21ff = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.create-button','data' => ['permission' => 'create-origin']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('create-button'); ?>
@@ -192,7 +184,7 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginala6d15d77335de01bd81addac814f21ff; ?>
 <?php unset($__componentOriginala6d15d77335de01bd81addac814f21ff); ?>
 <?php endif; ?>
-                            <?php if (isset($component)) { $__componentOriginal7ae5148aeeb2b2d62934bb7031ad38f9 = $component; } ?>
+                        <?php if (isset($component)) { $__componentOriginal7ae5148aeeb2b2d62934bb7031ad38f9 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal7ae5148aeeb2b2d62934bb7031ad38f9 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.import-button','data' => ['permission' => 'import-origin']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('import-button'); ?>
@@ -212,7 +204,7 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginal7ae5148aeeb2b2d62934bb7031ad38f9; ?>
 <?php unset($__componentOriginal7ae5148aeeb2b2d62934bb7031ad38f9); ?>
 <?php endif; ?>
-                            <?php if (isset($component)) { $__componentOriginalead669e33878677f706bb89fd3f8e06c = $component; } ?>
+                        <?php if (isset($component)) { $__componentOriginalead669e33878677f706bb89fd3f8e06c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalead669e33878677f706bb89fd3f8e06c = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.export-button','data' => ['permission' => 'export-origin']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('export-button'); ?>
@@ -232,8 +224,68 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginalead669e33878677f706bb89fd3f8e06c; ?>
 <?php unset($__componentOriginalead669e33878677f706bb89fd3f8e06c); ?>
 <?php endif; ?>
-                        </div>
                     </div>
+                </div>
+
+                <div class="filter md:flex justify-around">
+                    <div class="flex mt-2">
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Enums\OriginStatus::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" wire:model.live.debounce.200ms="filter_origin_status"
+                                value="<?php echo e($status->value); ?>" class="hidden peer">
+
+                            <div class="text- <?php echo e($loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none'); ?>
+
+                                    <?php echo e($filter_origin_status == $status->value ? 'opacity-100' : 'opacity-50'); ?>
+
+                                    <?php echo e($status->color()); ?>">
+                                <?php echo e($status->label()); ?>
+
+                                (<?php echo e($status->count()); ?>)
+                            </div>
+                        </label>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" wire:model.live.debounce.200ms="filter_origin_status" value="" class="hidden peer">
+
+                            <div class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 <?php echo e($filter_origin_status == '' ? 'opacity-100' : 'opacity-60'); ?>">
+                                <?php echo e(__('site.all')); ?>
+
+                                (<?php echo e($this->originsCount()); ?>)
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="flex mt-2">
+                        <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Enums\LocationStatus::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" wire:model.live.debounce.200ms="filter_location_status"
+                                value="<?php echo e($status->value); ?>" class="hidden peer">
+
+                            <div class="text- <?php echo e($loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none'); ?>
+
+                                    <?php echo e($filter_location_status == $status->value ? 'opacity-100' : 'opacity-50'); ?>
+
+                                    <?php echo e($status->color()); ?>">
+                                <?php echo e($status->label()); ?>
+
+                                (<?php echo e($status->count()); ?>)
+                            </div>
+                        </label>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
+                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                            <input type="radio" wire:model.live.debounce.200ms="filter_location_status" value="" class="hidden peer">
+
+                            <div class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 <?php echo e($filter_origin_status == '' ? 'opacity-100' : 'opacity-60'); ?>">
+                                <?php echo e(__('site.all')); ?>
+
+                                (<?php echo e($this->originsCount()); ?>)
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="mt-2">
                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-origin')): ?>
                     <?php if (isset($component)) { $__componentOriginal6c52264334eecd11608d21550eaa588a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal6c52264334eecd11608d21550eaa588a = $attributes; } ?>
@@ -271,7 +323,7 @@ if (isset($__slots)) unset($__slots);
                      <?php $__env->slot('thead', null, []); ?> 
                         <tr>
                             <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('bulk-delete-origin')): ?>
-                            <td class="px-4 py-2 border">
+                            <th class="px-4 py-2 border">
                                 <div class="text-center">
                                     <?php if (isset($component)) { $__componentOriginal74b62b190a03153f11871f645315f4de = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal74b62b190a03153f11871f645315f4de = $attributes; } ?>
@@ -294,24 +346,25 @@ if (isset($__slots)) unset($__slots);
 <?php unset($__componentOriginal74b62b190a03153f11871f645315f4de); ?>
 <?php endif; ?>
                                 </div>
-                            </td>
+                            </th>
                             <?php endif; ?>
-                            <td class="p-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('id')">
-                                        <?php echo e(__('site.id')); ?>
 
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
+                            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $columns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $col): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <th class="px-4 py-2 border ">
+                                <button wire:click="sortByField('<?php echo e($col['key']); ?>')">
+                                    <?php echo e($col['label']); ?>
+
+                                </button>
+                                <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => ''.e($col['key']).'','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('sort-icon'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
+<?php $component->withAttributes(['sort_field' => ''.e($col['key']).'','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
@@ -322,546 +375,15 @@ if (isset($__slots)) unset($__slots);
 <?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
 <?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
 <?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('project_id')">
-                                        <?php echo e(__('site.project_id')); ?>
+                            </th>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
 
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'project_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'project_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('decision_num')">
-                                        <?php echo e(__('site.decision_num')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'decision_num','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'decision_num','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('decision_date')">
-                                        <?php echo e(__('site.decision_date')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'decision_date','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'decision_date','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('decision_type_id')">
-                                        <?php echo e(__('site.decision_type_id')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'decision_type_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'decision_type_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('total_area_allocated')">
-                                        <?php echo e(__('site.total_area_allocated')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'total_area_allocated','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'total_area_allocated','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('total_area_coords')">
-                                        <?php echo e(__('site.total_area_coords')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'total_area_coords','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'total_area_coords','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('statement_id')">
-                                        <?php echo e(__('site.statement_id')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'statement_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'statement_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('used_area')">
-                                        <?php echo e(__('site.used_area')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'used_area','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'used_area','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('executing_entity_num')">
-                                        <?php echo e(__('site.executing_entity_num')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'executing_entity_num','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'executing_entity_num','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('government_id')">
-                                        <?php echo e(__('site.government_id')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'government_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'government_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('city_id')">
-                                        <?php echo e(__('site.city_id')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'city_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'city_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('location')">
-                                        <?php echo e(__('site.location')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'location','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'location','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('location_status')">
-                                        <?php echo e(__('site.location_status')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'location_status','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'location_status','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('available_area')">
-                                        <?php echo e(__('site.available_area')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'available_area','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'available_area','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('vacant_buildings')">
-                                        <?php echo e(__('site.vacant_buildings')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'vacant_buildings','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'vacant_buildings','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('remaining_area')">
-                                        <?php echo e(__('site.remaining_area')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'remaining_area','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'remaining_area','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('notes')">
-                                        <?php echo e(__('site.notes')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'notes','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'notes','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('origin_status')">
-                                        <?php echo e(__('site.origin_status')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'origin_status','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'origin_status','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
-                                <div class="flex justify-center">
-                                    <button wire:click="sortByField('user_id')">
-                                        <?php echo e(__('site.user_id')); ?>
-
-                                    </button>
-                                    <?php if (isset($component)) { $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.sort-icon','data' => ['sortField' => 'user_id','sortBy' => $sort_by,'sortAsc' => $sort_asc]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('sort-icon'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['sort_field' => 'user_id','sort_by' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_by),'sort_asc' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($sort_asc)]); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $attributes = $__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__attributesOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e)): ?>
-<?php $component = $__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e; ?>
-<?php unset($__componentOriginalee2a861ad7afb8a8513aaf5b4abcef1e); ?>
-<?php endif; ?>
-                                </div>
-                            </td>
-                            <td class="px-4 py-2 border">
+                            <th class="px-4 py-2 border">
                                 <div class="flex justify-center">
                                     <?php echo e(__('site.action')); ?>
 
                                 </div>
-                            </td>
+                            </th>
                         </tr>
                      <?php $__env->endSlot(); ?>
                      <?php $__env->slot('tbody', null, []); ?> 
@@ -891,90 +413,14 @@ if (isset($__slots)) unset($__slots);
 <?php endif; ?>
                             </td>
                             <?php endif; ?>
+
+                            <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $columns; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $col): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <td class="p-2 border">
-                                <?php echo e($origin->id); ?>
+                                <?php echo $origin->getColumnValue($col['key']); ?>
 
                             </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->project?->name); ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
 
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->decision_num); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->decision_date); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->decisionType?->name); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->total_area_allocated); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->total_area_coords); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->statement?->name); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->used_area); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->executing_entity_num); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->government?->name); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->city?->name); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->location); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <span class="<?php echo e($origin->location_status->color()); ?>">
-                                    <?php echo e($origin->location_status->label()); ?>
-
-                                </span>
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->available_area); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->vacant_buildings); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->remaining_area); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->notes); ?>
-
-                            </td>
-                            <td class="p-2 border">
-                                <span class="<?php echo e($origin->origin_status->color()); ?>">
-                                    <?php echo e($origin->origin_status->label()); ?>
-
-                                </span>
-                            </td>
-                            <td class="p-2 border">
-                                <?php echo e($origin->user?->name); ?>
-
-                            </td>
                             <td class="p-2 border">
                                 <div class="flex justify-center">
                                     <?php if (isset($component)) { $__componentOriginal1552aa883fbbe3ec28d1bd1905fbebcf = $component; } ?>

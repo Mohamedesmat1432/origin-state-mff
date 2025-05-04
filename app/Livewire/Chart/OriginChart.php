@@ -13,7 +13,7 @@ class OriginChart extends Component
     protected ChartService $service;
 
     public $chartDataOrigin;
-    public $relation = 'government';
+    public $groupBy = 'government';
 
     public function boot(ChartService $service)
     {
@@ -22,25 +22,26 @@ class OriginChart extends Component
 
     public function mount()
     {
-        $this->authorize('view-chart-origin');
-        $this->relation = session('relationOrigin', 'government');
+        $this->groupBy = session('groupByOrigin', 'government');
         $this->loadData();
     }
 
-    public function updatedRelation()
+    public function updatedGroupBy()
     {
-        session(['relationOrigin' => $this->relation]);
+        session(['groupByOrigin' => $this->groupBy]);
         $this->loadData();
         $this->dispatch('chart-updated', chartData: $this->chartDataOrigin);
     }
 
     public function loadData()
     {
-        $this->chartDataOrigin = $this->service->chartByRelation(Origin::class, __('site.origins'), $this->relation);
+        $this->chartDataOrigin = $this->service->chartByRelation(Origin::class, __('site.origins'), $this->groupBy);
     }
 
     public function render()
     {
+        $this->authorize('view-chart-origin');
+
         return view('livewire.chart.origin-chart');
     }
 }

@@ -2,14 +2,14 @@
     <!--[if BLOCK]><![endif]--><?php if($this->export_modal): ?>
     <?php if (isset($component)) { $__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.dialog-modal','data' => ['wire:model.live' => 'export_modal','submit' => 'export()','method' => 'POST']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.dialog-modal','data' => ['wire:model' => 'export_modal','submit' => 'export()','method' => 'POST']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('dialog-modal'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['wire:model.live' => 'export_modal','submit' => 'export()','method' => 'POST']); ?>
+<?php $component->withAttributes(['wire:model' => 'export_modal','submit' => 'export()','method' => 'POST']); ?>
          <?php $__env->slot('title', null, []); ?> 
             <?php echo e(__('site.export_origin')); ?>
 
@@ -17,68 +17,7 @@
 
          <?php $__env->slot('content', null, []); ?> 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="mt-3">
-                    <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.label','data' => ['for' => 'search','value' => ''.e(__('site.search')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('label'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['for' => 'search','value' => ''.e(__('site.search')).'']); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginald8ba2b4c22a13c55321e34443c386276)): ?>
-<?php $attributes = $__attributesOriginald8ba2b4c22a13c55321e34443c386276; ?>
-<?php unset($__attributesOriginald8ba2b4c22a13c55321e34443c386276); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginald8ba2b4c22a13c55321e34443c386276)): ?>
-<?php $component = $__componentOriginald8ba2b4c22a13c55321e34443c386276; ?>
-<?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
-<?php endif; ?>
-                    <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'search','placeholder' => ''.e(__('site.search')).'','class' => 'mt-1 block w-full border p-1','wire:model.live' => 'search']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('input'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['type' => 'search','placeholder' => ''.e(__('site.search')).'','class' => 'mt-1 block w-full border p-1','wire:model.live' => 'search']); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $attributes = $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
-<?php $component = $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1; ?>
-<?php unset($__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1); ?>
-<?php endif; ?>
-                    <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['for' => 'search','class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('input-error'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes(['for' => 'search','class' => 'mt-2']); ?>
-<?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__attributesOriginalf94ed9c5393ef72725d159fe01139746)): ?>
-<?php $attributes = $__attributesOriginalf94ed9c5393ef72725d159fe01139746; ?>
-<?php unset($__attributesOriginalf94ed9c5393ef72725d159fe01139746); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginalf94ed9c5393ef72725d159fe01139746)): ?>
-<?php $component = $__componentOriginalf94ed9c5393ef72725d159fe01139746; ?>
-<?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
-<?php endif; ?>
-                </div>
+                
                 <div class="mt-3">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>

@@ -457,4 +457,8 @@ return [
     'project' => 'المشروع',
     'statement' => 'جهة التنفيذ',
     'decisionType' => 'نوع القرار',
+    'all' => 'الكل',
+    'created_by' => 'منفذ بواسطة',
+    'revised_by' => 'مراجع بواسطة',
+    'completed_by' => 'مكتمل بواسطة',
 ];

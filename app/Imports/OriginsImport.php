@@ -68,7 +68,6 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'remaining_area' => $row['remaining_area'],
             'notes' => $row['notes'],
             'origin_status' => $row['origin_status'] ?? 'inprogress',
-            'user_id' => auth()->user()->id,
         ]);
     }
 
@@ -93,7 +92,6 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'remaining_area' => 'required|numeric',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
-            'user_id' => 'nullable|string',
         ];
     }
 }

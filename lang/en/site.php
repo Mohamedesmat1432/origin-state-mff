@@ -441,4 +441,8 @@ return [
     'project' => 'Project',
     'statement' => 'Statement',
     'decisionType' => 'Decision Type',
+    'all' => 'All',
+    'created_by' => 'Created By',
+    'revised_by' => 'Revised By',
+    'completed_by' => 'Completed By',
 ];

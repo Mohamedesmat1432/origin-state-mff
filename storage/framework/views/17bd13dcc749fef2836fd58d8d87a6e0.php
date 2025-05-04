@@ -2,14 +2,14 @@
     <!--[if BLOCK]><![endif]--><?php if($this->import_modal): ?>
     <?php if (isset($component)) { $__componentOriginal49bd1c1dd878e22e0fb84faabf295a3f = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal49bd1c1dd878e22e0fb84faabf295a3f = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.dialog-modal','data' => ['wire:model.live' => 'import_modal','submit' => 'import()','method' => 'POST']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.dialog-modal','data' => ['wire:model' => 'import_modal','submit' => 'import()','method' => 'POST']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('dialog-modal'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['wire:model.live' => 'import_modal','submit' => 'import()','method' => 'POST']); ?>
+<?php $component->withAttributes(['wire:model' => 'import_modal','submit' => 'import()','method' => 'POST']); ?>
          <?php $__env->slot('title', null, []); ?> 
             <?php echo e(__('site.import_origin')); ?>
 

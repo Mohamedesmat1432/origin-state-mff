@@ -16,8 +16,6 @@ class ExportOrigin extends Component
     #[On('export-modal')]
     public function exportModal()
     {
-        $this->reset();
-        $this->resetValidation();
         $this->export_modal = true;
     }
 
@@ -27,7 +25,7 @@ class ExportOrigin extends Component
             $this->export_modal = false;
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_exported'));
-            return (new OriginsExport($this->search))->download('origin.' . $this->extension);
+            return (new OriginsExport($this->getFilteredQuery()))->download('origin.' . $this->extension);
         } catch (\Throwable $e) {
             $this->errorNotify($e->getMessage());
         }

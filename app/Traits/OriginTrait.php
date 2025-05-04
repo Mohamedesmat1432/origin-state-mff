@@ -5,23 +5,60 @@ namespace App\Traits;
 use App\Models\City;
 use App\Models\Government;
 use App\Models\Origin;
-use App\Models\Project;
-use App\Models\DecisionType;
-use App\Models\Statement;
-use Illuminate\Support\Facades\Storage;
+// use App\Models\Project;
+// use App\Models\DecisionType;
+// use App\Models\Statement;
+use Livewire\Attributes\Url;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 trait OriginTrait
 {
-    use WithNotify, SortSearchTrait, WithPagination, ModalTrait, WithFileUploads;
+    use WithNotify;
+    use SortSearchTrait;
+    use WithPagination;
+    use ModalTrait;
+    use HasImageUpload;
+    use WithFileUploads;
 
     public ?Origin $origin;
 
-    public $origin_id, $project_id, $decision_num, $decision_date, $decision_type_id, $user_id,
-        $statement_id, $total_area_allocated, $total_area_coords, $executing_entity_num, $used_area,
-        $government_id, $city_id, $location,  $location_status = 'accept', $origin_status = 'inprogress',
-        $available_area, $vacant_buildings, $remaining_area, $decision_image, $old_decision_image, $notes;
+    public ?string $origin_id = null;
+    public ?string $project_id = null;
+    public ?string $decision_type_id = null;
+    public ?string $statement_id = null;
+    public ?string $government_id = null;
+    public ?string $city_id = null;
+    public ?string $created_by = null;
+    public ?string $revised_by = null;
+    public ?string $completed_by = null;
+
+    public ?string $decision_num = null;
+    public ?int $decision_date = null;
+    public mixed $origin_status = 'inprogress';
+    public mixed $location_status = 'accept';
+
+    public ?float $total_area_allocated = null;
+    public ?float $total_area_coords = null;
+    public ?float $used_area = null;
+    public ?float $available_area = null;
+    public ?float $remaining_area = null;
+
+    public ?int $executing_entity_num = null;
+    public ?int $vacant_buildings = null;
+    public ?string $location = null;
+    public ?string $notes = null;
+
+    public $decision_image = null;
+    public $old_decision_image = null;
+
+    public array $relations = ['decisionType', 'project', 'statement', 'government', 'city', 'createdBy', 'revisedBy', 'completedBy'];
+
+    #[Url()]
+    public string $filter_origin_status = '';
+
+    #[Url()]
+    public string $filter_location_status = '';
 
     protected function rules()
     {
@@ -45,34 +82,17 @@ trait OriginTrait
             'decision_image' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
-            'user_id' => 'required|string|exists:users,id',
         ];
     }
 
-    public function decisionTypes()
+    public function updatingFilterOriginStatus()
     {
-        return DecisionType::pluck('name', 'id')->toArray();
+        $this->resetPage();
     }
 
-    public function projects()
+    public function updatingFilterLocationStatus()
     {
-        return Project::pluck('name', 'id')->toArray();
-    }
-
-    public function statements()
-    {
-        return Statement::pluck('name', 'id')->toArray();
-    }
-
-    public function governments()
-    {
-        return Government::pluck('name', 'id')->toArray();
-    }
-
-    public function cities()
-    {
-        return City::where('government_id', $this->government_id ?? $this->search_by_government)
-            ->pluck('name', 'id')->toArray() ?? [];
+        $this->resetPage();
     }
 
     public function originsCheckboxAll()
@@ -80,59 +100,91 @@ trait OriginTrait
         return Origin::pluck('id')->toArray();
     }
 
+    public function getFilteredQuery()
+    {
+        return Origin::with($this->relations)->search($this->search)
+            ->filterByOriginStatus($this->filter_origin_status)
+            ->filterByLocationStatus($this->filter_location_status)
+            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC');
+    }
+
     public function originList()
     {
-        return Origin::with(['decisionType', 'project', 'statement', 'government', 'city', 'user'])
-            ->search($this->search)
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
+        return $this->getFilteredQuery()->paginate($this->page_element);
+    }
+
+    public function originsCount()
+    {
+        return Origin::count();
+    }
+
+    public function getDropdownOptions(string $model, string $column = 'name'): array
+    {
+        return app("App\\Models\\$model")::pluck($column, 'id')->toArray();
+    }
+
+    public function projects()
+    {
+        return $this->getDropdownOptions('Project');
+    }
+
+    public function decisionTypes()
+    {
+        return $this->getDropdownOptions('DecisionType');
+    }
+
+    public function statements()
+    {
+        return $this->getDropdownOptions('Statement');
+    }
+
+    public function governments()
+    {
+        return $this->getDropdownOptions('Government');
+    }
+
+    public function cities()
+    {
+        return City::where('government_id', $this->government_id)->pluck('name', 'id')->toArray();
+    }
+
+    public function updatedGovernmentId()
+    {
+        $this->reset('city_id');
+        $this->cities();
     }
 
     public function showOrigin($id)
     {
-        $this->origin =  Origin::with(['decisionType', 'project', 'statement', 'government', 'city', 'user'])
-            ->findOrFail($id);
+        $this->origin =  Origin::with($this->relations)->findOrFail($id);
     }
 
     public function setOrigin($id)
     {
-        $this->origin = Origin::with(['decisionType', 'project', 'statement', 'government', 'city', 'user'])
-            ->findOrFail($id);
-        $this->origin_id = $this->origin->id;
-        $this->project_id = $this->origin->project_id;
-        $this->decision_num = $this->origin->decision_num;
-        $this->decision_date = $this->origin->decision_date;
-        $this->decision_type_id = $this->origin->decision_type_id;
-        $this->total_area_allocated = $this->origin->total_area_allocated;
-        $this->total_area_coords = $this->origin->total_area_coords;
-        $this->executing_entity_num = $this->origin->executing_entity_num;
-        $this->used_area = $this->origin->used_area;
-        $this->statement_id = $this->origin->statement_id;
-        $this->government_id = $this->origin->government_id;
-        $this->city_id = $this->origin->city_id;
-        $this->location = $this->origin->location;
-        $this->location_status = $this->origin->location_status;
-        $this->origin_status = $this->origin->origin_status;
-        $this->available_area = $this->origin->available_area;
-        $this->vacant_buildings = $this->origin->vacant_buildings;
-        $this->remaining_area = $this->origin->remaining_area;
-        $this->old_decision_image = $this->origin->decision_image;
-        $this->notes = $this->origin->notes;
-        $this->user_id = $this->origin->user_id;
+        $this->origin = Origin::with($this->relations)->findOrFail($id);
+        $fields = [
+            'origin_id', 'project_id', 'decision_num', 'decision_date',
+            'decision_type_id', 'total_area_allocated', 'total_area_coords',
+            'executing_entity_num', 'used_area', 'statement_id', 'government_id',
+            'city_id', 'location', 'location_status', 'origin_status',
+            'available_area', 'vacant_buildings', 'remaining_area', 'notes',
+            'old_decision_image' => 'decision_image', 'created_by', 'revised_by', 'completed_by'
+        ];
+    
+        foreach ($fields as $key => $field) {
+            $property = is_string($key) ? $key : $field;
+            $this->$property = $this->origin->$field ?? null;
+        }
     }
 
     public function storeOrigin()
     {
         $validated = $this->validate();
-
-        $validated['user_id'] = auth()->user()->id;
-
-        if ($this->decision_image) {
-            $imagePath = $this->decision_image->store('decision-images', 'public');
-            $validated['decision_image'] = $imagePath;
+        $this->changeStatusByUser($validated, $this->origin_status);
+        if($this->decision_image) {
+            $validated['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
         }
-
-        Origin::create($validated);
+        $origin = Origin::create($validated);
         $this->dispatch('refresh-list-origin');
         $this->successNotify(__('site.origin_created'));
         $this->create_modal = false;
@@ -142,18 +194,9 @@ trait OriginTrait
     public function updateOrigin()
     {
         $validated = $this->validate();
-        $validated['user_id'] = auth()->user()->id;
-
-        if ($this->decision_image) {
-            if ($this->origin->decision_image) {
-                Storage::disk('public')->delete($this->origin->decision_image);
-            }
-            $imagePath = $this->decision_image->store('decision-images', 'public');
-        } else {
-            $imagePath = $this->old_decision_image;
-        }
-
-        $validated['decision_image'] = $imagePath;
+        $this->changeStatusByUser($validated, $this->origin_status->value);
+        $validated['decision_image'] = $this->updateImage($this->decision_image, $this->old_decision_image, 'decision-images');
+        // dd($validated);
 
         $this->origin->update($validated);
         $this->dispatch('refresh-list-origin');
@@ -165,9 +208,7 @@ trait OriginTrait
     public function deleteOrigin($id)
     {
         $origin = Origin::findOrFail($id);
-        if ($origin->decision_image) {
-            Storage::disk('public')->delete($origin->decision_image);
-        }
+        $this->deleteImage($origin->decision_image);
         $origin->delete();
         $this->dispatch('refresh-list-origin');
         $this->successNotify(__('site.origin_deleted'));
@@ -178,16 +219,28 @@ trait OriginTrait
     public function bulkDeleteOrigin($arr)
     {
         $origins = Origin::whereIn('id', $arr);
-        foreach ($origins as $origin) {
-            if ($origin->decision_image) {
-                Storage::disk('public')->delete($origin->decision_image);
-            }
-        }
+        $images = $origins->pluck('decision_image')->filter()->unique();
+        $this->bulkDeleteImages($images);
         $origins->delete();
         $this->dispatch('refresh-list-origin');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.origin_delete_all'));
         $this->bulk_delete_modal = false;
         $this->reset();
+    }
+
+    private function changeStatusByUser(&$validated, $status)
+    {
+        $statusUserMap = [
+            'inprogress' => 'created_by',
+            'revision'   => 'revised_by',
+            'completed'  => 'completed_by',
+        ];
+
+        if (is_string($status) && array_key_exists($status, $statusUserMap)) {
+            $field = $statusUserMap[$status];
+
+            $validated[$field] = auth()->id();
+        }
     }
 }

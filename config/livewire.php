@@ -71,7 +71,7 @@ return [
         'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
             'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
             'mov', 'avi', 'wmv', 'mp3', 'm4a',
-            'jpg', 'jpeg', 'mpga', 'webp', 'wma','xlsx','doc','docx','csv', 'pdf',
+            'jpg', 'jpeg', 'mpga', 'webp', 'wma','xlsx','doc','docx','csv', 'pdf', 'txt', 'odt', 'xls',
             'image/jpeg', 'image/png', 'image/gif', 'application/pdf',
         ],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...

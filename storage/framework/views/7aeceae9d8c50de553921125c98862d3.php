@@ -83,6 +83,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -145,6 +146,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -207,6 +209,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -273,6 +276,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -296,14 +300,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'total_area_allocated','placeholder' => ''.e(__('site.total_area_allocated')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'total_area_allocated','placeholder' => ''.e(__('site.total_area_allocated')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'total_area_allocated','placeholder' => ''.e(__('site.total_area_allocated')).'']); ?>
+<?php $component->withAttributes(['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'total_area_allocated','placeholder' => ''.e(__('site.total_area_allocated')).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -335,6 +339,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -358,14 +363,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'total_area_coords','placeholder' => ''.e(__('site.total_area_coords')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'total_area_coords','placeholder' => ''.e(__('site.total_area_coords')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'total_area_coords','placeholder' => ''.e(__('site.total_area_coords')).'']); ?>
+<?php $component->withAttributes(['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'total_area_coords','placeholder' => ''.e(__('site.total_area_coords')).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -397,6 +402,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -463,6 +469,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -486,14 +493,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['class' => 'mt-1 block w-full','wire:model' => 'government_id','wire:change' => 'cities']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.select','data' => ['class' => 'mt-1 block w-full','wire:model.live.debounce.200ms' => 'government_id']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('select'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'mt-1 block w-full','wire:model' => 'government_id','wire:change' => 'cities']); ?>
+<?php $component->withAttributes(['class' => 'mt-1 block w-full','wire:model.live.debounce.200ms' => 'government_id']); ?>
                         <option value=""><?php echo e(__('site.select')); ?></option>
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = $this->governments(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <option value="<?php echo e($key); ?>"><?php echo e($val); ?></option>
@@ -529,6 +536,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -551,7 +559,7 @@
 <?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
 <?php endif; ?>
                     <div class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"
-                        wire:loading wire:target="cities">
+                        wire:loading wire:target="government_id">
                     </div>
                     <?php if (isset($component)) { $__componentOriginaled2cde6083938c436304f332ba96bb7c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginaled2cde6083938c436304f332ba96bb7c = $attributes; } ?>
@@ -598,6 +606,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -660,6 +669,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -681,27 +691,26 @@
 <?php $component = $__componentOriginald8ba2b4c22a13c55321e34443c386276; ?>
 <?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
 <?php endif; ?>
-                    <div class="flex justify-between mt-2">
+                    <div class="flex mt-2">
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Enums\LocationStatus::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model="location_status" value="<?php echo e($status->value); ?>"
-                                class="hidden peer">
+                            <input type="radio" wire:model.live.debounce.200ms="location_status"
+                                value="<?php echo e($status->value); ?>" class="hidden peer">
 
-                            <div class="flex items-center justify-center px-4 py-2 rounded-lg border
-                                    peer-checked:border-2
-                                    peer-checked:p-1
-                                    font-semibold
-                                    transition
+                            <div class="text-white 
+                                    <?php echo e($loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none'); ?>
+
+                                    <?php echo e($loop->last ? 'rtl:rounded-l ltr:rounded-r' : 'rounded-none'); ?>
+
+                                    <?php echo e($location_status == $status ? 'opacity-100' : 'opacity-50'); ?>
+
                                     <?php echo e($status->color()); ?>">
-
                                 <?php echo e($status->label()); ?>
 
                             </div>
                         </label>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </div>
-
-                    
                     <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['for' => 'location_status','class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -723,6 +732,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -785,6 +795,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -808,14 +819,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'executing_entity_num','placeholder' => ''.e(__('site.executing_entity_num')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'executing_entity_num','placeholder' => ''.e(__('site.executing_entity_num')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'executing_entity_num','placeholder' => ''.e(__('site.executing_entity_num')).'']); ?>
+<?php $component->withAttributes(['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'executing_entity_num','placeholder' => ''.e(__('site.executing_entity_num')).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -847,6 +858,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -870,14 +882,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'available_area','placeholder' => ''.e(__('site.available_area')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'available_area','placeholder' => ''.e(__('site.available_area')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'available_area','placeholder' => ''.e(__('site.available_area')).'']); ?>
+<?php $component->withAttributes(['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'available_area','placeholder' => ''.e(__('site.available_area')).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -909,6 +921,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -932,14 +945,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'vacant_buildings','placeholder' => ''.e(__('site.vacant_buildings')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'vacant_buildings','placeholder' => ''.e(__('site.vacant_buildings')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'vacant_buildings','placeholder' => ''.e(__('site.vacant_buildings')).'']); ?>
+<?php $component->withAttributes(['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'vacant_buildings','placeholder' => ''.e(__('site.vacant_buildings')).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -971,6 +984,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -994,14 +1008,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'remaining_area','placeholder' => ''.e(__('site.remaining_area')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'remaining_area','placeholder' => ''.e(__('site.remaining_area')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'number','class' => 'mt-1 block w-full','wire:model' => 'remaining_area','placeholder' => ''.e(__('site.remaining_area')).'']); ?>
+<?php $component->withAttributes(['type' => 'text','class' => 'mt-1 block w-full','wire:model' => 'remaining_area','placeholder' => ''.e(__('site.remaining_area')).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -1033,6 +1047,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -1054,24 +1069,26 @@
 <?php $component = $__componentOriginald8ba2b4c22a13c55321e34443c386276; ?>
 <?php unset($__componentOriginald8ba2b4c22a13c55321e34443c386276); ?>
 <?php endif; ?>
-                    <div class="flex justify-between mt-2">
+                    <div class="flex mt-2">
                         <!--[if BLOCK]><![endif]--><?php $__currentLoopData = \App\Enums\OriginStatus::cases(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $status): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model="origin_status" value="<?php echo e($status->value); ?>"
-                                class="hidden peer">
+                            <input type="radio" wire:model.live.debounce.200ms="origin_status"
+                                value="<?php echo e($status->value); ?>" class="hidden peer">
 
-                            <div class="flex items-center justify-center px-4 py-2 rounded-lg border
-                                    peer-checked:border-2 peer-checked:p-1
-                                    font-semibold transition
-                                    <?php echo e($status->color()); ?>">
+                            <div class="text-white 
+                                <?php echo e($loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none'); ?>
 
+                                <?php echo e($loop->last ? 'rtl:rounded-l ltr:rounded-r' : 'rounded-none'); ?>
+
+                                <?php echo e($origin_status == $status ? 'opacity-100' : 'opacity-50'); ?>
+
+                                <?php echo e($status->color()); ?>">
                                 <?php echo e($status->label()); ?>
 
                             </div>
                         </label>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><!--[if ENDBLOCK]><![endif]-->
                     </div>
-                    
                     <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['for' => 'origin_status','class' => 'mt-2']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -1094,6 +1111,7 @@
 <?php endif; ?>
                 </div>
             </div>
+
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
@@ -1118,14 +1136,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginal4727f9fd7c3055c2cf9c658d89b16886 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4727f9fd7c3055c2cf9c658d89b16886 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.textarea','data' => ['class' => 'mt-1 block w-full','wire:model' => 'notes','placeholder' => ''.e(__('site.notes')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.textarea','data' => ['class' => 'mt-1 block w-full','wire:model.lazy' => 'notes','placeholder' => ''.e(__('site.notes')).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('textarea'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['class' => 'mt-1 block w-full','wire:model' => 'notes','placeholder' => ''.e(__('site.notes')).'']); ?>
+<?php $component->withAttributes(['class' => 'mt-1 block w-full','wire:model.lazy' => 'notes','placeholder' => ''.e(__('site.notes')).'']); ?>
                      <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal4727f9fd7c3055c2cf9c658d89b16886)): ?>
@@ -1157,6 +1175,7 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                 </div>
+
                 <div class="mt-2">
                     <?php if (isset($component)) { $__componentOriginald8ba2b4c22a13c55321e34443c386276 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginald8ba2b4c22a13c55321e34443c386276 = $attributes; } ?>
@@ -1180,14 +1199,14 @@
 <?php endif; ?>
                     <?php if (isset($component)) { $__componentOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1 = $attributes; } ?>
-<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'file','class' => 'mt-1 block w-full','wire:model' => 'decision_image']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input','data' => ['type' => 'file','class' => 'mt-1 block w-full','wire:model.lazy' => 'decision_image']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
 <?php $component->withName('input'); ?>
 <?php if ($component->shouldRender()): ?>
 <?php $__env->startComponent($component->resolveView(), $component->data()); ?>
 <?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(Illuminate\View\AnonymousComponent::class))->getConstructor()): ?>
 <?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
 <?php endif; ?>
-<?php $component->withAttributes(['type' => 'file','class' => 'mt-1 block w-full','wire:model' => 'decision_image']); ?>
+<?php $component->withAttributes(['type' => 'file','class' => 'mt-1 block w-full','wire:model.lazy' => 'decision_image']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginalc2fcfa88dc54fee60e0757a7e0572df1)): ?>
@@ -1219,35 +1238,49 @@
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
                     <?php
-                    $extension = pathinfo($decision_image, PATHINFO_EXTENSION);
-                    $icons = [
-                    'xlsx' => asset('icons/icon-excel.png'),
-                    'xls' => asset('icons/icon-excel.png'),
-                    'pdf' => asset('icons/icon-pdf.png'),
-                    'doc' => asset('icons/icon-word.png'),
-                    'docx' => asset('icons/icon-word.png'),
-                    ];
-                    $icon = $icons[$extension] ?? asset('icons/icon-file.png');
+                        $file = $decision_image ?? $old_decision_image;
+                        $isTemporary = isset($decision_image);
+                        $extension = pathinfo($isTemporary ? $decision_image->getClientOriginalName() : $file,
+                        PATHINFO_EXTENSION);
+
+                        $availableExts = ['png', 'jpg', 'gif', 'jpeg', 'webp'];
+                        
+                        $icons = [
+                        'xlsx' => asset('icons/icon-excel.png'),
+                        'xls' => asset('icons/icon-excel.png'),
+                        'csv' => asset('icons/icon-excel.png'),
+                        'pdf' => asset('icons/icon-pdf.png'),
+                        'doc' => asset('icons/icon-word.png'),
+                        'docx' => asset('icons/icon-word.png'),
+                        'odt' => asset('icons/icon-word.png'),
+                        ];
+
+                        $icon = $icons[strtolower($extension)] ?? asset('icons/icon-file.png');
+                        $fileName = $isTemporary ? $decision_image->getClientOriginalName() : basename($file);
+                        $fileUrl = $isTemporary ? $decision_image->temporaryUrl(now()->addMinutes(10)) : asset('storage/' . $file);
                     ?>
-                    <!--[if BLOCK]><![endif]--><?php if($decision_image): ?>
-                    <div class="mt-4 flex items-center">
-                        <img src="<?php echo e($icon); ?>" alt="<?php echo e($extension); ?> Icon" class="w-8 h-8 mr-2">
-                        <span><?php echo e($decision_image->temporaryUrl()); ?></span>
-                    </div>
-                    <!-- <div class="mt-4">
-                        <h4>Preview of Uploaded PDF:</h4>
-                        <iframe src="<?php echo e($decision_image->temporaryUrl()); ?>" width="100%" height="600px"></iframe>
-                    </div> -->
-                    <?php elseif($old_decision_image): ?>
-                    <div class="mt-4 flex items-center">
-                        <img src="<?php echo e($icon); ?>" alt="<?php echo e($extension); ?> Icon" class="w-8 h-8 mr-2">
-                        <span><?php echo e($old_decision_image); ?></span>
-                    </div>
-                    <div class="mt-4">
-                        <h4>Preview of Uploaded PDF:</h4>
-                        <iframe src="<?php echo e(asset('storage/' . $old_decision_image)); ?>" width="100%"
-                            height="600px"></iframe>
-                    </div>
+
+                    <!--[if BLOCK]><![endif]--><?php if($file): ?>
+                        <div class="mt-4 flex items-center">
+                            <img src="<?php echo e($icon); ?>" alt="<?php echo e($extension); ?> Icon" class="w-8 h-8 mr-2">
+                            <span class="truncate max-w-xs" title="<?php echo e($fileName); ?>"><?php echo e($fileName); ?></span>
+                        </div>
+
+                        <!--[if BLOCK]><![endif]--><?php if(strtolower($extension) === 'pdf'): ?>
+                            <div class="mt-4">
+                                <h4 class="font-semibold">Preview of Uploaded PDF:</h4>
+                                
+
+                                <iframe src="<?php echo e($fileUrl); ?>" width="100%" height="600px" class="border rounded shadow"></iframe>
+                            </div>
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
+
+                        <!--[if BLOCK]><![endif]--><?php if(in_array(strtolower($extension), $availableExts) || method_exists($fileUrl, 'temporaryUrl')): ?>
+                            <div class="mt-4">
+                                <h4 class="font-semibold">Preview of Uploaded:</h4>
+                                <img src="<?php echo e($fileUrl); ?>" alt="Preview of Uploaded" width="100%" height="600px">
+                            </div>
+                        <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                     <?php endif; ?><!--[if ENDBLOCK]><![endif]-->
                 </div>
             </div>

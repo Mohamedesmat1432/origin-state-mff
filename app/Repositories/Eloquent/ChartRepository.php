@@ -10,7 +10,7 @@ class ChartRepository implements ChartRepositoryInterface
     public function generateDataByDate($modelClass, $label, $dateColumn = 'created_at')
     {
         // Fetch data for the User model grouped by month
-        $monthlyData = $modelClass::selectRaw("MONTH({$dateColumn}) as month, COUNT(*) as count")
+        $data = $modelClass::selectRaw("MONTH({$dateColumn}) as month, COUNT(*) as count")
             ->groupBy('month')
             ->get()
             ->mapWithKeys(function ($item) {
@@ -18,36 +18,18 @@ class ChartRepository implements ChartRepositoryInterface
             });
 
         // Prepare the chart data structure
-        $colors = collect([
-            '#3b82f6',
-            '#10b981',
-            '#f59e0b',
-            '#ef4444',
-            '#8b5cf6',
-            '#ec4899',
-            '#22d3ee'
-        ])->pad(count($monthlyData), '#a3a3a3');
-
-        $borderColors = collect([
-            '#3b82f6',
-            '#10b981',
-            '#f59e0b',
-            '#ef4444',
-            '#8b5cf6',
-            '#ec4899',
-            '#22d3ee'
-        ])->pad(count($monthlyData), '#a3a3a3');
+        $colors = $this->generateRandomColors(count($data));
 
         return [
-            'labels' => $monthlyData->keys(),
+            'labels' => $data->keys(),
             'datasets' => [
                 [
                     'label' => $label,
                     'backgroundColor' => $colors,
-                    'borderColor' => $borderColors,
+                    'borderColor' => $colors,
                     'hoverOffset' => 4,
                     'borderWidth' => 1,
-                    'data' => $monthlyData->values(),
+                    'data' => $data->values(),
                 ],
             ],
         ];
@@ -56,9 +38,11 @@ class ChartRepository implements ChartRepositoryInterface
     public function generateDataByRelation($modelClass, $label, $groupBy)
     {
         // Fetch data for the User model grouped by month
-        $monthlyData = $modelClass::with([$groupBy])
+        $data = $modelClass::with([$groupBy])
             ->get()
             ->groupBy(function ($origin) use ($groupBy) {
+                // return optional($origin->{$groupBy})->name ?? 'Unknown';
+
                 switch ($groupBy) {
                     case 'government':
                         return optional($origin->{$groupBy})->name ?? 'Unknown';
@@ -77,38 +61,27 @@ class ChartRepository implements ChartRepositoryInterface
             ->map(fn($group) => $group->count());
 
         // Prepare the chart data structure
-        $colors = collect([
-            '#3b82f6',
-            '#10b981',
-            '#f59e0b',
-            '#ef4444',
-            '#8b5cf6',
-            '#ec4899',
-            '#22d3ee'
-        ])->pad(count($monthlyData), '#a3a3a3');
-
-        $borderColors = collect([
-            '#3b82f6',
-            '#10b981',
-            '#f59e0b',
-            '#ef4444',
-            '#8b5cf6',
-            '#ec4899',
-            '#22d3ee'
-        ])->pad(count($monthlyData), '#a3a3a3');
+        $colors = $this->generateRandomColors(count($data));
 
         return [
-            'labels' => $monthlyData->keys(),
+            'labels' => $data->keys(),
             'datasets' => [
                 [
                     'label' => $label,
                     'backgroundColor' => $colors,
-                    'borderColor' => $borderColors,
+                    'borderColor' => $colors,
                     'hoverOffset' => 4,
                     'borderWidth' => 1,
-                    'data' => $monthlyData->values(),
+                    'data' => $data->values(),
                 ],
             ],
         ];
+    }
+
+    public function generateRandomColors($count)
+    {
+        return collect(range(1, $count))->map(function () {
+            return 'rgba(' . rand(0,255) . ',' . rand(0,255) . ',' . rand(0,255) . ',0.6)';
+        })->toArray();
     }
 }

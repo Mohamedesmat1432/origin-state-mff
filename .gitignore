@@ -48,3 +48,10 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+
+/storage/*.sql
+/storage/app/backup/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/views/
+/storage/logs/

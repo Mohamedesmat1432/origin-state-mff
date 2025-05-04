@@ -10,8 +10,9 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\FromQuery;
 
-class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldAutoSize, WithMapping
+class OriginsExport implements FromQuery, WithHeadings, WithStyles, ShouldAutoSize, WithMapping
 {
     use Exportable;
 
@@ -19,30 +20,36 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
      * @return \Illuminate\Support\Collection
      */
 
-    protected $search = '';
     protected $originalCoulmns = false;
 
-    public function __construct($search)
+    protected $livewire;
+
+    public function __construct($livewire)
     {
-        $this->search = $search;
+        $this->livewire = $livewire;
+    }
+
+    public function query()
+    {
+        return $this->livewire;
     }
 
     public function styles(Worksheet $sheet)
     {
-        $sheet->getStyle('A1:BF' . Origin::count() + 1)->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1:BF' . (Origin::count() + 1))->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A1:BF1')->getFont()->setBold(true);
         return;
     }
 
-    public function collection()
-    {
-        return Origin::search($this->search)->get();
-    }
+    // public function collection()
+    // {
+    //     return Origin::search($this->search)->get();
+    // }
 
     public function map($origin): array
     {
         return [
-            $origin->id,
+            // $origin->id,
             $origin->project?->name,
             $origin->decision_num,
             $origin->decision_date,
@@ -62,6 +69,9 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
             $origin->notes,
             $origin->origin_status->label(),
             $origin->decision_image,
+            $origin->createdBy?->name,
+            $origin->revisedBy?->name,
+            $origin->completedBy?->name,
         ];
     }
 
@@ -69,7 +79,7 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
     {
         if ($this->originalCoulmns) {
             return [
-                __('site.id'),
+                // __('site.id'),
                 __('site.project_id'),
                 __('site.decision_num'),
                 __('site.decision_date'),
@@ -89,10 +99,13 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
                 __('site.notes'),
                 __('site.origin_status'),
                 __('site.decision_image'),
+                __('site.created_by'),
+                __('site.revised_by'),
+                __('site.completed_by'),
             ];
         } else {
             return [
-                'id',
+                // 'id',
                 'project_id',
                 'decision_num',
                 'decision_date',
@@ -112,6 +125,9 @@ class OriginsExport implements FromCollection, WithHeadings, WithStyles, ShouldA
                 'notes',
                 'origin_status',
                 'decision_image',
+                'created_by',
+                'revised_by',
+                'completed_by',
             ];
         }
     }
