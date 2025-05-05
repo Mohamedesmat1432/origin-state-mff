@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\LocationStatus;
 use App\Enums\OriginStatus;
+use App\Helpers\Helper;
 use App\Observers\OriginObserver;
 use App\Traits\LoggableTrait;
 use App\Traits\UuidTrait;
@@ -55,6 +56,8 @@ class Origin extends Model
 
     public function getColumnValue(string $key): mixed
     {
+        $file = Helper::getFilePreviewDetails($this->decision_image);
+        
         return match ($key) {
             'project_id' => $this->project?->name,
             'decision_type_id' => $this->decisionType?->name,
@@ -66,6 +69,7 @@ class Origin extends Model
             'completed_by' => $this->completedBy?->name,
             'location_status' => '<span class="rounded ' . $this->location_status->color() . '">' . $this->location_status->label() . '</span>',
             'origin_status' => '<span class="rounded ' . $this->origin_status->color() . '">' . $this->origin_status->label() . '</span>',
+            'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px;"/>' : '',
             default => e(data_get($this, $key)),
         };
     }

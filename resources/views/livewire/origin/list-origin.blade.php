@@ -2,25 +2,25 @@
     <x-page-content page-name="{{ __('site.origins') }}">
 
         @can('create-origin')
-        <livewire:origin.create-origin />
+            <livewire:origin.create-origin />
         @endcan
         @can('show-origin')
-        <livewire:origin.show-origin />
+            <livewire:origin.show-origin />
         @endcan
         @can('edit-origin')
-        <livewire:origin.update-origin />
+            <livewire:origin.update-origin />
         @endcan
         @can('delete-origin')
-        <livewire:origin.delete-origin />
+            <livewire:origin.delete-origin />
         @endcan
         @can('bulk-delete-origin')
-        <livewire:origin.bulk-delete-origin />
+            <livewire:origin.bulk-delete-origin />
         @endcan
         @can('import-origin')
-        <livewire:origin.import-origin />
+            <livewire:origin.import-origin />
         @endcan
         @can('export-origin')
-        <livewire:origin.export-origin />
+            <livewire:origin.export-origin />
         @endcan
 
         <div class="p-6 bg-white border-b border-gray-200 rounded-md">
@@ -40,23 +40,26 @@
 
                 <div class="filter md:flex justify-around">
                     <div class="flex mt-2">
-                        @foreach(\App\Enums\OriginStatus::cases() as $status)
-                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model.live.debounce.200ms="filter_origin_status"
-                                value="{{ $status->value }}" class="hidden peer">
+                        @foreach (\App\Enums\OriginStatus::cases() as $status)
+                            <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                                <input type="radio" wire:model.live.debounce.200ms="filter_origin_status"
+                                    value="{{ $status->value }}" class="hidden peer">
 
-                            <div class="text- {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
+                                <div
+                                    class="text- {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
                                     {{ $filter_origin_status == $status->value ? 'opacity-100' : 'opacity-50' }}
                                     {{ $status->color() }}">
-                                {{ $status->label() }}
-                                ({{ $status->count() }})
-                            </div>
-                        </label>
+                                    {{ $status->label() }}
+                                    ({{ $status->count() }})
+                                </div>
+                            </label>
                         @endforeach
                         <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model.live.debounce.200ms="filter_origin_status" value="" class="hidden peer">
+                            <input type="radio" wire:model.live.debounce.200ms="filter_origin_status" value=""
+                                class="hidden peer">
 
-                            <div class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
+                            <div
+                                class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
                                 {{ __('site.all') }}
                                 ({{ $this->originsCount() }})
                             </div>
@@ -64,23 +67,26 @@
                     </div>
 
                     <div class="flex mt-2">
-                        @foreach(\App\Enums\LocationStatus::cases() as $status)
-                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model.live.debounce.200ms="filter_location_status"
-                                value="{{ $status->value }}" class="hidden peer">
+                        @foreach (\App\Enums\LocationStatus::cases() as $status)
+                            <label class="relative cursor-pointer hover:bg-gray-50 transition">
+                                <input type="radio" wire:model.live.debounce.200ms="filter_location_status"
+                                    value="{{ $status->value }}" class="hidden peer">
 
-                            <div class="text- {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
+                                <div
+                                    class="text- {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
                                     {{ $filter_location_status == $status->value ? 'opacity-100' : 'opacity-50' }}
                                     {{ $status->color() }}">
-                                {{ $status->label() }}
-                                ({{ $status->count() }})
-                            </div>
-                        </label>
+                                    {{ $status->label() }}
+                                    ({{ $status->count() }})
+                                </div>
+                            </label>
                         @endforeach
                         <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model.live.debounce.200ms="filter_location_status" value="" class="hidden peer">
+                            <input type="radio" wire:model.live.debounce.200ms="filter_location_status" value=""
+                                class="hidden peer">
 
-                            <div class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
+                            <div
+                                class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
                                 {{ __('site.all') }}
                                 ({{ $this->originsCount() }})
                             </div>
@@ -90,7 +96,7 @@
 
                 <div class="mt-2">
                     @can('bulk-delete-origin')
-                    <x-bulk-delete-button />
+                        <x-bulk-delete-button />
                     @endcan
                 </div>
 
@@ -98,20 +104,21 @@
                     <x-slot name="thead">
                         <tr>
                             @can('bulk-delete-origin')
-                            <th class="px-4 py-2 border">
-                                <div class="text-center">
-                                    <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
-                                </div>
-                            </th>
+                                <th class="px-4 py-2 border">
+                                    <div class="text-center">
+                                        <x-checkbox wire:click="checkboxAll" wire:model.live="checkbox_status" />
+                                    </div>
+                                </th>
                             @endcan
 
                             @foreach ($columns as $col)
-                            <th class="px-4 py-2 border ">
-                                <button wire:click="sortByField('{{ $col['key'] }}')">
-                                    {{ $col['label'] }}
-                                </button>
-                                <x-sort-icon sort_field="{{ $col['key'] }}" :sort_by="$sort_by" :sort_asc="$sort_asc" />
-                            </th>
+                                <th class="px-4 py-2 border ">
+                                    <button wire:click="sortByField('{{ $col['key'] }}')">
+                                        {{ $col['label'] }}
+                                    </button>
+                                    <x-sort-icon sort_field="{{ $col['key'] }}" :sort_by="$sort_by"
+                                        :sort_asc="$sort_asc" />
+                                </th>
                             @endforeach
 
                             <th class="px-4 py-2 border">
@@ -123,42 +130,42 @@
                     </x-slot>
                     <x-slot name="tbody">
                         @forelse ($origins as $origin)
-                        <tr wire:key="origin-{{ $origin->id }}" class="odd:bg-gray-100">
-                            @can('bulk-delete-origin')
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $origin->id }}" />
-                            </td>
-                            @endcan
+                            <tr wire:key="origin-{{ $origin->id }}" class="odd:bg-gray-100">
+                                @can('bulk-delete-origin')
+                                    <td class="p-2 border">
+                                        <x-checkbox wire:model.live="checkbox_arr" value="{{ $origin->id }}" />
+                                    </td>
+                                @endcan
 
-                            @foreach($columns as $col)
-                            <td class="p-2 border">
-                                {!! $origin->getColumnValue($col['key']) !!}
-                            </td>
-                            @endforeach
+                                @foreach ($columns as $col)
+                                    <td class="p-2 border">
+                                        {!! $origin->getColumnValue($col['key']) !!}
+                                    </td>
+                                @endforeach
 
-                            <td class="p-2 border">
-                                <div class="flex justify-center">
-                                    <x-show-button permission="show-origin" id="{{ $origin->id }}" />
-                                    <div class="mx-1"></div>
-                                    <x-edit-button permission="edit-origin" id="{{ $origin->id }}" />
-                                    <div class="mx-1"></div>
-                                    <x-delete-button permission="delete-origin" id="{{ $origin->id }}"
-                                        name="{{ $origin->decision_num }}" />
-                                </div>
-                            </td>
-                        </tr>
+                                <td class="p-2 border">
+                                    <div class="flex justify-center">
+                                        <x-show-button permission="show-origin" id="{{ $origin->id }}" />
+                                        <div class="mx-1"></div>
+                                        <x-edit-button permission="edit-origin" id="{{ $origin->id }}" />
+                                        <div class="mx-1"></div>
+                                        <x-delete-button permission="delete-origin" id="{{ $origin->id }}"
+                                            name="{{ $origin->decision_num }}" />
+                                    </div>
+                                </td>
+                            </tr>
                         @empty
-                        <tr>
-                            <td colspan="22" class="p-2 border text-center">
-                                {{ __('site.no_data_found') }}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="22" class="p-2 border text-center">
+                                    {{ __('site.no_data_found') }}
+                                </td>
+                            </tr>
                         @endforelse
                     </x-slot>
                 </x-table>
 
                 @if ($origins->hasPages())
-                <x-paginate :data-links="$origins->links()" />
+                    <x-paginate :data-links="$origins->links()" />
                 @endif
             </div>
         </div>

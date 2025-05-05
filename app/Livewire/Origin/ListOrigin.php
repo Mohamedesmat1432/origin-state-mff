@@ -12,11 +12,9 @@ class ListOrigin extends Component
 {
     use OriginTrait;
 
-    public array $columns = [];
-
-    public function mount()
+    public function columns()
     {
-        $this->columns = [
+        return [
             ['key' => 'id', 'label' => __('site.id')],
             ['key' => 'project_id', 'label' => __('site.project_id')],
             ['key' => 'decision_num', 'label' => __('site.decision_num')],
@@ -35,6 +33,7 @@ class ListOrigin extends Component
             ['key' => 'vacant_buildings', 'label' => __('site.vacant_buildings')],
             ['key' => 'remaining_area', 'label' => __('site.remaining_area')],
             ['key' => 'notes', 'label' => __('site.notes')],
+            ['key' => 'decision_image', 'label' => __('site.decision_image')],
             ['key' => 'origin_status', 'label' => __('site.origin_status')],
             ['key' => 'created_by', 'label' => __('site.created_by')],
             ['key' => 'revised_by', 'label' => __('site.revised_by')],
@@ -53,6 +52,7 @@ class ListOrigin extends Component
 
         return view('livewire.origin.list-origin', [
             'origins' => $origins,
+            'columns' => $this->columns(),
         ]);
     }
 }

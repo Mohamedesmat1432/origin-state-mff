@@ -77,7 +77,7 @@
                                 type: this.chartType,  // Use the current chart type (e.g., doughnut, bar, line)
                                 data: this.chartData,  // Use the current chart data
                                 options: {
-                                    responsive: true,  // Allow the chart to resize responsively
+                                    responsive: false,  // Allow the chart to resize responsively
                                     maintainAspectRatio: true,  // Maintain aspect ratio
                                     animation: {
                                         duration: 0, // Disable animations for better performance and stability

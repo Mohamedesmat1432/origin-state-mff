@@ -1,2 +1,0 @@
-composer global require cretueusebiu/valet-windows
-
