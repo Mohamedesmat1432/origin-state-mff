@@ -13,28 +13,104 @@ class ExportOrigin extends Component
 {
     use OriginTrait;
 
+    public $selected_columns = [];
+
+    public $export_status = false;
+
+    public $available_columns = [
+        'project_id',
+        'decision_num',
+        'decision_date',
+        'decision_type_id',
+        'total_area_allocated',
+        'total_area_coords',
+        'statement_id',
+        'used_area',
+        'executing_entity_num',
+        'government_id',
+        'city_id',
+        'location',
+        'location_status',
+        'available_area',
+        'vacant_buildings',
+        'remaining_area',
+        'notes',
+        'origin_status',
+        'decision_image',
+        'created_by',
+        'revised_by',
+        'completed_by',
+    ];
+
     #[On('export-modal')]
     public function exportModal()
     {
+        $this->resetForm();
         $this->export_modal = true;
+    }
+
+    public function selectAllColumns()
+    {
+        $this->selected_columns =  empty($this->selected_columns) ? $this->available_columns : [];
     }
 
     public function export()
     {
         try {
+            // Ensure at least one column is selected
+            if (empty($this->selected_columns)) {
+                $this->errorNotify(__('site.please_select_at_least_one_column'));
+                return;
+            }
+
+            $query = $this->getFilteredQuery();
+
+            // Check if any records exist before exporting
+            if ($query->count() === 0) {
+                $this->errorNotify(__('site.no_data_found_for_export'));
+                return;
+            }
+
+            $columns = $this->selected_columns ?: $this->available_columns;
+
+            // Export and return
+            $file = (new OriginsExport($query, $columns, $this->export_status))
+                ->download('origins_export.' . $this->extension);
+
+            $this->resetForm();
+
             $this->export_modal = false;
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_exported'));
-            return (new OriginsExport($this->getFilteredQuery()))->download('origin.' . $this->extension);
+
+            return $file;
         } catch (\Throwable $e) {
             $this->errorNotify($e->getMessage());
         }
     }
-    
+
+    protected function resetForm()
+    {
+        $this->reset([
+            'search',
+            'selected_columns',
+            'available_columns',
+            'extension',
+            'export_status',
+            'government_id',
+            'city_id',
+            'selected_project_ids',
+            'selected_statement_ids',
+            'selected_decision_type_ids',
+            'filter_origin_status',
+            'filter_location_status',
+        ]);
+    }
+
     public function render()
     {
         $this->authorize('export-origin');
-        
+
         return view('livewire.origin.export-origin');
     }
 }

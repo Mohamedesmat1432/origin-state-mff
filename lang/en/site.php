@@ -445,4 +445,10 @@ return [
     'created_by' => 'Created By',
     'revised_by' => 'Revised By',
     'completed_by' => 'Completed By',
+    'please_select_at_least_one_column' => 'Please select at least one column',
+    'choose_columns_to_export' => 'Choose Columns To Export',
+    'no_data_found_for_export' => 'No data found for export',
+    'select_all' => 'Select All',
+    'export_to_import' => 'Export To Import',
+    'export_only' => 'Export Only',
 ];

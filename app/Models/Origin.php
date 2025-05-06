@@ -57,7 +57,7 @@ class Origin extends Model
     public function getColumnValue(string $key): mixed
     {
         $file = Helper::getFilePreviewDetails($this->decision_image);
-        
+
         return match ($key) {
             'project_id' => $this->project?->name,
             'decision_type_id' => $this->decisionType?->name,
@@ -116,32 +116,62 @@ class Origin extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function scopeSearch($query, $search)
+    public function scopeSearch($query, $search, $governmentId, $cityId, $projectIds = [], $statementIds = [], $decisionTypeIds = [])
     {
-        return $query->when($search, function ($query) use ($search) {
-            $query->where('total_area_allocated', 'like', "%{$search}%")
-                ->orWhere('total_area_coords', 'like', "%{$search}%")
-                ->orWhere('decision_num', 'like', "%{$search}%")
-                ->orWhere('decision_date', 'like', "%{$search}%")
-                ->orWhere('location', 'like', "%{$search}%")
-                ->orWhere('used_area', 'like', "%{$search}%")
-                ->orWhere('executing_entity_num', 'like', "%{$search}%")
-                ->orWhere('available_area', 'like', "%{$search}%")
-                ->orWhere('vacant_buildings', 'like', "%{$search}%")
-                ->orWhere('remaining_area', 'like', "%{$search}%")
-                ->orWhere('id', 'like', "%{$search}%")
-                ->orWhereHas('decisionType', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                })->orWhereHas('project', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                })->orWhereHas('statement', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                })->orWhereHas('government', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                })->orWhereHas('city', function ($query) use ($search) {
-                    $query->where('name', 'like', "%{$search}%");
-                });
+        // Basic column search
+        $query->when($search, function ($query) use ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('total_area_allocated', 'like', "%{$search}%")
+                    ->orWhere('total_area_coords', 'like', "%{$search}%")
+                    ->orWhere('decision_num', 'like', "%{$search}%")
+                    ->orWhere('decision_date', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhere('used_area', 'like', "%{$search}%")
+                    ->orWhere('executing_entity_num', 'like', "%{$search}%")
+                    ->orWhere('available_area', 'like', "%{$search}%")
+                    ->orWhere('vacant_buildings', 'like', "%{$search}%")
+                    ->orWhere('remaining_area', 'like', "%{$search}%")
+                    ->orWhere('id', 'like', "%{$search}%");
+            });
         });
+
+        $query->when(!empty($governmentId), function ($q) use ($governmentId) {
+            $q->whereHas('government', function ($q2) use ($governmentId) {
+                $q2->where('id', $governmentId);
+            });
+        });
+
+        $query->when(!empty($cityId), function ($q) use ($cityId) {
+            $q->whereHas('city', function ($q2) use ($cityId) {
+                $q2->where('id', $cityId);
+            });
+        });
+
+        // Relation ID filters
+        $relations = [
+            'project' => $projectIds,
+            'statement' => $statementIds,
+            'decisionType' => $decisionTypeIds,
+        ];
+
+        foreach ($relations as $relation => $ids) {
+            $query->when(!empty($ids), function ($q) use ($relation, $ids) {
+                $q->whereHas($relation, function ($q2) use ($ids) {
+                    $q2->whereIn('id', $ids);
+                });
+            });
+        }
+
+        // Optional: if you want to search relation names too
+        $query->when($search, function ($query) use ($search) {
+            $query->orWhereHas('government', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                ->orWhereHas('city', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                ->orWhereHas('project', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                ->orWhereHas('statement', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                ->orWhereHas('decisionType', fn($q) => $q->where('name', 'like', "%{$search}%"));
+        });
+
+        return $query;
     }
 
     public function scopeFilterByOriginStatus($query, $status)

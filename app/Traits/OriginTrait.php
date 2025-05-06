@@ -3,11 +3,7 @@
 namespace App\Traits;
 
 use App\Models\City;
-use App\Models\Government;
 use App\Models\Origin;
-// use App\Models\Project;
-// use App\Models\DecisionType;
-// use App\Models\Statement;
 use Livewire\Attributes\Url;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -60,6 +56,10 @@ trait OriginTrait
     #[Url()]
     public string $filter_location_status = '';
 
+    public array $selected_project_ids = [];
+    public array $selected_statement_ids = [];
+    public array $selected_decision_type_ids = [];
+
     protected function rules()
     {
         return [
@@ -102,7 +102,14 @@ trait OriginTrait
 
     public function getFilteredQuery()
     {
-        return Origin::with($this->relations)->search($this->search)
+        return Origin::with($this->relations)->search(
+            $this->search,
+            $this->government_id,
+            $this->city_id,
+            $this->selected_project_ids,
+            $this->selected_statement_ids,
+            $this->selected_decision_type_ids
+        )
             ->filterByOriginStatus($this->filter_origin_status)
             ->filterByLocationStatus($this->filter_location_status)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC');
@@ -163,14 +170,31 @@ trait OriginTrait
     {
         $this->origin = Origin::with($this->relations)->findOrFail($id);
         $fields = [
-            'origin_id', 'project_id', 'decision_num', 'decision_date',
-            'decision_type_id', 'total_area_allocated', 'total_area_coords',
-            'executing_entity_num', 'used_area', 'statement_id', 'government_id',
-            'city_id', 'location', 'location_status', 'origin_status',
-            'available_area', 'vacant_buildings', 'remaining_area', 'notes',
-            'old_decision_image' => 'decision_image', 'created_by', 'revised_by', 'completed_by'
+            'origin_id',
+            'project_id',
+            'decision_num',
+            'decision_date',
+            'decision_type_id',
+            'total_area_allocated',
+            'total_area_coords',
+            'executing_entity_num',
+            'used_area',
+            'statement_id',
+            'government_id',
+            'city_id',
+            'location',
+            'location_status',
+            'origin_status',
+            'available_area',
+            'vacant_buildings',
+            'remaining_area',
+            'notes',
+            'old_decision_image' => 'decision_image',
+            'created_by',
+            'revised_by',
+            'completed_by'
         ];
-    
+
         foreach ($fields as $key => $field) {
             $property = is_string($key) ? $key : $field;
             $this->$property = $this->origin->$field ?? null;
@@ -181,7 +205,7 @@ trait OriginTrait
     {
         $validated = $this->validate();
         $this->changeStatusByUser($validated, $this->origin_status);
-        if($this->decision_image) {
+        if ($this->decision_image) {
             $validated['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
         }
         $origin = Origin::create($validated);

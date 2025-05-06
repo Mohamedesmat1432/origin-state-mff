@@ -461,4 +461,10 @@ return [
     'created_by' => 'منفذ بواسطة',
     'revised_by' => 'مراجع بواسطة',
     'completed_by' => 'مكتمل بواسطة',
+    'please_select_at_least_one_column' => 'من فضلك اختر عمود واحد علي الاقل',
+    'choose_columns_to_export' => 'اختر الاعمدة للتصدير',
+    'no_data_found_for_export' => 'لا يوجد بيانات للتصدير',
+    'select_all' => 'اختر الكل',
+    'export_to_import' => 'تصدير للاسترداد',
+    'export_only' => 'تصدير فقط',
 ];
