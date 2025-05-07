@@ -3,18 +3,20 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Storage;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 trait HasImageUpload
 {
+    use WithFileUploads;
+
     /**
      * Store a new image file.
      *
-     * @param TemporaryUploadedFile $image
+     * @param $image
      * @param string $folder
      * @return string
      */
-    protected function storeImage(TemporaryUploadedFile $image, string $folder = 'uploads'): string
+    protected function storeImage($image, string $folder = 'uploads'): string
     {
         return $image->store($folder, 'public');
     }
@@ -22,12 +24,12 @@ trait HasImageUpload
     /**
      * Store or update an image file.
      *
-     * @param TemporaryUploadedFile|null $newImage
+     * @param $newImage
      * @param string|null $oldImagePath
      * @param string $folder
      * @return string|null
      */
-    protected function updateImage(?TemporaryUploadedFile $newImage, ?string $oldImagePath, string $folder = 'uploads'): ?string
+    protected function updateImage($newImage, ?string $oldImagePath, string $folder = 'uploads'): ?string
     {
         if ($newImage) {
             if ($oldImagePath) {

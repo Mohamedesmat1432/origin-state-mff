@@ -16,6 +16,7 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
+      #  - ./docker/php.ini:/usr/local/etc/php/conf.d/custom.ini
     networks:
       app_network_origins_state:
         ipv4_address: 172.28.0.10

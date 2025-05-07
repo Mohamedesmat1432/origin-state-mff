@@ -64,25 +64,25 @@ return [
     */
 
     'temporary_file_upload' => [
-        'disk' => null,        // Example: 'local', 's3'              | Default: 'default'
-        'rules' => null,       // Example: ['file', 'mimes:png,jpg']  | Default: ['required', 'file', 'max:12288'] (12MB)
-        'directory' => null,   // Example: 'tmp'                      | Default: 'livewire-tmp'
-        'middleware' => null,  // Example: 'throttle:5,1'             | Default: 'throttle:60,1'
+        'disk' => env('LIVEWIRE_UPLOAD_DISK', 'public'), 
+        'rules' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf,doc,docx,odt,xlsx,xls,csv,txt,mp3,mp4', 'max:2048'],
+        'directory' => env('LIVEWIRE_UPLOAD_DIRECTORY', 'livewire-tmp'),
+        'middleware' => ['web', 'throttle:30,1'],
         'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...
-            'png', 'gif', 'bmp', 'svg', 'wav', 'mp4',
-            'mov', 'avi', 'wmv', 'mp3', 'm4a',
-            'jpg', 'jpeg', 'mpga', 'webp', 'wma',
-            'xlsx','doc','docx','csv', 'pdf', 'txt', 
+            'bmp', 'svg', 'wav', 'mp4',
+            'mov', 'avi', 'wmv', 'mp3', 'm4a', 'mpga', 'wma',
+            'jpg', 'jpeg', 'png', 'gif', 'webp', 
+            'xlsx','doc','docx','odt','csv', 'pdf', 'txt', 
             'odt', 'xls',
-            'image/jpeg', 
-            'image/png',
-            'image/gif',
-            'image/webp',
+            // 'image/jpeg', 
+            // 'image/png',
+            // 'image/gif',
+            // 'image/webp',
             'application/pdf',
-            'application/msword',
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/vnd.ms-excel',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            // 'application/msword',
+            // 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            // 'application/vnd.ms-excel',
+            // 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ],
         'max_upload_time' => 5, // Max duration (in minutes) before an upload is invalidated...
     ],

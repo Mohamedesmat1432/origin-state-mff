@@ -22,7 +22,7 @@ enum LocationStatus: string
             self::Accept => 'p-2 inline-block text-white bg-yellow-600',
             self::Good => 'p-2 inline-block text-white bg-green-500',
             self::VeryGood => 'p-2 inline-block text-white bg-blue-500',
-            self::Excellent => 'p-2 inline-block text-white bg-red-500',
+            self::Excellent => 'p-2 inline-block text-white bg-purple-600',
         };
     }
 

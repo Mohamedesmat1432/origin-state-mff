@@ -4,6 +4,10 @@ namespace App\Helpers;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class Helper
@@ -68,7 +72,7 @@ class Helper
 
         $extension = strtolower($file->getClientOriginalExtension());
         $icon = self::getFileIcon($extension);
-        $imageExts = self::availableImageExtensions();
+        $imageExts = self::availableExtensionsImageOnly();
 
         return [
             'extension' => $extension,
@@ -92,7 +96,7 @@ class Helper
             'fileName' => $isTemporary ? $file->getClientOriginalName() : basename($file),
             'fileUrl' => $isTemporary ? $file->temporaryUrl(now()->addMinutes(10)) : asset('storage/' . $file),
             'iconUrl' => self::getFileIcon($extension),
-            'isImage' => in_array($extension, self::availableImageExtensions()),
+            'isImage' => in_array($extension, self::availableExtensionsImageOnly()),
             'isPdf' => $extension === 'pdf',
         ];
     }
@@ -101,69 +105,82 @@ class Helper
     {
         if (!$file) return null;
 
-        $isTemporary = $file instanceof TemporaryUploadedFile;
+        try {
+            $isTemporary = $file instanceof TemporaryUploadedFile;
 
-        $extension = strtolower(pathinfo($isTemporary ? $file->getClientOriginalName() : $file, PATHINFO_EXTENSION));
+            // Check file existence
+            if ($isTemporary && !$file->exists()) {
+                logger()->warning('Temporary file does not exist.', ['file' => $file]);
+                return null;
+            }
 
-        $fileName = $isTemporary? $file->getClientOriginalName(): basename($file);
+            if (!$isTemporary && is_string($file) && !Storage::disk('public')->exists($file)) {
+                logger()->warning('Stored file does not exist.', ['file' => $file]);
+                return null;
+            }
 
-        if (!$extension) return null;
+            // Prepare file name and extension
+            $fileName = $isTemporary
+                ? Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) . '.' . $file->getClientOriginalExtension()
+                : basename($file);
 
-        $fileUrl = $isTemporary ? $file->temporaryUrl(now()->addMinutes(10)) : asset('storage/' . ltrim($file, '/'));
-    
-        $icon = self::getFileIcon($extension);
+            $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-        $checkExt = in_array($extension, self::availableImageExtensions());
+            if (!$extension) return null;
 
-        $isImage = $checkExt || ($checkExt && $isTemporary);
+            // Determine URL
+            $fileUrl = $isTemporary && in_array($extension, self::availableExtensionsFiles())
+                ? $file->temporaryUrl()
+                : asset('storage/' . ltrim($file, '/'));
 
-        $isPdf = $extension === 'pdf' && !$isTemporary;
-
-        return [
-            'extension' => $extension,
-            'fileName' => $fileName,
-            'fileUrl' => $fileUrl,
-            'iconUrl' => $icon,
-            'isImage' => $isImage,
-            'isPdf' => $isPdf,
-        ];
+            return [
+                'extension' => $extension,
+                'fileName' => $fileName,
+                'fileUrl' => $fileUrl,
+                'iconUrl' => self::getFileIcon($extension),
+                'isImage' => in_array($extension, self::availableExtensionsImageOnly()),
+                'isPdf' => $extension === 'pdf' && !$isTemporary,
+            ];
+        } catch (\Throwable $e) {
+            logger()->error('File preview error', [
+                'message' => $e->getMessage(),
+                'file' => $file,
+            ]);
+            return null;
+        }
     }
+
 
     /**
      * File type icons.
      */
-    private static function getFileIcon(string $ext): string
+    private static function getFileIcon(string $extension): string
     {
-        $icons = [
-            'xlsx' => asset('icons/icon-excel.png'),
-            'xls' => asset('icons/icon-excel.png'),
-            'csv' => asset('icons/icon-excel.png'),
+        return match ($extension) {
             'pdf' => asset('icons/icon-pdf.png'),
-            'doc' => asset('icons/icon-word.png'),
-            'docx' => asset('icons/icon-word.png'),
-            'odt' => asset('icons/icon-word.png'),
-            'png' => asset('icons/icon-file.png'),
-            'jpg' => asset('icons/icon-file.png'),
-            'jpeg' => asset('icons/icon-file.png'),
-            'webp' => asset('icons/icon-file.png'),
-            'gif' => asset('icons/icon-file.png'),
-        ];
-
-        return $icons[$ext] ?? asset('icons/icon-file.png');
+            'doc', 'docx', 'odt' => asset('icons/icon-word.png'),
+            'xls', 'xlsx', 'csv' => asset('icons/icon-excel.png'),
+            default => asset('icons/icon-file.png'),
+        };
     }
 
     /**
      * Supported image extensions.
      */
-    public static function availableImageExtensions(): array
+    private static function availableExtensionsImageOnly(): array
     {
         return ['png', 'jpg', 'jpeg', 'gif', 'webp'];
+    }
+
+    private static function availableExtensionsFiles(): array
+    {
+        return ['png', 'jpg', 'jpeg', 'gif', 'webp', 'xlsx', 'xls', 'doc', 'docx', 'odt', 'csv', 'pdf'];
     }
 
     /**
      * Supported video extensions.
      */
-    public static function availableVideoExtensions(): array
+    private static function availableVideoExtensions(): array
     {
         return ['mp4', 'mov', 'avi', 'mkv'];
     }

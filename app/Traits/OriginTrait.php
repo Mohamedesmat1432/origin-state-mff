@@ -15,7 +15,6 @@ trait OriginTrait
     use WithPagination;
     use ModalTrait;
     use HasImageUpload;
-    use WithFileUploads;
 
     public ?Origin $origin;
 
@@ -79,7 +78,7 @@ trait OriginTrait
             'available_area' => 'required|numeric',
             'vacant_buildings' => 'required|numeric',
             'remaining_area' => 'required|numeric',
-            'decision_image' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+            'decision_image' => 'nullable|file|max:2048|mimes:pdf,jpg,jpeg,png,xlsx,doc,docx,csv,odt,xls,webp',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
         ];
@@ -217,40 +216,50 @@ trait OriginTrait
 
     public function updateOrigin()
     {
-        $validated = $this->validate();
-        $this->changeStatusByUser($validated, $this->origin_status->value);
-        $validated['decision_image'] = $this->updateImage($this->decision_image, $this->old_decision_image, 'decision-images');
-        // dd($validated);
-
-        $this->origin->update($validated);
-        $this->dispatch('refresh-list-origin');
-        $this->successNotify(__('site.origin_updated'));
-        $this->edit_modal = false;
-        $this->reset();
+        try {
+            $validated = $this->validate();
+            $validated['decision_image'] = $this->updateImage($this->decision_image, $this->old_decision_image, 'decision-images');
+            $this->changeStatusByUser($validated, $this->origin_status->value);
+            $this->origin->update($validated);
+            $this->dispatch('refresh-list-origin');
+            $this->successNotify(__('site.origin_updated'));
+            $this->edit_modal = false;
+            $this->reset();
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
+        }
     }
 
     public function deleteOrigin($id)
     {
-        $origin = Origin::findOrFail($id);
-        $this->deleteImage($origin->decision_image);
-        $origin->delete();
-        $this->dispatch('refresh-list-origin');
-        $this->successNotify(__('site.origin_deleted'));
-        $this->delete_modal = false;
-        $this->reset();
+        try {
+            $origin = Origin::findOrFail($id);
+            $this->deleteImage($origin->decision_image);
+            $origin->delete();
+            $this->dispatch('refresh-list-origin');
+            $this->successNotify(__('site.origin_deleted'));
+            $this->delete_modal = false;
+            $this->reset();
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
+        }
     }
 
     public function bulkDeleteOrigin($arr)
     {
-        $origins = Origin::whereIn('id', $arr);
-        $images = $origins->pluck('decision_image')->filter()->unique();
-        $this->bulkDeleteImages($images);
-        $origins->delete();
-        $this->dispatch('refresh-list-origin');
-        $this->dispatch('checkbox-clear');
-        $this->successNotify(__('site.origin_delete_all'));
-        $this->bulk_delete_modal = false;
-        $this->reset();
+        try {
+            $origins = Origin::whereIn('id', $arr);
+            $images = $origins->pluck('decision_image')->filter()->unique();
+            $this->bulkDeleteImages($images);
+            $origins->delete();
+            $this->dispatch('refresh-list-origin');
+            $this->dispatch('checkbox-clear');
+            $this->successNotify(__('site.origin_delete_all'));
+            $this->bulk_delete_modal = false;
+            $this->reset();
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
+        }
     }
 
     private function changeStatusByUser(&$validated, $status)

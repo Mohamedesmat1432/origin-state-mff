@@ -1,5 +1,7 @@
 FROM php:8.3-fpm
 
+COPY ./docker/php.ini /usr/local/etc/php/conf.d/custom.ini
+
 # Install system dependencies and MySQL client
 RUN apt-get update && apt-get install -y \
     git \
@@ -15,7 +17,8 @@ RUN apt-get update && apt-get install -y \
     nano \
     iputils-ping \
     default-mysql-client && \
-    rm -rf /var/lib/apt/lists/*
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /var/cache/apt/*
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
