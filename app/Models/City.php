@@ -28,6 +28,11 @@ class City extends Model
         return $this->hasMany(Origin::class);
     }
 
+    public function buildings()
+    {
+        return $this->hasMany(Building::class);
+    }
+
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query) use ($search) {

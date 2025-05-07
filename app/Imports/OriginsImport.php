@@ -49,7 +49,7 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'name' => $row['city_id'],
         ]);
 
-        $origin = Origin::firstOrCreate([
+        Origin::firstOrCreate([
             'decision_num' => $row['decision_num'],
             'decision_date' => $row['decision_date'],
             'decision_type_id' => $decision_type->id,
@@ -68,6 +68,9 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'remaining_area' => $row['remaining_area'],
             'notes' => $row['notes'],
             'origin_status' => $row['origin_status'] ?? 'inprogress',
+            'created_by' => $row['created_by'],
+            'revised_by' => $row['revised_by'],
+            'completed_by' => $row['completed_by'],
         ]);
     }
 
@@ -92,6 +95,9 @@ class OriginsImport implements ToModel, WithHeadingRow, WithValidation, SkipsEmp
             'remaining_area' => 'required|numeric',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
+            'created_by' => 'nullable|string',
+            'revised_by' => 'nullable|string',
+            'completed_by' => 'nullable|string',
         ];
     }
 }

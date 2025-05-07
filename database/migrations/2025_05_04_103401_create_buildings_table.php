@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('area')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->string('disputs_reason')->nullable();
-            $table->enum('status', ['owned', 'disputed'])->default('owned');
+            $table->enum('building_status', ['owned', 'disputed'])->default('owned');
             $table->text('location')->nullable();
             $table->timestamps();
             // Foreign keys

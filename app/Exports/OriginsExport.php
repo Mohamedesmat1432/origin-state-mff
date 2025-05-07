@@ -95,9 +95,18 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
                     : $origin->origin_status->value,
 
                 'decision_image'        => $origin->decision_image,
-                'created_by'            => $origin->createdBy?->name,
-                'revised_by'            => $origin->revisedBy?->name,
-                'completed_by'          => $origin->completedBy?->name,
+
+                'created_by'            => $this->exportStatus
+                    ? $origin->createdBy?->name
+                    : $origin->createdBy?->id,
+
+                'revised_by'            => $this->exportStatus
+                    ? $origin->revisedBy?->name
+                    : $origin->revisedBy?->id,
+                    
+                'completed_by'          => $this->exportStatus
+                    ? $origin->completedBy?->name
+                    : $origin->completedBy?->id,
 
                 default                 => '',
             };

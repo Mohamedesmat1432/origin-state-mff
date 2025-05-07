@@ -104,19 +104,15 @@
 
                     <div class="mt-2">
                         <x-label for="location_status" value="{{ __('site.location_status') }}" />
-                        <div class="flex mt-2">
+                        <div class="flex flex-wrap gap-1 mt-2">
                             @foreach (\App\Enums\LocationStatus::cases() as $status)
-                                <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                                    <input type="radio" wire:model.live.debounce.200ms="location_status"
-                                        value="{{ $status->value }}" class="hidden peer">
-
+                                <label class="cursor-pointer" wire:key="location-status-{{ $status->value }}">
+                                    <input type="radio" class="hidden peer"
+                                        wire:model.live.debounce.100ms="location_status"
+                                        value="{{ $status->value }}">
                                     <div
-                                        class="text-white 
-                                    {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
-                                    {{ $loop->last ? 'rtl:rounded-l ltr:rounded-r' : 'rounded-none' }}
-                                    {{ $location_status == $status->value ? 'opacity-100' : 'opacity-50' }}
-                                    {{ $status->color() }}">
-                                        {{ $status->label() }}
+                                        class="px-3 py-1 rounded {{ $location_status == $status->value ? 'opacity-100' : 'opacity-50' }} {{ $status->color() }}">
+                                        {{ $status->label() }} ({{ $status->count() }})
                                     </div>
                                 </label>
                             @endforeach
@@ -161,19 +157,14 @@
 
                     <div class="mt-2">
                         <x-label for="origin_status" value="{{ __('site.origin_status') }}" />
-                        <div class="flex mt-2">
+                        <div class="flex flex-wrap gap-1 mt-2">
                             @foreach (\App\Enums\OriginStatus::cases() as $status)
-                                <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                                    <input type="radio" wire:model.live.debounce.200ms="origin_status"
-                                        value="{{ $status->value }}" class="hidden peer">
-
+                                <label class="cursor-pointer" wire:key="origin-status-{{ $status->value }}">
+                                    <input type="radio" class="hidden peer"
+                                        wire:model.live.debounce.100ms="origin_status" value="{{ $status->value }}">
                                     <div
-                                        class="text-white 
-                                {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
-                                {{ $loop->last ? 'rtl:rounded-l ltr:rounded-r' : 'rounded-none' }}
-                                {{ $origin_status == $status->value ? 'opacity-100' : 'opacity-50' }}
-                                {{ $status->color() }}">
-                                        {{ $status->label() }}
+                                        class="px-3 py-1 rounded {{ $origin_status == $status->value ? 'opacity-100' : 'opacity-50' }} {{ $status->color() }}">
+                                        {{ $status->label() }} ({{ $status->count() }})
                                     </div>
                                 </label>
                             @endforeach

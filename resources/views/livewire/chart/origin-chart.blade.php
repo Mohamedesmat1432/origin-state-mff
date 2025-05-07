@@ -18,6 +18,10 @@
             <option value="government">{{ __('site.government') }}</option>
             <option value="city">{{ __('site.city') }}</option>
             <option value="project">{{ __('site.project') }}</option>
+            <option value="decisionType">{{ __('site.decisionType') }}</option>
+            <option value="createdBy">{{ __('site.created_by') }}</option>
+            <option value="revisedBy">{{ __('site.revised_by') }}</option>
+            <option value="completedBy">{{ __('site.completed_by') }}</option>
         </x-select>
     </div>
 </div>

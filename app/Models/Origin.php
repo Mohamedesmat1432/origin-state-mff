@@ -131,7 +131,15 @@ class Origin extends Model
                     ->orWhere('available_area', 'like', "%{$search}%")
                     ->orWhere('vacant_buildings', 'like', "%{$search}%")
                     ->orWhere('remaining_area', 'like', "%{$search}%")
-                    ->orWhere('id', 'like', "%{$search}%");
+                    ->orWhere('id', 'like', "%{$search}%")
+                    ->orWhereHas('government', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('city', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('project', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('statement', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('decisionType', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('createdBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('revisedBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('completedBy', fn($q) => $q->where('name', 'like', "%{$search}%"));
             });
         });
 
@@ -161,15 +169,6 @@ class Origin extends Model
                 });
             });
         }
-
-        // Optional: if you want to search relation names too
-        $query->when($search, function ($query) use ($search) {
-            $query->orWhereHas('government', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                ->orWhereHas('city', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                ->orWhereHas('project', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                ->orWhereHas('statement', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                ->orWhereHas('decisionType', fn($q) => $q->where('name', 'like', "%{$search}%"));
-        });
 
         return $query;
     }

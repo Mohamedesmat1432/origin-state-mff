@@ -101,14 +101,15 @@ trait OriginTrait
 
     public function getFilteredQuery()
     {
-        return Origin::with($this->relations)->search(
-            $this->search,
-            $this->government_id,
-            $this->city_id,
-            $this->selected_project_ids,
-            $this->selected_statement_ids,
-            $this->selected_decision_type_ids
-        )
+        return Origin::with($this->relations)
+            ->search(
+                $this->search,
+                $this->government_id,
+                $this->city_id,
+                $this->selected_project_ids,
+                $this->selected_statement_ids,
+                $this->selected_decision_type_ids,
+            )
             ->filterByOriginStatus($this->filter_origin_status)
             ->filterByLocationStatus($this->filter_location_status)
             ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC');
@@ -202,16 +203,20 @@ trait OriginTrait
 
     public function storeOrigin()
     {
-        $validated = $this->validate();
-        $this->changeStatusByUser($validated, $this->origin_status);
-        if ($this->decision_image) {
-            $validated['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
+        try {
+            $validated = $this->validate();
+            $this->changeStatusByUser($validated, $this->origin_status);
+            if ($this->decision_image) {
+                $validated['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
+            }
+            Origin::create($validated);
+            $this->dispatch('refresh-list-origin');
+            $this->successNotify(__('site.origin_created'));
+            $this->create_modal = false;
+            $this->reset();
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
         }
-        $origin = Origin::create($validated);
-        $this->dispatch('refresh-list-origin');
-        $this->successNotify(__('site.origin_created'));
-        $this->create_modal = false;
-        $this->reset();
     }
 
     public function updateOrigin()

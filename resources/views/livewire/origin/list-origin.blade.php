@@ -31,7 +31,7 @@
                         <x-input type="search" wire:model.live.debounce.500ms="search"
                             placeholder="{{ __('site.search') }}..." />
                     </div>
-                    <div class="grid grid-cols-3 md:grid-cols-3 gap-4 mt-2">
+                    <div class="grid grid-cols-3 md:grid-cols-3 gap-2 mt-2">
                         <x-create-button permission="create-origin" />
                         <x-import-button permission="import-origin" />
                         <x-export-button permission="export-origin" />
@@ -39,56 +39,46 @@
                 </div>
 
                 <div class="filter md:flex justify-around">
-                    <div class="flex mt-2">
-                        @foreach (\App\Enums\OriginStatus::cases() as $status)
-                            <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                                <input type="radio" wire:model.live.debounce.200ms="filter_origin_status"
-                                    value="{{ $status->value }}" class="hidden peer">
 
+                    <div class="flex flex-wrap gap-1 mt-2">
+                        @foreach (\App\Enums\OriginStatus::cases() as $status)
+                            <label class="cursor-pointer" wire:key="origin-status-{{ $status->value }}">
+                                <input type="radio" class="hidden peer"
+                                    wire:model.live.debounce.100ms="filter_origin_status" value="{{ $status->value }}">
                                 <div
-                                    class="text- {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
-                                    {{ $filter_origin_status == $status->value ? 'opacity-100' : 'opacity-50' }}
-                                    {{ $status->color() }}">
-                                    {{ $status->label() }}
-                                    ({{ $status->count() }})
+                                    class="px-3 py-1 rounded {{ $filter_origin_status == $status->value ? 'opacity-100' : 'opacity-50' }} {{ $status->color() }}">
+                                    {{ $status->label() }} ({{ $status->count() }})
                                 </div>
                             </label>
                         @endforeach
-                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model.live.debounce.200ms="filter_origin_status" value=""
-                                class="hidden peer">
-
+                        <label class="cursor-pointer" wire:key="origin-status-all">
+                            <input type="radio" class="hidden peer"
+                                wire:model.live.debounce.100ms="filter_origin_status" value="">
                             <div
-                                class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
-                                {{ __('site.all') }}
-                                ({{ $this->originsCount() }})
+                                class="px-3 py-1 rounded bg-slate-700 text-white {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
+                                {{ __('site.all') }} ({{ $this->originsCount() }})
                             </div>
                         </label>
                     </div>
 
-                    <div class="flex mt-2">
+                    <div class="flex flex-wrap gap-1 mt-2">
                         @foreach (\App\Enums\LocationStatus::cases() as $status)
-                            <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                                <input type="radio" wire:model.live.debounce.200ms="filter_location_status"
-                                    value="{{ $status->value }}" class="hidden peer">
-
+                            <label class="cursor-pointer" wire:key="location-status-{{ $status->value }}">
+                                <input type="radio" class="hidden peer"
+                                    wire:model.live.debounce.100ms="filter_location_status"
+                                    value="{{ $status->value }}">
                                 <div
-                                    class="text- {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
-                                    {{ $filter_location_status == $status->value ? 'opacity-100' : 'opacity-50' }}
-                                    {{ $status->color() }}">
-                                    {{ $status->label() }}
-                                    ({{ $status->count() }})
+                                    class="px-3 py-1 rounded {{ $filter_location_status == $status->value ? 'opacity-100' : 'opacity-50' }} {{ $status->color() }}">
+                                    {{ $status->label() }} ({{ $status->count() }})
                                 </div>
                             </label>
                         @endforeach
-                        <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                            <input type="radio" wire:model.live.debounce.200ms="filter_location_status" value=""
-                                class="hidden peer">
-
+                        <label class="cursor-pointer" wire:key="location-status-all">
+                            <input type="radio" class="hidden peer"
+                                wire:model.live.debounce.100ms="filter_location_status" value="">
                             <div
-                                class="rtl:rounded-l ltr:rounded-r bg-slate-700 text-white p-2 {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
-                                {{ __('site.all') }}
-                                ({{ $this->originsCount() }})
+                                class="px-3 py-1 rounded bg-slate-700 text-white {{ $filter_location_status == '' ? 'opacity-100' : 'opacity-60' }}">
+                                {{ __('site.all') }} ({{ $this->originsCount() }})
                             </div>
                         </label>
                     </div>

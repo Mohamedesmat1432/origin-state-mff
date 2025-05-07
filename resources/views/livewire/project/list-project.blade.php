@@ -35,7 +35,7 @@
                             <x-input type="search" wire:model.live.debounce.500ms="search"
                                 placeholder="{{ __('site.search') }}..." />
                         </div>
-                        <div class="mb-2 grid grid-cols-3 md:grid-cols-3 gap-4">
+                        <div class="mb-2 grid grid-cols-3 md:grid-cols-3 gap-2">
                             <x-create-button permission="create-project" />
                             <x-import-button permission="import-project" />
                             <x-export-button permission="export-project" />

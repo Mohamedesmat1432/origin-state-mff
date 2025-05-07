@@ -54,6 +54,12 @@ class ChartRepository implements ChartRepositoryInterface
                         return optional($origin->{$groupBy})->name ?? 'Unknown';
                     case 'decisionType':
                         return optional($origin->{$groupBy})->name ?? 'Unknown';
+                    case 'createdBy':
+                        return optional($origin->{$groupBy})->name ?? 'Unknown';
+                    case 'revisedBy':
+                        return optional($origin->{$groupBy})->name ?? 'Unknown';
+                    case 'completedBy':
+                        return optional($origin->{$groupBy})->name ?? 'Unknown';
                     default:
                         return 'Unknown';
                 }
@@ -81,7 +87,7 @@ class ChartRepository implements ChartRepositoryInterface
     public function generateRandomColors($count)
     {
         return collect(range(1, $count))->map(function () {
-            return 'rgba(' . rand(0,255) . ',' . rand(0,255) . ',' . rand(0,255) . ',0.6)';
+            return 'rgba(' . rand(0, 255) . ',' . rand(0, 255) . ',' . rand(0, 255) . ',0.6)';
         })->toArray();
     }
 }

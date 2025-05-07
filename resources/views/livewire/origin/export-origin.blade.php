@@ -7,131 +7,158 @@
 
             <x-slot name="content">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="mt-3">
-                        <x-label for="search" value="{{ __('site.search') }}" />
-                        <x-input type="search" placeholder="{{ __('site.search') }}"
-                            class="mt-1 block w-full border p-1" wire:model.defer="search" />
+
+                    {{-- Search --}}
+                    <div>
+                        <x-label for="search" :value="__('site.search')" />
+                        <x-input type="search" id="search" class="w-full mt-1 p-1 border"
+                            placeholder="{{ __('site.search') }}" wire:model.defer="search" />
                     </div>
-                    <div class="mt-3">
-                        <x-label for="extension" value="{{ __('site.extension') }}" />
-                        <x-select class="block w-full" wire:model.defer="extension">
-                            <option value="xlsx">xlsx</option>
-                            <option value="csv">csv</option>
-                            <option value="ods">ods</option>
-                            <option value="ots">ots</option>
-                            <option value="html">html</option>
-                            <option value="pdf">pdf</option>
+
+                    {{-- File Format --}}
+                    <div>
+                        <x-label for="extension" :value="__('site.extension')" />
+                        <x-select id="extension" class="w-full" wire:model.defer="extension">
+                            @foreach (['xlsx', 'csv', 'xls', 'csv', 'html', 'pdf'] as $ext)
+                                <option value="{{ $ext }}">{{ $ext }}</option>
+                            @endforeach
                         </x-select>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="government_id" value="{{ __('site.government_id') }}" />
-                        <x-select class="block w-full" wire:model.live.debounce.200ms="government_id">
+
+                    {{-- Government --}}
+                    <div>
+                        <x-label for="government_id" :value="__('site.government_id')" />
+                        <x-select id="government_id" class="w-full" wire:model.live.debounce.100ms="government_id">
                             <option value="">{{ __('site.select') }}</option>
                             @foreach ($this->governments() as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="city_id" value="{{ __('site.city_id') }}" />
-                        <div class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"
-                            wire:loading wire:target="government_id">
-                        </div>
-                        <x-select class="block w-full" wire:model="city_id">
+
+                    {{-- City --}}
+                    <div>
+                        <x-label for="city_id" :value="__('site.city_id')" />
+                        <div wire:loading wire:target="government_id"
+                            class="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                        <x-select id="city_id" class="w-full" wire:model="city_id">
                             <option value="">{{ __('site.select') }}</option>
                             @foreach ($this->cities() as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="selected_statement_ids" value="{{ __('site.statement_id') }}" />
-                        <x-select class="block w-full" wire:model.defer="selected_statement_ids" multiple>
-                            <option value="">{{ __('site.select') }}</option>
+
+                    {{-- Statements --}}
+                    <div>
+                        <x-label for="selected_statement_ids" :value="__('site.statement_id')" />
+                        <x-select id="selected_statement_ids" class="w-full" multiple
+                            wire:model.defer="selected_statement_ids">
                             @foreach ($this->statements() as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="selected_project_ids" value="{{ __('site.project_id') }}" />
-                        <x-select class="block w-full" wire:model.defer="selected_project_ids" multiple>
-                            <option value="">{{ __('site.select') }}</option>
+
+                    {{-- Projects --}}
+                    <div>
+                        <x-label for="selected_project_ids" :value="__('site.project_id')" />
+                        <x-select id="selected_project_ids" class="w-full" multiple
+                            wire:model.defer="selected_project_ids">
                             @foreach ($this->projects() as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="selected_decision_type_ids" value="{{ __('site.decision_type_id') }}" />
-                        <x-select class="block w-full" wire:model.defer="selected_decision_type_ids" multiple>
-                            <option value="">{{ __('site.select') }}</option>
+
+                    {{-- Decision Types --}}
+                    <div>
+                        <x-label for="selected_decision_type_ids" :value="__('site.decision_type_id')" />
+                        <x-select id="selected_decision_type_ids" class="w-full" multiple
+                            wire:model.defer="selected_decision_type_ids">
                             @foreach ($this->decisionTypes() as $key => $val)
                                 <option value="{{ $key }}">{{ $val }}</option>
                             @endforeach
                         </x-select>
                     </div>
-                    <div class="mt-3">
-                        <div class="flex justify-between">
-                            <x-label class="block" for="choose_columns_to_export"
-                                value="{{ __('site.choose_columns_to_export') }}" />
-                            <label class="inline-flex items-center mr-4 mb-2 mt-1">
+
+                    {{-- Select Columns --}}
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <x-label :value="__('site.choose_columns_to_export')" />
+                            <label class="inline-flex items-center">
                                 <x-input type="checkbox" wire:click="selectAllColumns" class="mx-2" />
                                 {{ __('site.select_all') }}
                             </label>
                         </div>
-                        @foreach ($available_columns as $column)
-                            <label class="inline-flex items-center mr-4 mb-2 mt-1">
-                                <x-input type="checkbox" wire:model="selected_columns" value="{{ $column }}"
-                                    class="mx-2" />
-                                {{ __('site.' . $column) }}
-                            </label>
-                        @endforeach
+                        <div class="flex flex-wrap gap-2 mt-2">
+                            @foreach ($available_columns as $column)
+                                <label class="inline-flex items-center">
+                                    <x-input type="checkbox" wire:model="selected_columns" value="{{ $column }}"
+                                        class="mx-2" />
+                                    {{ __('site.' . $column) }}
+                                </label>
+                            @endforeach
+                        </div>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="origin_status" value="{{ __('site.origin_status') }}" />
-                        <div class="flex mt-2">
+
+                    {{-- Origin Status --}}
+                    <div>
+                        <x-label :value="__('site.origin_status')" />
+                        <div class="flex flex-wrap gap-1 mt-2">
                             @foreach (\App\Enums\OriginStatus::cases() as $status)
-                                <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                                    <input type="radio" wire:model.live.debounce.200ms="filter_origin_status"
-                                        value="{{ $status->value }}" class="hidden peer">
-
+                                <label class="cursor-pointer" wire:key="origin-status-{{ $status->value }}">
+                                    <input type="radio" class="hidden peer"
+                                        wire:model.live.debounce.100ms="filter_origin_status"
+                                        value="{{ $status->value }}">
                                     <div
-                                        class="text-white 
-                                {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
-                                {{ $loop->last ? 'rtl:rounded-l ltr:rounded-r' : 'rounded-none' }}
-                                {{ $filter_origin_status == $status->value ? 'opacity-100' : 'opacity-50' }}
-                                {{ $status->color() }}">
-                                        {{ $status->label() }}
+                                        class="px-3 py-1 rounded {{ $filter_origin_status == $status->value ? 'opacity-100' : 'opacity-50' }} {{ $status->color() }}">
+                                        {{ $status->label() }} ({{ $status->count() }})
                                     </div>
                                 </label>
                             @endforeach
+                            <label class="cursor-pointer" wire:key="origin-status-all">
+                                <input type="radio" class="hidden peer"
+                                    wire:model.live.debounce.100ms="filter_origin_status" value="">
+                                <div
+                                    class="px-3 py-1 rounded bg-slate-700 text-white {{ $filter_origin_status == '' ? 'opacity-100' : 'opacity-60' }}">
+                                    {{ __('site.all') }} ({{ $this->originsCount() }})
+                                </div>
+                            </label>
                         </div>
                     </div>
-                    <div class="mt-3">
-                        <x-label for="origin_status" value="{{ __('site.origin_status') }}" />
-                        <div class="flex mt-2">
+
+                    {{-- Location Status --}}
+                    <div>
+                        <x-label :value="__('site.location_status')" />
+                        <div class="flex flex-wrap gap-1 mt-2">
                             @foreach (\App\Enums\LocationStatus::cases() as $status)
-                                <label class="relative cursor-pointer hover:bg-gray-50 transition">
-                                    <input type="radio" wire:model.live.debounce.200ms="filter_location_status"
-                                        value="{{ $status->value }}" class="hidden peer">
-
+                                <label class="cursor-pointer" wire:key="location-status-{{ $status->value }}">
+                                    <input type="radio" class="hidden peer"
+                                        wire:model.live.debounce.100ms="filter_location_status"
+                                        value="{{ $status->value }}">
                                     <div
-                                        class="text-white 
-                                {{ $loop->first ? 'rtl:rounded-r ltr:rounded-l' : 'rounded-none' }}
-                                {{ $loop->last ? 'rtl:rounded-l ltr:rounded-r' : 'rounded-none' }}
-                                {{ $filter_location_status == $status->value ? 'opacity-100' : 'opacity-50' }}
-                                {{ $status->color() }}">
-                                        {{ $status->label() }}
+                                        class="px-3 py-1 rounded {{ $filter_location_status == $status->value ? 'opacity-100' : 'opacity-50' }} {{ $status->color() }}">
+                                        {{ $status->label() }} ({{ $status->count() }})
                                     </div>
                                 </label>
                             @endforeach
+                            <label class="cursor-pointer" wire:key="location-status-all">
+                                <input type="radio" class="hidden peer"
+                                    wire:model.live.debounce.100ms="filter_location_status" value="">
+                                <div
+                                    class="px-3 py-1 rounded bg-slate-700 text-white {{ $filter_location_status == '' ? 'opacity-100' : 'opacity-60' }}">
+                                    {{ __('site.all') }} ({{ $this->originsCount() }})
+                                </div>
+                            </label>
                         </div>
                     </div>
-                    <div class="mt-3">
-                        <x-label class="block" for="selected_columns" value="{{ __('site.status') }}" />
-                        <label class="inline-flex items-center mr-4 mb-2 mt-1">
-                            <x-input type="checkbox" wire:model.live.debounce.200ms="export_status" class="mx-2" />
+
+                    {{-- Export Mode --}}
+                    <div>
+                        <x-label :value="__('site.status')" />
+                        <label class="inline-flex items-center mt-2">
+                            <x-input type="checkbox" wire:model.live.debounce.100ms="export_status" class="mx-2" />
                             {{ $this->export_status ? __('site.export_only') : __('site.export_to_import') }}
                         </label>
                     </div>
@@ -143,7 +170,7 @@
                     {{ __('site.export') }}
                 </x-indigo-button>
 
-                <x-secondary-button class="mx-2" wire:click="$set('export_modal',false)"
+                <x-secondary-button class="mx-2" wire:click="$set('export_modal', false)"
                     wire:loading.attr="disabled">
                     {{ __('site.cancel') }}
                 </x-secondary-button>
