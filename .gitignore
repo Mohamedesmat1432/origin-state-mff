@@ -49,9 +49,10 @@ yarn-error.log
 /.idea
 /.vscode
 
-/storage/*.sql
-/storage/app/backup/
-/storage/framework/cache/
-/storage/framework/sessions/
-/storage/framework/views/
-/storage/logs/
+/storage/*
+!/storage/app/
+/storage/framework/*
+!/storage/framework/cache
+!/storage/framework/sessions
+!/storage/framework/views
+!/storage/logs
