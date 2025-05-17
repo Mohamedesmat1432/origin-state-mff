@@ -8,13 +8,13 @@
     </span>
     <!-- Dropdown list -->
     <div x-show="langMenu"
-        class="absolute z-50 rtl:right-0 ltr:left-0 top-10 py-2 mt-5 rounded-md shadow-xl w-36 bg-white">
+        class="absolute space-y-1 z-50 rtl:right-0 ltr:left-0 top-10 p-2 mt-5 rounded-md shadow-xl w-36 bg-white">
         @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-        <a class="flex justify-between px-4 py-2 text-sm hover:bg-blue-400 hover:text-white {{ $localeCode === LaravelLocalization::getCurrentLocale() ? 'bg-blue-500 text-white font-bold' : '' }}"
+        <a class="flex justify-between px-4 py-2 rounded text-sm hover:bg-blue-400 hover:text-white {{ $localeCode === LaravelLocalization::getCurrentLocale() ? 'bg-blue-500 text-white font-bold' : '' }}"
             rel="alternate" hreflang="{{ $localeCode }}"
             href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
             <span>{{ $properties['native'] }}</span>
-            <img src="{{ asset('images/' . $localeCode . '.jpg') }}" alt="{{ $localeCode }}" class="w-6 h-6" />
+            <img src="{{ asset('images/' . $localeCode . '.jpg') }}" alt="{{ $localeCode }}" class="w-6 h-6 rounded" />
         </a>
         @endforeach
     </div>
