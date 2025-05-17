@@ -11,13 +11,57 @@ trait DepartmentTrait
 
     public ?Department $department;
 
-    public $name, $department_id;
+    public ?string $department_id = null;
+    public ?string $name = null;
+
+    public array $filters = [
+        'search' => '',
+    ];
+
+    public array $sort = [
+        'by' => 'id',
+        'asc' => false,
+    ];
+
+    public function sortByField($field)
+    {
+        if ($field == $this->sort['by']) {
+            $this->sort['asc'] = !$this->sort['asc'];
+        }
+        $this->sort['by'] = $field;
+        $this->resetPage();
+    }
 
     protected function rules()
     {
         return [
             'name' => 'required|string|max:255|unique:departments,name,' . $this->department_id,
         ];
+    }
+
+    public function getCacheKey(): string
+    {
+        return 'department_list_cache_' . md5(json_encode([
+            $this->filters,
+            $this->sort,
+            $this->page_element,
+        ]));
+    }
+
+    public function listDepartments()
+    {
+        $query = Department::search($this->filters['search'])
+            ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
+
+        cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
+            return $query->get(); // Get the results but don't paginate
+        });
+        return $query->paginate($this->page_element);
+    }
+
+    public function checkboxDeleteAll()
+    {
+        $this->checkboxAll($this->listDepartments()->pluck('id')->toArray());
     }
 
     public function setDepartment($id)
@@ -31,6 +75,7 @@ trait DepartmentTrait
     {
         $validated = $this->validate();
         Department::create($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-department');
         $this->successNotify(__('site.department_created'));
         $this->create_modal = false;
@@ -41,6 +86,7 @@ trait DepartmentTrait
     {
         $validated = $this->validate();
         $this->department->update($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-department');
         $this->successNotify(__('site.department_updated'));
         $this->edit_modal = false;
@@ -51,6 +97,7 @@ trait DepartmentTrait
     {
         $department = Department::findOrFail($id);
         $department->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-department');
         $this->successNotify(__('site.department_deleted'));
         $this->delete_modal = false;
@@ -61,6 +108,7 @@ trait DepartmentTrait
     {
         $departments = Department::whereIn('id', $arr);
         $departments->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-department');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.department_delete_all'));

@@ -13,19 +13,18 @@ class ListResponsibility extends Component
 {
     use ResponsibilityTrait;
 
+    protected $queryString = [
+        'filters',
+        'sort',
+    ];
+
     #[On('refresh-list-responsibility')]
     public function render()
     {
         $this->authorize('view-responsibility');
 
-        $responsibilities = Responsibility::search($this->search)
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
-
-        $this->checkbox_all = Responsibility::pluck('id')->toArray();
-
         return view('livewire.responsibility.list-responsibility', [
-            'responsibilities' => $responsibilities,
+            'responsibilities' => $this->listResponsibilities(),
         ]);
         
     }

@@ -16,7 +16,7 @@ class ShowOrigin extends Component
     public function show($id)
     {
         $this->reset();
-        $this->showOrigin($id);
+        $this->setOrigin($id);
         $this->show_modal = true;
     }
 

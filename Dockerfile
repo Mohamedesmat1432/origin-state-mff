@@ -2,6 +2,10 @@ FROM php:8.3-fpm
 
 COPY ./docker/php.ini /usr/local/etc/php/conf.d/custom.ini
 
+# Install Redis extension
+RUN pecl install redis \
+    && docker-php-ext-enable redis
+
 # Install system dependencies and MySQL client
 RUN apt-get update && apt-get install -y \
     git \

@@ -28,8 +28,8 @@ return new class extends Migration
             $table->string('executing_entity_num')->nullable();
             $table->text('location')->nullable();
             $table->enum('location_status', ['accept', 'good', 'very_good', 'excellent'])->default('accept');
-            $table->enum('origin_status', ['inprogress', 'revision', 'completed'])->default('inprogress');            
-            $table->text('notes')->nullable();
+            $table->enum('origin_status', ['inprogress', 'revision', 'completed'])->default('inprogress');          
+            $table->text('notes')->nullable();         
             $table->timestamps();
             // Foreign keys
             $table->uuid('project_id')->nullable();

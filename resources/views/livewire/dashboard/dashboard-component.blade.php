@@ -36,7 +36,7 @@
                 @can('view-chart-origin')
                     <livewire:chart.origin-chart />
                 @endcan
-                {{-- <livewire:location-picker /> --}}
+                <livewire:location-picker />
             </div>
         </div>
     </x-page-content>

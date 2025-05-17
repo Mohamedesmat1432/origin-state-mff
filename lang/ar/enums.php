@@ -12,4 +12,13 @@ return [
         'very_good' => 'جيد جدًا',
         'excellent' => 'ممتاز',
     ],
+    'edit_request_origin_status' => [
+        'pending' => 'قيد الانتظار',
+        'approved' => 'موافقة',
+        'rejected' => 'رفض',
+    ],
+    'record_status' => [
+        'yes' => 'نعم',
+        'no' => 'لا',
+    ],
 ];

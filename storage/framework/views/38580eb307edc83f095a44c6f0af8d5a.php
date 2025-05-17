@@ -25,7 +25,7 @@
         </h2>
      <?php $__env->endSlot(); ?>
 
-    <div class="bg-gray-50 overflow-hidden shadow-xl md:p-8 py-6">
+    <div class="bg-gray-50 overflow-hidden shadow-xl md:p-8 py-6 min-h-screen">
         <?php echo e($slot); ?>
 
     </div>

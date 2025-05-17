@@ -13,22 +13,24 @@
                     <!-- Navigation Links -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         @auth
-                            <x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                                {{ __('site.dashboard') }}
-                            </x-nav-link>
+                        <x-nav-link class="flex gap-x-2" wire:navigate href="{{ route('dashboard') }}"
+                            :active="request()->routeIs('dashboard')">
+                            {{ __('site.dashboard') }}
+                        </x-nav-link>
                         @else
-                            <x-nav-link wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
-                                {{ __('site.login') }}
-                            </x-nav-link>
-                            @if (Route::has('register'))
-                                <x-nav-link wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
-                                    {{ __('site.register') }}
-                                </x-nav-link>
-                            @endif
+                        <x-nav-link class="flex gap-x-2" wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
+                            {{ __('site.login') }}
+                        </x-nav-link>
+                        @if (Route::has('register'))
+                        <x-nav-link class="flex gap-x-2" wire:navigate href="{{ route('register') }}"
+                            :active="request()->routeIs('register')">
+                            {{ __('site.register') }}
+                        </x-nav-link>
+                        @endif
                         @endauth
 
                         <!-- Lang Dropdown -->
-                        <x-lang-dropdwon />
+                        <x-lang-dropdown-menu />
                     </div>
                 </div>
 
@@ -56,26 +58,30 @@
                 <div class="mt-1 space-y-1">
                     <!-- Account Management -->
                     @if (Route::has('login'))
-                        @auth
-                            <x-responsive-nav-link class="flex" wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                                {{ __('site.dashboard') }}
-                            </x-responsive-nav-link>
-                        @else
-                            <x-responsive-nav-link class="flex" wire:navigate href="{{ route('login') }}" :active="request()->routeIs('login')">
-                                <x-icon name="arrow-right-on-rectangle" class="h-6 w-5" />
-                                {{ __('site.login') }}
-                            </x-responsive-nav-link>
+                    @auth
+                    <x-responsive-nav-link class="flex gap-x-2" wire:navigate href="{{ route('dashboard') }}"
+                        :active="request()->routeIs('dashboard')">
+                        {{ __('site.dashboard') }}
+                    </x-responsive-nav-link>
+                    @else
+                    <x-responsive-nav-link class="flex gap-x-2" wire:navigate href="{{ route('login') }}"
+                        :active="request()->routeIs('login')">
+                        <x-icon name="arrow-right-on-rectangle" class="h-6 w-5" />
+                        {{ __('site.login') }}
+                    </x-responsive-nav-link>
 
-                            @if (Route::has('register'))
-                                <x-responsive-nav-link class="flex" wire:navigate href="{{ route('register') }}" :active="request()->routeIs('register')">
-                                    <x-icon name="plus" class="h-6 w-5" />
-                                    {{ __('site.register') }}
-                                </x-responsive-nav-link>
-                            @endif
+                    @if (Route::has('register'))
+                    <x-responsive-nav-link class="flex gap-x-2" wire:navigate href="{{ route('register') }}"
+                        :active="request()->routeIs('register')">
+                        <x-icon name="plus" class="h-6 w-5" />
+                        {{ __('site.register') }}
+                    </x-responsive-nav-link>
+                    @endif
 
-                            <!-- Lang Dropdown Responsive -->
-                            <x-lang-dropdwon-responsive />
-                        @endauth
+                    <!-- Lang Dropdown Responsive -->
+                    <x-lang-dropdown-links />
+
+                    @endauth
                     @endif
                 </div>
             </div>

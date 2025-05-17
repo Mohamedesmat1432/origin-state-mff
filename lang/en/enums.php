@@ -12,4 +12,13 @@ return [
         'very_good' => 'Very Good',
         'excellent' => 'Excellent',
     ],
+    'edit_request_origin_status' => [
+        'pending' => 'Pending',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+    ],
+    'record_status' => [
+        'yes' => 'Yes',
+        'no' => 'No',
+    ],
 ];

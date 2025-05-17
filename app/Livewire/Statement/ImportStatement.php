@@ -30,6 +30,7 @@ class ImportStatement extends Component
         try {
             $this->import_modal = false;
             $import->import($this->file->getRealPath());
+            cache()->forget($this->getCacheKey());
             $this->dispatch('refresh-list-statement');
             $this->successNotify(__('site.statement_imported'));
             if(!empty($import->skippedRows)) {

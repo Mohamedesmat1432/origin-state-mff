@@ -31,6 +31,7 @@ class ImportProject extends Component
         try {
             $this->import_modal = false;
             $import->import($this->file->getRealPath());
+            cache()->forget($this->getCacheKey());
             $this->dispatch('refresh-list-project');
             $this->successNotify(__('site.project_imported'));
             if(!empty($import->skippedRows)) {

@@ -14,7 +14,10 @@ class DeleteJobTitle extends Component
     use JobTitleTrait;
 
     #[Locked]
-    public $id, $name;
+    public ?string $id = null;
+
+    #[Locked]
+    public ?string $name = null;
 
     #[On('delete-modal')]
     public function confirmDelete($id, $name)

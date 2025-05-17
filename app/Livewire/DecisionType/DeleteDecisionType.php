@@ -12,9 +12,12 @@ use Livewire\Component;
 class DeleteDecisionType extends Component
 {
     use DecisionTypeTrait;
+    
+    #[Locked]
+    public ?string $id = null;
 
     #[Locked]
-    public $id, $name;
+    public ?string $name = null;
 
     #[On('delete-modal')]
     public function confirmDelete($id, $name)

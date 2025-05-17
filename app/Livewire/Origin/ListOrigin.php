@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Origin;
 
+use App\Models\Origin;
 use App\Traits\OriginTrait;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
@@ -11,6 +12,13 @@ use Livewire\Component;
 class ListOrigin extends Component
 {
     use OriginTrait;
+
+    protected $queryString = [
+        'filters',
+        'sort',
+        'enums',
+        'show_filters',
+    ];
 
     public function columns()
     {
@@ -38,6 +46,8 @@ class ListOrigin extends Component
             ['key' => 'created_by', 'label' => __('site.created_by')],
             ['key' => 'revised_by', 'label' => __('site.revised_by')],
             ['key' => 'completed_by', 'label' => __('site.completed_by')],
+            ['key' => 'coordinates', 'label' => __('site.coordinates')],
+            ['key' => 'record_status', 'label' => __('site.record_status')],
         ];
     }
 
@@ -46,13 +56,10 @@ class ListOrigin extends Component
     {
         $this->authorize('view-origin');
 
-        $origins = $this->originList();
-
-        $this->checkbox_all = $this->originsCheckboxAll();
-
         return view('livewire.origin.list-origin', [
-            'origins' => $origins,
+            'origins' => $this->originList(),
             'columns' => $this->columns(),
+            'count_all' => Origin::count(),
         ]);
     }
 }

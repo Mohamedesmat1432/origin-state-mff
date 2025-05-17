@@ -1,6 +1,7 @@
 <div>
-    @if ($this->import_modal)
+    @can('import-project')
     <x-dialog-modal wire:model.live="import_modal" submit="import()" method="POST">
+        @if ($this->import_modal)
         <x-slot name="title">
             {{ __('site.import_project') }}
         </x-slot>
@@ -41,6 +42,7 @@
                 {{ __('site.cancel') }}
             </x-secondary-button>
         </x-slot>
+        @endif
     </x-dialog-modal>
-    @endif
+    @endcan
 </div>

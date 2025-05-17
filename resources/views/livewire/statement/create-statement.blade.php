@@ -1,18 +1,14 @@
 <div>
-    @if ($this->create_modal)
+    @can('create-statement')
     <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">
+        @if ($this->create_modal)
         <x-slot name="title">
             {{ __('site.create_statement') }}
         </x-slot>
 
         <x-slot name="content">
             <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
-                <div class="mt-2">
-                    <x-label for="name" value="{{ __('site.name') }}" />
-                    <x-input type="text" class="mt-1 block w-full" wire:model="name"
-                        placeholder="{{ __('site.name') }}" />
-                    <x-input-error for="name" class="mt-2" />
-                </div>
+                <x-form.field label="{{ __('site.name') }}" model="name" placeholder="{{ __('site.name') }}" />
             </div>
         </x-slot>
 
@@ -24,6 +20,7 @@
                 {{ __('site.cancel') }}
             </x-secondary-button>
         </x-slot>
+        @endif
     </x-dialog-modal>
-    @endif
+    @endcan
 </div>

@@ -13,19 +13,18 @@ class ListDecisionType extends Component
 {
     use DecisionTypeTrait;
 
+    protected $queryString = [
+        'filters',
+        'sort',
+    ];
+
     #[On('refresh-list-decision-type')]
     public function render()
     {
         $this->authorize('view-decision-type');
 
-        $decision_types = DecisionType::search($this->search)
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
-
-        $this->checkbox_all = DecisionType::pluck('id')->toArray();
-
         return view('livewire.decision-type.list-decision-type', [
-            'decision_types' => $decision_types,
+            'decision_types' => $this->listDecisionTypes(),
         ]);
     }
 }

@@ -11,9 +11,29 @@ trait RoleTrait
     use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
 
     public ?Role $role;
-    public $role_id;
-    public $name;
-    public $permission_ids = [];
+    public ?string $role_id = null;
+    public ?string $name = null;
+    public array $permission_ids = [];
+
+    public array $relations = ['permissions'];
+
+    public array $filters = [
+        'search' => '',
+    ];
+
+    public array $sort = [
+        'by' => 'id',
+        'asc' => false,
+    ];
+
+    public function sortByField($field)
+    {
+        if ($field == $this->sort['by']) {
+            $this->sort['asc'] = !$this->sort['asc'];
+        }
+        $this->sort['by'] = $field;
+        $this->resetPage();
+    }
 
     protected function rules()
     {
@@ -25,12 +45,39 @@ trait RoleTrait
 
     public function permissions()
     {
-        return Permission::pluck('name')->toArray();
+        return Permission::orderBy('name', 'desc')->pluck('name', 'name')->toArray();
+    }
+
+    public function getCacheKey(): string
+    {
+        return 'role_list_cache_' . md5(json_encode([
+            $this->filters,
+            $this->sort,
+            $this->page_element,
+        ]));
+    }
+
+    public function listRoles()
+    {
+        $query =  Role::with($this->relations)
+            ->search($this->filters['search'])
+            ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
+
+        cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
+            return $query->get();
+        });
+
+        return $query->paginate($this->page_element);
+    }
+
+    public function checkboxDeleteAll()
+    {
+        $this->checkboxAll($this->listRoles()->pluck('id')->toArray());
     }
 
     public function setRole($id)
     {
-        $this->role = Role::findOrFail($id);
+        $this->role = Role::with($this->relations)->findOrFail($id);
         $this->role_id = $this->role->id;
         $this->name = $this->role->name;
         $this->permission_ids = $this->role->permissions->pluck('name')->toArray();
@@ -41,6 +88,7 @@ trait RoleTrait
         $validated = $this->validate();
         $role = Role::create($validated);
         $role->givePermissionTo($this->permission_ids);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-role');
         $this->successNotify(__('site.role_created'));
         $this->create_modal = false;
@@ -52,6 +100,7 @@ trait RoleTrait
         $validated = $this->validate();
         $this->role->update($validated);
         $this->role->syncPermissions($this->permission_ids);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-role');
         // $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.role_updated'));
@@ -63,6 +112,7 @@ trait RoleTrait
     {
         $role = Role::findOrFail($id);
         $role->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-role');
         $this->successNotify(__('site.role_deleted'));
         $this->delete_modal = false;
@@ -73,6 +123,7 @@ trait RoleTrait
     {
         $roles = Role::whereIn('id', $this->checkbox_arr);
         $roles->delete();
+        cache()->forget($this->getCacheKey());
         $this->reset();
     }
 }

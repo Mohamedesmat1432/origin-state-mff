@@ -15,6 +15,7 @@ use App\Livewire\Project\ListProject;
 use App\Livewire\Responsibility\ListResponsibility;
 use App\Livewire\Role\ListRole;
 use App\Livewire\DecisionType\ListDecisionType;
+use App\Livewire\EditRequestOrigin\ListEditRequestOrigin;
 use App\Livewire\Statement\ListStatement;
 use App\Livewire\User\ListUser;
 use Illuminate\Support\Facades\Route;
@@ -52,4 +53,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/job-titles', ListJobTitle::class)->name('job.titles');
     Route::get('/responsibilities', ListResponsibility::class)->name('responsibilities');
     Route::get('/activity-logs', ListActivityLog::class)->name('activity.logs');
+    Route::get('/edit-request-origin', ListEditRequestOrigin::class)->name('edit.request.origin');
+
 });

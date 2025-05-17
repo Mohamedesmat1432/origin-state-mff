@@ -15,18 +15,67 @@ trait UserTrait
     use WithNotify, SortSearchTrait, WithPagination, ModalTrait;
 
     public ?User $user;
-    public $user_id;
-    public $name;
-    public $email;
-    public $password;
-    public $new_password;
-    public $department_id;
-    public $job_title_id;
-    public $national_number;
-    public $phone_number;
-    public $role_ids = [];
-    public $responsibility_ids = [];
-    public $check_all_roles = false;
+
+    public ?string $user_id = null;
+    public ?string $name = null;
+    public ?string $email = null;
+    public ?string $password = null;
+    public ?string $new_password = null;
+    public ?string $department_id = null;
+    public ?string  $job_title_id = null;
+    public ?string $national_number = null;
+    public ?string $phone_number = null;
+
+    public bool $status = false;
+    public bool $check_all_roles = false;
+
+    public array $role_ids = [];
+    public array $responsibility_ids = [];
+
+    public array $relations = ['roles', 'responsibilities', 'department', 'jobTitle'];
+
+    public array $filters = [
+        'search' => '',
+    ];
+
+    public array $sort = [
+        'by' => 'id',
+        'asc' => false,
+    ];
+
+    public function sortByField($field)
+    {
+        if ($field == $this->sort['by']) {
+            $this->sort['asc'] = !$this->sort['asc'];
+        }
+        $this->sort['by'] = $field;
+        $this->resetPage();
+    }
+
+    public function getCacheKey(): string
+    {
+        return 'user_list_cache_' . md5(json_encode([
+            $this->filters,
+            $this->sort,
+            $this->trash,
+            $this->page_element,
+        ]));
+    }
+
+    public function toggleStatus()
+    {
+        $this->status = !$this->status;
+    }
+
+    public function getActiveUsersCountProperty()
+    {
+        return User::withoutTrashed()->count();
+    }
+
+    public function getTrashedUsersCountProperty()
+    {
+        return User::onlyTrashed()->count();
+    }
 
     protected function rules()
     {
@@ -70,18 +119,39 @@ trait UserTrait
 
     public function roles()
     {
-        return Role::pluck('name')->toArray();
+        return Role::pluck('name', 'name')->toArray();
     }
 
     public function checkALlRole()
     {
-
         $this->role_ids = $this->check_all_roles ? $this->roles() : [];
+    }
+
+    public function listUsers()
+    {
+        $query = $this->trash
+            ? User::with($this->relations)->onlyTrashed()
+            : User::with($this->relations)->withoutTrashed();
+
+        $query = $query->search($this->filters['search'])
+            ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
+
+
+        cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
+            return $query->get();
+        });
+
+        return $query->paginate($this->page_element);;
+    }
+
+    public function checkboxDeleteAll()
+    {
+        $this->checkboxAll($this->listUsers()->pluck('id')->toArray());
     }
 
     public function setUser($id)
     {
-        $this->user = User::with(['roles', 'responsibilities', 'department', 'jobTitle'])->findOrFail($id);
+        $this->user = User::with($this->relations)->findOrFail($id);
         $this->user_id = $this->user->id;
         $this->name = $this->user->name;
         $this->email = $this->user->email;
@@ -103,6 +173,7 @@ trait UserTrait
         if (!empty($this->responsibility_ids)) {
             $user->responsibilities()->sync($this->responsibility_ids);
         }
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-user');
         $this->successNotify(__('site.user_created'));
         $this->create_modal = false;
@@ -122,6 +193,7 @@ trait UserTrait
         } else {
             $this->user->responsibilities()->detach(); // Remove all if none selected
         }
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-user');
         // $this->dispatch('refresh-navigation-menu');
         $this->successNotify(__('site.user_updated'));
@@ -143,6 +215,7 @@ trait UserTrait
     {
         $users = User::withoutTrashed()->whereIn('id', $arr);
         $users->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-user');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.user_delete_all'));
@@ -154,6 +227,7 @@ trait UserTrait
     {
         $user = User::onlyTrashed()->with(['roles', 'responsibilities', 'department', 'jobTitle'])->findOrFail($id);
         $user->restore();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-user');
         $this->successNotify(__('site.user_restored'));
         $this->restore_modal = false;
@@ -165,6 +239,7 @@ trait UserTrait
         $user = User::onlyTrashed()->with(['roles', 'responsibilities', 'department', 'jobTitle'])->findOrFail($id);
         $user->responsibilities()->detach();
         $user->forceDelete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-user');
         $this->successNotify(__('site.user_deleted'));
         $this->force_delete_modal = false;
@@ -181,6 +256,7 @@ trait UserTrait
 
             $user->forceDelete();
         });
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-user');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.user_delete_all'));

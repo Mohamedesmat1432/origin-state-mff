@@ -11,13 +11,59 @@ trait StatementTrait
 
     public ?Statement $statement;
 
-    public $statement_id, $name;
+    public ?string $statement_id = null;
+    public ?string $name = null;
+
+
+    public array $filters = [
+        'search' => '',
+    ];
+
+    public array $sort = [
+        'by' => 'id',
+        'asc' => false,
+    ];
+
+    public function sortByField($field)
+    {
+        if ($field == $this->sort['by']) {
+            $this->sort['asc'] = !$this->sort['asc'];
+        }
+        $this->sort['by'] = $field;
+        $this->resetPage();
+    }
 
     protected function rules()
     {
         return [
             'name' => 'required|string|max:255|unique:statements,name,' . $this->statement_id,
         ];
+    }
+
+    public function getCacheKey(): string
+    {
+        return 'statement_list_cache_' . md5(json_encode([
+            $this->filters,
+            $this->sort,
+            $this->page_element,
+        ]));
+    }
+
+    public function listStatements()
+    {
+        $query = Statement::search($this->filters['search'])
+            ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
+
+        cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
+            return $query->get();
+        });
+
+        return $query->paginate($this->page_element);
+    }
+
+    public function checkboxDeleteAll()
+    {
+        $this->checkboxAll($this->listStatements()->pluck('id')->toArray());
     }
 
     public function setStatement($id)
@@ -31,6 +77,7 @@ trait StatementTrait
     {
         $validated = $this->validate();
         Statement::create($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-statement');
         $this->successNotify(__('site.statement_created'));
         $this->create_modal = false;
@@ -41,6 +88,7 @@ trait StatementTrait
     {
         $validated = $this->validate();
         $this->statement->update($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-statement');
         $this->successNotify(__('site.statement_updated'));
         $this->edit_modal = false;
@@ -51,6 +99,7 @@ trait StatementTrait
     {
         $statement = Statement::findOrFail($id);
         $statement->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-statement');
         $this->successNotify(__('site.statement_deleted'));
         $this->delete_modal = false;
@@ -61,6 +110,7 @@ trait StatementTrait
     {
         $statements = Statement::whereIn('id', $arr);
         $statements->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-statement');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.statement_delete_all'));

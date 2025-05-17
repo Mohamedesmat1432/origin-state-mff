@@ -92,18 +92,11 @@ class ExportOrigin extends Component
     protected function resetForm()
     {
         $this->reset([
-            'search',
             'selected_columns',
             'available_columns',
             'extension',
             'export_status',
-            'government_id',
-            'city_id',
-            'selected_project_ids',
-            'selected_statement_ids',
-            'selected_decision_type_ids',
-            'filter_origin_status',
-            'filter_location_status',
+            'filters',
         ]);
     }
 

@@ -14,7 +14,10 @@ class DeleteProject extends Component
     use ProjectTrait;
 
     #[Locked]
-    public $id, $name;
+    public ?string $id = null;
+
+    #[Locked]
+    public ?string $name = null;
 
     #[On('delete-modal')]
     public function confirmDelete($id, $name)

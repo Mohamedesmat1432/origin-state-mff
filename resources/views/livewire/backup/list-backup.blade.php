@@ -3,19 +3,20 @@
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
 
-            <div class="flex justify-between">
+            {{-- <div class="flex justify-between">
                 <h1 class=" text-2xl font-medium text-gray-900">
                     {{ __('site.backup') }}
                 </h1>
-            </div>
+            </div> --}}
 
-            <div class="mt-6 text-gray-500 leading-relaxed">
-                <div class="my-3">
-                    <div class="flex">
+            <div class="text-gray-500 leading-relaxed">
+                <div>
+                    <div class="flex gap-x-2">
                         <x-button wire:click="backupDB">
                             {{ __('site.backup') }}
                         </x-button>
-                        <x-button wire:click="optimizeClear" class="mx-1">
+
+                        <x-button wire:click="optimizeClear">
                             {{ __('site.clear_all_cache') }}
                         </x-button>
                     </div>

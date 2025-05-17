@@ -13,19 +13,17 @@ class ListCompany extends Component
 {
     use CompanyTrait;
 
+    protected $queryString = [
+        'filters',
+    ];
+
     #[On('refresh-list-company')]
     public function render()
     {
         $this->authorize('view-company');
 
-        $companys = Company::search($this->search)
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
-
-        $this->checkbox_all = Company::pluck('id')->toArray();
-
         return view('livewire.company.list-company', [
-            'companys' => $companys,
+            'companys' => $this->listCompanies(),
         ]);
     }
 }

@@ -13,19 +13,18 @@ class ListJobTitle extends Component
 {
     use JobTitleTrait;
 
+    protected $queryString = [
+        'filters',
+        'sort',
+    ];
+
     #[On('refresh-list-job-title')]
     public function render()
     {
         $this->authorize('view-job-title');
 
-        $job_titles = JobTitle::search($this->search)
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
-
-        $this->checkbox_all = JobTitle::pluck('id')->toArray();
-
         return view('livewire.job-title.list-job-title', [
-            'job_titles' => $job_titles,
+            'job_titles' => $this->listJobTitles(),
         ]);
         
     }

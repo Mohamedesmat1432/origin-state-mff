@@ -1,36 +1,23 @@
 <div>
-    @if ($this->create_modal)
+    @can('create-user')
     <x-dialog-modal wire:model="create_modal" submit="save()" method="POST">
+        @if ($this->create_modal)
         <x-slot name="title">
             {{ __('site.create_new_user') }}
         </x-slot>
 
         <x-slot name="content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="mt-2">
-                    <x-label for="name" value="{{ __('site.name') }}" />
-                    <x-input type="text" class="mt-1 block w-full" wire:model="name" placeholder="{{ __('site.name') }}"
-                        autocomplete="username" />
-                    <x-input-error for="name" class="mt-2" />
-                </div>
-                <div class="mt-2">
-                    <x-label for="email" value="{{ __('site.email') }}" />
-                    <x-input type="email" class="mt-1 block w-full" wire:model="email"
-                        placeholder="{{ __('site.email') }}" autocomplete="email" />
-                    <x-input-error for="email" class="mt-2" />
-                </div>
-                <div class="mt-2">
-                    <x-label for="national_number" value="{{ __('site.national_number') }}" />
-                    <x-input type="text" class="mt-1 block w-full" wire:model="national_number"
-                        placeholder="{{ __('site.national_number') }}" autocomplete="national_number" />
-                    <x-input-error for="national_number" class="mt-2" />
-                </div>
-                <div class="mt-2">
-                    <x-label for="phone_number" value="{{ __('site.phone_number') }}" />
-                    <x-input type="text" class="mt-1 block w-full" wire:model="phone_number"
-                        placeholder="{{ __('site.phone_number') }}" autocomplete="phone_number" />
-                    <x-input-error for="phone_number" class="mt-2" />
-                </div>
+                <x-form.field label="{{ __('site.name') }}" model="name" placeholder="{{ __('site.name') }}" />
+
+                <x-form.field label="{{ __('site.email') }}" model="email" placeholder="{{ __('site.email') }}"
+                    type="email" />
+
+                <x-form.field label="{{ __('site.national_number') }}" model="national_number"
+                    placeholder="{{ __('site.national_number') }}" />
+
+                <x-form.field label="{{ __('site.phone_number') }}" model="phone_number"
+                    placeholder="{{ __('site.phone_number') }}" />
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mt-2" x-data="{ showPassword: false }">
@@ -47,64 +34,21 @@
                     </div>
                     <x-input-error for="password" class="mt-2" />
                 </div>
-                <div class="mt-2">
-                    <x-label for="department_id" value="{{ __('site.department_id') }}" />
-                    <x-select class="mt-1 block w-full" wire:model="department_id">
-                        <option value="">{{ __('site.select') }}</option>
-                        @foreach ($this->departments() as $key => $val)
-                        <option value="{{ $key }}">{{ $val }}</option>
-                        @endforeach
-                    </x-select>
-                    <x-input-error for="department_id" class="mt-2" />
-                </div>
-                <div class="mt-2">
-                    <x-label for="job_title_id" value="{{ __('site.job_title_id') }}" />
-                    <x-select class="mt-1 block w-full" wire:model="job_title_id">
-                        <option value="">{{ __('site.select') }}</option>
-                        @foreach ($this->jobTitles() as $key => $val)
-                        <option value="{{ $key }}">{{ $val }}</option>
-                        @endforeach
-                    </x-select>
-                    <x-input-error for="job_title_id" class="mt-2" />
-                </div>
+
+                <x-form.dynamic-select label="{{ __('site.department_id') }}" model="department_id" is-select="true"
+                    :options="$this->departments()" placeholder="{{ __('site.department_id') }}" />
+
+                <x-form.dynamic-select label="{{ __('site.job_title_id') }}" model="job_title_id" is-select="true"
+                    :options="$this->jobTitles()" placeholder="{{ __('site.job_title_id') }}" />
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
-                <div class="mt-2">
-                    <x-label for="responsibility_ids" value="{{ __('site.responsibilities') }}" />
-                    <div
-                        class="mt-1 w-full grid grid-cols-1 md:grid-cols-4 gap-4 py-2 border p-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
-                        @foreach ($this->responsibilities() as $key => $val)
-                        <div>
-                            <x-checkbox wire:model="responsibility_ids" value="{{ $key }}" />
-                            <x-label for="responsibility_ids" value="{{ $val }}" class="ltr:mr-2 rtl:ml-2" />
-                        </div>
-                        @endforeach
-                    </div>
-                    {{-- <x-select class="mt-1 block w-full" wire:model="responsibility_ids" multiple>
-                        @foreach ($this->responsibilities() as $key => $val)
-                        <option value="{{ $key }}">{{ $val }}</option>
-                        @endforeach
-                    </x-select> --}}
-                    <x-input-error for="responsibility_ids" class="mt-2" />
-                </div>
-                <div class="mt-2">
-                    <x-label for="role_ids" value="{{ __('site.roles') }}" />
-                    <div
-                        class="mt-1 w-full grid grid-cols-1 md:grid-cols-4 gap-4 py-2 border p-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm">
-                        @foreach ($this->roles() as $role)
-                        <div>
-                            <x-checkbox wire:model="role_ids" value="{{ $role }}" />
-                            <x-label for="role_ids" value="{{ $role }}" class="ltr:mr-2 rtl:ml-2" />
-                        </div>
-                        @endforeach
-                    </div>
-                    {{-- <x-select class="mt-1 block w-full" wire:model="role" multiple>
-                        @foreach ($this->roles() as $role)
-                        <option value="{{ $role }}">{{ $role }}</option>
-                        @endforeach
-                    </x-select> --}}
-                    <x-input-error for="role_ids" class="mt-2" />
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-4 mt-2">
+
+                <x-form.dynamic-checkbox label="{{ __('site.responsibilities') }}" model="responsibility_ids"
+                    :options="$this->responsibilities()" placeholder="{{ __('site.responsibilities') }}" />
+
+                <x-form.dynamic-checkbox label="{{ __('site.roles') }}" model="role_ids" :options="$this->roles()"
+                    placeholder="{{ __('site.roles') }}" />
+
                 <div class="mt-2">
                     <x-toggle-status :status="$status" />
                     <x-input-error for="status" class="mt-2" />
@@ -120,6 +64,7 @@
                 {{ __('site.cancel') }}
             </x-secondary-button>
         </x-slot>
+        @endif
     </x-dialog-modal>
-    @endif
+    @endcan
 </div>

@@ -8,10 +8,8 @@ use Livewire\Component;
 #[Layout('layouts.app')]
 class LocationPicker extends Component
 {
-    public float $centerLat = 30.0444;
-    public float $centerLng = 31.2357;
-    public float $latitude = 30.0450;
-    public float $longitude = 31.2360;
+    public array $coordinates = [];
+    public float $area = 0;
 
     public function render()
     {

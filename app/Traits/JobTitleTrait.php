@@ -11,13 +11,58 @@ trait JobTitleTrait
 
     public ?JobTitle $job_title;
 
-    public $name, $job_title_id;
+    public ?string $job_title_id = null;
+    public ?string $name = null;
+
+
+    public array $filters = [
+        'search' => '',
+    ];
+
+    public array $sort = [
+        'by' => 'id',
+        'asc' => false,
+    ];
+
+    public function sortByField($field)
+    {
+        if ($field == $this->sort['by']) {
+            $this->sort['asc'] = !$this->sort['asc'];
+        }
+        $this->sort['by'] = $field;
+        $this->resetPage();
+    }
 
     protected function rules()
     {
         return [
             'name' => 'required|string|max:255|unique:job_titles,name,' . $this->job_title_id,
         ];
+    }
+
+    public function getCacheKey(): string
+    {
+        return 'job_title_list_cache_' . md5(json_encode([
+            $this->filters,
+            $this->sort,
+            $this->page_element,
+        ]));
+    }
+
+    public function listJobTitles()
+    {
+        $query = JobTitle::search($this->filters['search'])
+            ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
+
+        cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
+            return $query->get(); // Get the results but don't paginate
+        });
+        return $query->paginate($this->page_element);
+    }
+
+    public function checkboxDeleteAll()
+    {
+        $this->checkboxAll($this->listJobTitles()->pluck('id')->toArray());
     }
 
     public function setJobTitle($id)
@@ -31,6 +76,7 @@ trait JobTitleTrait
     {
         $validated = $this->validate();
         JobTitle::create($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-job-title');
         $this->successNotify(__('site.job_title_created'));
         $this->create_modal = false;
@@ -41,6 +87,7 @@ trait JobTitleTrait
     {
         $validated = $this->validate();
         $this->job_title->update($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-job-title');
         $this->successNotify(__('site.job_title_updated'));
         $this->edit_modal = false;
@@ -51,6 +98,7 @@ trait JobTitleTrait
     {
         $job_title = JobTitle::findOrFail($id);
         $job_title->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-job-title');
         $this->successNotify(__('site.job_title_deleted'));
         $this->delete_modal = false;
@@ -61,6 +109,7 @@ trait JobTitleTrait
     {
         $job_titles = JobTitle::whereIn('id', $arr);
         $job_titles->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-job-title');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.job_title_delete_all'));

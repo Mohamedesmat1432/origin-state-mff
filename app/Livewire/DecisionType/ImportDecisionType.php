@@ -31,6 +31,7 @@ class ImportDecisionType extends Component
         try {
             $this->import_modal = false;
             $import->import($this->file->getRealPath());
+            cache()->forget($this->getCacheKey());
             $this->dispatch('refresh-list-decision-type');
             $this->successNotify(__('site.decision_type_imported'));
             if(!empty($import->skippedRows)) {

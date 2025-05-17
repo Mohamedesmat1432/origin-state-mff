@@ -1,29 +1,20 @@
 <div>
-    @if ($this->export_modal)
+    @can('export-decision-type')
     <x-dialog-modal wire:model.live="export_modal" submit="export()" method="POST">
+        @if ($this->export_modal)
         <x-slot name="title">
             {{ __('site.export_decision_type') }}
         </x-slot>
 
         <x-slot name="content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="mt-3">
-                    <x-label for="search" value="{{ __('site.search') }}" />
-                    <x-input type="search" placeholder="{{ __('site.search') }}" class="mt-1 block w-full border p-1"
-                        wire:model.live="search" />
-                    <x-input-error for="search" class="mt-2" />
-                </div>
-                <div class="mt-3">
-                    <x-label for="extension" value="{{ __('site.extension') }}" />
-                    <x-select class="block w-full" wire:model.live="extension">
-                        <option value="xlsx">xlsx</option>
-                        <option value="csv">csv</option>
-                        <option value="ods">ods</option>
-                        <option value="ots">ots</option>
-                        <option value="html">html</option>
-                        <option value="pdf">pdf</option>
-                    </x-select>
-                </div>
+                <x-form.field label="{{ __('site.search') }}" model="filters.search"
+                    placeholder="{{ __('site.search') }}" type="search"
+                    :extra="['wire:model.live.debounce.300ms' => 'filters.search']" />
+
+                <x-form.dynamic-select label="{{ __('site.extension') }}" model="extension"
+                    :options="['xlsx' => 'xlsx', 'csv' => 'csv', 'xsl' => 'xls']"
+                    placeholder="{{ __('site.extension') }}" />
             </div>
         </x-slot>
 
@@ -36,6 +27,7 @@
                 {{ __('site.cancel') }}
             </x-secondary-button>
         </x-slot>
+        @endif
     </x-dialog-modal>
-    @endif
+    @endcan
 </div>

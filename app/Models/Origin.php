@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Enums\LocationStatus;
-use App\Enums\OriginStatus;
+use App\Enums\{LocationStatus, OriginStatus, OriginRecordStatus};
 use App\Helpers\Helper;
+use App\Traits\{LoggableTrait, UuidTrait};
 use App\Observers\OriginObserver;
-use App\Traits\LoggableTrait;
-use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,21 +30,24 @@ class Origin extends Model
         'city_id',
         'location',
         'location_status',
+        'origin_status',
         'available_area',
         'vacant_buildings',
         'remaining_area',
         'notes',
-        'origin_status',
         'decision_image',
         'created_by',
         'revised_by',
         'completed_by',
+        'coordinates',
+        'record_status',
     ];
 
     protected $casts = [
         'decision_date' => 'integer',
         'location_status' => LocationStatus::class,
         'origin_status' => OriginStatus::class,
+        'record_status' => OriginRecordStatus::class,
     ];
 
     // protected static function booted()
@@ -67,9 +68,10 @@ class Origin extends Model
             'created_by' => $this->createdBy?->name,
             'revised_by' => $this->revisedBy?->name,
             'completed_by' => $this->completedBy?->name,
-            'location_status' => '<span class="rounded ' . $this->location_status->color() . '">' . $this->location_status->label() . '</span>',
-            'origin_status' => '<span class="rounded ' . $this->origin_status->color() . '">' . $this->origin_status->label() . '</span>',
-            'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px;"/>' : '',
+            'location_status' => '<div class="' . $this->location_status->color() . '">' . $this->location_status->label() . '</div>',
+            'origin_status' => '<div class="' . $this->origin_status->color() . '">' . $this->origin_status->label() . '</div>',
+            'record_status' => '<div class="' . $this->record_status->color() . '">' . $this->record_status->label() . '</div>',
+            'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display: inline-block"/>' : '',
             default => e(data_get($this, $key)),
         };
     }
@@ -116,6 +118,16 @@ class Origin extends Model
         return $this->belongsTo(City::class);
     }
 
+    public function isLocked()
+    {
+        return $this->lockedOrigin()->exists();
+    }
+
+    public function lockedOrigin()
+    {
+        return $this->hasOne(LockedOrigin::class);
+    }
+
     public function scopeSearch($query, $search, $governmentId, $cityId, $projectIds = [], $statementIds = [], $decisionTypeIds = [])
     {
         // Basic column search
@@ -132,11 +144,6 @@ class Origin extends Model
                     ->orWhere('vacant_buildings', 'like', "%{$search}%")
                     ->orWhere('remaining_area', 'like', "%{$search}%")
                     ->orWhere('id', 'like', "%{$search}%")
-                    ->orWhereHas('government', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                    ->orWhereHas('city', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                    ->orWhereHas('project', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                    ->orWhereHas('statement', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                    ->orWhereHas('decisionType', fn($q) => $q->where('name', 'like', "%{$search}%"))
                     ->orWhereHas('createdBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
                     ->orWhereHas('revisedBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
                     ->orWhereHas('completedBy', fn($q) => $q->where('name', 'like', "%{$search}%"));
@@ -184,6 +191,13 @@ class Origin extends Model
     {
         return $query->when($status, function ($query) use ($status) {
             $query->where('location_status', $status);
+        });
+    }
+
+    public function scopeFilterByRecordStatus($query, $status)
+    {
+        return $query->when($status, function ($query) use ($status) {
+            $query->where('record_status', $status);
         });
     }
 }

@@ -14,7 +14,10 @@ class RestoreUser extends Component
     use UserTrait;
 
     #[Locked]
-    public $id, $name;
+    public ?string $id = null;
+
+    #[Locked]
+    public ?string $name = null;
 
     #[On('restore-modal')]
     public function confirmRestore($id, $name)

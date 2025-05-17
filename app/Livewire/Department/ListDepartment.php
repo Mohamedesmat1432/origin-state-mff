@@ -13,19 +13,19 @@ class ListDepartment extends Component
 {
     use DepartmentTrait;
 
+    protected $queryString = [
+        'filters',
+        'sort',
+    ];
+
     #[On('refresh-list-department')]
     public function render()
     {
         $this->authorize('view-department');
 
-        $departments = Department::search($this->search)
-            ->orderBy($this->sort_by, $this->sort_asc ? 'ASC' : 'DESC')
-            ->paginate($this->page_element);
-
-        $this->checkbox_all = Department::pluck('id')->toArray();
-
         return view('livewire.department.list-department', [
-            'departments' => $departments,
+            'departments' => $this->listDepartments(),
+            'count_all' => Department::count(),
         ]);
         
     }

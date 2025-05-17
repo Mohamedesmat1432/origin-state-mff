@@ -31,6 +31,7 @@ class ImportOrigin extends Component
         try {
             $this->import_modal = false;
             $import->import($this->file->getRealPath());
+            cache()->forget($this->getCacheKey());
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_imported'));
             if(!empty($import->skippedRows)) {

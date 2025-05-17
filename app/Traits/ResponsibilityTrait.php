@@ -11,13 +11,58 @@ trait ResponsibilityTrait
 
     public ?Responsibility $responsibility;
 
-    public $name, $responsibility_id;
+    public ?string $responsibility_id = null;
+    public ?string $name = null;
+
+    public array $filters = [
+        'search' => '',
+    ];
+
+    public array $sort = [
+        'by' => 'id',
+        'asc' => false,
+    ];
+
+    public function sortByField($field)
+    {
+        if ($field == $this->sort['by']) {
+            $this->sort['asc'] = !$this->sort['asc'];
+        }
+        $this->sort['by'] = $field;
+        $this->resetPage();
+    }
 
     protected function rules()
     {
         return [
             'name' => 'required|string|max:255|unique:responsibilities,name,' . $this->responsibility_id,
         ];
+    }
+
+    public function getCacheKey(): string
+    {
+        return 'responsibility_list_cache_' . md5(json_encode([
+            $this->filters,
+            $this->sort,
+            $this->page_element,
+        ]));
+    }
+
+    public function listResponsibilities()
+    {
+        $query = Responsibility::search($this->filters['search'])
+            ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
+
+        cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
+            return $query->get();
+        });
+
+        return $query->paginate($this->page_element);
+    }
+
+    public function checkboxDeleteAll()
+    {
+        $this->checkboxAll($this->listResponsibilities()->pluck('id')->toArray());
     }
 
     public function setResponsibility($id)
@@ -31,6 +76,7 @@ trait ResponsibilityTrait
     {
         $validated = $this->validate();
         Responsibility::create($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-responsibility');
         $this->successNotify(__('site.responsibility_created'));
         $this->create_modal = false;
@@ -41,6 +87,7 @@ trait ResponsibilityTrait
     {
         $validated = $this->validate();
         $this->responsibility->update($validated);
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-responsibility');
         $this->successNotify(__('site.responsibility_updated'));
         $this->edit_modal = false;
@@ -51,6 +98,7 @@ trait ResponsibilityTrait
     {
         $responsibility = Responsibility::findOrFail($id);
         $responsibility->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-responsibility');
         $this->successNotify(__('site.responsibility_deleted'));
         $this->delete_modal = false;
@@ -61,6 +109,7 @@ trait ResponsibilityTrait
     {
         $responsibilitys = Responsibility::whereIn('id', $arr);
         $responsibilitys->delete();
+        cache()->forget($this->getCacheKey());
         $this->dispatch('refresh-list-responsibility');
         $this->dispatch('checkbox-clear');
         $this->successNotify(__('site.responsibility_delete_all'));

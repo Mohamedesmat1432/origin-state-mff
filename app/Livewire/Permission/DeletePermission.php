@@ -14,7 +14,10 @@ class DeletePermission extends Component
     use PermissionTrait;
 
     #[Locked]
-    public $id, $name;
+    public ?string $id = null;
+
+    #[Locked]
+    public ?string $name = null;
 
     #[On('delete-modal')]
     public function confirmDelete($id, $name)
