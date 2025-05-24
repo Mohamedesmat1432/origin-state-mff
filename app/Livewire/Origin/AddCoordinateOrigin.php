@@ -27,11 +27,12 @@ class AddCoordinateOrigin extends Component
     public function save()
     {
         $this->addCoordinates();
-        // $this->redirect(route('origins'), navigate: true);
     }
 
     public function render()
     {
+        $this->authorize('add-coordinate-origin');
+        
         return view('livewire.origin.add-coordinate-origin');
     }
 }
