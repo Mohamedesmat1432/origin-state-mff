@@ -7,9 +7,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/social_housing_logo.jpeg') }}">
     <title>{{ $title ?? 'Laravel' }}</title>
-
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
     <style>
         @keyframes spin-slower {
             0% {
@@ -26,9 +23,13 @@
         }
     </style>
 
+    @vite('resources/css/app.css')
+
     @livewireStyles
 
     @stack('styles')
+
+
 </head>
 
 <body>
@@ -73,6 +74,8 @@
             </main>
         </div>
     </div>
+
+    @vite('resources/js/app.js')
 
     @livewireScripts
 

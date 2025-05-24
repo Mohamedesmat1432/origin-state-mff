@@ -9,6 +9,8 @@
         <livewire:user.force-delete-user />
         <livewire:user.force-bulk-delete-user />
 
+        <livewire:user.export-user />
+
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
 
             {{-- <div class="flex justify-between">
@@ -27,6 +29,7 @@
 
                         <div class="flex justify-between gap-2 mt-2">
                             <x-create-button permission="create-user" />
+                            <x-export-button permission="export-user" />
                         </div>
                     </div>
                 </div>

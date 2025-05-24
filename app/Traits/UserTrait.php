@@ -127,7 +127,7 @@ trait UserTrait
         $this->role_ids = $this->check_all_roles ? $this->roles() : [];
     }
 
-    public function listUsers()
+    public function getFilteredQuery()
     {
         $query = $this->trash
             ? User::with($this->relations)->onlyTrashed()
@@ -136,6 +136,12 @@ trait UserTrait
         $query = $query->search($this->filters['search'])
             ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
 
+        return $query;
+    }
+
+    public function listUsers()
+    {
+        $query = $this->getFilteredQuery();
 
         cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
             return $query->get();

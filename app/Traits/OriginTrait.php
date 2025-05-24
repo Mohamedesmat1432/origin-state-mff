@@ -15,15 +15,15 @@ trait OriginTrait
     public ?string $government_id = null, $city_id = null, $created_by = null, $revised_by = null, $completed_by = null;
     public ?string $decision_num = null, $location = null, $notes = null;
     public ?int $decision_date = null, $executing_entity_num = null, $vacant_buildings = null;
-    public ?float $total_area_allocated = null, $total_area_coords = null, $used_area = null;
-    public ?float $available_area = null, $remaining_area = null;
+    public ?string $total_area_allocated = null, $total_area_coords = null, $used_area = null;
+    public ?string $available_area = null, $remaining_area = null;
     public mixed $origin_status = 'inprogress', $location_status = 'accept', $record_status = 'no';
 
     public $decision_image = null, $old_decision_image = null;
 
     public bool $show_filters = true;
 
-    public array $coordinates = [];
+    public $coordinates = [];
 
     public array $relations = [
         'decisionType',
@@ -56,7 +56,10 @@ trait OriginTrait
         'by' => 'id',
         'asc' => false,
     ];
-    
+
+    public string $map_government = '';
+    public string $map_city = '';
+
     public function resualtFilters()
     {
         return [
@@ -143,6 +146,7 @@ trait OriginTrait
         $this->resetPage();
     }
 
+
     protected function rules(): array
     {
         return [
@@ -165,6 +169,7 @@ trait OriginTrait
             'decision_image' => 'nullable|file|max:2048|mimes:pdf,jpg,jpeg,png,xlsx,doc,docx,csv,odt,xls,webp',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
+            'record_status' => 'required|in:yes,no',
         ];
     }
 
@@ -252,6 +257,11 @@ trait OriginTrait
     public function showOrigin($id)
     {
         $this->origin = Origin::with($this->relations)->findOrFail($id);
+
+        $this->map_government = $this->origin->city->name;
+        $this->map_city = $this->origin->city->name;
+        $this->coordinates = $this->origin->coordinates;
+        $this->total_area_coords = $this->origin->total_area_coords;
     }
 
     public function setOrigin($id)
@@ -286,33 +296,54 @@ trait OriginTrait
                 'created_by',
                 'revised_by',
                 'completed_by',
+                // 'coordinates',
                 'record_status',
-                'coordinates',
-                ] as $field
+            ] as $field
         ) {
             $this->$field = $this->origin->$field ?? null;
         }
 
         $this->old_decision_image = $this->origin->decision_image;
+
+        $this->map_government = $this->origin->government->name;
+        $this->map_city = $this->origin->city->name;
     }
 
     public function storeOrigin()
     {
-        try {
-            $data = $this->validate();
-            $this->changeUserByOriginStatus($data, $this->origin_status);
-            if ($this->decision_image) {
-                $data['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
-            }
-            Origin::create($data);
-            cache()->forget($this->getCacheKey());
-            $this->dispatch('refresh-list-origin');
-            $this->successNotify(__('site.origin_created'));
-            $this->create_modal = false;
-            $this->reset();
-        } catch (\Exception $e) {
-            $this->errorNotify($e->getMessage());
+        // try {
+        $data = $this->validate();
+        $this->changeUserByOriginStatus($data, $this->origin_status);
+        if ($this->decision_image) {
+            $data['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
         }
+        Origin::create($data);
+        cache()->forget($this->getCacheKey());
+        $this->dispatch('refresh-list-origin');
+        $this->successNotify(__('site.origin_created'));
+        $this->create_modal = false;
+        $this->reset();
+        // } catch (\Exception $e) {
+        //     $this->errorNotify($e->getMessage());
+        // }
+    }
+
+    public function addCoordinates()
+    {
+        if ($this->origin->isLocked()) return $this->errorNotify(__('site.origin_id_locked'));
+
+        $this->validate([
+            'coordinates' => 'required|array',
+        ]);
+
+        $this->origin->update([
+            'coordinates' => $this->coordinates,
+            'total_area_coords' => $this->total_area_coords,
+        ]);
+        cache()->forget($this->getCacheKey());
+        $this->successNotify(__('site.origin_updated'));
+        $this->add_coodinates = false;
+        $this->reset();
     }
 
     public function updateOrigin()

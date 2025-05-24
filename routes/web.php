@@ -54,5 +54,4 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/responsibilities', ListResponsibility::class)->name('responsibilities');
     Route::get('/activity-logs', ListActivityLog::class)->name('activity.logs');
     Route::get('/edit-request-origin', ListEditRequestOrigin::class)->name('edit.request.origin');
-
 });

@@ -19,6 +19,7 @@ trait ModalTrait
     public $import_modal = false;
     public $export_modal = false;
     public $note_modal = false;
+    public $add_coodinates = false;
 
     #[On('close-modal')]
     public function resetModal() {
@@ -36,6 +37,7 @@ trait ModalTrait
             'import_modal',
             'export_modal',
             'note_modal',
+            'add_coodinates',
         ]);
         $this->resetValidation();
     }

@@ -9,6 +9,7 @@
 
         <livewire:origin.import-origin />
         <livewire:origin.export-origin />
+        <livewire:origin.add-coordinate-origin />
 
         <div class="p-6 md:px-8 bg-white border-b border-gray-200 rounded-md">
 
@@ -169,6 +170,10 @@
                                     @if($origin->isLocked())
                                     <x-edit-request-button permission="edit-request-origin" id="{{ $origin->id }}" />
                                     @else
+                                    <x-indigo-button wire:click="$dispatch('add-coodinates',{id:'{{ $origin->id }}'})">
+                                        <x-icon name="map" class="h-5 w-5" solid />
+                                    </x-indigo-button>
+                                    
                                     <x-edit-button permission="edit-origin" id="{{ $origin->id }}" />
                                     @endif
 

@@ -485,4 +485,7 @@ return [
     'are_you_sure_to_want_restore' => 'هل انت متأكد من استرجاع ',
     'coordinates' => 'الاحدثيات',
     'record_status' => 'حالة التسجيل',
+    'origin_id_locked' => 'هذا الاصل غير قابل للتعديل',
+    'execute' => 'تنفيذ',
+    'add_coordinates_origin' => 'اضافة احدثيات الي الاصل',
 ];

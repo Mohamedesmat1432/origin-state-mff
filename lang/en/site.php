@@ -466,4 +466,7 @@ return [
     'are_you_sure_to_want_restore' => 'Are you sure to restore ',
     'coordinates' => 'Coordinates',
     'record_status' => 'Record Status',
+    'origin_id_locked' => 'This origin is locked to edit',
+    'execute' => 'Execute',
+    'add_coordinates_origin' => 'Add Coordinates To Origin',
 ];
