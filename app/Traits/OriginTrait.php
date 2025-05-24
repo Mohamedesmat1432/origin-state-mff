@@ -332,15 +332,15 @@ trait OriginTrait
     {
         if ($this->origin->isLocked()) return $this->errorNotify(__('site.origin_id_locked'));
 
-        $this->validate([
-            'coordinates' => 'required|array',
-        ]);
+        $this->validate(['coordinates' => 'required|array']);
 
         $this->origin->update([
             'coordinates' => $this->coordinates,
             'total_area_coords' => $this->total_area_coords,
         ]);
+
         cache()->forget($this->getCacheKey());
+        $this->dispatch('refresh-list-origin');
         $this->successNotify(__('site.origin_updated'));
         $this->add_coodinates = false;
         $this->reset();

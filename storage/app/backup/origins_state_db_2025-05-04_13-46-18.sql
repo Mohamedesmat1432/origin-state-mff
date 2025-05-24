@@ -54,7 +54,6 @@ INSERT INTO `activity_log` VALUES
 ('00da5003-20a8-4d72-b232-b1c1e86141e2','default','City has been created','App\\Models\\City','created','ea1af02c-a881-43bb-93fa-5dcec457b509',NULL,NULL,'{\"attributes\": {\"name\": \"الدقى\", \"government_id\": \"03487283-f8b8-4fed-bb38-397798eb3601\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
 ('02d01dd1-57d5-4418-9061-9d543df9b8da','default','Origin has been updated','App\\Models\\Origin','updated','0bf2f408-7733-47f9-8805-9847cc3408cd','App\\Models\\User','507e4996-9cd3-4732-8a24-a22b6035f03b','{\"old\": {\"decision_image\": null}, \"attributes\": {\"decision_image\": \"decision-images/tFCgRQ5FDQImOj4X9JGUpSlff4vVUT7otWJYmdmW.pdf\"}}',NULL,'2025-05-04 13:04:22','2025-05-04 13:04:22'),
 ('03af8038-6817-4096-8e0a-1add6eacb169','default','City has been created','App\\Models\\City','created','f5188029-0da4-4769-a0bd-0f0b3d5491f3',NULL,NULL,'{\"attributes\": {\"name\": \"القرية الذكية\", \"government_id\": \"03487283-f8b8-4fed-bb38-397798eb3601\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
-('0402eded-7436-488e-a4d1-7bb51c290edf','default','User has been updated','App\\Models\\User','updated','e28df551-c71f-4c6e-8d4f-27c75d870afa','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"email\": \"semam@gmail.com\"}, \"attributes\": {\"email\": \"semamm@gmail.com\"}}',NULL,'2025-05-16 16:47:38','2025-05-16 16:47:38'),
 ('042248e5-ab57-463c-bfd4-b7dbfce92d77','default','City has been created','App\\Models\\City','created','fd11bfcf-5fb1-4c43-802f-63bb6ab885ba',NULL,NULL,'{\"attributes\": {\"name\": \"سمسطا\", \"government_id\": \"4775a4a6-101a-43b9-a5f5-4d0c60ded625\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('04c1f2d8-93ac-4fc9-a7ab-de564597a607','default','City has been created','App\\Models\\City','created','67a33fc8-b1b1-4ef3-90f0-d87dad1663e8',NULL,NULL,'{\"attributes\": {\"name\": \"الفيوم\", \"government_id\": \"c4dbc8e7-549e-4bce-ae29-91c736a8ff33\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
 ('0501ff62-d7be-4785-80f4-575c9629c672','default','Origin has been created','App\\Models\\Origin','created','1f01aa2f-91d9-4880-9455-32c7d6844eda','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": \"جاري العرض على مجلس الإدارة لتنفيذ العمارات المتبقية\", \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"user_id\": \"8c82d771-63ae-4740-9ef8-b55a33b5821b\", \"location\": \"تقسيم الحجاز منطقة أبوعشرة \", \"used_area\": \"300\", \"project_id\": \"5d2fdb65-6f23-4453-bb6a-61f035f44056\", \"decision_num\": \"63\", \"statement_id\": \"5cc76d6c-a2ba-4209-81b6-063e0b5c52f0\", \"decision_date\": 2020, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"46670\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"1fc39eec-c714-4712-973a-fbc93733e7bc\", \"vacant_buildings\": \"24\", \"total_area_coords\": \"615000\", \"executing_entity_num\": \"568330\", \"total_area_allocated\": \"615000\"}}',NULL,'2025-04-29 11:09:22','2025-04-29 11:09:22'),
@@ -99,7 +98,6 @@ INSERT INTO `activity_log` VALUES
 ('1aebd1a8-2650-45d9-b630-f2f1676bb608','default','City has been created','App\\Models\\City','created','821c6cb6-2fe2-4ae8-a7ae-f03d2091ff5a',NULL,NULL,'{\"attributes\": {\"name\": \"بيلا\", \"government_id\": \"2ff12ee0-3e7b-4cd6-84e0-894838774749\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
 ('1b50313d-00cf-4c26-92d3-52a6d1a1816c','default','Origin has been created','App\\Models\\Origin','created','7c51e96b-c7f8-47ad-9ea4-a757cad843f4','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": null, \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"location\": \"تقسيم المركز السياحي \", \"used_area\": \"19\", \"created_by\": null, \"project_id\": \"5b61a48d-df8d-431c-9b26-6da06ded6061\", \"revised_by\": null, \"completed_by\": null, \"decision_num\": \"781\", \"statement_id\": \"bae76f11-3713-4690-b9e7-5cfd27d252f8\", \"decision_date\": 2012, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"0\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"c1ec4c22-b5a7-4901-94e6-72665d74dbcf\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"22867.47\", \"executing_entity_num\": \"22867.47\", \"total_area_allocated\": \"22867.47\"}}',NULL,'2025-05-04 02:10:51','2025-05-04 02:10:51'),
 ('1b811346-99dc-4487-8392-e698063daa2f','default','City has been created','App\\Models\\City','created','49a40067-552c-40bb-b443-4d061730a1d3',NULL,NULL,'{\"attributes\": {\"name\": \"قويسنا\", \"government_id\": \"4ed06fcc-ca0f-4161-b6f8-6fea29f8b658\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
-('1bb57b61-6306-4ad3-af5d-ae464085cead','default','Origin has been updated','App\\Models\\Origin','updated','f1adfec5-664d-4b68-8e46-7b05a438c5f4','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"project_id\": \"f03430e9-947b-46e2-bb6f-3bf1cb8ea534\"}, \"attributes\": {\"project_id\": \"30d550ac-cf60-40c6-895a-8dbb7cfa2528\"}}',NULL,'2025-05-13 22:40:22','2025-05-13 22:40:22'),
 ('1bcb788e-34cd-4a84-a58f-902625c05951','default','JobTitle has been updated','App\\Models\\JobTitle','updated','c969eed4-c2f2-4b5e-a831-d4e6208c5f84','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"name\": \"مدخل بيانات\"}, \"attributes\": {\"name\": \"مدخل بيانات 2\"}}',NULL,'2025-04-28 15:35:35','2025-04-28 15:35:35'),
 ('1c935e67-1093-4b7d-a7fd-6624cef1066f','default','City has been created','App\\Models\\City','created','02a732c2-8f0e-49ff-a2be-b6cd0250f7fa',NULL,NULL,'{\"attributes\": {\"name\": \"حوش عيسى\", \"government_id\": \"31d94058-9f3a-4214-9f43-83976d66ade4\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
 ('1ca24752-3e1b-4c80-b681-91b2e360d168','default','City has been created','App\\Models\\City','created','0ab5ed1d-9a17-4e19-8456-520b1c7965b3',NULL,NULL,'{\"attributes\": {\"name\": \"السرو\", \"government_id\": \"32f67e21-6aa2-4bf8-ac48-a26310ba9906\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
@@ -158,7 +156,6 @@ INSERT INTO `activity_log` VALUES
 ('32502e5b-432a-4251-8ee9-3f3870c5c678','default','City has been created','App\\Models\\City','created','6e233bfc-cf0d-4146-b3dc-bf1a16c93bd5',NULL,NULL,'{\"attributes\": {\"name\": \"مطوبس\", \"government_id\": \"2ff12ee0-3e7b-4cd6-84e0-894838774749\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
 ('32a01b48-fede-40d0-a6c7-1f478d1eb6aa','default','City has been created','App\\Models\\City','created','ee481993-7ff2-4f3a-bdaf-b3facab38d95',NULL,NULL,'{\"attributes\": {\"name\": \"الدخيلة\", \"government_id\": \"054769fe-5fc5-4e1e-80b0-29540da931c0\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
 ('32de2a42-cd72-4ed0-99f3-4469a62df416','default','City has been created','App\\Models\\City','created','82ad610e-a2f0-46eb-a2a9-b43847b60995',NULL,NULL,'{\"attributes\": {\"name\": \"الجامعة\", \"government_id\": \"c4dbc8e7-549e-4bce-ae29-91c736a8ff33\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
-('333d1405-3e89-4e9b-b8f7-381e60256ee5','default','Origin has been updated','App\\Models\\Origin','updated','f1adfec5-664d-4b68-8e46-7b05a438c5f4','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"project_id\": \"30d550ac-cf60-40c6-895a-8dbb7cfa2528\"}, \"attributes\": {\"project_id\": \"b81c433c-94fd-421f-8a68-0cd152187eea\"}}',NULL,'2025-05-13 22:42:23','2025-05-13 22:42:23'),
 ('3394a145-d640-4ecc-9c8f-e17cf3d3eb95','default','Origin has been updated','App\\Models\\Origin','updated','d37f766e-6d40-4626-b592-b3b53b0188bd','App\\Models\\User','507e4996-9cd3-4732-8a24-a22b6035f03b','{\"old\": {\"decision_image\": null}, \"attributes\": {\"decision_image\": \"decision-images/aKZc9LEtBaCzDISri8bRpmghItCwOzxhKz5gynUP.pdf\"}}',NULL,'2025-05-04 13:02:05','2025-05-04 13:02:05'),
 ('33a48ab4-36e1-41a0-9d5e-c4d06ebf1fb8','default','City has been created','App\\Models\\City','created','247a40b6-1835-4819-91fc-71f10f201d7a',NULL,NULL,'{\"attributes\": {\"name\": \"بئر العبد\", \"government_id\": \"fd597d05-e8ca-4c88-a270-dedf07e8bade\"}}',NULL,'2025-04-28 15:26:35','2025-04-28 15:26:35'),
 ('33f3987c-cca0-4ebe-8ce3-6b00a47790cc','default','City has been created','App\\Models\\City','created','2f7aaa6a-4c97-4c08-9ac5-210afcb6d05c',NULL,NULL,'{\"attributes\": {\"name\": \"الوايلى\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:29','2025-04-28 15:26:29'),
@@ -180,9 +177,7 @@ INSERT INTO `activity_log` VALUES
 ('3a1eca96-c07d-444e-bc66-901546728a2c','default','Department has been created','App\\Models\\Department','created','72bd59f9-a04e-414d-b668-c83fc9ab2b57',NULL,NULL,'{\"attributes\": {\"name\": \"المالية\"}}',NULL,'2025-04-28 15:26:28','2025-04-28 15:26:28'),
 ('3a352ee6-4cd8-4406-a868-3cc4ee4f51c2','default','City has been created','App\\Models\\City','created','86d5ee71-03bb-4637-a1c6-6155a38883c7',NULL,NULL,'{\"attributes\": {\"name\": \"كوم أمبو\", \"government_id\": \"26b500a4-c361-4418-976f-31d769b44d24\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('3aa61ee8-ee7c-4a55-bd45-ca3af46d7c9d','default','Origin has been updated','App\\Models\\Origin','updated','9b372dd0-c0c6-497b-8c7b-3592ab39182a','App\\Models\\User','507e4996-9cd3-4732-8a24-a22b6035f03b','{\"old\": {\"decision_image\": null}, \"attributes\": {\"decision_image\": \"decision-images/j82YSBOSfeFrINMg2J4xQC31MCSydlQo9SUXBpjb.pdf\"}}',NULL,'2025-05-04 13:24:54','2025-05-04 13:24:54'),
-('3addf185-4164-4a64-80ce-43b6c42af5ea','default','User has been deleted','App\\Models\\User','deleted','e28df551-c71f-4c6e-8d4f-27c75d870afa','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"name\": \"صابر إمام حسن\", \"email\": \"semam@gmail.com\", \"status\": 1, \"password\": \"$2y$10$yfHDCjs.3Ysj7edhTjBU7.B1S1x103rbG8vM0LgX2BM7GXT1XUkdu\", \"job_title_id\": \"5344a9c7-804b-490b-a650-fe3bc5fa7aab\", \"phone_number\": \"01005015476\", \"department_id\": \"cc52af45-46e9-409a-91f4-396a63bfecd4\", \"national_number\": \"27305200101798\"}}',NULL,'2025-05-14 10:39:54','2025-05-14 10:39:54'),
 ('3b0a7353-3ce6-46c4-9e4b-424335f88305','default','City has been created','App\\Models\\City','created','ad7cf88b-987a-40c3-ba79-c5e22e07f28f',NULL,NULL,'{\"attributes\": {\"name\": \"الدرب الاحمر\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:29','2025-04-28 15:26:29'),
-('3b51d432-197b-44c7-8ab7-93b8f0d6dc94','default','Origin has been updated','App\\Models\\Origin','updated','f1adfec5-664d-4b68-8e46-7b05a438c5f4','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"project_id\": \"30d550ac-cf60-40c6-895a-8dbb7cfa2528\"}, \"attributes\": {\"project_id\": \"f03430e9-947b-46e2-bb6f-3bf1cb8ea534\"}}',NULL,'2025-05-13 22:35:40','2025-05-13 22:35:40'),
 ('3b706a50-3789-4ee5-aabc-3ba4d43bd546','default','City has been created','App\\Models\\City','created','eae0428f-924c-49b9-ae9c-129254e71792',NULL,NULL,'{\"attributes\": {\"name\": \"ديروط\", \"government_id\": \"d11e33d5-0f9c-41ea-b7c8-2e0f1aa376a8\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('3bc1f4b8-55f0-43ee-a909-c38b6e086809','default','Government has been created','App\\Models\\Government','created','4775a4a6-101a-43b9-a5f5-4d0c60ded625',NULL,NULL,'{\"attributes\": {\"name\": \"بني سويف\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('3ce24f06-1597-4327-b185-3993ffc27454','default','City has been created','App\\Models\\City','created','164de6d6-9e04-41fe-b62e-a50dfa5217dc',NULL,NULL,'{\"attributes\": {\"name\": \"عزبة النخل\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:29','2025-04-28 15:26:29'),
@@ -236,7 +231,6 @@ INSERT INTO `activity_log` VALUES
 ('51b18e4d-d1e4-4a7f-b46d-abc755776aa8','default','City has been created','App\\Models\\City','created','53e38bf4-aed0-4e58-89e1-2087bf0143fa',NULL,NULL,'{\"attributes\": {\"name\": \"السنبلاوين\", \"government_id\": \"63a6815e-8b5e-4d2b-9217-6764e8a14d19\"}}',NULL,'2025-04-28 15:26:31','2025-04-28 15:26:31'),
 ('51beec93-7b51-46f4-a0c4-6a93830ebce7','default','City has been created','App\\Models\\City','created','142798b3-38fa-4b59-a165-d73981d97498',NULL,NULL,'{\"attributes\": {\"name\": \"التل الكبير\", \"government_id\": \"ac79ea7a-b0e4-4e86-aadd-eead9c8d22c2\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
 ('521e0e36-dacc-4af3-bcb2-bab93e839f62','default','Responsibility has been created','App\\Models\\Responsibility','created','3de54b0b-862e-4c07-856a-31b6e4d0d535',NULL,NULL,'{\"attributes\": {\"name\": \"التحصيل\"}}',NULL,'2025-04-28 15:26:28','2025-04-28 15:26:28'),
-('541ca411-d216-4104-bcb1-076c35d0312c','default','Project has been updated','App\\Models\\Project','updated','f03430e9-947b-46e2-bb6f-3bf1cb8ea534','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردق\"}, \"attributes\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردقة\"}}',NULL,'2025-05-16 16:59:00','2025-05-16 16:59:00'),
 ('553290ce-7bfd-4163-95d2-81c2a410dbfd','default','Government has been created','App\\Models\\Government','created','03487283-f8b8-4fed-bb38-397798eb3601',NULL,NULL,'{\"attributes\": {\"name\": \"الجيزة\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
 ('55b3dc3c-5b60-4032-a18f-94621c9f288a','default','Origin has been created','App\\Models\\Origin','created','e66192ed-d4c4-4e6c-8a14-7d8308e4af8c','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": \"لم تنفذ العمارات حتى الآن \", \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"location\": \"تقسيم الحجاز منطقة أبوعشرة الطريق الدائري \", \"used_area\": \"0\", \"created_by\": null, \"project_id\": \"716e0bae-b7f4-4f7b-baa7-4d40c76d9ab0\", \"revised_by\": null, \"completed_by\": null, \"decision_num\": \"568\", \"statement_id\": \"5cc76d6c-a2ba-4209-81b6-063e0b5c52f0\", \"decision_date\": 2021, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"610977\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"1fc39eec-c714-4712-973a-fbc93733e7bc\", \"vacant_buildings\": \"500\", \"total_area_coords\": \"910977\", \"executing_entity_num\": \"0\", \"total_area_allocated\": \"610977\"}}',NULL,'2025-05-04 02:10:51','2025-05-04 02:10:51'),
 ('55d6e824-97c9-45ad-94e7-b077526333ab','default','City has been created','App\\Models\\City','created','61ca0381-b3c8-4016-86b1-6929c7c39da2',NULL,NULL,'{\"attributes\": {\"name\": \"المنيل\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:29','2025-04-28 15:26:29'),
@@ -293,7 +287,6 @@ INSERT INTO `activity_log` VALUES
 ('6db064c9-c28c-4c9a-9ed7-003af892d2e7','default','City has been created','App\\Models\\City','created','0d123232-9495-4baf-a733-27c92b104342',NULL,NULL,'{\"attributes\": {\"name\": \"الجمالية\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
 ('6e70b8f0-e080-4bcc-97e3-bb83a38dd351','default','City has been created','App\\Models\\City','created','0189e713-5b50-43e3-b210-4659d6041c5a',NULL,NULL,'{\"attributes\": {\"name\": \"قطور\", \"government_id\": \"894cb001-e9b0-43bf-8bcf-db953ebc4e98\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
 ('6e9fae1b-9447-4ed8-90af-cb8f207d27d1','default','Project has been created','App\\Models\\Project','created','5d2fdb65-6f23-4453-bb6a-61f035f44056','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"name\": \"تنفيذ عدد 300 عمارة بمنطقة تقسيم الحجاز أبوعشرة - الغردقة \"}}',NULL,'2025-04-29 11:09:22','2025-04-29 11:09:22'),
-('6ed32bea-3cb0-441d-8879-2154d4aa568b','default','Origin has been updated','App\\Models\\Origin','updated','f1adfec5-664d-4b68-8e46-7b05a438c5f4','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"project_id\": \"b81c433c-94fd-421f-8a68-0cd152187eea\"}, \"attributes\": {\"project_id\": \"61455604-1ca5-4538-9f02-95468c2c85d3\"}}',NULL,'2025-05-13 22:53:34','2025-05-13 22:53:34'),
 ('6f16bd50-d720-4afa-bbff-b923dd68c9bc','default','Origin has been created','App\\Models\\Origin','created','60cb549f-7749-4a76-9a00-bad9572ff5bd','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": \"لم تنفذ العمارات حتى الآن \", \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"location\": \"تقسيم فلامنكو المنطقة الثانية \", \"used_area\": \"0\", \"created_by\": null, \"project_id\": \"30d550ac-cf60-40c6-895a-8dbb7cfa2528\", \"revised_by\": null, \"completed_by\": null, \"decision_num\": \"2524\", \"statement_id\": \"bae76f11-3713-4690-b9e7-5cfd27d252f8\", \"decision_date\": 2023, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"0\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"1fc39eec-c714-4712-973a-fbc93733e7bc\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"72000\", \"executing_entity_num\": \"0\", \"total_area_allocated\": \"72000\"}}',NULL,'2025-05-04 02:10:51','2025-05-04 02:10:51'),
 ('6f3b2f3c-a5cb-4cbd-a02f-6ac11effa860','default','City has been created','App\\Models\\City','created','d4826dea-40af-4f4a-a5f7-df3a00f870d8',NULL,NULL,'{\"attributes\": {\"name\": \"الحوامدية\", \"government_id\": \"03487283-f8b8-4fed-bb38-397798eb3601\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
 ('6fbfdd17-7abe-4829-a3e8-46d5b0267e58','default','Department has been created','App\\Models\\Department','created','b944d8a7-e6b8-4c5e-8275-bcb5fcd35c4e',NULL,NULL,'{\"attributes\": {\"name\": \"البحوث\"}}',NULL,'2025-04-28 15:26:28','2025-04-28 15:26:28'),
@@ -319,7 +312,6 @@ INSERT INTO `activity_log` VALUES
 ('784e4dd4-012c-41a6-902e-db725727d8c4','default','City has been created','App\\Models\\City','created','e0c9dd96-bfdf-4ca3-bee8-e7f9d5ba33d6',NULL,NULL,'{\"attributes\": {\"name\": \"إدكو\", \"government_id\": \"31d94058-9f3a-4214-9f43-83976d66ade4\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
 ('7854d492-2be2-46c1-b9b4-07ba5a78923e','default','Origin has been created','App\\Models\\Origin','created','d597f2fb-9c5a-4e96-86d7-2be72b95ce6c','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": \"تم دمج جميع المناطق \", \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"location\": \"منطقة غرب شارع الإذاعة \", \"used_area\": \"85\", \"created_by\": null, \"project_id\": \"553484be-28ca-4097-9cac-3c210a3e4f18\", \"revised_by\": null, \"completed_by\": null, \"decision_num\": \"867\", \"statement_id\": \"114e446a-71c7-4e79-a6d5-0ddf770b7a8d\", \"decision_date\": 2012, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"0\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"c1ec4c22-b5a7-4901-94e6-72665d74dbcf\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"93900\", \"executing_entity_num\": \"93900\", \"total_area_allocated\": \"93900\"}}',NULL,'2025-05-04 02:10:51','2025-05-04 02:10:51'),
 ('78b77f18-cc4d-4ea9-b33f-9dce6bcfe5c0','default','Origin has been updated','App\\Models\\Origin','updated','a19237b5-9d95-4e6d-ac97-80d6c372a4f4','App\\Models\\User','507e4996-9cd3-4732-8a24-a22b6035f03b','{\"old\": {\"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"created_by\": null, \"statement_id\": \"5cc76d6c-a2ba-4209-81b6-063e0b5c52f0\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"location_status\": \"good\"}, \"attributes\": {\"city_id\": \"648152e0-33d1-47bb-b7f0-54d1428e1ec1\", \"created_by\": \"507e4996-9cd3-4732-8a24-a22b6035f03b\", \"statement_id\": \"d13e1541-82c3-4f97-b5ad-4acc423dd119\", \"government_id\": \"8397232a-163d-4a09-8e0c-9fa339e76497\", \"location_status\": \"very_good\"}}',NULL,'2025-05-04 12:42:02','2025-05-04 12:42:02'),
-('79052f1f-8a2c-4a46-b79a-e271cff1da83','default','User has been updated','App\\Models\\User','updated','e28df551-c71f-4c6e-8d4f-27c75d870afa','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"email\": \"semamm@gmail.com\"}, \"attributes\": {\"email\": \"semam@gmail.com\"}}',NULL,'2025-05-16 16:47:44','2025-05-16 16:47:44'),
 ('7907f1da-dff4-4986-b5c5-23f5dfb01bfb','default','City has been created','App\\Models\\City','created','1ed90df6-a885-450f-be3f-2bd7f9a8f5b4',NULL,NULL,'{\"attributes\": {\"name\": \"منشأة أبو عمر\", \"government_id\": \"6b9fa5d5-e506-48b8-8538-71aed7f74808\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
 ('791d8ec0-06af-4c8b-bfd0-9d8a7ed5e350','default','City has been created','App\\Models\\City','created','117882bf-f80d-471c-8329-d6e261ed4988',NULL,NULL,'{\"attributes\": {\"name\": \"ميت غمر\", \"government_id\": \"63a6815e-8b5e-4d2b-9217-6764e8a14d19\"}}',NULL,'2025-04-28 15:26:31','2025-04-28 15:26:31'),
 ('793b4dde-ba18-4703-aa8a-02511c4d62da','default','City has been created','App\\Models\\City','created','e808ee40-7d61-4d60-a4b2-8f6f88cca3cc',NULL,NULL,'{\"attributes\": {\"name\": \"البدرشين\", \"government_id\": \"03487283-f8b8-4fed-bb38-397798eb3601\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
@@ -436,7 +428,6 @@ INSERT INTO `activity_log` VALUES
 ('a8fdca56-9525-40d4-99b7-58d145431747','default','City has been created','App\\Models\\City','created','32cc3dd0-9f1e-452f-8f0a-74d922147cf9',NULL,NULL,'{\"attributes\": {\"name\": \"فارسكور\", \"government_id\": \"32f67e21-6aa2-4bf8-ac48-a26310ba9906\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
 ('a92b69dd-b202-4b6c-bd89-3329d9b5cd19','default','City has been created','App\\Models\\City','created','200ce370-99b2-48a2-a05d-c02b419e0373',NULL,NULL,'{\"attributes\": {\"name\": \"مغاغة\", \"government_id\": \"3995d987-3263-460b-b453-a62c21fd6050\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('aa3ed2f0-d5b4-4f30-a168-b86aaad1b425','default','City has been created','App\\Models\\City','created','6eef40e7-5dc7-44dc-a631-374f60efa027',NULL,NULL,'{\"attributes\": {\"name\": \"رأس سدر\", \"government_id\": \"d2987377-dfd6-4d83-8d73-a83dbe5f7530\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
-('aa5682c9-bb95-45ee-97ba-1290d451ab74','default','Project has been updated','App\\Models\\Project','updated','f03430e9-947b-46e2-bb6f-3bf1cb8ea534','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردقة\"}, \"attributes\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردق\"}}',NULL,'2025-05-16 17:01:05','2025-05-16 17:01:05'),
 ('aa6e0485-b69b-4913-bcd9-060746d3620c','default','City has been created','App\\Models\\City','created','1aa4140a-9e42-47cb-b6d3-68202bfa4d5c',NULL,NULL,'{\"attributes\": {\"name\": \"القنايات\", \"government_id\": \"6b9fa5d5-e506-48b8-8538-71aed7f74808\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
 ('ac388eb9-dd6f-447b-afab-a59271299ec8','default','City has been created','App\\Models\\City','created','670b58f5-9aee-45d6-a167-b825eebd1100',NULL,NULL,'{\"attributes\": {\"name\": \"بلقاس\", \"government_id\": \"63a6815e-8b5e-4d2b-9217-6764e8a14d19\"}}',NULL,'2025-04-28 15:26:31','2025-04-28 15:26:31'),
 ('ac8c8bb1-8ccc-4085-b8cb-56b678dcff05','default','City has been created','App\\Models\\City','created','57ab6f25-135a-4bbf-b698-29897ba51c28',NULL,NULL,'{\"attributes\": {\"name\": \"موط\", \"government_id\": \"9d091593-1817-4565-9fe2-123eb626fc1d\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
@@ -448,7 +439,6 @@ INSERT INTO `activity_log` VALUES
 ('b2b2dcb1-9f19-4de9-948d-7d261b8a9a89','default','City has been created','App\\Models\\City','created','22dbb0f8-b95d-443c-a008-62a74d8adf5f',NULL,NULL,'{\"attributes\": {\"name\": \"المطرية\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:29','2025-04-28 15:26:29'),
 ('b3f4045c-874b-423b-b29c-694010023a37','default','Origin has been updated','App\\Models\\Origin','updated','a8b81ff9-507a-489e-9694-19abbc8bb84c','App\\Models\\User','507e4996-9cd3-4732-8a24-a22b6035f03b','{\"old\": {\"decision_image\": null}, \"attributes\": {\"decision_image\": \"decision-images/a86N9eKzD4FlCPTsU9aSWryUQq57sNa9stxNo81N.pdf\"}}',NULL,'2025-05-04 13:02:19','2025-05-04 13:02:19'),
 ('b4eec5bc-0471-4b94-8ba7-9c240d4875ea','default','City has been created','App\\Models\\City','created','b6802da6-978d-4147-b26f-b414e46cd8e4',NULL,NULL,'{\"attributes\": {\"name\": \"العياط\", \"government_id\": \"03487283-f8b8-4fed-bb38-397798eb3601\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
-('b5889594-515f-423b-9be8-e6284f7cff64','default','Project has been updated','App\\Models\\Project','updated','f03430e9-947b-46e2-bb6f-3bf1cb8ea534','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردقة \"}, \"attributes\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردق\"}}',NULL,'2025-05-16 16:58:53','2025-05-16 16:58:53'),
 ('b5b815d3-9746-4370-861d-41357d43b044','default','Origin has been created','App\\Models\\Origin','created','d6daa189-76e8-40d5-86b5-4a7dd34e827a','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": null, \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"user_id\": \"8c82d771-63ae-4740-9ef8-b55a33b5821b\", \"location\": \"سيف هيكل \", \"used_area\": \"50\", \"project_id\": \"83ce4a2a-cb44-4763-9d74-9b220a285c16\", \"decision_num\": \"66\", \"statement_id\": \"5cc76d6c-a2ba-4209-81b6-063e0b5c52f0\", \"decision_date\": 2018, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"0\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"c1ec4c22-b5a7-4901-94e6-72665d74dbcf\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"96000\", \"executing_entity_num\": \"96000\", \"total_area_allocated\": \"96000\"}}',NULL,'2025-04-29 11:09:23','2025-04-29 11:09:23'),
 ('b5ecb264-d43b-4232-afb1-8f2e05537e91','default','City has been created','App\\Models\\City','created','cce9789d-7aa3-46f3-8e72-f46bd4d81b25',NULL,NULL,'{\"attributes\": {\"name\": \"أبنوب\", \"government_id\": \"d11e33d5-0f9c-41ea-b7c8-2e0f1aa376a8\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('b79491f4-1145-4ece-b1b5-94342d9162ce','default','City has been created','App\\Models\\City','created','676ee238-3a99-4080-bc40-5fc74f4b2659',NULL,NULL,'{\"attributes\": {\"name\": \"فلمينج\", \"government_id\": \"054769fe-5fc5-4e1e-80b0-29540da931c0\"}}',NULL,'2025-04-28 15:26:31','2025-04-28 15:26:31'),
@@ -490,9 +480,7 @@ INSERT INTO `activity_log` VALUES
 ('c4c53c00-b66e-4a28-a561-12f5987363cb','default','City has been created','App\\Models\\City','created','e493d912-9924-4237-8da1-f35c69f01c77',NULL,NULL,'{\"attributes\": {\"name\": \"قصر النيل\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
 ('c4e0b294-c26d-40bb-b383-b4d2916d2062','default','Project has been created','App\\Models\\Project','created','30d550ac-cf60-40c6-895a-8dbb7cfa2528','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"name\": \"تنفيذ عدد 1200 وحدة تقسيم فلامنكو المنطقة الثانية – القصير\"}}',NULL,'2025-05-04 02:10:51','2025-05-04 02:10:51'),
 ('c619db50-9ba6-4892-9dc7-b627adc6051c','default','City has been created','App\\Models\\City','created','00d3156a-49f0-476d-b126-6a20a8ac8bdc',NULL,NULL,'{\"attributes\": {\"name\": \"أبو زنيمة\", \"government_id\": \"d2987377-dfd6-4d83-8d73-a83dbe5f7530\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
-('c62058ed-0760-4a11-be38-d58825f5e0de','default','User has been restored','App\\Models\\User','restored','e28df551-c71f-4c6e-8d4f-27c75d870afa','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"name\": \"صابر إمام حسن\", \"email\": \"semam@gmail.com\", \"status\": 1, \"password\": \"$2y$10$yfHDCjs.3Ysj7edhTjBU7.B1S1x103rbG8vM0LgX2BM7GXT1XUkdu\", \"job_title_id\": \"5344a9c7-804b-490b-a650-fe3bc5fa7aab\", \"phone_number\": \"01005015476\", \"department_id\": \"cc52af45-46e9-409a-91f4-396a63bfecd4\", \"national_number\": \"27305200101798\"}}',NULL,'2025-05-14 10:45:05','2025-05-14 10:45:05'),
 ('c69d610b-ac96-406c-a0af-68cb153d8108','default','City has been created','App\\Models\\City','created','b8b1dc59-c155-4b10-ac5f-661dc4759090',NULL,NULL,'{\"attributes\": {\"name\": \"وسط البلد\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
-('c69f97d0-8da6-4337-80ae-9e428ba9fedb','default','Project has been updated','App\\Models\\Project','updated','f03430e9-947b-46e2-bb6f-3bf1cb8ea534','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردق\"}, \"attributes\": {\"name\": \"تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردقة\"}}',NULL,'2025-05-16 17:01:10','2025-05-16 17:01:10'),
 ('c83ce445-2fae-409e-8b18-b753497580af','default','City has been created','App\\Models\\City','created','78a0bec3-3da6-4758-851f-1e87acb6e131',NULL,NULL,'{\"attributes\": {\"name\": \"الدهار\", \"government_id\": \"8397232a-163d-4a09-8e0c-9fa339e76497\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
 ('c855dd1b-9362-465a-a30f-17cb1a2c539c','default','City has been created','App\\Models\\City','created','a7c288ad-8aca-44a0-9b3a-89858eadcc13',NULL,NULL,'{\"attributes\": {\"name\": \"ارض سلطان\", \"government_id\": \"3995d987-3263-460b-b453-a62c21fd6050\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('c86f853f-df06-4ebe-bd30-0e712627acd4','default','City has been created','App\\Models\\City','created','d093fe9b-c428-4279-9f3e-1f7685135093',NULL,NULL,'{\"attributes\": {\"name\": \"الأزاريطة\", \"government_id\": \"054769fe-5fc5-4e1e-80b0-29540da931c0\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
@@ -500,7 +488,6 @@ INSERT INTO `activity_log` VALUES
 ('ca0c74e9-d5c7-4ebd-baf8-4051ce6d391b','default','City has been created','App\\Models\\City','created','6a0a5bf6-7e84-4631-abd6-9e2e1fcd1813',NULL,NULL,'{\"attributes\": {\"name\": \"وسط البلد كفر الشيخ\", \"government_id\": \"2ff12ee0-3e7b-4cd6-84e0-894838774749\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
 ('ca0e4d99-3fbc-47e4-a837-e8dca9b0be70','default','City has been created','App\\Models\\City','created','37c5658d-3def-4c1a-9b3c-9813486fcd2d',NULL,NULL,'{\"attributes\": {\"name\": \"بني سويف\", \"government_id\": \"4775a4a6-101a-43b9-a5f5-4d0c60ded625\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('ca1c0611-c740-476e-974b-cfffc395a4b1','default','City has been created','App\\Models\\City','created','d141db53-8921-4ebb-b564-8e4ee12929d9',NULL,NULL,'{\"attributes\": {\"name\": \"بلبيس\", \"government_id\": \"6b9fa5d5-e506-48b8-8538-71aed7f74808\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
-('ca4b459b-1255-4aba-8c60-cc705f61179c','default','Origin has been updated','App\\Models\\Origin','updated','f1adfec5-664d-4b68-8e46-7b05a438c5f4','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"decision_type_id\": \"1fc39eec-c714-4712-973a-fbc93733e7bc\"}, \"attributes\": {\"decision_type_id\": \"c1ec4c22-b5a7-4901-94e6-72665d74dbcf\"}}',NULL,'2025-05-13 22:42:40','2025-05-13 22:42:40'),
 ('ca555dc5-fe6d-4c06-9f1b-a72da4c6ff89','default','Department has been created','App\\Models\\Department','created','d0212885-f294-43c8-9585-ac2f87861755',NULL,NULL,'{\"attributes\": {\"name\": \"المكتب الفني\"}}',NULL,'2025-04-28 15:26:28','2025-04-28 15:26:28'),
 ('cab4a430-80e9-4e42-bdd9-a3f61cdfd464','default','Origin has been created','App\\Models\\Origin','created','c4463e50-9496-49e7-b8f2-a6750cf60035','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": \"لم تنفذ العمارات حتى الآن \", \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"user_id\": \"8c82d771-63ae-4740-9ef8-b55a33b5821b\", \"location\": \"شرق طريق الشرطة العسكرية \", \"used_area\": \"0\", \"project_id\": \"8cb7e1e6-0162-427b-be2d-12fede2aea08\", \"decision_num\": \"971\", \"statement_id\": \"bae76f11-3713-4690-b9e7-5cfd27d252f8\", \"decision_date\": 2023, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"0\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"1fc39eec-c714-4712-973a-fbc93733e7bc\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"297250\", \"executing_entity_num\": \"0\", \"total_area_allocated\": \"297250\"}}',NULL,'2025-04-29 11:09:23','2025-04-29 11:09:23'),
 ('cae18ded-6ca4-4d2a-b350-4c79b5d0844e','default','City has been created','App\\Models\\City','created','fd1e88e4-6ab3-4fdf-8a23-61528ddbea88',NULL,NULL,'{\"attributes\": {\"name\": \"القنطرة شرق\", \"government_id\": \"ac79ea7a-b0e4-4e86-aadd-eead9c8d22c2\"}}',NULL,'2025-04-28 15:26:32','2025-04-28 15:26:32'),
@@ -537,7 +524,6 @@ INSERT INTO `activity_log` VALUES
 ('d39faa3b-5658-4f5e-863a-83caa672133b','default','City has been created','App\\Models\\City','created','5c95a5bf-c8ea-47a1-a981-1545edfa4943',NULL,NULL,'{\"attributes\": {\"name\": \"أسوان\", \"government_id\": \"26b500a4-c361-4418-976f-31d769b44d24\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('d3ac06f1-ec80-4941-95b9-fb286b1fa7f8','default','Government has been created','App\\Models\\Government','created','d11e33d5-0f9c-41ea-b7c8-2e0f1aa376a8',NULL,NULL,'{\"attributes\": {\"name\": \"اسيوط\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('d44586ee-992d-4274-a9ca-2ec4b74da2d3','default','City has been created','App\\Models\\City','created','f51add73-ee2c-4fee-8a8c-219a59344db6',NULL,NULL,'{\"attributes\": {\"name\": \"ستانلى\", \"government_id\": \"054769fe-5fc5-4e1e-80b0-29540da931c0\"}}',NULL,'2025-04-28 15:26:31','2025-04-28 15:26:31'),
-('d48256c3-5944-457d-9aef-4a63e49306d2','default','Origin has been updated','App\\Models\\Origin','updated','f1adfec5-664d-4b68-8e46-7b05a438c5f4','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"old\": {\"created_by\": \"507e4996-9cd3-4732-8a24-a22b6035f03b\", \"project_id\": \"e768b283-ce53-40bc-a80d-c77331ce8191\"}, \"attributes\": {\"created_by\": \"8c82d771-63ae-4740-9ef8-b55a33b5821b\", \"project_id\": \"30d550ac-cf60-40c6-895a-8dbb7cfa2528\"}}',NULL,'2025-05-13 22:34:57','2025-05-13 22:34:57'),
 ('d4c15292-e157-42bf-a2d9-d27cb152b97a','default','City has been created','App\\Models\\City','created','d412f8c7-0624-4e39-85aa-f25da4ab9706',NULL,NULL,'{\"attributes\": {\"name\": \"نقادة\", \"government_id\": \"50a70a99-9d38-4378-b559-5a0dbd67b161\"}}',NULL,'2025-04-28 15:26:35','2025-04-28 15:26:35'),
 ('d5009f6a-1f48-4568-9ef3-c2e0048bc945','default','City has been created','App\\Models\\City','created','9bec9209-59b4-47fd-9b88-9cda58b49e00',NULL,NULL,'{\"attributes\": {\"name\": \"مدينة الشروق\", \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\"}}',NULL,'2025-04-28 15:26:29','2025-04-28 15:26:29'),
 ('d643f245-58fb-4998-b51b-2075fd450985','default','City has been created','App\\Models\\City','created','0ee1ef37-c18d-4473-ae28-dbc6f11d2b05',NULL,NULL,'{\"attributes\": {\"name\": \"العلمين\", \"government_id\": \"5cd5b5ee-44d5-4701-b8f5-eb380d5ee57c\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
@@ -607,7 +593,6 @@ INSERT INTO `activity_log` VALUES
 ('f80b6391-cf6b-43a9-8762-41edda0c31eb','default','Origin has been created','App\\Models\\Origin','created','40e8dcfc-d87c-4958-aa4d-b17bb05110f3','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": null, \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"location\": \"سيف هيكل \", \"used_area\": \"50\", \"created_by\": null, \"project_id\": \"ca0a1f94-c970-4fbd-8514-c8f3e681a901\", \"revised_by\": null, \"completed_by\": null, \"decision_num\": \"66\", \"statement_id\": \"5cc76d6c-a2ba-4209-81b6-063e0b5c52f0\", \"decision_date\": 2018, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"0\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"c1ec4c22-b5a7-4901-94e6-72665d74dbcf\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"96000\", \"executing_entity_num\": \"96000\", \"total_area_allocated\": \"96000\"}}',NULL,'2025-05-04 03:34:11','2025-05-04 03:34:11'),
 ('f83827c3-7b94-4f9e-bd36-87d535461183','default','City has been created','App\\Models\\City','created','070b4783-63d7-40ce-b39d-554d12c7bb31',NULL,NULL,'{\"attributes\": {\"name\": \"بورسعيد\", \"government_id\": \"19a0685c-975d-4667-b3ae-015c1313e53b\"}}',NULL,'2025-04-28 15:26:33','2025-04-28 15:26:33'),
 ('f861dcc7-c2ca-4f78-be2a-da73bcfb4a3f','default','Origin has been created','App\\Models\\Origin','created','34f0e90c-c6e9-4f64-917b-0a7200cefee5','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": null, \"city_id\": \"2a4d8b0a-d39b-449a-98c9-c43dd2f72e7f\", \"location\": \"تقسيم شمال الأحياء \", \"used_area\": \"126\", \"created_by\": null, \"project_id\": \"98f4004a-0c62-4daf-a2e7-bc37bca85658\", \"revised_by\": null, \"completed_by\": null, \"decision_num\": \"503\", \"statement_id\": \"b95742fc-80c0-44d7-897c-88e52d11fc23\", \"decision_date\": 2021, \"government_id\": \"3a0630ec-711b-4ed2-9846-d388c5457eb1\", \"origin_status\": \"inprogress\", \"available_area\": \"0\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"c1ec4c22-b5a7-4901-94e6-72665d74dbcf\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"210000\", \"executing_entity_num\": \"210000\", \"total_area_allocated\": \"210000\"}}',NULL,'2025-05-04 03:34:11','2025-05-04 03:34:11'),
-('f87a3284-a083-4412-a8bc-e24d2cedc77a','default','Origin has been created','App\\Models\\Origin','created','c3ab9458-eec8-41f1-96b6-2959d8bfdf57','App\\Models\\User','8c82d771-63ae-4740-9ef8-b55a33b5821b','{\"attributes\": {\"notes\": \"ascacac\", \"city_id\": \"c3fb8f0a-9d8b-45c9-8ab8-aad0ea928bda\", \"location\": \"eascqas\", \"used_area\": \"2000000\", \"created_by\": \"8c82d771-63ae-4740-9ef8-b55a33b5821b\", \"project_id\": \"83ce4a2a-cb44-4763-9d74-9b220a285c16\", \"revised_by\": null, \"completed_by\": null, \"decision_num\": \"201\", \"statement_id\": \"114e446a-71c7-4e79-a6d5-0ddf770b7a8d\", \"decision_date\": 2025, \"government_id\": \"894cb001-e9b0-43bf-8bcf-db953ebc4e98\", \"origin_status\": \"inprogress\", \"available_area\": \"200000\", \"decision_image\": null, \"remaining_area\": \"0\", \"location_status\": \"good\", \"decision_type_id\": \"1fc39eec-c714-4712-973a-fbc93733e7bc\", \"vacant_buildings\": \"0\", \"total_area_coords\": \"200000\", \"executing_entity_num\": \"12\", \"total_area_allocated\": \"200000\"}}',NULL,'2025-05-13 22:45:36','2025-05-13 22:45:36'),
 ('f8814018-84fe-4a3b-bae9-54ea86e5fa15','default','City has been created','App\\Models\\City','created','ef1fdbb9-156a-41fc-b5ee-db41d5501bff',NULL,NULL,'{\"attributes\": {\"name\": \"منشأة القناطر\", \"government_id\": \"03487283-f8b8-4fed-bb38-397798eb3601\"}}',NULL,'2025-04-28 15:26:30','2025-04-28 15:26:30'),
 ('f89e4ab2-5831-45cc-9382-43f289aa42c3','default','City has been created','App\\Models\\City','created','3d615c5c-6037-4b95-b318-9ffccc5b8642',NULL,NULL,'{\"attributes\": {\"name\": \"سيدي سالم\", \"government_id\": \"2ff12ee0-3e7b-4cd6-84e0-894838774749\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34'),
 ('f8bd7d2d-2b49-40a1-8ea9-19324cf5386b','default','Department has been created','App\\Models\\Department','created','cc52af45-46e9-409a-91f4-396a63bfecd4',NULL,NULL,'{\"attributes\": {\"name\": \"نظم المعلومات\"}}',NULL,'2025-04-28 15:26:28','2025-04-28 15:26:28'),
@@ -628,42 +613,6 @@ INSERT INTO `activity_log` VALUES
 ('ffa248a0-3ac1-4e91-88ec-45f54f2b9f23','default','Origin has been updated','App\\Models\\Origin','updated','183885e1-7681-42cf-a63c-99fecd470fa3','App\\Models\\User','507e4996-9cd3-4732-8a24-a22b6035f03b','{\"old\": {\"decision_num\": \"867\", \"decision_image\": null}, \"attributes\": {\"decision_num\": \"876\", \"decision_image\": \"decision-images/1E3YHofIDjSzsf0AYbHoNkNvnXJoDCyq9dnwXFWe.pdf\"}}',NULL,'2025-05-04 13:28:17','2025-05-04 13:28:17'),
 ('ffd94a63-b809-44cd-ac17-505c6cc6ca6b','default','City has been created','App\\Models\\City','created','7813dbc3-3abf-412f-a1d7-28646ca448a6',NULL,NULL,'{\"attributes\": {\"name\": \"شرم الشيخ\", \"government_id\": \"d2987377-dfd6-4d83-8d73-a83dbe5f7530\"}}',NULL,'2025-04-28 15:26:34','2025-04-28 15:26:34');
 /*!40000 ALTER TABLE `activity_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `buildings`
---
-
-DROP TABLE IF EXISTS `buildings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `buildings` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `contract_date` date DEFAULT NULL,
-  `area` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `price` decimal(10,2) DEFAULT NULL,
-  `disputs_reason` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `building_status` enum('owned','disputed') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'owned',
-  `location` text COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `government_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `city_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `buildings_government_id_foreign` (`government_id`),
-  KEY `buildings_city_id_foreign` (`city_id`),
-  CONSTRAINT `buildings_city_id_foreign` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `buildings_government_id_foreign` FOREIGN KEY (`government_id`) REFERENCES `governments` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `buildings`
---
-
-LOCK TABLES `buildings` WRITE;
-/*!40000 ALTER TABLE `buildings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `buildings` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1230,37 +1179,6 @@ INSERT INTO `departments` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `edit_request_origins`
---
-
-DROP TABLE IF EXISTS `edit_request_origins`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `edit_request_origins` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('pending','approved','rejected') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `user_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `origin_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `edit_request_origins_user_id_foreign` (`user_id`),
-  KEY `edit_request_origins_origin_id_foreign` (`origin_id`),
-  CONSTRAINT `edit_request_origins_origin_id_foreign` FOREIGN KEY (`origin_id`) REFERENCES `origins` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `edit_request_origins_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `edit_request_origins`
---
-
-LOCK TABLES `edit_request_origins` WRITE;
-/*!40000 ALTER TABLE `edit_request_origins` DISABLE KEYS */;
-/*!40000 ALTER TABLE `edit_request_origins` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `failed_jobs`
 --
 
@@ -1374,33 +1292,6 @@ INSERT INTO `job_titles` VALUES
 UNLOCK TABLES;
 
 --
--- Table structure for table `locked_origins`
---
-
-DROP TABLE IF EXISTS `locked_origins`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `locked_origins` (
-  `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `origin_id` char(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `locked_origins_origin_id_foreign` (`origin_id`),
-  CONSTRAINT `locked_origins_origin_id_foreign` FOREIGN KEY (`origin_id`) REFERENCES `origins` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `locked_origins`
---
-
-LOCK TABLES `locked_origins` WRITE;
-/*!40000 ALTER TABLE `locked_origins` DISABLE KEYS */;
-/*!40000 ALTER TABLE `locked_origins` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `migrations`
 --
 
@@ -1412,7 +1303,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1447,10 +1338,7 @@ INSERT INTO `migrations` VALUES
 (24,'2025_04_22_174543_add_batch_uuid_column_to_activity_log_table',1),
 (25,'2025_04_22_183721_change_columns_id_to_uuid_in_activity_log',1),
 (26,'2025_02_03_010807_create_origins_table',2),
-(28,'2025_02_03_010808_create_origins_table',3),
-(29,'2025_05_04_103401_create_buildings_table',4),
-(30,'2025_05_11_190501_create_locked_origins_table',4),
-(31,'2025_05_11_192312_create_edit_request_origins_table',4);
+(28,'2025_02_03_010808_create_origins_table',3);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1585,11 +1473,10 @@ INSERT INTO `origins` VALUES
 ('9b372dd0-c0c6-497b-8c7b-3592ab39182a','65',2018,'decision-images/j82YSBOSfeFrINMg2J4xQC31MCSydlQo9SUXBpjb.pdf','c1ec4c22-b5a7-4901-94e6-72665d74dbcf','24225','24225','24225','3524','0','0','التقسيم الحضري ','good','inprogress','507e4996-9cd3-4732-8a24-a22b6035f03b',NULL,NULL,'تم الاكتفاء بعدد 14 عمارة ويوجد مساحة شاغرة = 3524م2','2025-05-04 03:34:11','2025-05-04 13:24:54','83b33fa5-dce6-485f-b0ee-b3ad9f85ab12','5cc76d6c-a2ba-4209-81b6-063e0b5c52f0','8397232a-163d-4a09-8e0c-9fa339e76497','b8ddfa0d-91fd-461f-a7a6-28f96e95afb3','14'),
 ('a19237b5-9d95-4e6d-ac97-80d6c372a4f4','63',2020,'decision-images/tn2XZzbZyKqKmPwpENOVw6mg4R2OPjmEzqVCPG8Z.pdf','1fc39eec-c714-4712-973a-fbc93733e7bc','223512.65','223512.65','0','223512.65','0','108','أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي ','very_good','inprogress','507e4996-9cd3-4732-8a24-a22b6035f03b',NULL,NULL,'لم تنفذ العمارات حتى الآن ','2025-05-04 03:34:11','2025-05-04 13:02:32','2e13f5e6-db0a-4917-af2f-cbe114ca966e','d13e1541-82c3-4f97-b5ad-4acc423dd119','8397232a-163d-4a09-8e0c-9fa339e76497','648152e0-33d1-47bb-b7f0-54d1428e1ec1','0'),
 ('a8b81ff9-507a-489e-9694-19abbc8bb84c','63',2020,'decision-images/a86N9eKzD4FlCPTsU9aSWryUQq57sNa9stxNo81N.pdf','1fc39eec-c714-4712-973a-fbc93733e7bc','132018.52','132018.52','11000','121018.52','0','62','شارع الحجاز تقسيم البداري','good','inprogress','507e4996-9cd3-4732-8a24-a22b6035f03b',NULL,NULL,'جاري العرض على مجلس الإدارة لتنفيذ العمارات المتبقية','2025-05-04 03:34:11','2025-05-04 13:02:19','2620cf73-50b0-49e2-9f8f-1c3bb68a3e9a','5cc76d6c-a2ba-4209-81b6-063e0b5c52f0','8397232a-163d-4a09-8e0c-9fa339e76497','648152e0-33d1-47bb-b7f0-54d1428e1ec1','18'),
-('c3ab9458-eec8-41f1-96b6-2959d8bfdf57','201',2025,NULL,'1fc39eec-c714-4712-973a-fbc93733e7bc','200000','200000','2000000','200000','0','0','eascqas','good','inprogress','8c82d771-63ae-4740-9ef8-b55a33b5821b',NULL,NULL,'ascacac','2025-05-13 22:45:36','2025-05-13 22:45:36','83ce4a2a-cb44-4763-9d74-9b220a285c16','114e446a-71c7-4e79-a6d5-0ddf770b7a8d','894cb001-e9b0-43bf-8bcf-db953ebc4e98','c3fb8f0a-9d8b-45c9-8ab8-aad0ea928bda','12'),
 ('c7450ead-7746-4f32-a04f-7f4bd11df995','971',2023,'decision-images/7DUuBCmyoyNNh8HHgBnpev4VLw47TXFveTJuK8oz.pdf','1fc39eec-c714-4712-973a-fbc93733e7bc','297250','297250','0','0','0','0','شرق طريق الشرطة العسكرية ','good','inprogress','507e4996-9cd3-4732-8a24-a22b6035f03b',NULL,NULL,'لم تنفذ العمارات حتى الآن ','2025-05-04 03:34:11','2025-05-04 13:31:30','8cb7e1e6-0162-427b-be2d-12fede2aea08','d13e1541-82c3-4f97-b5ad-4acc423dd119','8397232a-163d-4a09-8e0c-9fa339e76497','776efd16-c76e-4d71-a29b-c7dc7343bb2b','0'),
 ('d37f766e-6d40-4626-b592-b3b53b0188bd','63',2020,'decision-images/aKZc9LEtBaCzDISri8bRpmghItCwOzxhKz5gynUP.pdf','1fc39eec-c714-4712-973a-fbc93733e7bc','615000','615000','568330','46670','0','24','تقسيم الحجاز منطقة أبوعشرة ','good','inprogress','507e4996-9cd3-4732-8a24-a22b6035f03b',NULL,NULL,'جاري العرض على مجلس الإدارة لتنفيذ العمارات المتبقية','2025-05-04 03:34:11','2025-05-04 13:02:05','8f7bd399-c11e-462c-aa8c-2ad7ec5ce065','5cc76d6c-a2ba-4209-81b6-063e0b5c52f0','8397232a-163d-4a09-8e0c-9fa339e76497','648152e0-33d1-47bb-b7f0-54d1428e1ec1','300'),
 ('ef75af0e-d4f4-4cb1-bf5c-d8310069eb2c','25',2025,NULL,'1fc39eec-c714-4712-973a-fbc93733e7bc','6354','54214','65','54','654','523','kjs,n','accept','revision','8c82d771-63ae-4740-9ef8-b55a33b5821b','8c82d771-63ae-4740-9ef8-b55a33b5821b',NULL,NULL,'2025-05-04 03:37:18','2025-05-04 03:45:46','2e13f5e6-db0a-4917-af2f-cbe114ca966e','bae76f11-3713-4690-b9e7-5cfd27d252f8','f183d7eb-93c2-4a9d-8a0b-80f97292f436','878f1e13-ff8d-4768-a2ea-f685c33e6c44','524'),
-('f1adfec5-664d-4b68-8e46-7b05a438c5f4','63',2020,'decision-images/TtneqM8YHDThn120EIpPXbIIsoOpG12sodzdy8Dx.pdf','c1ec4c22-b5a7-4901-94e6-72665d74dbcf','131895.64','131895.64','0','131895.64','0','62','منطقة الأحياء بجوار بيتكو ','excellent','inprogress','8c82d771-63ae-4740-9ef8-b55a33b5821b',NULL,NULL,'لم تنفذ العمارات حتى الآن ','2025-05-04 03:34:11','2025-05-13 22:53:34','61455604-1ca5-4538-9f02-95468c2c85d3','d13e1541-82c3-4f97-b5ad-4acc423dd119','8397232a-163d-4a09-8e0c-9fa339e76497','648152e0-33d1-47bb-b7f0-54d1428e1ec1','0');
+('f1adfec5-664d-4b68-8e46-7b05a438c5f4','63',2020,'decision-images/TtneqM8YHDThn120EIpPXbIIsoOpG12sodzdy8Dx.pdf','1fc39eec-c714-4712-973a-fbc93733e7bc','131895.64','131895.64','0','131895.64','0','62','منطقة الأحياء بجوار بيتكو ','excellent','inprogress','507e4996-9cd3-4732-8a24-a22b6035f03b',NULL,NULL,'لم تنفذ العمارات حتى الآن ','2025-05-04 03:34:11','2025-05-04 13:01:50','e768b283-ce53-40bc-a80d-c77331ce8191','d13e1541-82c3-4f97-b5ad-4acc423dd119','8397232a-163d-4a09-8e0c-9fa339e76497','648152e0-33d1-47bb-b7f0-54d1428e1ec1','0');
 /*!40000 ALTER TABLE `origins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1712,7 +1599,6 @@ INSERT INTO `permissions` VALUES
 ('cf371771-0a12-4ec5-96a7-3de689008f7a','logout-profile-sessions','web','2025-04-28 15:26:27','2025-04-28 15:26:27'),
 ('d04144b7-6f63-4de8-94ce-ca79d7e8750b','bulk-delete-statement','web','2025-04-28 15:26:27','2025-04-28 15:26:27'),
 ('d0c1226b-7f52-4b03-91bd-761ece2abf99','view-government','web','2025-04-28 15:26:27','2025-04-28 15:26:27'),
-('d1e1bb8a-a84e-495b-ba20-428969280976','view-edit-request-origin','web','2025-05-16 16:41:30','2025-05-16 16:41:30'),
 ('d6be14f9-d66f-489c-90b4-b9b73ee8aa2c','create-user','web','2025-04-28 15:26:26','2025-04-28 15:26:26'),
 ('dd76fb8a-0339-4262-86e5-c0d96a7896e9','restore-user','web','2025-04-28 15:26:27','2025-04-28 15:26:27'),
 ('e33f0b77-6e6c-4499-8db1-18ec3f99aaa7','bulk-delete-job-title','web','2025-04-28 15:26:27','2025-04-28 15:26:27'),
@@ -1804,7 +1690,7 @@ INSERT INTO `projects` VALUES
 ('b81c433c-94fd-421f-8a68-0cd152187eea','تنفيذ عدد 126 عمارة تقسيم شمال الأحياء - الغردقة  ','2025-04-29 11:09:23','2025-04-29 11:09:23'),
 ('ca0a1f94-c970-4fbd-8514-c8f3e681a901','تنفيذ عدد 50 عمارة سيف هيكل – الغردقة','2025-05-04 02:10:51','2025-05-04 02:10:51'),
 ('e768b283-ce53-40bc-a80d-c77331ce8191','تنفيذ عدد 62 عمارة بمنطقة الأحياء بجوار شركة بيتكو - الغردقة ','2025-04-29 11:09:22','2025-04-29 11:09:22'),
-('f03430e9-947b-46e2-bb6f-3bf1cb8ea534','تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردقة','2025-04-29 11:09:22','2025-05-16 17:01:10');
+('f03430e9-947b-46e2-bb6f-3bf1cb8ea534','تنفيذ عدد 108 عمارة أمام الحرس الجمهوري بطريق الجونة بالظهير السياحي - الغردقة ','2025-04-29 11:09:22','2025-04-29 11:09:22');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2035,7 +1921,6 @@ INSERT INTO `role_has_permissions` VALUES
 ('cf371771-0a12-4ec5-96a7-3de689008f7a','a7607302-8f22-4396-b9d4-7795a118bfb4'),
 ('d04144b7-6f63-4de8-94ce-ca79d7e8750b','a7607302-8f22-4396-b9d4-7795a118bfb4'),
 ('d0c1226b-7f52-4b03-91bd-761ece2abf99','a7607302-8f22-4396-b9d4-7795a118bfb4'),
-('d1e1bb8a-a84e-495b-ba20-428969280976','a7607302-8f22-4396-b9d4-7795a118bfb4'),
 ('d6be14f9-d66f-489c-90b4-b9b73ee8aa2c','a7607302-8f22-4396-b9d4-7795a118bfb4'),
 ('dd76fb8a-0339-4262-86e5-c0d96a7896e9','a7607302-8f22-4396-b9d4-7795a118bfb4'),
 ('e33f0b77-6e6c-4499-8db1-18ec3f99aaa7','a7607302-8f22-4396-b9d4-7795a118bfb4'),
@@ -2192,7 +2077,7 @@ INSERT INTO `users` VALUES
 ('94000ccb-1c41-432a-a716-8f1edfc98a19','عماد كمال','emadkamal@gmail.com','29006012606611','01012265196',NULL,'$2y$10$57.TDEaQw1Kw14VLuhFZ.O4mBdmXvRF3g3UBvFcws5hP0/UqPR/vK',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,'2025-04-28 15:26:29','2025-04-29 11:02:07','214f9847-9362-489b-9c60-3aa3ebac79a9','6da764d9-bf25-44df-af15-130d21f9024d'),
 ('b487eaf4-1582-4966-aace-bfa3a3a272d1','عاطف احمد','atefahmed@gmail.com','26712201204419','01061295796',NULL,'$2y$10$BPq9EPu3G1TQ5zyGiliYOe2j3zTe5Gk7PDFcmJwxUcA32s0qzg8U2',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,'2025-04-28 15:26:29','2025-04-29 10:50:47','214f9847-9362-489b-9c60-3aa3ebac79a9','c969eed4-c2f2-4b5e-a831-d4e6208c5f84'),
 ('b7ff04c9-2447-4ab7-959b-80934f5a6fc3','عبد الحميد محمد','abdelhamedmohamed@gmail.com','28501012702471','01008715259',NULL,'$2y$10$87p4GzesKEeipMCZasEPOOrhoFaNt8757a.9av3h5MBNARGuLpZLG',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,'2025-04-28 15:26:29','2025-04-29 11:02:50','72bd59f9-a04e-414d-b668-c83fc9ab2b57','6da764d9-bf25-44df-af15-130d21f9024d'),
-('e28df551-c71f-4c6e-8d4f-27c75d870afa','صابر إمام حسن','semam@gmail.com','27305200101798','01005015476',NULL,'$2y$10$yfHDCjs.3Ysj7edhTjBU7.B1S1x103rbG8vM0LgX2BM7GXT1XUkdu',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,'2025-04-28 15:26:29','2025-05-16 16:47:44','cc52af45-46e9-409a-91f4-396a63bfecd4','5344a9c7-804b-490b-a650-fe3bc5fa7aab');
+('e28df551-c71f-4c6e-8d4f-27c75d870afa','صابر إمام حسن','semam@gmail.com','27305200101798','01005015476',NULL,'$2y$10$yfHDCjs.3Ysj7edhTjBU7.B1S1x103rbG8vM0LgX2BM7GXT1XUkdu',NULL,NULL,NULL,NULL,NULL,NULL,1,NULL,'2025-04-28 15:26:29','2025-04-29 10:42:06','cc52af45-46e9-409a-91f4-396a63bfecd4','5344a9c7-804b-490b-a650-fe3bc5fa7aab');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -2205,4 +2090,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-17 15:16:02
+-- Dump completed on 2025-05-04 13:46:18

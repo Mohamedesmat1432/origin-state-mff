@@ -3,11 +3,11 @@ import * as turf from '@turf/turf';
 import proj4 from 'proj4';
 proj4.defs('EPSG:32636', '+proj=utm +zone=36 +datum=WGS84 +units=m +no_defs');
 
-window.mapComponent = (gov, city, coordsLive, areaLive = 0) => ({
-    governorate: gov ?? '',
-    city: city ?? '',
-    coordsInput: JSON.stringify(coordsLive ?? []),
-    polygonPoints: coordsLive ?? [],
+window.mapComponent = (gov, city, coordinates, areaLive = 0) => ({
+    governorate: gov ?? 'البحر الأحمر',
+    city: city ?? 'الغردقة',
+    coordsInput: JSON.stringify(coordinates ?? []),
+    polygonPoints: coordinates ?? [],
     area: areaLive ?? 0,
     errorMessage: '',
     get formattedArea() { return (+this.area || 0).toFixed(2); },
@@ -63,7 +63,7 @@ window.mapComponent = (gov, city, coordsLive, areaLive = 0) => ({
         const newCoords = this.polygonPoints.map(([lat, lon]) =>
             proj4('EPSG:4326', 'EPSG:32636', [lon, lat])
         );
-        coordsLive = newCoords;
+        coordinates = newCoords;
         areaLive = Number(this.area);
 
         // حدِّث نصّ الـ textarea بعد الرسم
