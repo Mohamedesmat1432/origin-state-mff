@@ -73,7 +73,7 @@ class Origin extends Model
             'origin_status' => '<div class="' . $this->origin_status->color() . '">' . $this->origin_status->label() . '</div>',
             'record_status' => '<div class="' . $this->record_status->color() . '">' . $this->record_status->label() . '</div>',
             'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display: inline-block"/>' : '',
-            'coordinates' => json_encode($this->coordinates) ?? [],
+            'coordinates' => json_encode($this->coordinates ?? []),
             default => e(data_get($this, $key)),
         };
     }
