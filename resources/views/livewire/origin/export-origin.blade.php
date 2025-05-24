@@ -66,11 +66,16 @@
                     :enum="\App\Enums\LocationStatus::class" filter-status="true"
                     :filter-count="$this->originsCount()" />
 
+                <x-form.enum-group label="{{ __('site.record_status') }}" model="enums.record_status"
+                    :extra="['wire:model.live.debounce.200ms' => 'enums.record_status']"
+                    :enum="\App\Enums\OriginRecordStatus::class" filter-status="true"
+                    :filter-count="$this->originsCount()" />
+
                 {{-- Export Mode --}}
                 <div class="mt-2">
-                    <x-label :value="__('site.status')" />
-                    <label class="inline-flex items-center mt-2">
-                        <x-input type="checkbox" wire:model.live.debounce.100ms="export_status" class="mx-2" />
+                    <x-label :value="__('site.status')" class="block" />
+                    <label class="inline-flex items-center mt-2 gap-x-2">
+                        <x-input type="checkbox" wire:model.live.debounce.100ms="export_status" />
                         {{ $this->export_status ? __('site.export_only') : __('site.export_to_import') }}
                     </label>
                 </div>

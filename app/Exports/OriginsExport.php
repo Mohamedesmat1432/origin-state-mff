@@ -79,6 +79,7 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
                 'government_id'         => $origin->government?->name,
                 'city_id'               => $origin->city?->name,
                 'location'              => $origin->location,
+                'coordinates'           => json_encode($origin->coordinates ?? []),
 
                 // Toggle between value and label for enum fields
                 'location_status'       => $this->exportStatus
@@ -94,6 +95,10 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
                     ? $origin->origin_status->label()
                     : $origin->origin_status->value,
 
+                'record_status' => $this->exportStatus
+                    ? $origin->record_status->label()
+                    : $origin->record_status->value,
+
                 'decision_image'        => $origin->decision_image,
 
                 'created_by'            => $this->exportStatus
@@ -103,7 +108,7 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
                 'revised_by'            => $this->exportStatus
                     ? $origin->revisedBy?->name
                     : $origin->revisedBy?->id,
-                    
+
                 'completed_by'          => $this->exportStatus
                     ? $origin->completedBy?->name
                     : $origin->completedBy?->id,

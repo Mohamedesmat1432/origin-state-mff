@@ -38,9 +38,9 @@
 
                 {{-- Export Mode --}}
                 <div class="mt-2">
-                    <x-label :value="__('site.status')" />
-                    <label class="inline-flex items-center mt-2">
-                        <x-input type="checkbox" wire:model.live.debounce.100ms="export_status" class="mx-2" />
+                    <x-label :value="__('site.status')" class="block" />
+                    <label class="inline-flex items-center mt-2 gap-x-2">
+                        <x-input type="checkbox" wire:model.live.debounce.100ms="export_status" />
                         {{ $this->export_status ? __('site.export_only') : __('site.export_to_import') }}
                     </label>
                 </div>
