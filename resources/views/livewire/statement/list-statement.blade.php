@@ -1,15 +1,30 @@
 <div>
     <x-page-content page-name="{{ __('site.statements') }}">
 
-        <livewire:statement.create-statement />
-        <livewire:statement.update-statement />
-        <livewire:statement.delete-statement />
-        @can('bulk-delete-statement')
-        <livewire:statement.bulk-delete-statement />
+
+        @can('create-statement')
+            <livewire:statement.create-statement />
         @endcan
 
-        <livewire:statement.import-statement />
-        <livewire:statement.export-statement />
+        @can('edit-statement')
+            <livewire:statement.update-statement />
+        @endcan
+
+        @can('delete-statement')
+            <livewire:statement.delete-statement />
+        @endcan
+
+        @can('bulk-delete-statement')
+            <livewire:statement.bulk-delete-statement />
+        @endcan
+
+        @can('import-statement')
+            <livewire:statement.import-statement />
+        @endcan
+
+        @can('export-statement')
+            <livewire:statement.export-statement />
+        @endcan
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
 
@@ -33,7 +48,7 @@
                     </div>
 
                     @can('bulk-delete-statement')
-                    <x-bulk-delete-button />
+                        <x-bulk-delete-button />
                     @endcan
                 </div>
 
@@ -41,11 +56,11 @@
                     <x-slot name="thead">
                         <tr>
                             @can('bulk-delete-statement')
-                            <td class="px-4 py-2 border">
-                                <div class="text-center">
-                                    <x-checkbox wire:click="checkboxDeleteAll" wire:model.live="checkbox_status" />
-                                </div>
-                            </td>
+                                <td class="px-4 py-2 border">
+                                    <div class="text-center">
+                                        <x-checkbox wire:click="checkboxDeleteAll" wire:model.live="checkbox_status" />
+                                    </div>
+                                </td>
                             @endcan
                             <td class="p-2 border">
                                 <div class="flex justify-center">
@@ -72,39 +87,39 @@
                     </x-slot>
                     <x-slot name="tbody">
                         @forelse ($statements as $statement)
-                        <tr wire:key="statement-{{ $statement->id }}" class="odd:bg-gray-100">
-                            @can('bulk-delete-statement')
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $statement->id }}" />
-                            </td>
-                            @endcan
-                            <td class="p-2 border">
-                                {{ $statement->id }}
-                            </td>
-                            <td class="p-2 border">
-                                {{ $statement->name }}
-                            </td>
-                            <td class="p-2 border">
-                                <div class="flex justify-center gap-x-2">
-                                    <x-edit-button permission="edit-statement" id="{{ $statement->id }}" />
+                            <tr wire:key="statement-{{ $statement->id }}" class="odd:bg-gray-100">
+                                @can('bulk-delete-statement')
+                                    <td class="p-2 border">
+                                        <x-checkbox wire:model.live="checkbox_arr" value="{{ $statement->id }}" />
+                                    </td>
+                                @endcan
+                                <td class="p-2 border">
+                                    {{ $statement->id }}
+                                </td>
+                                <td class="p-2 border">
+                                    {{ $statement->name }}
+                                </td>
+                                <td class="p-2 border">
+                                    <div class="flex justify-center gap-x-2">
+                                        <x-edit-button permission="edit-statement" id="{{ $statement->id }}" />
 
-                                    <x-delete-button permission="delete-statement" id="{{ $statement->id }}"
-                                        name="{{ $statement->name }}" />
-                                </div>
-                            </td>
-                        </tr>
+                                        <x-delete-button permission="delete-statement" id="{{ $statement->id }}"
+                                            name="{{ $statement->name }}" />
+                                    </div>
+                                </td>
+                            </tr>
                         @empty
-                        <tr>
-                            <td colspan="12" class="p-2 border text-center">
-                                {{ __('site.no_data_found') }}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="12" class="p-2 border text-center">
+                                    {{ __('site.no_data_found') }}
+                                </td>
+                            </tr>
                         @endforelse
                     </x-slot>
                 </x-table>
 
                 @if ($statements->hasPages())
-                <x-paginate :data-links="$statements->links()" />
+                    <x-paginate :data-links="$statements->links()" />
                 @endif
             </div>
         </div>

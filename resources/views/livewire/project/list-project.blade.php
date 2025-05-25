@@ -1,13 +1,29 @@
 <div>
     <x-page-content page-name="{{ __('site.projects') }}">
 
-        <livewire:project.create-project />
-        <livewire:project.update-project />
-        <livewire:project.delete-project />
-        <livewire:project.bulk-delete-project />
-        
-        <livewire:project.import-project />
-        <livewire:project.export-project />
+        @can('create-project')
+            <livewire:project.create-project />
+        @endcan
+
+        @can('edit-project')
+            <livewire:project.update-project />
+        @endcan
+
+        @can('delete-project')
+            <livewire:project.delete-project />
+        @endcan
+
+        @can('bulk-delete-project')
+            <livewire:project.bulk-delete-project />
+        @endcan
+
+        @can('import-project')
+            <livewire:project.import-project />
+        @endcan
+
+        @can('export-project')
+            <livewire:project.export-project />
+        @endcan
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
 
@@ -31,7 +47,7 @@
                     </div>
 
                     @can('bulk-delete-project')
-                    <x-bulk-delete-button />
+                        <x-bulk-delete-button />
                     @endcan
                 </div>
 
@@ -39,11 +55,11 @@
                     <x-slot name="thead">
                         <tr>
                             @can('bulk-delete-project')
-                            <td class="px-4 py-2 border">
-                                <div class="text-center">
-                                    <x-checkbox wire:click="checkboxDeleteAll" wire:model.live="checkbox_status" />
-                                </div>
-                            </td>
+                                <td class="px-4 py-2 border">
+                                    <div class="text-center">
+                                        <x-checkbox wire:click="checkboxDeleteAll" wire:model.live="checkbox_status" />
+                                    </div>
+                                </td>
                             @endcan
                             <td class="p-2 border">
                                 <div class="flex justify-center">
@@ -70,39 +86,39 @@
                     </x-slot>
                     <x-slot name="tbody">
                         @forelse ($projects as $project)
-                        <tr wire:key="project-{{ $project->id }}" class="odd:bg-gray-100">
-                            @can('bulk-delete-project')
-                            <td class="p-2 border">
-                                <x-checkbox wire:model.live="checkbox_arr" value="{{ $project->id }}" />
-                            </td>
-                            @endcan
-                            <td class="p-2 border">
-                                {{ $project->id }}
-                            </td>
-                            <td class="p-2 border">
-                                {{ $project->name }}
-                            </td>
-                            <td class="p-2 border">
-                                <div class="flex justify-center gap-x-2">
-                                    <x-edit-button permission="edit-project" id="{{ $project->id }}" />
+                            <tr wire:key="project-{{ $project->id }}" class="odd:bg-gray-100">
+                                @can('bulk-delete-project')
+                                    <td class="p-2 border">
+                                        <x-checkbox wire:model.live="checkbox_arr" value="{{ $project->id }}" />
+                                    </td>
+                                @endcan
+                                <td class="p-2 border">
+                                    {{ $project->id }}
+                                </td>
+                                <td class="p-2 border">
+                                    {{ $project->name }}
+                                </td>
+                                <td class="p-2 border">
+                                    <div class="flex justify-center gap-x-2">
+                                        <x-edit-button permission="edit-project" id="{{ $project->id }}" />
 
-                                    <x-delete-button permission="delete-project" id="{{ $project->id }}"
-                                        name="{{ $project->name }}" />
-                                </div>
-                            </td>
-                        </tr>
+                                        <x-delete-button permission="delete-project" id="{{ $project->id }}"
+                                            name="{{ $project->name }}" />
+                                    </div>
+                                </td>
+                            </tr>
                         @empty
-                        <tr>
-                            <td colspan="12" class="p-2 border text-center">
-                                {{ __('site.no_data_found') }}
-                            </td>
-                        </tr>
+                            <tr>
+                                <td colspan="12" class="p-2 border text-center">
+                                    {{ __('site.no_data_found') }}
+                                </td>
+                            </tr>
                         @endforelse
                     </x-slot>
                 </x-table>
 
                 @if ($projects->hasPages())
-                <x-paginate :data-links="$projects->links()" />
+                    <x-paginate :data-links="$projects->links()" />
                 @endif
             </div>
         </div>

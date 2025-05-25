@@ -14,8 +14,8 @@ class City extends Model
     protected $table = 'cities';
 
     protected $fillable = [
-        'government_id', 
-        'name', 
+        'government_id',
+        'name',
     ];
 
     public function government()
@@ -36,7 +36,9 @@ class City extends Model
     public function scopeSearch($query, $search)
     {
         return $query->when($search, function ($query) use ($search) {
-            $query->where('name', 'like', "%{$search}%");
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('id', 'like', "%{$search}%")
+                ->orWhereHas('government', fn($q) => $q->where('name', 'like', "%{$search}%"));
         });
     }
 }

@@ -1,15 +1,37 @@
 <div>
     <x-page-content page-name="{{ __('site.origins') }}">
 
-        <livewire:origin.create-origin />
-        <livewire:origin.show-origin />
-        <livewire:origin.update-origin />
-        <livewire:origin.delete-origin />
-        <livewire:origin.bulk-delete-origin />
+        @can('create-origin')
+            <livewire:origin.create-origin />
+        @endcan
+        
+        @can('show-origin')
+            <livewire:origin.show-origin />
+        @endcan
 
-        <livewire:origin.import-origin />
-        <livewire:origin.export-origin />
-        <livewire:origin.add-coordinate-origin />
+        @can('edit-origin')
+            <livewire:origin.update-origin />
+        @endcan
+
+        @can('delete-origin')
+            <livewire:origin.delete-origin />
+        @endcan
+
+        @can('bulk-delete-origin')
+            <livewire:origin.bulk-delete-origin />
+        @endcan
+
+        @can('import-origin')
+            <livewire:origin.import-origin />
+        @endcan
+
+        @can('export-origin')
+            <livewire:origin.export-origin />
+        @endcan
+
+        @can('add-coordinate-origin')
+            <livewire:origin.add-coordinate-origin />
+        @endcan
 
         <div class="p-6 md:px-8 bg-white border-b border-gray-200 rounded-md">
 
