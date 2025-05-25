@@ -21,7 +21,7 @@ trait OriginTrait
 
     public $decision_image = null, $old_decision_image = null;
 
-    public bool $show_filters = true;
+    public bool $show_filters = false;
 
     public $coordinates = [];
 

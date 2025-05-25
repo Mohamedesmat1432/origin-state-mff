@@ -352,6 +352,7 @@ return [
     'doughnut' => 'دائري',
     'bar' => 'اعمدة',
     'line' => 'خط',
+    'origin_id' => 'الأصل',
     'decision_type_id' => 'العميل',
     'shop_id' => 'المحل',
     'sales' => 'قائمة نماذج البيع',

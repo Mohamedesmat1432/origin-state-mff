@@ -9,7 +9,7 @@
 
             <x-slot name="content">
                 <div class="grid gap-4">
-                    <div x-data="mapComponent(@entangle('map_government'), @entangle('map_city'), @js($coordinates), @entangle('total_area_coords'))" x-init="init();
+                    <div x-data="mapComponent(@entangle('map_government'), @entangle('map_city'), @entangle('coordinates'), @entangle('total_area_coords'))" x-init="init();
                     Livewire.hook('message.processed', () => run())">
 
                         <!-- حقول الإدخال -->
