@@ -69,7 +69,7 @@ class DashboardComponent extends Component
             [
                 'name' => 'projects',
                 'value' => __('site.projects'),
-                'icon' => 'briefcase',
+                'icon' => 'building-office-2',
                 'role' => 'view-project',
                 'bg' => 'bg-blue-600',
                 'hover' => 'hover:bg-blue-700',
@@ -87,7 +87,7 @@ class DashboardComponent extends Component
             [
                 'name' => 'origins',
                 'value' => __('site.origins'),
-                'icon' => 'globe-alt',
+                'icon' => 'globe-europe-africa',
                 'role' => 'view-origin',
                 'bg' => 'bg-emerald-600',
                 'hover' => 'hover:bg-emerald-700',

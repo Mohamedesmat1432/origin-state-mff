@@ -42,7 +42,7 @@
                         <x-indigo-button wire:click="toggleFilters">
                             <x-icon name="funnel" class="h-5 w-5" solid />
                             {{ $show_filters ? __('site.hide_filter') : __('site.show_filter') }}
-                            {{ $this->getFilteredQuery()->count() }}
+                            ({{ $this->getFilteredQuery()->count() }})
                         </x-indigo-button>
                     </div>
 

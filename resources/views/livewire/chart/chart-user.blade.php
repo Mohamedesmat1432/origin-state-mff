@@ -1,5 +1,5 @@
 <div>
-    <div x-data="chartUser" class="grid grid-cols-1 place-items-center gap-6 mt-3">
+    <div x-data="chartUser(@entangle('chartDataUser'))" class="grid grid-cols-1 place-items-center gap-6 mt-3">
         <canvas id="chartUserId" x-init="initChartUser()" width="600" height="400"></canvas>
         <x-select x-model="chartType" @change="updateChartUserType">
             <option value="doughnut">{{ __('site.doughnut') }}</option>
@@ -8,7 +8,7 @@
         </x-select>
     </div>
 
-    @push('scripts')
+    {{-- @push('scripts')
     <script>
         function chartUser() {
             return {
@@ -48,5 +48,5 @@
             };
         }
     </script>
-    @endpush
+    @endpush --}}
 </div>

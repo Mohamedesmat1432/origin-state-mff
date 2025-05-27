@@ -378,7 +378,7 @@ return [
     'company_imported' => 'Companies has been imported successfully',
     'responsibility_id' => 'Responsibility',
     'responsibilities' => 'Responsibilities',
-    'create_responsibility' => 'Create Responsibility',
+    'create_new_responsibility' => 'Create Responsibility',
     'list_responsibility' => 'List Responsibilities',
     'update_responsibility' => 'Update Responsibility',
     'delete_responsibility' => 'Delete Responsibility',
@@ -470,4 +470,6 @@ return [
     'execute' => 'Execute',
     'add_coordinates_origin' => 'Add Coordinates To Origin',
     'upload_coordinates' => 'Upload Coordinates',
+    'user_management' => 'Users Managment',
+    'program_data' => 'Program Data',
 ];

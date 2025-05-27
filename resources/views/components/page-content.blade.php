@@ -11,7 +11,7 @@
         </h2>
     </x-slot>
 
-    <div class="bg-gray-50 overflow-hidden shadow-xl md:p-8 py-6 min-h-screen">
+    <div class="bg-gray-50 overflow-hidden shadow-xl md:p-6 min-h-screen">
         {{ $slot }}
     </div>
 </div>

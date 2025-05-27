@@ -6,7 +6,7 @@
     <canvas id="chartOriginId" width="600" height="400"></canvas>
 
     <div class="flex justify-between mt-4">
-        <x-select x-model="chartType" @change="updateChartType">
+        <x-select x-model="chartType" @change.debounce.300ms="updateChartType">
             <option value="doughnut">{{ __('site.doughnut') }}</option>
             <option value="bar">{{ __('site.bar') }}</option>
             <option value="line">{{ __('site.line') }}</option>
@@ -14,7 +14,7 @@
 
         <div class="mx-1"></div>
 
-        <x-select x-model="groupBy" @change="updateGroupBy">
+        <x-select x-model="groupBy" @change.debounce.300ms="updateGroupBy">
             <option value="government">{{ __('site.government') }}</option>
             <option value="city">{{ __('site.city') }}</option>
             <option value="project">{{ __('site.project') }}</option>
@@ -26,7 +26,7 @@
     </div>
 </div>
 
-@push('scripts')
+{{-- @push('scripts')
 <script>
     function chartOrigin(chartDataOrigin, groupBy) {
         return {
@@ -123,4 +123,4 @@
         };
     }
 </script>
-@endpush
+@endpush --}}

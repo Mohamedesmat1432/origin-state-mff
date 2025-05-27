@@ -25,8 +25,8 @@ class ChartRepository implements ChartRepositoryInterface
             'datasets' => [
                 [
                     'label' => $label,
-                    'backgroundColor' => $colors,
-                    'borderColor' => $colors,
+                    // 'backgroundColor' => $colors,
+                    // 'borderColor' => $colors,
                     'hoverOffset' => 4,
                     'borderWidth' => 1,
                     'data' => $data->values(),
@@ -75,8 +75,8 @@ class ChartRepository implements ChartRepositoryInterface
             'datasets' => [
                 [
                     'label' => $label,
-                    'backgroundColor' => $colors,
-                    'borderColor' => $colors,
+                    // 'backgroundColor' => $colors,
+                    // 'borderColor' => $colors,
                     'hoverOffset' => 4,
                     'borderWidth' => 1,
                     'data' => $data->values(),

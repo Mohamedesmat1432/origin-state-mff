@@ -19,26 +19,24 @@ html {
 
 /* width scrollbar*/
 ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
 }
 
 /* Track scrollbar*/
 ::-webkit-scrollbar-track {
     background: #adbcff;
-    border-radius: 4px;
 }
 
 /* Handle scrollbar*/
 ::-webkit-scrollbar-thumb {
-    background: #7296f8;
-    border-radius: 4px;
+    background: #89a9ff;
     cursor: pointer;
 }
 
 /* Handle on hover scrollbar*/
 ::-webkit-scrollbar-thumb:hover {
-    background: #7296f8;
+    background: #88a8ff;
     cursor: pointer;
 }
 

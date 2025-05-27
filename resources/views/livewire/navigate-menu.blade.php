@@ -31,8 +31,8 @@
                 {{ __('site.dashboard') }}
             </x-dropdown-link>
 
-            <!-- Dynamic Links -->
-            @foreach ($this->responsiveLinks() as $link)
+            <!-- Dropdown Links (Account/Profile Settings) -->
+            @foreach ($this->dropdownLinks() as $link)
             @can($link['role'])
             <x-dropdown-link class="flex gap-x-2" wire:navigate href="{{ route($link['name']) }}"
                 :active="request()->routeIs($link['name'])">
@@ -42,8 +42,8 @@
             @endcan
             @endforeach
 
-            <!-- Dropdown Links (Account/Profile Settings) -->
-            @foreach ($this->dropdownLinks() as $link)
+            <!-- Dynamic Links -->
+            @foreach ($this->responsiveLinks() as $link)
             @can($link['role'])
             <x-dropdown-link class="flex gap-x-2" wire:navigate href="{{ route($link['name']) }}"
                 :active="request()->routeIs($link['name'])">

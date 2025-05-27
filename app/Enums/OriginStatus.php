@@ -18,9 +18,9 @@ enum OriginStatus: string
     public function color(): string
     {
         return match($this) {
-            self::InProgress => 'p-2 inline-block text-white bg-yellow-600 rounded-lg text-sm',
-            self::Revision => 'p-2 inline-block text-white bg-green-500 rounded-lg text-sm',
-            self::Completed => 'p-2 inline-block text-white bg-blue-500 rounded-lg text-sm',
+            self::InProgress => 'p-2 whitespace-nowrap inline-block text-white bg-yellow-600 rounded-lg text-sm',
+            self::Revision => 'p-2 whitespace-nowrap inline-block text-white bg-green-500 rounded-lg text-sm',
+            self::Completed => 'p-2 whitespace-nowrap inline-block text-white bg-blue-500 rounded-lg text-sm',
         };
     }
 

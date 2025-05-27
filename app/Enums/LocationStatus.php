@@ -19,10 +19,10 @@ enum LocationStatus: string
     public function color(): string
     {
         return match($this) {
-            self::Accept => 'p-2 inline-block text-white bg-yellow-600 rounded-lg text-sm',
-            self::Good => 'p-2 inline-block text-white bg-green-500 rounded-lg text-sm',
-            self::VeryGood => 'p-2 inline-block text-white bg-blue-500 rounded-lg text-sm',
-            self::Excellent => 'p-2 inline-block text-white bg-blue-600 rounded-lg text-sm',
+            self::Accept => 'p-2 whitespace-nowrap inline-block text-white bg-yellow-600 rounded-lg text-sm',
+            self::Good => 'p-2 whitespace-nowrap inline-block text-white bg-green-500 rounded-lg text-sm',
+            self::VeryGood => 'p-2 whitespace-nowrap inline-block text-white bg-blue-500 rounded-lg text-sm',
+            self::Excellent => 'p-2 whitespace-nowrap inline-block text-white bg-blue-600 rounded-lg text-sm',
         };
     }
 

@@ -17,8 +17,8 @@ enum OriginRecordStatus: string
     public function color(): string
     {
         return match($this) {
-            self::Yes => 'p-2 inline-block text-white bg-green-500 rounded-lg text-sm',
-            self::No => 'p-2 inline-block text-white bg-red-500 rounded-lg text-sm',
+            self::Yes => 'p-2 whitespace-nowrap inline-block text-white bg-green-500 rounded-lg text-sm',
+            self::No => 'p-2 whitespace-nowrap inline-block text-white bg-red-500 rounded-lg text-sm',
         };
     }
 

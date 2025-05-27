@@ -12,7 +12,7 @@ $maxWidth = [
 '3xl' => 'sm:max-w-3xl',
 '4xl' => 'sm:max-w-4xl',
 '5xl' => 'sm:max-w-5xl',
-][$maxWidth ?? '4xl'];
+][$maxWidth ?? '3xl'];
 @endphp
 
 <div x-data="{ show: @entangle($attributes->wire('model')) }" x-on:close.stop="show = false"

@@ -33,8 +33,24 @@
 </head>
 
 <body>
-    <div x-data="{ open: true }"
-        class="font-sans antialiased min-h-screen flex flex-col md:flex-row bg-gray-100 transition-all duration-500">
+    <div x-data="{
+        open: false,
+        init() {
+            try {
+                this.open = JSON.parse(window.localStorage.getItem('openSidebar')) || false;
+            } catch (e) {
+                this.open = false;
+            }
+        },
+        toggle() {
+            this.open = !this.open;
+            try {
+                window.localStorage.setItem('openSidebar', this.open);
+            } catch (e) {
+                // Handle storage error silently
+            }
+        }
+    }" class="font-sans antialiased min-h-screen flex flex-col md:flex-row bg-gray-100 transition-all duration-500">
 
         <livewire:sidebar />
 

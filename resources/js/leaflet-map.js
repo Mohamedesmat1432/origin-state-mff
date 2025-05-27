@@ -25,16 +25,16 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
 
         this.map = L.map(el).setView([26.8, 30.8], 6);
 
-        // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        //     attribution: '© OpenStreetMap',
-        // }).addTo(this.map);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap',
+        }).addTo(this.map);
 
         // to error firewall
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap & CartoDB',
-            subdomains: 'abcd',
-            maxZoom: 19
-        }).addTo(this.map);
+        // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+        //     attribution: '&copy; OpenStreetMap & CartoDB',
+        //     subdomains: 'abcd',
+        //     maxZoom: 19
+        // }).addTo(this.map);
 
         if (Array.isArray(this.coordinates) && this.coordinates.length) {
             this.coordsInput = JSON.stringify(this.coordinates);

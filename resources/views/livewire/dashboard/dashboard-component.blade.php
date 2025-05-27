@@ -11,9 +11,9 @@
                         <div class="dashboard_links">
                             <a wire:navigate href="{{ route($link['name']) }}">
                                 <div class="{{ $link['bg'] }} {{ $link['hover'] }} rounded p-3 text-white">
-                                    <div class="flex text-2xl justify-between">
+                                    <div class="flex text-xl justify-between">
                                         <div class="text-center">
-                                            <x-icon class="w-12 h-12 text-center" name="{{ $link['icon'] }}" />
+                                            <x-icon class="w-8 h-8 text-center" name="{{ $link['icon'] }}"  solid/>
                                             <div class="mt-3">{{ $link['count'] }}</div>
                                         </div>
                                         <div class="text-center">
