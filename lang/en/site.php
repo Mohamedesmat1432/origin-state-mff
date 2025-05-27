@@ -469,4 +469,5 @@ return [
     'origin_id_locked' => 'This origin is locked to edit',
     'execute' => 'Execute',
     'add_coordinates_origin' => 'Add Coordinates To Origin',
+    'upload_coordinates' => 'Upload Coordinates',
 ];

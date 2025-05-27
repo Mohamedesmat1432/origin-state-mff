@@ -9,14 +9,31 @@
                 <x-slot name="content">
                     <div class="grid gap-4">
                         <div x-data="mapComponent(@entangle('map_government'), @entangle('map_city'), @entangle('coordinates'), @entangle('total_area_coords'))" x-init="init();
-                        Livewire.hook('message.processed', () => run())">
+                        Livewire.hook('message.processed', () => run());
+                        window.addEventListener('coordinates-updated', () => {
+                            coordsInput = $wire.coordinates;
+                            run();
+                        });">
 
                             <!-- حقول الإدخال -->
-                            <div class="flex gap-2">
+                            <div class="flex gap-2 mt-2">
                                 <input x-model="governorate" class="border p-2 rounded w-full"
                                     placeholder="{{ __('site.government') }}" disabled />
                                 <input x-model="city" class="border p-2 rounded w-full" placeholder="{{ __('site.city') }}"
                                     disabled />
+                            </div>
+
+                            <div class="flex gap-2 mt-2">
+                                <div>
+                                    <input type="file" wire:model="excel_file"
+                                        class="border p-2 rounded w-full text-gray-500" />
+
+                                    <x-input-error for="excel_file" class="mt-1" />
+                                </div>
+
+                                <x-indigo-button wire:click="uploadCoordinates">
+                                    {{ __('site.upload_coordinates') }}
+                                </x-indigo-button>
                             </div>
 
                             <div>

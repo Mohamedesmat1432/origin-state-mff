@@ -489,4 +489,5 @@ return [
     'origin_id_locked' => 'هذا الاصل غير قابل للتعديل',
     'execute' => 'تنفيذ',
     'add_coordinates_origin' => 'اضافة احدثيات الي الاصل',
+    'upload_coordinates' => 'تحميل الاحدثيات',
 ];
