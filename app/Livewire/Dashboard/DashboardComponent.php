@@ -118,6 +118,38 @@ class DashboardComponent extends Component
 
     public function render()
     {
-        return view('livewire.dashboard.dashboard-component');
+        $departments = Department::with(['users' => function ($query) {
+            $query->withCount([
+                'createdOrigins',
+                'revisedOrigins',
+                'completedOrigins',
+            ])->with('department');
+        }])->get();
+
+        // ترتيب وتجهيز البيانات
+        $departmentsData = $departments->map(function ($department) {
+            return [
+                'department_id' => $department->id,
+                'department_name' => $department->name,
+                'users' => $department->users->map(function ($user) {
+                    $totalOrigins = $user->created_origins_count
+                        + $user->revised_origins_count
+                        + $user->completed_origins_count;
+
+                    return [
+                        'user_id' => $user->id,
+                        'user_name' => $user->name,
+                        'created_count' => $user->created_origins_count,
+                        'revised_count' => $user->revised_origins_count,
+                        'completed_count' => $user->completed_origins_count,
+                        'total_origins' => $totalOrigins,
+                    ];
+                }),
+            ];
+        });
+
+        return view('livewire.dashboard.dashboard-component',[
+            'departmentsData' => $departmentsData
+        ]);
     }
 }

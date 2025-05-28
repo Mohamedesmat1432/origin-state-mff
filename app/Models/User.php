@@ -75,14 +75,24 @@ class User extends Authenticatable
         return $this->belongsTo(Department::class);
     }
 
+    public function createdOrigins()
+    {
+        return $this->hasMany(Origin::class, 'created_by');
+    }
+
+    public function revisedOrigins()
+    {
+        return $this->hasMany(Origin::class, 'revised_by');
+    }
+
+    public function completedOrigins()
+    {
+        return $this->hasMany(Origin::class, 'completed_by');
+    }
+
     public function jobTitle()
     {
         return $this->belongsTo(JobTitle::class);
-    }
-
-    public function origins()
-    {
-        return $this->hasMany(Origin::class);
     }
 
     public function responsibilities()
