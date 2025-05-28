@@ -7,7 +7,9 @@
 # to add your own rules or override these rules.
 #
 ##################################################
-
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
 
 DirectoryIndex index.php index.html index.htm index2.html
 

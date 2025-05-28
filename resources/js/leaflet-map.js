@@ -8,8 +8,8 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
     governorate: gov ?? 'البحر الأحمر',
     city: city ?? 'الغردقة',
     coordsInput: '',
-    coordinates: entangledCoordinates,       // Livewire bound
-    total_area_coords: entangledArea,        // Livewire bound
+    coordinates: entangledCoordinates,
+    total_area_coords: entangledArea,
     polygonPoints: [],
     drawnPolygon: null,
     map: null,
@@ -51,7 +51,7 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
         try {
             if (this.governorate && this.city) {
                 const q = `${this.city}, ${this.governorate}, Egypt`;
-                const d = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}`).then(r => r.json());
+                const d = await fetch(`/proxy/nominatim?q=${encodeURIComponent(q)}`).then(r => r.json());
                 if (d.length) this.map.setView([+d[0].lat, +d[0].lon], 15);
             }
 
@@ -59,10 +59,8 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
 
             const list = this.coordsInput.trim().startsWith('[')
                 ? JSON.parse(this.coordsInput)
-                : this.coordsInput
-                    .split(/\n+/)
-                    .map(l => l.trim())
-                    .filter(Boolean)
+                : this.coordsInput.split(/\n+/)
+                    .map(l => l.trim()).filter(Boolean)
                     .map(l => l.split(/[ ,]+/).map(Number));
 
             if (list.length < 3) throw new Error('few points');

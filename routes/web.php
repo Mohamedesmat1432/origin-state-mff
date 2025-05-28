@@ -20,6 +20,9 @@ use App\Livewire\Statement\ListStatement;
 use App\Livewire\User\ListUser;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,4 +57,16 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/responsibilities', ListResponsibility::class)->name('responsibilities');
     Route::get('/activity-logs', ListActivityLog::class)->name('activity.logs');
     Route::get('/edit-request-origin', ListEditRequestOrigin::class)->name('edit.request.origin');
+
+
+    Route::get('/proxy/nominatim', function () {
+        $q = request('q');
+
+        $response = Http::get('https://nominatim.openstreetmap.org/search', [
+            'format' => 'json',
+            'q' => $q,
+        ]);
+
+        return response()->json($response->json());
+    });
 });

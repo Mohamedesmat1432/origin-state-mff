@@ -4,9 +4,9 @@
     </x-slot>
 
     <x-authentication-card>
-        <x-slot name="logo">
+        {{-- <x-slot name="logo">
             <x-authentication-card-logo />
-        </x-slot>
+        </x-slot> --}}
 
         <div class="mb-4 text-sm text-gray-600">
             {{ __('site.forget_password_message') }}
