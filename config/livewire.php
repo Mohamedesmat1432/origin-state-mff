@@ -72,7 +72,7 @@ return [
             'bmp', 'svg', 'wav', 'mp4',
             'mov', 'avi', 'wmv', 'mp3', 'm4a', 'mpga', 'wma',
             'jpg', 'jpeg', 'png', 'gif', 'webp', 
-            'xlsx','doc','docx','odt','csv', 'pdf', 'txt', 
+            'xlsx','doc','docx','odt','csv', 'pdf', 'txt', 'ods',
             'odt', 'xls',
             // 'image/jpeg', 
             // 'image/png',

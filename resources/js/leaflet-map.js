@@ -10,8 +10,8 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
     coordsInput: '',
     coordinates: entangledCoordinates,
     total_area_coords: entangledArea,
-    polygonPoints: [],
-    drawnPolygon: null,
+    polygonsPoints: [], // Array of polygons
+    drawnPolygons: [],
     map: null,
     errorMessage: '',
 
@@ -29,13 +29,6 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
             attribution: '© OpenStreetMap',
         }).addTo(this.map);
 
-        // to error firewall
-        // L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        //     attribution: '&copy; OpenStreetMap & CartoDB',
-        //     subdomains: 'abcd',
-        //     maxZoom: 19
-        // }).addTo(this.map);
-
         if (Array.isArray(this.coordinates) && this.coordinates.length) {
             this.coordsInput = JSON.stringify(this.coordinates);
             this.run();
@@ -47,6 +40,7 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
     async run() {
         this.errorMessage = '';
         this.total_area_coords = 0;
+        this.polygonsPoints = [];
 
         try {
             if (this.governorate && this.city) {
@@ -57,45 +51,62 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
 
             if (!this.coordsInput.trim()) return;
 
-            const list = this.coordsInput.trim().startsWith('[')
-                ? JSON.parse(this.coordsInput)
-                : this.coordsInput.split(/\n+/)
-                    .map(l => l.trim()).filter(Boolean)
-                    .map(l => l.split(/[ ,]+/).map(Number));
+            const input = JSON.parse(this.coordsInput);
 
-            if (list.length < 3) throw new Error('few points');
+            const polygonList = Array.isArray(input[0][0])
+                ? input // Multiple polygons
+                : [input]; // Single polygon wrapped in an array
 
-            this.polygonPoints = list.map(([x, y]) => {
-                const [lon, lat] = proj4('EPSG:32636', 'EPSG:4326', [x, y]);
-                return [lat, lon];
-            });
+            this.polygonsPoints = polygonList.map(poly =>
+                poly.map(([x, y]) => {
+                    const [lon, lat] = proj4('EPSG:32636', 'EPSG:4326', [x, y]);
+                    return [lat, lon];
+                })
+            );
 
-            this.drawPolygon();
-            this.map.fitBounds(this.drawnPolygon.getBounds());
+            this.drawPolygons();
+
+            const allBounds = this.drawnPolygons.map(p => p.getBounds());
+            if (allBounds.length) {
+                const bounds = allBounds.reduce((acc, b) => acc.extend(b), allBounds[0]);
+                this.map.fitBounds(bounds);
+            }
+
         } catch (e) {
             this.errorMessage = 'خطأ في الإحداثيات/العنوان';
         }
     },
 
-    drawPolygon() {
-        if (this.drawnPolygon) this.map.removeLayer(this.drawnPolygon);
+    drawPolygons() {
+        // Remove old polygons
+        this.drawnPolygons.forEach(p => this.map.removeLayer(p));
+        this.drawnPolygons = [];
+        this.total_area_coords = 0;
 
-        const pts = [...this.polygonPoints];
-        if (pts.length > 0 && pts[0] + '' !== pts.at(-1) + '') pts.push(pts[0]);
+        const updatedCoordinates = [];
 
-        this.drawnPolygon = L.polygon(pts, {
-            color: 'red',
-            dashArray: '4 6',
-        }).addTo(this.map);
+        for (const pts of this.polygonsPoints) {
+            const closedPts = [...pts];
+            if (closedPts.length && closedPts[0] + '' !== closedPts.at(-1) + '') {
+                closedPts.push(closedPts[0]);
+            }
 
-        const turfPoly = turf.polygon([[...pts.map(([lat, lon]) => [lon, lat])]]);
-        this.total_area_coords = turf.area(turfPoly);
+            const polygon = L.polygon(closedPts, {
+                color: 'red',
+                dashArray: '4 6',
+            }).addTo(this.map);
 
-        // Convert back to EPSG:32636 and update entangled Livewire value
-        this.coordinates = this.polygonPoints.map(([lat, lon]) =>
-            proj4('EPSG:4326', 'EPSG:32636', [lon, lat])
-        );
+            this.drawnPolygons.push(polygon);
 
-        this.coordsInput = JSON.stringify(this.coordinates); // Sync textarea
+            const turfPoly = turf.polygon([[...closedPts.map(([lat, lon]) => [lon, lat])]]);
+            this.total_area_coords += turf.area(turfPoly);
+
+            updatedCoordinates.push(
+                closedPts.map(([lat, lon]) => proj4('EPSG:4326', 'EPSG:32636', [lon, lat]))
+            );
+        }
+
+        this.coordinates = updatedCoordinates;
+        this.coordsInput = JSON.stringify(updatedCoordinates); // Sync with textarea
     },
 });

@@ -30,7 +30,7 @@ class AddCoordinateOrigin extends Component
     public function uploadCoordinates()
     {
         $this->validate([
-            'excel_file' => 'required|file|mimes:xlsx,xls,csv',
+            'excel_file' => 'required|file|mimes:xlsx,xls,csv,ods,odt',
         ]);
 
         $data = Excel::toCollection(null, $this->excel_file);
@@ -38,14 +38,34 @@ class AddCoordinateOrigin extends Component
         // Assuming coordinates are in the first sheet and first two columns
         $rows = $data[0]; // Get first sheet
 
-        $coords = [];
+        $polygons = [];
+        $currentPolygon = [];
+
         foreach ($rows as $row) {
-            if (isset($row[0]) && isset($row[1])) {
-                $coords[] = [$row[0],$row[1]];
+            // Skip empty rows or rows with non-numeric values
+            if (
+                (is_null($row[0]) || is_null($row[1])) ||
+                (!is_numeric($row[0]) || !is_numeric($row[1]))
+            ) {
+                // If there's a current polygon and we hit a break, store it
+                if (!empty($currentPolygon)) {
+                    $polygons[] = $currentPolygon;
+                    $currentPolygon = [];
+                }
+                continue;
             }
+
+            $currentPolygon[] = [(float) $row[0], (float) $row[1]];
         }
 
-        $this->coordinates = json_encode($coords);
+        // Push the last polygon if it exists
+        if (!empty($currentPolygon)) {
+            $polygons[] = $currentPolygon;
+        }
+
+        // Store as JSON array of arrays
+        $this->coordinates = json_encode($polygons);
+
         $this->dispatch('coordinates-updated');
     }
 
