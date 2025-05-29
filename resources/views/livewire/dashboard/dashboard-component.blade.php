@@ -40,23 +40,26 @@
         </div>
 
         <div class="p-6 lg:p-8 mt-5 bg-white border-b border-gray-200 rounded-lg">
-            <h1 class="text-3xl font-bold mb-6 text-gray-800">إحصائيات الإدارات والمستخدمين</h1>
+            <h1 class="text-3xl font-bold mb-6 text-gray-800">
+                {{ __('site.statistics_users_departments') }}
+            </h1>
 
             @foreach ($departmentsData as $department)
                 <div class="mb-8 bg-white rounded-lg shadow p-6">
                     <h2 class="text-2xl font-semibold text-blue-600 mb-4">
-                        إدارة: {{ $department['department_name'] }}
+                        {{ __('site.department') }}: {{ $department['department_name'] }}
                     </h2>
 
                     <div class="overflow-x-auto">
                         <table class="min-w-full bg-white border border-gray-200">
                             <thead class="bg-gray-100">
                                 <tr>
-                                    <th class="text-right px-4 py-2 border-b">المستخدم</th>
-                                    <th class="text-right px-4 py-2 border-b">أنشأ</th>
-                                    <th class="text-right px-4 py-2 border-b">راجع</th>
-                                    <th class="text-right px-4 py-2 border-b">أكمل</th>
-                                    <th class="text-right px-4 py-2 border-b font-bold text-green-600">الإجمالي</th>
+                                    <th class="text-right px-4 py-2 border-b">{{ __('site.user') }}</th>
+                                    <th class="text-right px-4 py-2 border-b">{{ __('site.created') }}</th>
+                                    <th class="text-right px-4 py-2 border-b">{{ __('site.revirsed') }}</th>
+                                    <th class="text-right px-4 py-2 border-b">{{ __('site.completed') }}</th>
+                                    <th class="text-right px-4 py-2 border-b font-bold text-green-600">
+                                        {{ __('site.total') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,8 +74,9 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center py-4 text-gray-500">لا يوجد مستخدمون في
-                                            هذه الإدارة.</td>
+                                        <td colspan="5" class="text-center py-4 text-gray-500">
+                                            {{ __('site.no_data_in_department') }}
+                                        </td>
                                     </tr>
                                 @endforelse
                             </tbody>

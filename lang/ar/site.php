@@ -492,4 +492,11 @@ return [
     'upload_coordinates' => 'تحميل الاحدثيات',
     'user_management' => 'ادارة المستخدمين',
     'program_data' => 'بيانات البرنامج',
+    'department' => 'ادارة',
+    'user' => 'المستخدم',
+    'created' => 'انشأ',
+    'revirsed' => 'راجع',
+    'completed' => 'أكمل',
+    'no_data_in_department' => 'لا يوجد بيانات في هذه الادارة',
+    'statistics_users_departments' => 'احصائيات الأدارات والمستخدمين',
 ];

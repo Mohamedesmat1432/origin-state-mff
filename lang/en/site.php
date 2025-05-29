@@ -472,4 +472,11 @@ return [
     'upload_coordinates' => 'Upload Coordinates',
     'user_management' => 'Users Managment',
     'program_data' => 'Program Data',
+        'department' => 'Department',
+    'user' => 'User',
+    'created' => 'Created',
+    'revirsed' => 'Revised',
+    'completed' => 'Completed',
+    'no_data_in_department' => 'No data in this department.',
+    'statistics_users_departments' => 'Statistics For Users & Departments',
 ];
