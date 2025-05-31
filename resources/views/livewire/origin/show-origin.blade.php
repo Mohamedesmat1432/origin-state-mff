@@ -185,7 +185,7 @@
                             {{ $this->origin->coordinatedBy?->name ?? __('site.no_data_found') }}
                         </div>
                     </div>
-                    
+
                     <div class="mt-2">
                         <x-label class="font-extrabold text-lg" for="notes" value="{{ __('site.notes') }}" />
                         <div class="mt-1 block w-full">
@@ -199,16 +199,16 @@
                         <x-label class="font-extrabold text-lg" for="coordinates"
                             value="{{ __('site.coordinates') }}" />
 
-                        @if (empty($coordinates))
-                        <div class="mt-4">
-                            {{__('site.no_data_found')}}
-                        </div>
-                        @else
+                        @if (!empty($coordinates))
                         <div x-data="mapComponent(@entangle('map_government'), @entangle('map_city'), @js($coordinates), @entangle('total_area_coords'))"
                             x-init="init(); Livewire.hook('message.processed', () => run())">
                             <div class="relative w-full" wire:ignore>
                                 <div id="map" x-ref="map" class="h-96 rounded my-2"></div>
                             </div>
+                        </div>
+                        @else
+                        <div class="mt-4">
+                            {{__('site.no_data_found')}}
                         </div>
                         @endif
 
