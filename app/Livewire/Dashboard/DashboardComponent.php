@@ -2,22 +2,23 @@
 
 namespace App\Livewire\Dashboard;
 
-use App\Models\City;
-use App\Models\DecisionType;
-use App\Models\Role;
-use App\Models\Permission;
-use App\Models\User;
-use App\Models\Department;
-use App\Models\Government;
-use App\Models\Origin;
-use App\Models\Project;
-use App\Models\Statement;
+
+use App\Models\{User, Permission,  Role, Department, DecisionType, Government, City, Project, Statement, Origin};
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Layout('layouts.app')]
 class DashboardComponent extends Component
 {
+    use WithPagination;
+
+    public $userPages = [];
+    public int $perDepartmentPage = 3;
+    public int $perUserPage = 2;
+
+    protected $updatesQueryString = ['page'];
+
     public function dashboardLinks()
     {
         return [
@@ -114,8 +115,6 @@ class DashboardComponent extends Component
         ];
     }
 
-
-
     public function render()
     {
         $departments = Department::with(['users' => function ($query) {
@@ -123,33 +122,42 @@ class DashboardComponent extends Component
                 'createdOrigins',
                 'revisedOrigins',
                 'completedOrigins',
+                'coordinatedOrigins',
             ])->with('department');
-        }])->get();
+        }])->paginate($this->perDepartmentPage);
 
-        // ترتيب وتجهيز البيانات
-        $departmentsData = $departments->map(function ($department) {
+        $departmentsData = $departments->getCollection()->map(function ($department) {
+            $currentPage = $this->userPages[$department->id] ?? 1;
+
+            $paginatedUsers = $department->users
+                ->forPage($currentPage, $this->perUserPage)
+                ->values();
+
+            $users = $paginatedUsers->map(function ($user) {
+
+                return [
+                    'user_id' => $user->id,
+                    'user_name' => $user->name,
+                    'created_count' => $user->created_origins_count,
+                    'revised_count' => $user->revised_origins_count,
+                    'completed_count' => $user->completed_origins_count,
+                    'coordinated_count' => $user->coordinated_origins_count,
+                ];
+            });
+
             return [
                 'department_id' => $department->id,
                 'department_name' => $department->name,
-                'users' => $department->users->map(function ($user) {
-                    $totalOrigins = $user->created_origins_count
-                        + $user->revised_origins_count
-                        + $user->completed_origins_count;
-
-                    return [
-                        'user_id' => $user->id,
-                        'user_name' => $user->name,
-                        'created_count' => $user->created_origins_count,
-                        'revised_count' => $user->revised_origins_count,
-                        'completed_count' => $user->completed_origins_count,
-                        'total_origins' => $totalOrigins,
-                    ];
-                }),
+                'users' => $users,
+                'users_total' => $department->users->count(),
+                'current_page' => $currentPage,
+                'per_page' => $this->perUserPage,
             ];
         });
 
-        return view('livewire.dashboard.dashboard-component',[
-            'departmentsData' => $departmentsData
+        return view('livewire.dashboard.dashboard-component', [
+            'departmentsData' => $departmentsData,
+            'departments' => $departments,
         ]);
     }
 }

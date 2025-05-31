@@ -1,6 +1,6 @@
 <div>
     @can('export-origin')
-    <x-dialog-modal wire:model="export_modal" submit="export()" method="POST">
+    <x-dialog-modal wire:model="export_modal" submit="export()" method="POST" max-width="5xl">
         @if ($this->export_modal)
         <x-slot name="title">
             {{ __('site.export_origin') }}
@@ -42,15 +42,15 @@
                 <div class="mt-2">
                     <div class="flex justify-between items-center">
                         <x-label :value="__('site.choose_columns_to_export')" />
-                        <label class="inline-flex items-center">
-                            <x-input type="checkbox" wire:click="selectAllColumns" class="mx-2" />
-                            {{ __('site.select_all') }}
+                        <label class="inline-flex items-center gap-x-2 underline">
+                            <x-input type="checkbox" wire:click="selectAllColumns" wire:model.live="checkbox_status" />
+                            <span>{{ __('site.select_all') }}</span>
                         </label>
                     </div>
                     <div class="flex flex-wrap gap-2 mt-2">
                         @foreach ($available_columns as $column)
-                        <label class="inline-flex items-center">
-                            <x-input type="checkbox" wire:model="selected_columns" value="{{ $column }}" class="mx-2" />
+                        <label class="inline-flex items-center gap-x-2">
+                            <x-input type="checkbox" wire:model="selected_columns" value="{{ $column }}" />
                             {{ __('site.' . $column) }}
                         </label>
                         @endforeach

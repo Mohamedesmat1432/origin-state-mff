@@ -90,6 +90,11 @@ class User extends Authenticatable
         return $this->hasMany(Origin::class, 'completed_by');
     }
 
+    public function coordinatedOrigins()
+    {
+        return $this->hasMany(Origin::class, 'coordinated_by');
+    }
+
     public function jobTitle()
     {
         return $this->belongsTo(JobTitle::class);

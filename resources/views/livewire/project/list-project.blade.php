@@ -27,12 +27,6 @@
 
         <div class="p-6 lg:p-8 bg-white border-b border-gray-200 rounded-md">
 
-            {{-- <div class="flex justify-between">
-                <h1 class=" text-2xl font-medium text-gray-900">
-                    {{ __('site.projects') }}
-                </h1>
-            </div> --}}
-
             <div class="text-gray-500 leading-relaxed">
                 <div>
                     <div class="md:flex justify-between">

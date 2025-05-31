@@ -74,45 +74,43 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
                 'total_area_allocated'  => $origin->total_area_allocated,
                 'total_area_coords'     => $origin->total_area_coords,
                 'statement_id'          => $origin->statement?->name,
-                'used_area'             => $origin->used_area,
-                'executing_entity_num'  => $origin->executing_entity_num,
                 'government_id'         => $origin->government?->name,
                 'city_id'               => $origin->city?->name,
+                'executing_entity_num'  => $origin->executing_entity_num,
+                'used_area'             => $origin->used_area,
                 'location'              => $origin->location,
-                'coordinates'           => json_encode($origin->coordinates ?? []),
+                'available_area'        => $origin->available_area,
+                'vacant_buildings'      => $origin->vacant_buildings,
+                'remaining_area'        => $origin->remaining_area,
 
                 // Toggle between value and label for enum fields
                 'location_status'       => $this->exportStatus
                     ? $origin->location_status->label()
                     : $origin->location_status->value,
-
-                'available_area'        => $origin->available_area,
-                'vacant_buildings'      => $origin->vacant_buildings,
-                'remaining_area'        => $origin->remaining_area,
-                'notes'                 => $origin->notes,
-
                 'origin_status'         => $this->exportStatus
                     ? $origin->origin_status->label()
                     : $origin->origin_status->value,
-
                 'record_status' => $this->exportStatus
                     ? $origin->record_status->label()
                     : $origin->record_status->value,
 
-                'decision_image'        => $origin->decision_image,
+                'notes'                 => $origin->notes,
 
                 'created_by'            => $this->exportStatus
                     ? $origin->createdBy?->name
                     : $origin->createdBy?->id,
-
                 'revised_by'            => $this->exportStatus
                     ? $origin->revisedBy?->name
                     : $origin->revisedBy?->id,
-
                 'completed_by'          => $this->exportStatus
                     ? $origin->completedBy?->name
                     : $origin->completedBy?->id,
+                'coordinated_by'          => $this->exportStatus
+                    ? $origin->coordinatedBy?->name
+                    : $origin->coordinatedBy?->id,
 
+                'decision_image'        => $origin->decision_image,
+                'coordinates'           => json_encode($origin->coordinates ?? []),
                 default                 => '',
             };
         }

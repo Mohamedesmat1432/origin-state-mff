@@ -1,6 +1,6 @@
 <div>
     @can('show-origin')
-    <x-dialog-modal wire:model="show_modal" max-width="5xl">
+    <x-dialog-modal wire:model="show_modal" max-width="5xl" method="GET">
 
         @if ($show_modal)
         <x-slot name="title">
@@ -10,7 +10,6 @@
         <x-slot name="content">
             <div class="grid grid-cols-1 md:grid-cols-2">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
                     <div class="mt-2">
                         <x-label class="font-extrabold text-lg" for="project_id" value="{{ __('site.project_id') }}" />
                         <div class="mt-1 block w-full">
@@ -89,16 +88,6 @@
                     </div>
 
                     <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="location_status"
-                            value="{{ __('site.location_status') }}" />
-                        <div class="mt-1 block w-full">
-                            <span class="rounded {{ $this->origin->location_status->color() }}">
-                                {{ $this->origin->location_status->label() }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
                         <x-label class="font-extrabold text-lg" for="used_area" value="{{ __('site.used_area') }}" />
                         <div class="mt-1 block w-full">
                             {{ $this->origin->used_area }}
@@ -138,6 +127,16 @@
                     </div>
 
                     <div class="mt-2">
+                        <x-label class="font-extrabold text-lg" for="location_status"
+                            value="{{ __('site.location_status') }}" />
+                        <div class="mt-1 block w-full">
+                            <span class="rounded {{ $this->origin->location_status->color() }}">
+                                {{ $this->origin->location_status->label() }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
                         <x-label class="font-extrabold text-lg" for="origin_status"
                             value="{{ __('site.origin_status') }}" />
                         <div class="mt-1 block w-full">
@@ -158,6 +157,36 @@
                     </div>
 
                     <div class="mt-2">
+                        <x-label class="font-extrabold text-lg" for="created_by" value="{{ __('site.created_by') }}" />
+                        <div class="mt-1 block w-full">
+                            {{ $this->origin->createdBy?->name ?? __('site.no_data_found')}}
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <x-label class="font-extrabold text-lg" for="revised_by" value="{{ __('site.revised_by') }}" />
+                        <div class="mt-1 block w-full">
+                            {{ $this->origin->revisedBy?->name ?? __('site.no_data_found')}}
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <x-label class="font-extrabold text-lg" for="completed_by"
+                            value="{{ __('site.completed_by') }}" />
+                        <div class="mt-1 block w-full">
+                            {{ $this->origin->completedBy?->name ?? __('site.no_data_found') }}
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
+                        <x-label class="font-extrabold text-lg" for="coordinated_by"
+                            value="{{ __('site.coordinated_by') }}" />
+                        <div class="mt-1 block w-full">
+                            {{ $this->origin->coordinatedBy?->name ?? __('site.no_data_found') }}
+                        </div>
+                    </div>
+                    
+                    <div class="mt-2">
                         <x-label class="font-extrabold text-lg" for="notes" value="{{ __('site.notes') }}" />
                         <div class="mt-1 block w-full">
                             {{ $this->origin->notes }}
@@ -170,12 +199,19 @@
                         <x-label class="font-extrabold text-lg" for="coordinates"
                             value="{{ __('site.coordinates') }}" />
 
+                        @if (empty($coordinates))
+                        <div class="mt-4">
+                            {{__('site.no_data_found')}}
+                        </div>
+                        @else
                         <div x-data="mapComponent(@entangle('map_government'), @entangle('map_city'), @js($coordinates), @entangle('total_area_coords'))"
                             x-init="init(); Livewire.hook('message.processed', () => run())">
                             <div class="relative w-full" wire:ignore>
                                 <div id="map" x-ref="map" class="h-96 rounded my-2"></div>
                             </div>
                         </div>
+                        @endif
+
                     </div>
 
                     <div class="mt-2">

@@ -11,12 +11,16 @@ trait OriginTrait
     use WithPagination, WithNotify, SortSearchTrait, ModalTrait, HasImageUpload;
 
     public ?Origin $origin;
-    public ?string $origin_id = null, $project_id = null, $decision_type_id = null, $statement_id = null;
-    public ?string $government_id = null, $city_id = null, $created_by = null, $revised_by = null, $completed_by = null;
-    public ?string $decision_num = null, $location = null, $notes = null;
+
+    public ?string $origin_id = null, $project_id = null, $decision_type_id = null, $statement_id = null,
+        $government_id = null, $city_id = null,
+        $created_by = null, $revised_by = null, $completed_by = null, $coordinated_by = null,
+        $decision_num = null, $location = null, $notes = null,
+        $total_area_allocated = null, $total_area_coords = null,
+        $used_area = null, $available_area = null, $remaining_area = null;
+
     public ?int $decision_date = null, $executing_entity_num = null, $vacant_buildings = null;
-    public ?string $total_area_allocated = null, $total_area_coords = null, $used_area = null;
-    public ?string $available_area = null, $remaining_area = null;
+
     public mixed $origin_status = 'inprogress', $location_status = 'accept', $record_status = 'no';
 
     public $decision_image = null, $old_decision_image = null;
@@ -34,7 +38,8 @@ trait OriginTrait
         'city',
         'createdBy',
         'revisedBy',
-        'completedBy'
+        'completedBy',
+        'coordinatedBy',
     ];
 
     public array $filters = [
@@ -146,7 +151,6 @@ trait OriginTrait
         $this->resetPage();
     }
 
-
     protected function rules(): array
     {
         return [
@@ -198,10 +202,10 @@ trait OriginTrait
         $query = $this->getFilteredQuery();
 
         cache()->remember($this->getCacheKey(), now()->addMinutes(10), function () use ($query) {
-            return $query->get(); // Get the results but don't paginate
+            return $query->get();
         });
 
-        return $query->paginate($this->page_element); // Return paginated results
+        return $query->paginate($this->page_element);
     }
 
     public function checkboxDeleteAll()
@@ -296,6 +300,7 @@ trait OriginTrait
                 'created_by',
                 'revised_by',
                 'completed_by',
+                'coordinated_by',
                 // 'coordinates',
                 'record_status',
             ] as $field
@@ -311,21 +316,22 @@ trait OriginTrait
 
     public function storeOrigin()
     {
-        // try {
         $data = $this->validate();
         $this->changeUserByOriginStatus($data, $this->origin_status);
         if ($this->decision_image) {
             $data['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
         }
-        Origin::create($data);
-        cache()->forget($this->getCacheKey());
-        $this->dispatch('refresh-list-origin');
-        $this->successNotify(__('site.origin_created'));
-        $this->create_modal = false;
-        $this->reset();
-        // } catch (\Exception $e) {
-        //     $this->errorNotify($e->getMessage());
-        // }
+
+        try {
+            Origin::create($data);
+            cache()->forget($this->getCacheKey());
+            $this->dispatch('refresh-list-origin');
+            $this->successNotify(__('site.origin_created'));
+            $this->create_modal = false;
+            $this->reset();
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
+        }
     }
 
     public function addCoordinates()
@@ -334,16 +340,21 @@ trait OriginTrait
 
         $this->validate(['coordinates' => 'required|array']);
 
-        $this->origin->update([
-            'coordinates' => $this->coordinates,
-            'total_area_coords' => $this->total_area_coords,
-        ]);
+        try {
+            $this->origin->update([
+                'coordinates' => $this->coordinates,
+                'total_area_coords' => $this->total_area_coords,
+                'coordinated_by' => auth()->id()
+            ]);
 
-        cache()->forget($this->getCacheKey());
-        $this->dispatch('refresh-list-origin');
-        $this->successNotify(__('site.origin_updated'));
-        $this->add_coodinates = false;
-        $this->reset();
+            cache()->forget($this->getCacheKey());
+            $this->dispatch('refresh-list-origin');
+            $this->successNotify(__('site.origin_updated'));
+            $this->add_coodinates = false;
+            $this->reset();
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
+        }
     }
 
     public function updateOrigin()
@@ -355,28 +366,29 @@ trait OriginTrait
 
         $this->changeUserByOriginStatus($data, $this->origin_status->value);
         $this->origin->fill($data);
+        try {
+            if ($this->origin->isDirty()) {
+                $this->origin->save();
 
-        if ($this->origin->isDirty()) {
-            $this->origin->save();
+                if (in_array($this->origin->origin_status->value, [
+                    OriginStatus::Revision->value,
+                    OriginStatus::Completed->value
+                ])) {
+                    LockedOrigin::firstOrCreate(['origin_id' => $this->origin->id]);
+                }
 
-
-            if (in_array($this->origin->origin_status->value, [
-                OriginStatus::Revision->value,
-                OriginStatus::Completed->value
-            ])) {
-                LockedOrigin::firstOrCreate(['origin_id' => $this->origin->id]);
+                cache()->forget($this->getCacheKey());
+                $this->dispatch('refresh-list-origin');
+                $this->successNotify(__('site.origin_updated'));
+            } else {
+                $this->infoNotify(__('site.no_change_happen_for_data'));
             }
 
-            cache()->forget($this->getCacheKey());
-
-            $this->dispatch('refresh-list-origin');
-            $this->successNotify(__('site.origin_updated'));
-        } else {
-            $this->infoNotify(__('site.no_change_happen_for_data'));
+            $this->edit_modal = false;
+            $this->reset();
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
         }
-
-        $this->edit_modal = false;
-        $this->reset();
     }
 
     public function deleteOrigin($id)
@@ -386,7 +398,6 @@ trait OriginTrait
             $this->deleteImage($origin->decision_image);
             $origin->delete();
             cache()->forget($this->getCacheKey());
-
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_deleted'));
             $this->delete_modal = false;
@@ -403,7 +414,6 @@ trait OriginTrait
             $this->bulkDeleteImages($origins->pluck('decision_image')->filter()->unique()->toArray());
             $origins->delete();
             cache()->forget($this->getCacheKey());
-
             $this->dispatch('refresh-list-origin');
             $this->dispatch('checkbox-clear');
             $this->successNotify(__('site.origin_delete_all'));
@@ -419,19 +429,23 @@ trait OriginTrait
         $origin = Origin::findOrFail($originId);
 
         if (!$origin->isLocked()) return $this->infoNotify(__('site.origin_is_editable'));
+
         if (EditRequestOrigin::where('origin_id', $originId)->where('status', 'pending')->exists()) {
             return $this->infoNotify(__('site.edit_request_is_found'));
         }
 
-        EditRequestOrigin::create([
-            'origin_id' => $originId,
-            'user_id' => auth()->id(),
-            'status' => 'pending',
-        ]);
+        try {
+            EditRequestOrigin::create([
+                'origin_id' => $originId,
+                'user_id' => auth()->id(),
+                'status' => 'pending',
+            ]);
 
-        cache()->forget($this->getCacheKey());
-
-        $this->successNotify(__('site.edit_request_success'));
+            cache()->forget($this->getCacheKey());
+            $this->successNotify(__('site.edit_request_success'));
+        } catch (\Exception $e) {
+            $this->errorNotify($e->getMessage());
+        }
     }
 
     private function changeUserByOriginStatus(&$data, $status)

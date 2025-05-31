@@ -18,30 +18,31 @@ class ExportOrigin extends Component
     public $export_status = false;
 
     public $available_columns = [
-        'project_id',
         'decision_num',
         'decision_date',
+        'project_id',
         'decision_type_id',
-        'total_area_allocated',
-        'total_area_coords',
         'statement_id',
-        'used_area',
-        'executing_entity_num',
         'government_id',
         'city_id',
+        'total_area_allocated',
+        'total_area_coords',
+        'used_area',
+        'executing_entity_num',
         'location',
-        'location_status',
         'available_area',
         'vacant_buildings',
         'remaining_area',
         'notes',
-        'coordinates',
+        'location_status',
         'origin_status',
         'record_status',
         'decision_image',
         'created_by',
         'revised_by',
         'completed_by',
+        'coordinated_by',
+        'coordinates',
     ];
 
     #[On('export-modal')]
@@ -53,7 +54,7 @@ class ExportOrigin extends Component
 
     public function selectAllColumns()
     {
-        $this->selected_columns =  empty($this->selected_columns) ? $this->available_columns : [];
+        $this->selected_columns =  $this->checkbox_status ? $this->available_columns : [];
     }
 
     public function export()
@@ -98,6 +99,7 @@ class ExportOrigin extends Component
             'available_columns',
             'extension',
             'export_status',
+            'checkbox_status',
             'filters',
         ]);
     }

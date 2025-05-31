@@ -41,6 +41,7 @@ class Origin extends Model
         'completed_by',
         'coordinates',
         'record_status',
+        'coordinated_by',
     ];
 
     protected $casts = [
@@ -66,17 +67,75 @@ class Origin extends Model
             'statement_id' => $this->statement?->name,
             'government_id' => $this->government?->name,
             'city_id' => $this->city?->name,
-            'created_by' => $this->createdBy?->name,
-            'revised_by' => $this->revisedBy?->name,
-            'completed_by' => $this->completedBy?->name,
             'location_status' => '<div class="' . $this->location_status->color() . '">' . $this->location_status->label() . '</div>',
             'origin_status' => '<div class="' . $this->origin_status->color() . '">' . $this->origin_status->label() . '</div>',
             'record_status' => '<div class="' . $this->record_status->color() . '">' . $this->record_status->label() . '</div>',
-            'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display: inline-block"/>' : '',
-            'coordinates' => json_encode($this->coordinates ?? []),
+            'created_by' => $this->createdBy?->name ?? __('site.no_data_found'),
+            'revised_by' => $this->revisedBy?->name ?? __('site.no_data_found'),
+            'completed_by' => $this->completedBy?->name ?? __('site.no_data_found'),
+            'coordinated_by' => $this->coordinatedBy?->name ?? __('site.no_data_found'),
+            'notes' => $this->notes ?? __('site.no_data_found'),
+            'coordinates' => $this->formatCoordinates($this->coordinates ?? []),
+            'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display: inline-block"/>' : __('site.no_data_found'),
             default => e(data_get($this, $key)),
         };
     }
+
+    // protected function formatCoordinates(array $coordinates): string
+    // {
+    //     if (empty($coordinates)) {
+    //         return  __('site.no_coordinates');
+    //     }
+
+    //     $html = '<table border="1" cellpadding="4" cellspacing="0">
+    //                 <thead>
+    //                 <tr><th class="border p-2">X</th>
+    //                 <th class="border p-2">Y</th></tr>
+    //                 </thead>
+    //                 <tbody>';
+
+    //     foreach ($coordinates[0] ?? [] as $pair) {
+    //         if (is_array($pair) && count($pair) === 2) {
+    //             [$x, $y] = $pair;
+    //             $html .= '<tr><td class="border p-2">' . number_format($x, 4) . '</td>
+    //             <td class="border p-2">' . number_format($y, 4) . '</td></tr>';
+    //         }
+    //     }
+
+    //     $html .= '</tbody></table>';
+
+    //     return $html;
+    // }
+
+    protected function formatCoordinates(array $coordinates): string
+    {
+        if (empty($coordinates)) {
+            return __('site.no_coordinates');
+        }
+
+        $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
+                    <table class="table-fixed min-w-full text-sm">
+                    <tbody><tr>
+                    <td class="border p-2">X</td>';
+        // First row for X values
+        foreach ($coordinates[0] ?? [] as $pair) {
+            $x = is_array($pair) && isset($pair[0]) ? number_format($pair[0], 4) : '-';
+            $html .= '<td class="border p-2">' . $x . '</td>';
+        }
+
+        $html .= '</tr><tr><td class="border p-2">Y</td>';
+
+        // Second row for Y values
+        foreach ($coordinates[0] ?? [] as $pair) {
+            $y = is_array($pair) && isset($pair[1]) ? number_format($pair[1], 4) : '-';
+            $html .= '<td class="border p-2">' . $y . '</td>';
+        }
+
+        $html .= '</tr></tbody></table></div>';
+
+        return $html;
+    }
+
 
     // User actions
     public function createdBy(): BelongsTo
@@ -92,6 +151,11 @@ class Origin extends Model
     public function completedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'completed_by');
+    }
+
+    public function coordinatedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'coordinated_by');
     }
 
     // Other relationships

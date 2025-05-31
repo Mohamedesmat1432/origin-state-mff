@@ -5,6 +5,9 @@
 @import 'leaflet/dist/leaflet.css';
 @import url('site.css'); 
 
-/* input[type="search"] {
-    @apply py-2;
-} */
+@layer base {
+    input[type='checkbox'] {
+        @apply h-5 w-5;
+    }
+}
+

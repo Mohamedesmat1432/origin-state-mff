@@ -36,18 +36,19 @@ class ListOrigin extends Component
             ['key' => 'government_id', 'label' => __('site.government_id')],
             ['key' => 'city_id', 'label' => __('site.city_id')],
             ['key' => 'location', 'label' => __('site.location')],
-            ['key' => 'location_status', 'label' => __('site.location_status')],
             ['key' => 'available_area', 'label' => __('site.available_area')],
             ['key' => 'vacant_buildings', 'label' => __('site.vacant_buildings')],
             ['key' => 'remaining_area', 'label' => __('site.remaining_area')],
             ['key' => 'notes', 'label' => __('site.notes')],
-            ['key' => 'decision_image', 'label' => __('site.decision_image')],
+            ['key' => 'location_status', 'label' => __('site.location_status')],
             ['key' => 'origin_status', 'label' => __('site.origin_status')],
+            ['key' => 'record_status', 'label' => __('site.record_status')],
             ['key' => 'created_by', 'label' => __('site.created_by')],
             ['key' => 'revised_by', 'label' => __('site.revised_by')],
             ['key' => 'completed_by', 'label' => __('site.completed_by')],
+            ['key' => 'coordinated_by', 'label' => __('site.coordinated_by')],
+            ['key' => 'decision_image', 'label' => __('site.decision_image')],
             ['key' => 'coordinates', 'label' => __('site.coordinates')],
-            ['key' => 'record_status', 'label' => __('site.record_status')],
         ];
     }
 

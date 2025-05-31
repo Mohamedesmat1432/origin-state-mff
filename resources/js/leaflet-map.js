@@ -109,4 +109,6 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
         this.coordinates = updatedCoordinates;
         this.coordsInput = JSON.stringify(updatedCoordinates); // Sync with textarea
     },
+
+
 });
