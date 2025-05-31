@@ -47,7 +47,7 @@
             @foreach ($departmentsData as $department)
             <div class="mb-8 bg-white rounded-lg shadow p-6">
                 <h2 class="text-2xl font-semibold text-blue-600 mb-4">
-                    {{ __('site.department') }}: {{ $department['department_name'] }}
+                    {{ $department['department_name'] }}
                 </h2>
 
                 <div class="overflow-x-auto">

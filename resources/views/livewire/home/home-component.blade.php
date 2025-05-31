@@ -10,7 +10,7 @@
     </x-slot>
 
     <div
-        class="relative sm:flex sm:justify-center sm:items-center  bg-center bg-gray-100 selection:bg-red-500 selection:text-white h-screen">
+        class="relative sm:flex sm:justify-center sm:items-center  bg-center bg-gray-100 selection:bg-red-500 selection:text-white">
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <div class="mt-2">
                 <div
