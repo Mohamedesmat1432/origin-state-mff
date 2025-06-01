@@ -177,7 +177,7 @@
                         </div>
 
                         {{-- Action buttons --}}
-                        <div class="flex items-center gap-2 mt-4">
+                        <div class="flex items-center justify-center gap-2 mt-4">
                             <x-show-button permission="show-origin" id="{{ $origin->id }}" />
 
                             @if ($origin->isLocked())
