@@ -387,7 +387,6 @@ trait OriginTrait
                 ])) {
                     LockedOrigin::firstOrCreate(['origin_id' => $this->origin->id]);
                 }
-                $this->notifyUsers();
 
                 cache()->forget($this->getCacheKey());
                 $this->dispatch('refresh-list-origin');
