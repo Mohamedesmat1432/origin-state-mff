@@ -1,7 +1,6 @@
 <div>
     @can('show-origin')
     <x-dialog-modal wire:model="show_modal" max-width="5xl" method="GET">
-
         @if ($show_modal)
         <x-slot name="title">
             {{ __('site.show_origin') }}

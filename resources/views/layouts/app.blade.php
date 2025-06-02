@@ -7,29 +7,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/social_housing_logo.jpeg') }}" />
     <title>{{ $title ?? 'Laravel' }}</title>
-    <style>
-        @keyframes spin-slower {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(-360deg);
-            }
-        }
-
-        .animate-spin-slower {
-            animation: spin-slower 2s linear infinite;
-        }
-    </style>
 
     @vite('resources/css/app.css')
 
     @livewireStyles
 
     @stack('styles')
-
-
 </head>
 
 <body>

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
+import path from 'path';
 
 export default defineConfig({
   plugins: [
@@ -8,6 +9,11 @@ export default defineConfig({
       ...refreshPaths,
     })
   ],
+  resolve: {
+    alias: {
+      '@fonts': path.resolve(__dirname, 'resources/fonts'),
+    },
+  },
   build: {
     rollupOptions: {
       output: {

@@ -485,4 +485,10 @@ return [
     'coordinated_by' => 'Coordinated By',
     'statistics_user_chart' => 'Statistics Chart For Users',
     'statistics_origin_chart' => 'Statistics Chart For Origins',
+    'new_origin_created' => 'New Origin Created',
+    'hello' => 'Hello',
+    'thank' => 'Thank',
+    'new_origin_has_been_created_by' => 'A new origin has been created by ',
+    'origin_name' => 'Origin Name',
+    'created_at' => 'Created At',
 ];

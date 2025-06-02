@@ -1,13 +1,154 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-@import 'toastify-js/src/toastify.css';
-@import 'leaflet/dist/leaflet.css';
-@import url('site.css'); 
 
 @layer base {
+    /* Font Face */
+    @font-face {
+        font-family: "Cairo";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url("@fonts/Cairo-font.ttf") format("woff2");
+        unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891,
+            U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41,
+            U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+    }
+    @font-face {
+        font-family: "Cairo";
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url("@fonts/Cairo-font.ttf") format("woff2");
+        unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891,
+            U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41,
+            U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+    }
+    @font-face {
+        font-family: "Cairo";
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url("@fonts/Cairo-font.ttf") format("woff2");
+        unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891,
+            U+0898-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41,
+            U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+    }
+
+    html {
+        @apply scroll-smooth;
+    }
+
+    body, * {
+        font-family: "Cairo", sans-serif;
+    }
+
     input[type='checkbox'] {
-        @apply h-5 w-5;
+        @apply h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500;
+    }
+
+    /* Scrollbar styles */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #adbcff;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #89a9ff;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #88a8ff;
+    }
+
+    /* Select option checked styles */
+    select option:checked,
+    select option[multiple]:checked {
+        background-color: #6596ff;
+        color: white;
+        font-weight: bold;
+        padding: 5px;
+        border: 1px solid rgb(217, 217, 217);
+    }
+
+    /* Hide Leaflet attribution */
+    .leaflet-container .leaflet-control-attribution {
+        display: none;
+    }
+
+    @keyframes spin-slower {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(-360deg);
+        }
+    }
+    
+    .animate-spin-slower {
+        animation: spin-slower 2s linear infinite;
     }
 }
 
+@layer components {
+    .spinner {
+        @apply animate-spin rounded-full border-t-4 border-b-4 border-blue-500;
+    }
+
+    .page-container {
+        @apply container mx-auto px-4 py-10 rtl:text-right ltr:text-left;
+    }
+
+    .card {
+        @apply bg-white rounded-lg shadow-md p-8 max-w-2xl mx-auto;
+    }
+
+    .card-title {
+        @apply text-2xl font-bold text-blue-600 mb-2 w-full;
+    }
+
+    .card-subtitle {
+        @apply text-lg font-semibold text-gray-700 w-full;
+    }
+
+    .card-body {
+        @apply text-gray-600 mb-4 w-full;
+    }
+
+    .highlight {
+        @apply font-semibold text-gray-900;
+    }
+
+    .meta-box {
+        @apply bg-gray-50 p-4 rounded border border-gray-200 mb-6;
+    }
+
+    .form-section {
+        @apply grid gap-4 mb-4;
+    }
+
+    .form-label {
+        @apply block mb-1 font-medium text-gray-700;
+    }
+
+    .form-error {
+        @apply text-sm text-red-600 mt-1;
+    }
+
+    .rtl {
+        direction: rtl;
+        text-align: right;
+    }
+
+    .ltr {
+        direction: ltr;
+        text-align: left;
+    }
+}

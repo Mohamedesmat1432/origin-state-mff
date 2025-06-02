@@ -505,4 +505,10 @@ return [
     'coordinated_by' => 'احدثيات بواسطة',
     'statistics_user_chart' => 'احصائيات بيانية للمستخدمين',
     'statistics_origin_chart' => 'احصائيات بيانية للاصول',
+    'new_origin_created' => 'تم انشاء اصل جديد',
+    'hello' => 'مرحبا',
+    'thank' => 'شكرا',
+    'new_origin_has_been_created_by' => 'تم انشاء الاصل بواسطة ',
+    'origin_name' => 'اسم الاصل',
+    'created_at' => 'تاريخ الانشاء',
 ];

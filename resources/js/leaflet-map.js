@@ -1,6 +1,8 @@
+import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import * as turf from '@turf/turf';
 import proj4 from 'proj4';
+
 
 proj4.defs('EPSG:32636', '+proj=utm +zone=36 +datum=WGS84 +units=m +no_defs');
 
@@ -109,6 +111,5 @@ window.mapComponent = (gov, city, entangledCoordinates, entangledArea) => ({
         this.coordinates = updatedCoordinates;
         this.coordsInput = JSON.stringify(updatedCoordinates); // Sync with textarea
     },
-
 
 });

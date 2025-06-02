@@ -53,3 +53,17 @@ select option[multiple]:checked {
 .leaflet-container .leaflet-control-attribution {
     display: none;
 }
+
+@keyframes spin-slower {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+.animate-spin-slower {
+    animation: spin-slower 2s linear infinite;
+}
