@@ -503,4 +503,6 @@ return [
     'statistics_users_departments' => 'احصائيات الأدارات والمستخدمين',
     'no_coordinates' => 'لا يوجد احدثيات',
     'coordinated_by' => 'احدثيات بواسطة',
+    'statistics_user_chart' => 'احصائيات بيانية للمستخدمين',
+    'statistics_origin_chart' => 'احصائيات بيانية للاصول',
 ];

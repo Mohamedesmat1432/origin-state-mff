@@ -483,4 +483,6 @@ return [
     'statistics_users_departments' => 'Statistics For Users & Departments',
     'no_coordinates' => 'No Coordinates',
     'coordinated_by' => 'Coordinated By',
+    'statistics_user_chart' => 'Statistics Chart For Users',
+    'statistics_origin_chart' => 'Statistics Chart For Origins',
 ];

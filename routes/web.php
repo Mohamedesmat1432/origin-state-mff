@@ -16,8 +16,11 @@ use App\Livewire\Responsibility\ListResponsibility;
 use App\Livewire\Role\ListRole;
 use App\Livewire\DecisionType\ListDecisionType;
 use App\Livewire\EditRequestOrigin\ListEditRequestOrigin;
+use App\Livewire\ListOriginNotifier;
 use App\Livewire\Statement\ListStatement;
 use App\Livewire\User\ListUser;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 use Illuminate\Support\Facades\Cache;
@@ -57,14 +60,21 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/responsibilities', ListResponsibility::class)->name('responsibilities');
     Route::get('/activity-logs', ListActivityLog::class)->name('activity.logs');
     Route::get('/edit-request-origin', ListEditRequestOrigin::class)->name('edit.request.origin');
+    Route::get('/notifications', ListOriginNotifier::class)->name('notifications');
 
+    Route::get('/test-mail', function () {
+        $origin = \App\Models\Origin::first(); // or mock object
+        $sender = Auth::user() ?? \App\Models\User::find('e28df551-c71f-4c6e-8d4f-27c75d870afa');
+        $recipient = User::find('8c82d771-63ae-4740-9ef8-b55a33b5821b'); // change this to an actual recipient ID
+
+        return (new \App\Notifications\CreateOriginNotification($origin, $sender))
+            ->toMail($recipient);
+    });
 
     Route::get('/proxy/nominatim', function () {
-        $q = request('q');
-
         $response = Http::get('https://nominatim.openstreetmap.org/search', [
             'format' => 'json',
-            'q' => $q,
+            'q' => request('q'),
         ]);
 
         return response()->json($response->json());

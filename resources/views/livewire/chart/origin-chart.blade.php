@@ -1,28 +1,31 @@
-<div  x-data="chartOrigin(@entangle('chartDataOrigin'), @entangle('groupBy'))" 
-    x-init="initChartOrigin()"
-    class="grid grid-cols-1 place-items-center gap-6 mt-3"
-    @chart-updated.window="chartData = $event.detail.chartData; renderChart();">
+<div>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">
+        {{ __('site.statistics_origin_chart') }}
+    </h1>
+    <div x-data="chartOrigin(@entangle('chartDataOrigin'), @entangle('groupBy'))" x-init="initChartOrigin()" class="grid grid-cols-1 place-items-center gap-6 mt-3"
+        @chart-updated.window="chartData = $event.detail.chartData; renderChart();">
 
-    <canvas id="chartOriginId" width="600" height="400"></canvas>
+        <canvas id="chartOriginId" width="600" height="400"></canvas>
 
-    <div class="flex justify-between mt-4">
-        <x-select x-model="chartType" @change.debounce.300ms="updateChartType">
-            <option value="doughnut">{{ __('site.doughnut') }}</option>
-            <option value="bar">{{ __('site.bar') }}</option>
-            <option value="line">{{ __('site.line') }}</option>
-        </x-select>
+        <div class="flex justify-between mt-4">
+            <x-select x-model="chartType" @change.debounce.300ms="updateChartType">
+                <option value="doughnut">{{ __('site.doughnut') }}</option>
+                <option value="bar">{{ __('site.bar') }}</option>
+                <option value="line">{{ __('site.line') }}</option>
+            </x-select>
 
-        <div class="mx-1"></div>
+            <div class="mx-1"></div>
 
-        <x-select x-model="groupBy" @change.debounce.300ms="updateGroupBy">
-            <option value="government">{{ __('site.government') }}</option>
-            <option value="city">{{ __('site.city') }}</option>
-            <option value="project">{{ __('site.project') }}</option>
-            <option value="decisionType">{{ __('site.decisionType') }}</option>
-            <option value="createdBy">{{ __('site.created_by') }}</option>
-            <option value="revisedBy">{{ __('site.revised_by') }}</option>
-            <option value="completedBy">{{ __('site.completed_by') }}</option>
-        </x-select>
+            <x-select x-model="groupBy" @change.debounce.300ms="updateGroupBy">
+                <option value="government">{{ __('site.government') }}</option>
+                <option value="city">{{ __('site.city') }}</option>
+                <option value="project">{{ __('site.project') }}</option>
+                <option value="decisionType">{{ __('site.decisionType') }}</option>
+                <option value="createdBy">{{ __('site.created_by') }}</option>
+                <option value="revisedBy">{{ __('site.revised_by') }}</option>
+                <option value="completedBy">{{ __('site.completed_by') }}</option>
+            </x-select>
+        </div>
     </div>
 </div>
 

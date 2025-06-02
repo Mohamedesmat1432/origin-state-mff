@@ -2,8 +2,10 @@
 
 namespace App\Traits;
 
-use App\Models\{City, DecisionType, Origin, LockedOrigin, EditRequestOrigin, Government, Project, Statement};
+use App\Models\{City, DecisionType, Origin, LockedOrigin, EditRequestOrigin, Government, Project, Statement, User};
 use App\Enums\{OriginStatus, LocationStatus, OriginRecordStatus};
+use App\Notifications\CreateOriginNotification;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 trait OriginTrait
@@ -197,6 +199,15 @@ trait OriginTrait
         ]));
     }
 
+    public function notifyUsers()
+    {
+        $users = User::where('email', 'like', '%@mff.gov.eg')->get();
+        foreach ($users as $user) {
+            $user->notify(new CreateOriginNotification($this->origin, Auth::user()));
+        }
+        session()->flash('success', 'Notifications and emails sent successfully.');
+    }
+
     public function originList()
     {
         $query = $this->getFilteredQuery();
@@ -376,6 +387,7 @@ trait OriginTrait
                 ])) {
                     LockedOrigin::firstOrCreate(['origin_id' => $this->origin->id]);
                 }
+                $this->notifyUsers();
 
                 cache()->forget($this->getCacheKey());
                 $this->dispatch('refresh-list-origin');

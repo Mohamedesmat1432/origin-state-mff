@@ -1,4 +1,7 @@
 <div>
+    <h1 class="text-3xl font-bold mb-6 text-gray-800">
+        {{ __('site.statistics_user_chart') }}
+    </h1>
     <div x-data="chartUser(@entangle('chartDataUser'))" class="grid grid-cols-1 place-items-center gap-6 mt-3">
         <canvas id="chartUserId" x-init="initChartUser()" width="600" height="400"></canvas>
         <x-select x-model="chartType" @change="updateChartUserType">
