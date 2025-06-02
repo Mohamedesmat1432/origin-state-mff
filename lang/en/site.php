@@ -491,4 +491,5 @@ return [
     'new_origin_has_been_created_by' => 'A new origin has been created by ',
     'origin_name' => 'Origin Name',
     'created_at' => 'Created At',
+    'assets_managment_system' => 'Assets Managment System',
 ];

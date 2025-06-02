@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Origin;
 use App\Models\User;
 use App\Notifications\CreateOriginNotification;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -25,7 +24,7 @@ class ListOriginNotifier extends Component
         $users = User::where('email', 'like', '%@mff.gov.eg')->get();
         $this->origin = Origin::first();
         foreach ($users as $user) {
-            $user->notify(new CreateOriginNotification($this->origin, Auth::user()));
+            $user->notify(new CreateOriginNotification($this->origin, auth()->user()));
         }
         session()->flash('success', 'Notifications and emails sent successfully.');
     }
@@ -33,7 +32,7 @@ class ListOriginNotifier extends Component
     public function render()
     {
         return view('livewire.list-origin-notifier', [
-            'notifications' => auth()->user()->notifications->filter(fn($n) => $n->data['origin_id'] == $this->origin->id)
+            'notifications' => auth()->user()->notifications
         ]);
     }
 }

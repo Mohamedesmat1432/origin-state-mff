@@ -511,4 +511,5 @@ return [
     'new_origin_has_been_created_by' => 'تم انشاء الاصل بواسطة ',
     'origin_name' => 'اسم الاصل',
     'created_at' => 'تاريخ الانشاء',
+    'assets_managment_system' => ' نظام ادارة اصول الدولة',
 ];

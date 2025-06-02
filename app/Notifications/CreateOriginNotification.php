@@ -57,7 +57,7 @@ class CreateOriginNotification extends Notification implements ShouldQueue
             'origin_id' => $this->origin->id,
             'origin_name' => $this->origin->project->name,
             'sender_name' => $this->sender->name,
-            'message' => "New origin '{$this->origin->project->name}' added by {$this->sender->name}."
+            'message' => "**{$this->origin->id}** " . __('site.new_origin_has_been_created_by') . " {$this->sender->name}."
         ];
     }
 }

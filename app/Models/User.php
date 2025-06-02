@@ -115,7 +115,8 @@ class User extends Authenticatable
     {
         return $query->when($search, function ($query) use ($search) {
             $query->where('name', 'like', "%{$search}%")
-                ->orWhere('email', 'like', "%{$search}%");
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('id', 'like', "%{$search}%");
         });
     }
 }
