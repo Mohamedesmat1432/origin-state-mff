@@ -8,7 +8,7 @@
                 <x-icon name="bell-alert" class="h-5 w-5 text-yellow-300" solid="true" />
                 @if (count($notifications) > 0)
                 <span class="bg-red-600 text-white text-xs rounded-full">
-                    ({{ count($notifications->whereNull('read_at')) }})
+                    {{ count($notifications->whereNull('read_at')) }}
                 </span>
                 @endif
             </button>
