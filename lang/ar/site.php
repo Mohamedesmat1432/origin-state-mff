@@ -512,4 +512,8 @@ return [
     'origin_name' => 'اسم الاصل',
     'created_at' => 'تاريخ الانشاء',
     'assets_managment_system' => ' نظام ادارة اصول الدولة',
+    'notifications' => 'الاشعارات',
+    'no_notifications_found' => 'لا يوجد اشعارات.',
+    'read' => 'مقرؤة',
+    'mark_as_read' => 'تعليم كمقرؤة',
 ];

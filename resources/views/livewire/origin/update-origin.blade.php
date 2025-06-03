@@ -102,6 +102,7 @@
 
         <x-slot name="footer">
             <x-indigo-button type="submit" wire:loading.attr="disabled">
+                <x-form.svg-spinner />
                 {{ __('site.save') }}
             </x-indigo-button>
             <x-secondary-button class="mx-2" wire:click="$set('edit_modal',false)" wire:loading.attr="disabled">

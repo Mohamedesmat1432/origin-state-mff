@@ -492,4 +492,8 @@ return [
     'origin_name' => 'Origin Name',
     'created_at' => 'Created At',
     'assets_managment_system' => 'Assets Managment System',
+    'notifications' => 'Notifications',
+    'no_notifications_found' => 'No notifications found.',
+    'read' => 'Read',
+    'mark_as_read' => 'Mark As Read',
 ];

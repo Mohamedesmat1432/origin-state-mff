@@ -12,6 +12,7 @@
 
         <x-slot name="footer">
             <x-danger-button type="submit" wire:loading.attr="disabled">
+                <x-form.svg-spinner />
                 {{ __('site.bulk_delete_origin') }}
             </x-danger-button>
             <x-secondary-button class="mx-2" wire:click="$set('bulk_delete_modal',false)" wire:loading.attr="disabled">

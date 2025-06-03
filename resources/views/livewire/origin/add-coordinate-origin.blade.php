@@ -69,6 +69,7 @@
 
         <x-slot name="footer">
             <x-indigo-button type="submit" wire:loading.attr="disabled">
+                <x-form.svg-spinner />
                 {{ __('site.save') }}
             </x-indigo-button>
 

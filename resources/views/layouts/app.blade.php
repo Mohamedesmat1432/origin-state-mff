@@ -46,8 +46,8 @@
 
             @if (isset($header))
             <header class="bg-white shadow border-b border-gray-100">
-                <div class="max-w-7xl mx-8 py-6 px-4 sm:px-6 lg:px-4 flex justify-between">
-                    <div>{{ $header }}</div>
+                <div class="w-full py-6 px-4 sm:px-6 lg:px-4">
+                    {{ $header ?? ''}}
                 </div>
             </header>
             @endif

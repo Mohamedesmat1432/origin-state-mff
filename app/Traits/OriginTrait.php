@@ -4,8 +4,7 @@ namespace App\Traits;
 
 use App\Models\{City, DecisionType, Origin, LockedOrigin, EditRequestOrigin, Government, Project, Statement, User};
 use App\Enums\{OriginStatus, LocationStatus, OriginRecordStatus};
-use App\Notifications\CreateOriginNotification;
-use Illuminate\Support\Facades\Auth;
+use App\Notifications\OriginNotification;
 use Livewire\WithPagination;
 
 trait OriginTrait
@@ -199,13 +198,13 @@ trait OriginTrait
         ]));
     }
 
-    public function notifyUsers()
+    public function notifyUsers($origin, $action, $action_by)
     {
         $users = User::where('email', 'like', '%@mff.gov.eg')->get();
+
         foreach ($users as $user) {
-            $user->notify(new CreateOriginNotification($this->origin, Auth::user()));
+            $user->notify(new OriginNotification($origin, auth()->user(), $action, $action_by));
         }
-        session()->flash('success', 'Notifications and emails sent successfully.');
     }
 
     public function originList()
@@ -334,11 +333,12 @@ trait OriginTrait
         }
 
         try {
-            Origin::create($data);
+            $origin = Origin::create($data);
             cache()->forget($this->getCacheKey());
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_created'));
             $this->create_modal = false;
+            $this->notifyUsers($origin, __('site.create_origin'), __('site.origin_created'));
             $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
@@ -362,6 +362,7 @@ trait OriginTrait
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_updated'));
             $this->add_coodinates = false;
+            $this->notifyUsers($this->origin, __('site.add_coordinates_origin'), __('site.origin_updated'));
             $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
@@ -391,12 +392,13 @@ trait OriginTrait
                 cache()->forget($this->getCacheKey());
                 $this->dispatch('refresh-list-origin');
                 $this->successNotify(__('site.origin_updated'));
+                $this->edit_modal = false;
+                $this->notifyUsers($this->origin, __('site.update_origin'), __('site.origin_updated'));
+                $this->reset();
             } else {
                 $this->infoNotify(__('site.no_change_happen_for_data'));
             }
-
-            $this->edit_modal = false;
-            $this->reset();
+            
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
         }
@@ -412,6 +414,7 @@ trait OriginTrait
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_deleted'));
             $this->delete_modal = false;
+            $this->notifyUsers($origin, __('site.delete_origin'), __('site.origin_deleted'));
             $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
@@ -429,6 +432,9 @@ trait OriginTrait
             $this->dispatch('checkbox-clear');
             $this->successNotify(__('site.origin_delete_all'));
             $this->bulk_delete_modal = false;
+            $origins->each(function ($origin) {
+                $this->notifyUsers($origin, __('site.bulk_delete_origin'), __('site.origin_delete_all'));
+            });
             $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
