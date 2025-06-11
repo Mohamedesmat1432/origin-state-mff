@@ -19,25 +19,23 @@
     <div x-data="{
         open: false,
         init() {
-            try {
-                this.open = JSON.parse(window.localStorage.getItem('openSidebar')) || false;
-            } catch (e) {
-                this.open = false;
-            }
+            this.open = JSON.parse(window.localStorage.getItem('openSidebar')) || false;
         },
         toggle() {
             this.open = !this.open;
-            try {
-                window.localStorage.setItem('openSidebar', this.open);
-            } catch (e) {
-                // Handle storage error silently
-            }
+            window.localStorage.setItem('openSidebar', this.open);
+        },
+        openSidebarOnly() {
+            this.open = true;
+            window.localStorage.setItem('openSidebar', true);
         }
-    }" class="font-sans antialiased min-h-screen flex flex-col md:flex-row bg-gray-100 transition-all duration-500">
+    }"
+        class="font-sans antialiased min-h-screen flex flex-col md:flex-row bg-gray-100 transition-all duration-500">
 
         <livewire:sidebar />
 
-        <div class="ltr:md:ml-64 rtl:md:mr-64 w-full flex-1 transition-all duration-300 overflow-y-auto" :class="{
+        <div class="ltr:md:ml-64 rtl:md:mr-64 w-full flex-1 transition-all duration-300 overflow-y-auto"
+            :class="{
                 'ltr:md:ml-64 rtl:md:mr-64': open,
                 'ltr:md:ml-16 rtl:md:mr-16': !open,
             }">
@@ -45,11 +43,11 @@
             <livewire:navigate-menu />
 
             @if (isset($header))
-            <header class="bg-white shadow border-b border-gray-100">
-                <div class="w-full py-6 px-4 sm:px-6 lg:px-4">
-                    {{ $header ?? ''}}
-                </div>
-            </header>
+                <header class="bg-white shadow border-b border-gray-100">
+                    <div class="w-full py-6 px-4 sm:px-6 lg:px-4">
+                        {{ $header ?? '' }}
+                    </div>
+                </header>
             @endif
 
             <x-notify />

@@ -32,19 +32,24 @@ window.chartOrigin = (chartDataOrigin, groupBy) => ({
             this.$nextTick(() => {
                 const canvas = document.getElementById('chartOriginId');
                 if (!canvas) {
-                    console.error("Canvas not found!");
-                    return; // Return if canvas is not found
+                    console.warn("Canvas element not found during render.");
+                    return;
                 }
 
                 const ctx = canvas.getContext('2d');
                 if (!ctx) {
-                    console.error("Canvas context not available!");
-                    return; // Return if context is not available
+                    console.warn("Canvas context not available.");
+                    return;
                 }
 
                 // If a chart already exists, destroy it before creating a new one
                 if (this.chart) {
-                    this.chart.destroy();
+                    try {
+                        this.chart.destroy();
+                    } catch (e) {
+                        console.warn("Failed to destroy chart:", e);
+                    }
+                    this.chart = null;
                 }
 
                 try {
@@ -65,8 +70,8 @@ window.chartOrigin = (chartDataOrigin, groupBy) => ({
                             }
                         }
                     });
-                } catch (error) {
-                    console.error("Error creating chart:", error);
+                } catch (err) {
+                    console.error("Chart.js failed to render:", err);
                 }
             });
         });
@@ -77,7 +82,7 @@ window.chartOrigin = (chartDataOrigin, groupBy) => ({
         this.chartTypeTimeout = setTimeout(() => {
             localStorage.setItem('chartTypeOrigin', this.chartType);
             this.renderChart(); // only re-render, not full init
-        }, 300);
+        }, 500);
     },
 
     updateGroupBy() {
@@ -85,7 +90,7 @@ window.chartOrigin = (chartDataOrigin, groupBy) => ({
         this.groupByTimeout = setTimeout(() => {
             localStorage.setItem('groupByOrigin', this.groupBy);
             this.$wire.set('groupBy', this.groupBy);
-        }, 300);
+        }, 500);
     },
 }
 );
