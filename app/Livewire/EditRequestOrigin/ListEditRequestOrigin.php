@@ -18,7 +18,7 @@ class ListEditRequestOrigin extends Component
 
     public array $filters = [
         'search' => '',
-        'status' => EditRequestOriginStatus::Pending->value,
+        'status' => '',
     ];
 
     public array $sort = [
@@ -62,6 +62,11 @@ class ListEditRequestOrigin extends Component
         }
         $request->update(['status' =>  EditRequestOriginStatus::Rejected->value]);
         $this->successNotify(__('site.edit_request_is_rejected_success'));
+    }
+
+    public function editRequestOriginsCount(): int
+    {
+        return EditRequestOrigin::count();
     }
 
     public function render()
