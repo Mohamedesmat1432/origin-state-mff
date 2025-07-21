@@ -19,7 +19,7 @@ class Statement extends Model
 
     public function origins()
     {
-        return $this->hasMany(Origin::class);
+        return $this->belongsToMany(Origin::class);
     }
 
     public function scopeSearch($query, $search)

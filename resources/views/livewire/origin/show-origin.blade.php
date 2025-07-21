@@ -57,14 +57,6 @@
                     </div>
 
                     <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="statement_id"
-                            value="{{ __('site.statement_id') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->statement?->name }}
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
                         <x-label class="font-extrabold text-lg" for="government_id"
                             value="{{ __('site.government_id') }}" />
                         <div class="mt-1 block w-full">
@@ -195,6 +187,14 @@
 
                 <div class="gap-x-4">
                     <div class="mt-2">
+                        <x-label class="font-extrabold text-lg" for="statement_id"
+                            value="{{ __('site.statement_id') }}" />
+                        <div class="mt-1 block w-full">
+                            {{ $this->origin->statements?->pluck('name')->join(', ') ?? __('site.no_data_found') }}
+                        </div>
+                    </div>
+
+                    <div class="mt-2">
                         <x-label class="font-extrabold text-lg" for="coordinates"
                             value="{{ __('site.coordinates') }}" />
 
@@ -206,7 +206,7 @@
                             </div>
                         </div>
                         @else
-                        <div class="mt-4">
+                        <div class="mt-2">
                             {{__('site.no_data_found')}}
                         </div>
                         @endif
@@ -221,7 +221,7 @@
                         @endphp
 
                         @if ($file)
-                        <div class="mt-4 flex items-center">
+                        <div class="mt-2 flex items-center">
                             <img src="{{ $file['iconUrl'] }}" alt="{{ $file['extension'] }} Icon" class="w-8 h-8 mr-2">
                             <span class="truncate max-w-xs" title="{{ $file['fileName'] }}">
                                 {{ $file['fileName'] }}
@@ -229,19 +229,19 @@
                         </div>
 
                         @if ($file['isPdf'])
-                        <div class="mt-4">
+                        <div class="mt-2">
                             <iframe src="{{ $file['fileUrl'] }}" width="100%" height="600px"
                                 class="border rounded shadow"></iframe>
                         </div>
                         @endif
 
                         @if ($file['isImage'])
-                        <div class="mt-4">
+                        <div class="mt-2">
                             <img src="{{ $file['fileUrl'] }}" alt="Preview of Uploaded" width="100%" height="600px">
                         </div>
                         @endif
                         @else
-                        <div class="mt-4">
+                        <div class="mt-2">
                             {{__('site.no_data_found')}}
                         </div>
                         @endif

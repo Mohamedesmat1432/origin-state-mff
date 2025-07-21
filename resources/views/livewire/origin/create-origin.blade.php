@@ -7,9 +7,9 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-4">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <x-form.dynamic-select label="{{ __('site.project_id') }}" model="project_id"
                         :options="$this->projects()" placeholder="{{ __('site.project_id') }}" />
 
@@ -27,9 +27,6 @@
 
                     <x-form.field label="{{ __('site.total_area_coords') }}" model="total_area_coords"
                         placeholder="{{ __('site.total_area_coords') }}" />
-
-                    <x-form.dynamic-select label="{{ __('site.statement_id') }}" model="statement_id"
-                        :options="$this->statements()" placeholder="{{ __('site.statement_id') }}" />
 
                     <x-form.dynamic-select label="{{ __('site.government_id') }}" model="government_id"
                         :options="$this->governments()" placeholder="{{ __('site.government_id') }}"
@@ -55,7 +52,9 @@
 
                     <x-form.field label="{{ __('site.remaining_area') }}" model="remaining_area"
                         placeholder="{{ __('site.remaining_area') }}" />
+                </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <x-form.enum-group label="{{ __('site.location_status') }}" model="location_status"
                         :enum="\App\Enums\LocationStatus::class" />
 
@@ -66,10 +65,15 @@
                         :enum="\App\Enums\OriginRecordStatus::class" />
                 </div>
 
-                <div class="gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <x-form.dynamic-select label="{{ __('site.statement_ids') }}" model="statement_ids"
+                        :options="$this->statements()" placeholder="{{ __('site.statement_ids') }}" multiple />
+
                     <x-form.field label="{{ __('site.notes') }}" model="notes" type="textarea"
                         placeholder="{{ __('site.notes') }}" />
+                </div>
 
+                <div class="gap-4">
                     <x-form.field label="{{ __('site.decision_image') }}" model="decision_image" type="file" />
 
                     @if ($decision_image)
@@ -77,7 +81,8 @@
                     $file = Helper::getFilePreviewDetails($decision_image);
                     @endphp
 
-                    <div class="mt-4 flex items-center">
+                    @if ($file)
+                    <div class="mt-2 flex items-center">
                         <img src="{{ $file['iconUrl'] }}" alt="{{ $file['extension'] }} Icon" class="w-8 h-8 mr-2">
                         <span class="truncate max-w-xs" title="{{ $file['fileName'] }}">
                             {{ $file['fileName'] }}
@@ -92,9 +97,10 @@
                     @endif --}}
 
                     @if ($file['isImage'])
-                    <div class="mt-4">
+                    <div class="mt-2">
                         <img src="{{ $file['fileUrl'] }}" alt="Preview of Uploaded" width="100%" height="600px">
                     </div>
+                    @endif
                     @endif
                     @endif
                 </div>
@@ -103,7 +109,7 @@
 
         <x-slot name="footer">
             <x-indigo-button type="submit" wire:loading.attr="disabled">
-                <x-form.svg-spinner />
+                <x-form.svg-spinner wire:target="save" />
                 {{ __('site.save') }}
             </x-indigo-button>
             <x-secondary-button class="mx-2" wire:click="$set('create_modal',false)" wire:loading.attr="disabled">

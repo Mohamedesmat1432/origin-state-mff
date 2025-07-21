@@ -68,6 +68,10 @@
         background: #88a8ff;
     }
 
+    select[multiple], textarea {
+        height: 103px;
+    }
+
     /* Select option checked styles */
     select option:checked,
     select option[multiple]:checked {

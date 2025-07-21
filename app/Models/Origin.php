@@ -23,7 +23,7 @@ class Origin extends Model
         'decision_type_id',
         'total_area_allocated',
         'total_area_coords',
-        'statement_id',
+        // 'statement_id',
         'used_area',
         'executing_entity_num',
         'government_id',
@@ -64,7 +64,7 @@ class Origin extends Model
         return match ($key) {
             'project_id' => $this->project?->name,
             'decision_type_id' => $this->decisionType?->name,
-            'statement_id' => $this->statement?->name,
+            'statement_id' => $this->statements?->pluck('name')->join(', '), // updated
             'government_id' => $this->government?->name,
             'city_id' => $this->city?->name,
             'location_status' => '<div class="' . $this->location_status->color() . '">' . $this->location_status->label() . '</div>',
@@ -80,32 +80,6 @@ class Origin extends Model
             default => e(data_get($this, $key)),
         };
     }
-
-    // protected function formatCoordinates(array $coordinates): string
-    // {
-    //     if (empty($coordinates)) {
-    //         return  __('site.no_coordinates');
-    //     }
-
-    //     $html = '<table border="1" cellpadding="4" cellspacing="0">
-    //                 <thead>
-    //                 <tr><th class="border p-2">X</th>
-    //                 <th class="border p-2">Y</th></tr>
-    //                 </thead>
-    //                 <tbody>';
-
-    //     foreach ($coordinates[0] ?? [] as $pair) {
-    //         if (is_array($pair) && count($pair) === 2) {
-    //             [$x, $y] = $pair;
-    //             $html .= '<tr><td class="border p-2">' . number_format($x, 4) . '</td>
-    //             <td class="border p-2">' . number_format($y, 4) . '</td></tr>';
-    //         }
-    //     }
-
-    //     $html .= '</tbody></table>';
-
-    //     return $html;
-    // }
 
     protected function formatCoordinates(array $coordinates): string
     {
@@ -135,7 +109,6 @@ class Origin extends Model
 
         return $html;
     }
-
 
     // User actions
     public function createdBy(): BelongsTo
@@ -169,9 +142,9 @@ class Origin extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function statement()
+    public function statements()
     {
-        return $this->belongsTo(Statement::class);
+        return $this->belongsToMany(Statement::class);
     }
 
     public function government()
@@ -192,6 +165,11 @@ class Origin extends Model
     public function lockedOrigin()
     {
         return $this->hasOne(LockedOrigin::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(OriginDetail::class);
     }
 
     public function scopeSearch($query, $search, $governmentId, $cityId, $projectIds = [], $statementIds = [], $decisionTypeIds = [])
@@ -231,7 +209,7 @@ class Origin extends Model
         // Relation ID filters
         $relations = [
             'project' => $projectIds,
-            'statement' => $statementIds,
+            'statements' => $statementIds,
             'decisionType' => $decisionTypeIds,
         ];
 

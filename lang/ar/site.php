@@ -516,4 +516,12 @@ return [
     'no_notifications_found' => 'لا يوجد اشعارات.',
     'read' => 'مقرؤة',
     'mark_as_read' => 'تعليم كمقرؤة',
+    'statement_ids' => ' جهات التنفيذ',
+    'unit_area' => 'مساحة الوحدة',
+    'number_of_buildings_executed' => 'عدد المباني المنفذة',
+    'number_of_units' => 'عدد الوحدات',
+    'residential_units' => 'الوحدات السكنية',
+    'administrative_units' => 'الوحدات الإدارية',
+    'commercial_units' => 'الوحدات التجارية',
+    'commercial_shops' => 'المحلات التجارية',
 ];

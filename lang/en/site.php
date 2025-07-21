@@ -496,4 +496,12 @@ return [
     'no_notifications_found' => 'No notifications found.',
     'read' => 'Read',
     'mark_as_read' => 'Mark As Read',
+    'statement_ids' => 'Statements',
+    'unit_area' => 'Unit Area',
+    'number_of_buildings_executed' => 'Number of Buildings Executed',
+    'number_of_units' => 'Number of Units',
+    'residential_units' => 'Residential Units',
+    'administrative_units' => 'Administrative Units',
+    'commercial_units' => 'Commercial Units',
+    'commercial_shops' => 'Commercial Shops',
 ];

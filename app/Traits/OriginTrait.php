@@ -13,7 +13,7 @@ trait OriginTrait
 
     public ?Origin $origin;
 
-    public ?string $origin_id = null, $project_id = null, $decision_type_id = null, $statement_id = null,
+    public ?string $origin_id = null, $project_id = null, $decision_type_id = null,
         $government_id = null, $city_id = null,
         $created_by = null, $revised_by = null, $completed_by = null, $coordinated_by = null,
         $decision_num = null, $location = null, $notes = null,
@@ -30,17 +30,21 @@ trait OriginTrait
 
     public $coordinates = [];
 
+    public array $statement_ids = [];
+    public array  $details = [];
+
     public array $relations = [
         'decisionType',
         'lockedOrigin',
         'project',
-        'statement',
+        'statements',
         'government',
         'city',
         'createdBy',
         'revisedBy',
         'completedBy',
         'coordinatedBy',
+        'details',
     ];
 
     public array $filters = [
@@ -163,7 +167,7 @@ trait OriginTrait
             'total_area_coords' => 'required|numeric',
             'executing_entity_num' => 'required|numeric',
             'used_area' => 'required|numeric',
-            'statement_id' => 'required|string|exists:statements,id',
+            'statement_ids' => 'required|array|exists:statements,id',
             'government_id' => 'required|string|exists:governments,id',
             'city_id' => 'required|string|exists:cities,id',
             'location' => 'nullable|string|max:500',
@@ -175,7 +179,33 @@ trait OriginTrait
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
             'record_status' => 'required|in:yes,no',
+            'details.*.unit_area' => 'nullable|numeric',
+            'details.*.number_of_buildings_executed' => 'nullable|integer',
+            'details.*.number_of_units' => 'nullable|integer',
+            'details.*.residential_units' => 'nullable|integer',
+            'details.*.administrative_units' => 'nullable|integer',
+            'details.*.commercial_units' => 'nullable|integer',
+            'details.*.commercial_shops' => 'nullable|integer',
         ];
+    }
+
+    public function addDetail()
+    {
+        $this->details[] = [
+            'unit_area' => '',
+            'number_of_buildings_executed' => '',
+            'number_of_units' => '',
+            'residential_units' => '',
+            'administrative_units' => '',
+            'commercial_units' => '',
+            'commercial_shops' => ''
+        ];
+    }
+
+    public function removeDetail($index)
+    {
+        unset($this->details[$index]);
+        $this->details = array_values($this->details);
     }
 
     public function getFilteredQuery()
@@ -185,6 +215,7 @@ trait OriginTrait
             ->filterByOriginStatus($this->enums['origin_status'])
             ->filterByLocationStatus($this->enums['location_status'])
             ->filterByRecordStatus($this->enums['record_status'])
+            ->latest()
             ->orderBy($this->sort['by'], $this->sort['asc'] ? 'ASC' : 'DESC');
     }
 
@@ -297,7 +328,6 @@ trait OriginTrait
                 'total_area_coords',
                 'executing_entity_num',
                 'used_area',
-                'statement_id',
                 'government_id',
                 'city_id',
                 'location',
@@ -320,6 +350,10 @@ trait OriginTrait
 
         $this->old_decision_image = $this->origin->decision_image;
 
+        $this->statement_ids = $this->origin->statements?->pluck('id')->toArray();
+
+        $this->details = $this->origin->details?->toArray();
+
         $this->map_government = $this->origin->government->name;
         $this->map_city = $this->origin->city->name;
     }
@@ -334,11 +368,14 @@ trait OriginTrait
 
         try {
             $origin = Origin::create($data);
-            cache()->forget($this->getCacheKey());
+            $this->syncStatements($origin);
+            $this->lockOriginIfNeeded($origin);
+            $this->createOrUpdateDetails($origin);
+            $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_created'));
             $this->create_modal = false;
-            $this->notifyUsers($origin, __('site.create_origin'), __('site.origin_created'));
+            // $this->notifyUsers($origin, __('site.create_origin'), __('site.origin_created'));
             $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
@@ -358,7 +395,7 @@ trait OriginTrait
                 'coordinated_by' => auth()->id()
             ]);
 
-            cache()->forget($this->getCacheKey());
+            $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_updated'));
             $this->add_coodinates = false;
@@ -377,31 +414,74 @@ trait OriginTrait
         $data['decision_image'] = $this->updateImage($this->decision_image, $this->old_decision_image, 'decision-images');
 
         $this->changeUserByOriginStatus($data, $this->origin_status->value);
-        $this->origin->fill($data);
+
         try {
-            if ($this->origin->isDirty()) {
-                $this->origin->save();
-
-                if (in_array($this->origin->origin_status->value, [
-                    OriginStatus::Revision->value,
-                    OriginStatus::Completed->value
-                ])) {
-                    LockedOrigin::firstOrCreate(['origin_id' => $this->origin->id]);
-                }
-
-                cache()->forget($this->getCacheKey());
-                $this->dispatch('refresh-list-origin');
-                $this->successNotify(__('site.origin_updated'));
-                $this->edit_modal = false;
-                $this->notifyUsers($this->origin, __('site.update_origin'), __('site.origin_updated'));
-                $this->reset();
-            } else {
-                $this->infoNotify(__('site.no_change_happen_for_data'));
-            }
-            
+            $this->origin->update($data);
+            $this->syncStatements($this->origin);
+            $this->lockOriginIfNeeded($this->origin);
+            $this->createOrUpdateDetails($this->origin);
+            $this->clearCache();
+            $this->dispatch('refresh-list-origin');
+            $this->successNotify(__('site.origin_updated'));
+            $this->edit_modal = false;
+            // $this->notifyUsers($this->origin, __('site.update_origin'), __('site.origin_updated'));
+            $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
         }
+    }
+
+    private function createOrUpdateDetails($origin)
+    {
+        if ($origin) {
+            $origin->details()->delete();
+        }
+
+        foreach ($this->details as $detail) {
+            // Cast empty strings to null or zero as appropriate
+            $cleaned = collect($detail)->map(function ($value, $key) {
+                return $value === '' ? null : $value;
+            })->toArray();
+
+            $origin->details()->create($cleaned);
+        }
+    }
+
+    private function changeUserByOriginStatus(&$data, $status)
+    {
+        $map = [
+            'inprogress' => 'created_by',
+            'revision'   => 'revised_by',
+            'completed'  => 'completed_by',
+        ];
+
+        if (isset($map[$status])) {
+            $data[$map[$status]] = auth()->id();
+        }
+    }
+
+    private function syncStatements($origin): void
+    {
+        $origin->statements()->sync([]);
+
+        if (!empty($this->statement_ids)) {
+            $origin->statements()->sync($this->statement_ids);
+        }
+    }
+
+    private function lockOriginIfNeeded($origin): void
+    {
+        if (in_array($origin->origin_status->value, [
+            OriginStatus::Revision->value,
+            OriginStatus::Completed->value,
+        ])) {
+            LockedOrigin::firstOrCreate(['origin_id' => $origin->id]);
+        }
+    }
+
+    private function clearCache(): void
+    {
+        cache()->forget($this->getCacheKey());
     }
 
     public function deleteOrigin($id)
@@ -409,12 +489,14 @@ trait OriginTrait
         try {
             $origin = Origin::findOrFail($id);
             $this->deleteImage($origin->decision_image);
+            $origin->statements()->sync([]);
+            $origin->details()->delete();
+            // $this->notifyUsers($origin, __('site.delete_origin'), __('site.origin_deleted'));
             $origin->delete();
-            cache()->forget($this->getCacheKey());
+            $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_deleted'));
             $this->delete_modal = false;
-            $this->notifyUsers($origin, __('site.delete_origin'), __('site.origin_deleted'));
             $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
@@ -426,15 +508,19 @@ trait OriginTrait
         try {
             $origins = Origin::whereIn('id', $ids);
             $this->bulkDeleteImages($origins->pluck('decision_image')->filter()->unique()->toArray());
+
+            $origins->each(function ($origin) {
+                $origin->statements()->sync([]);
+                $origin->details()->delete();
+                // $this->notifyUsers($origin, __('site.bulk_delete_origin'), __('site.origin_delete_all'));
+            });
+
             $origins->delete();
-            cache()->forget($this->getCacheKey());
+            $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->dispatch('checkbox-clear');
             $this->successNotify(__('site.origin_delete_all'));
             $this->bulk_delete_modal = false;
-            $origins->each(function ($origin) {
-                $this->notifyUsers($origin, __('site.bulk_delete_origin'), __('site.origin_delete_all'));
-            });
             $this->reset();
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
@@ -458,23 +544,10 @@ trait OriginTrait
                 'status' => 'pending',
             ]);
 
-            cache()->forget($this->getCacheKey());
+            $this->clearCache();
             $this->successNotify(__('site.edit_request_success'));
         } catch (\Exception $e) {
             $this->errorNotify($e->getMessage());
-        }
-    }
-
-    private function changeUserByOriginStatus(&$data, $status)
-    {
-        $map = [
-            'inprogress' => 'created_by',
-            'revision'   => 'revised_by',
-            'completed'  => 'completed_by',
-        ];
-
-        if (isset($map[$status])) {
-            $data[$map[$status]] = auth()->id();
         }
     }
 }

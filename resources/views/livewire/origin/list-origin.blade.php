@@ -117,7 +117,7 @@
                             <button wire:click="clearFilters"
                                 class="p-2 bg-red-500 text-white rounded font-semibold whitespace-nowrap"
                                 wire:loading.attr="disabled" wire:target="clearFilters">
-                                <x-icon wire:loading wire:target="clearFilters" name="arrow-path" class="h-5 w-5" />
+                                <x-form.svg-spinner target="clearFilters" />
                                 {{ __('site.clear') }}
                             </button>
                         </div>
@@ -144,7 +144,7 @@
                     @endif
                 </div>
 
-                <div class="mt-2">
+                <div class="mt-3">
                     @can('bulk-delete-origin')
                     <div class="flex items-center gap-x-2 mt-1">
                         <x-checkbox wire:click="checkboxDeleteAll" wire:model.live="checkbox_status" />

@@ -53,7 +53,7 @@
             <x-notify />
 
             <main class="relative">
-                <div x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 500)">
+                {{-- <div x-data="{ loading: true }" x-init="setTimeout(() => loading = false, 500)">
                     <div x-show="loading" x-transition.opacity.duration.300ms
                         class="fixed inset-0 flex items-center justify-center bg-gray-100/50 z-50">
                         <!-- Animated dual-ring spinner -->
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{ $slot }}
             </main>
         </div>
