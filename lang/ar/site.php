@@ -524,4 +524,6 @@ return [
     'administrative_units' => 'الوحدات الإدارية',
     'commercial_units' => 'الوحدات التجارية',
     'commercial_shops' => 'المحلات التجارية',
+    'add_details' => 'اضافة تفاصيل',
+    'sepated_services' => 'خدمات منفصلة',
 ];

@@ -42,6 +42,7 @@ class Origin extends Model
         'coordinates',
         'record_status',
         'coordinated_by',
+        'sepated_services',
     ];
 
     protected $casts = [
@@ -75,7 +76,9 @@ class Origin extends Model
             'completed_by' => $this->completedBy?->name ?? __('site.no_data_found'),
             'coordinated_by' => $this->coordinatedBy?->name ?? __('site.no_data_found'),
             'notes' => $this->notes ?? __('site.no_data_found'),
+            'sepated_services' => $this->sepated_services ?? __('site.no_data_found'),
             'coordinates' => $this->formatCoordinates($this->coordinates ?? []),
+            'details' => $this->formatOriginDetails($this->details ?? []),
             'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display: inline-block"/>' : __('site.no_data_found'),
             default => e(data_get($this, $key)),
         };
@@ -88,16 +91,16 @@ class Origin extends Model
         }
 
         $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
-                    <table class="table-fixed min-w-full text-sm">
+                    <table class="table-fixed min-w-full text-sm text-center">
                     <tbody><tr>
-                    <td class="border p-2">X</td>';
+                    <th class="border p-2 bg-gray-100">X</th>';
         // First row for X values
         foreach ($coordinates[0] ?? [] as $pair) {
             $x = is_array($pair) && isset($pair[0]) ? number_format($pair[0], 4) : '-';
             $html .= '<td class="border p-2">' . $x . '</td>';
         }
 
-        $html .= '</tr><tr><td class="border p-2">Y</td>';
+        $html .= '</tr><tr><th class="border p-2 bg-gray-100">Y</th>';
 
         // Second row for Y values
         foreach ($coordinates[0] ?? [] as $pair) {
@@ -106,6 +109,47 @@ class Origin extends Model
         }
 
         $html .= '</tr></tbody></table></div>';
+
+        return $html;
+    }
+
+    protected function formatOriginDetails($details): string
+    {
+        if ($details->isEmpty()) {
+            return __('site.no_data_found');
+        }
+
+        $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
+                <table class="table-fixed min-w-full text-sm border text-center">
+                    <thead>
+                        <tr class="bg-gray-100">';
+
+        // Table headers (translate if needed)
+        $headers = [
+            'unit_area' => __('site.unit_area'),
+            'number_of_buildings_executed' => __('site.number_of_buildings_executed'),
+            'number_of_units' => __('site.number_of_units'),
+            'residential_units' => __('site.residential_units'),
+            'administrative_units' => __('site.administrative_units'),
+            'commercial_units' => __('site.commercial_units'),
+            'commercial_shops' => __('site.commercial_shops'),
+        ];
+
+        foreach ($headers as $label) {
+            $html .= '<th class="border p-2 whitespace-nowrap">' . e($label) . '</th>';
+        }
+
+        $html .= '</tr></thead><tbody>';
+
+        foreach ($details as $detail) {
+            $html .= '<tr>';
+            foreach (array_keys($headers) as $key) {
+                $html .= '<td class="border p-2 whitespace-nowrap">' . e($detail->$key ?? '-') . '</td>';
+            }
+            $html .= '</tr>';
+        }
+
+        $html .= '</tbody></table></div>';
 
         return $html;
     }
@@ -187,6 +231,7 @@ class Origin extends Model
                     ->orWhere('available_area', 'like', "%{$search}%")
                     ->orWhere('vacant_buildings', 'like', "%{$search}%")
                     ->orWhere('remaining_area', 'like', "%{$search}%")
+                    ->orWhere('sepated_services', 'like', "%{$search}%")
                     ->orWhere('id', 'like', "%{$search}%")
                     ->orWhereHas('createdBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
                     ->orWhereHas('revisedBy', fn($q) => $q->where('name', 'like', "%{$search}%"))

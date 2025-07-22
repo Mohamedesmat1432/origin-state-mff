@@ -504,4 +504,6 @@ return [
     'administrative_units' => 'Administrative Units',
     'commercial_units' => 'Commercial Units',
     'commercial_shops' => 'Commercial Shops',
+    'add_details' => 'Add Details',
+    'sepated_services' => 'Sepated Services',
 ];

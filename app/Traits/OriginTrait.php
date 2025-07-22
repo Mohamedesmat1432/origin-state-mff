@@ -18,7 +18,7 @@ trait OriginTrait
         $created_by = null, $revised_by = null, $completed_by = null, $coordinated_by = null,
         $decision_num = null, $location = null, $notes = null,
         $total_area_allocated = null, $total_area_coords = null,
-        $used_area = null, $available_area = null, $remaining_area = null;
+        $used_area = null, $available_area = null, $remaining_area = null, $sepated_services = null;
 
     public ?int $decision_date = null, $executing_entity_num = null, $vacant_buildings = null;
 
@@ -179,6 +179,7 @@ trait OriginTrait
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
             'record_status' => 'required|in:yes,no',
+            'sepated_services' => 'nullable|string',
             'details.*.unit_area' => 'nullable|numeric',
             'details.*.number_of_buildings_executed' => 'nullable|integer',
             'details.*.number_of_units' => 'nullable|integer',
@@ -343,6 +344,7 @@ trait OriginTrait
                 'coordinated_by',
                 // 'coordinates',
                 'record_status',
+                'sepated_services',
             ] as $field
         ) {
             $this->$field = $this->origin->$field ?? null;

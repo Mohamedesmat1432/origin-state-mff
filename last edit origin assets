@@ -22,9 +22,11 @@ Origin::whereNotNull('statement_id')->chunk(100, function ($origins) {
     }
 });
 
-add comment to statment_id form origin model and origins table 
+
 
 3-
 php artisan migrate --path=database/migrations/2025_07_21_180538_remove_statement_id_from_origins_table.php
+
+add comment to statment_id form origin model and origins table 
 
 4- remove this table and remove and remove statment_id from origins table

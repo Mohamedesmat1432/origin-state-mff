@@ -49,6 +49,8 @@ class ListOrigin extends Component
             ['key' => 'coordinated_by', 'label' => __('site.coordinated_by')],
             ['key' => 'decision_image', 'label' => __('site.decision_image')],
             ['key' => 'coordinates', 'label' => __('site.coordinates')],
+            ['key' => 'details', 'label' => __('site.details')],
+            ['key' => 'sepated_services', 'label' => __('site.sepated_services')],
         ];
     }
 
