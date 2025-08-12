@@ -30,7 +30,6 @@ class ListOrigin extends Component
             ['key' => 'decision_type_id', 'label' => __('site.decision_type_id')],
             ['key' => 'total_area_allocated', 'label' => __('site.total_area_allocated')],
             ['key' => 'total_area_coords', 'label' => __('site.total_area_coords')],
-            ['key' => 'statement_id', 'label' => __('site.statement_id')],
             ['key' => 'used_area', 'label' => __('site.used_area')],
             ['key' => 'executing_entity_num', 'label' => __('site.executing_entity_num')],
             ['key' => 'government_id', 'label' => __('site.government_id')],
@@ -50,7 +49,7 @@ class ListOrigin extends Component
             ['key' => 'decision_image', 'label' => __('site.decision_image')],
             ['key' => 'coordinates', 'label' => __('site.coordinates')],
             ['key' => 'details', 'label' => __('site.details')],
-            ['key' => 'sepated_services', 'label' => __('site.sepated_services')],
+            ['key' => 'services', 'label' => __('site.sepated_services')],
         ];
     }
 

@@ -5,17 +5,19 @@ namespace App\Models;
 use App\Enums\{LocationStatus, OriginStatus, OriginRecordStatus};
 use App\Helpers\Helper;
 use App\Traits\{LoggableTrait, UuidTrait};
-use App\Observers\OriginObserver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany, HasOne};
+use Illuminate\Support\Collection;
 
 class Origin extends Model
 {
     use HasFactory, UuidTrait, LoggableTrait;
 
+    /** @var string */
     protected $table = 'origins';
 
+    /** @var array */
     protected $fillable = [
         'project_id',
         'decision_num',
@@ -23,7 +25,6 @@ class Origin extends Model
         'decision_type_id',
         'total_area_allocated',
         'total_area_coords',
-        // 'statement_id',
         'used_area',
         'executing_entity_num',
         'government_id',
@@ -42,109 +43,162 @@ class Origin extends Model
         'coordinates',
         'record_status',
         'coordinated_by',
-        'sepated_services',
     ];
 
+    /** @var array */
     protected $casts = [
-        'decision_date' => 'integer',
+        'decision_date'   => 'integer',
         'location_status' => LocationStatus::class,
-        'origin_status' => OriginStatus::class,
-        'record_status' => OriginRecordStatus::class,
-        'coordinates' =>  'array',
+        'origin_status'   => OriginStatus::class,
+        'record_status'   => OriginRecordStatus::class,
+        'coordinates'     => 'array',
     ];
 
-    // protected static function booted()
-    // {
-    //     static::observe(OriginObserver::class);
-    // }
-
+    /**
+     * Return a formatted column value for data tables.
+     */
     public function getColumnValue(string $key): mixed
     {
         $file = Helper::getFilePreviewDetails($this->decision_image);
 
         return match ($key) {
-            'project_id' => $this->project?->name,
-            'decision_type_id' => $this->decisionType?->name,
-            'statement_id' => $this->statements?->pluck('name')->join(', '), // updated
-            'government_id' => $this->government?->name,
-            'city_id' => $this->city?->name,
-            'location_status' => '<div class="' . $this->location_status->color() . '">' . $this->location_status->label() . '</div>',
-            'origin_status' => '<div class="' . $this->origin_status->color() . '">' . $this->origin_status->label() . '</div>',
-            'record_status' => '<div class="' . $this->record_status->color() . '">' . $this->record_status->label() . '</div>',
-            'created_by' => $this->createdBy?->name ?? __('site.no_data_found'),
-            'revised_by' => $this->revisedBy?->name ?? __('site.no_data_found'),
-            'completed_by' => $this->completedBy?->name ?? __('site.no_data_found'),
-            'coordinated_by' => $this->coordinatedBy?->name ?? __('site.no_data_found'),
-            'notes' => $this->notes ?? __('site.no_data_found'),
-            'sepated_services' => $this->sepated_services ?? __('site.no_data_found'),
-            'coordinates' => $this->formatCoordinates($this->coordinates ?? []),
-            'details' => $this->formatOriginDetails($this->details ?? []),
-            'decision_image' => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display: inline-block"/>' : __('site.no_data_found'),
-            default => e(data_get($this, $key)),
+            'project_id'        => $this->project?->name,
+            'decision_type_id'  => $this->decisionType?->name,
+            'government_id'     => $this->government?->name,
+            'city_id'           => $this->city?->name,
+            'location_status'   => $this->formatStatus($this->location_status),
+            'origin_status'     => $this->formatStatus($this->origin_status),
+            'record_status'     => $this->formatStatus($this->record_status),
+            'created_by'        => $this->createdBy?->name ?? __('site.no_data_found'),
+            'revised_by'        => $this->revisedBy?->name ?? __('site.no_data_found'),
+            'completed_by'      => $this->completedBy?->name ?? __('site.no_data_found'),
+            'coordinated_by'    => $this->coordinatedBy?->name ?? __('site.no_data_found'),
+            'notes'             => $this->notes ?? __('site.no_data_found'),
+            'coordinates'       => $this->formatCoordinates($this->coordinates ?? []),
+            'details'           => $this->formatOriginDetails($this->details ?? collect()),
+            'services'          => $this->formatOriginServices($this->services ?? collect()),
+            'decision_image'    => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display:inline-block"/>' : __('site.no_data_found'),
+            default             => e(data_get($this, $key)),
         };
     }
 
+    /**
+     * Format status enums into HTML label.
+     */
+    protected function formatStatus($status): string
+    {
+        return '<div class="' . $status->color() . '">' . $status->label() . '</div>';
+    }
+
+    /**
+     * Format coordinates into a table.
+     */
     protected function formatCoordinates(array $coordinates): string
     {
-        if (empty($coordinates)) {
+        if (empty($coordinates[0])) {
             return __('site.no_coordinates');
         }
 
-        $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
-                    <table class="table-fixed min-w-full text-sm text-center">
-                    <tbody><tr>
-                    <th class="border p-2 bg-gray-100">X</th>';
-        // First row for X values
-        foreach ($coordinates[0] ?? [] as $pair) {
-            $x = is_array($pair) && isset($pair[0]) ? number_format($pair[0], 4) : '-';
-            $html .= '<td class="border p-2">' . $x . '</td>';
+        $xValues = [];
+        $yValues = [];
+        foreach ($coordinates[0] as $pair) {
+            $xValues[] = is_array($pair) && isset($pair[0]) ? number_format($pair[0], 4) : '-';
+            $yValues[] = is_array($pair) && isset($pair[1]) ? number_format($pair[1], 4) : '-';
         }
 
-        $html .= '</tr><tr><th class="border p-2 bg-gray-100">Y</th>';
-
-        // Second row for Y values
-        foreach ($coordinates[0] ?? [] as $pair) {
-            $y = is_array($pair) && isset($pair[1]) ? number_format($pair[1], 4) : '-';
-            $html .= '<td class="border p-2">' . $y . '</td>';
-        }
-
-        $html .= '</tr></tbody></table></div>';
-
-        return $html;
+        return $this->buildTable(
+            headers: ['X', ...$xValues],
+            rows: [
+                ['Y', ...$yValues]
+            ],
+            headerBg: true
+        );
     }
 
-    protected function formatOriginDetails($details): string
+    /**
+     * Format origin details into a table.
+     */
+    protected function formatOriginDetails(Collection $details): string
     {
         if ($details->isEmpty()) {
             return __('site.no_data_found');
         }
 
-        $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
-                <table class="table-fixed min-w-full text-sm border text-center">
-                    <thead>
-                        <tr class="bg-gray-100">';
-
-        // Table headers (translate if needed)
         $headers = [
-            'unit_area' => __('site.unit_area'),
+            'statement_id'                => __('site.statement_id'),
+            'used_area'                   => __('site.used_area'),
+            'unit_area'                   => __('site.unit_area'),
             'number_of_buildings_executed' => __('site.number_of_buildings_executed'),
-            'number_of_units' => __('site.number_of_units'),
-            'residential_units' => __('site.residential_units'),
-            'administrative_units' => __('site.administrative_units'),
-            'commercial_units' => __('site.commercial_units'),
-            'commercial_shops' => __('site.commercial_shops'),
+            'number_of_units'             => __('site.number_of_units'),
+            'residential_units'           => __('site.residential_units'),
+            'administrative_units'        => __('site.administrative_units'),
+            'commercial_units'            => __('site.commercial_units'),
+            'commercial_shops'            => __('site.commercial_shops'),
+            'note'                        => __('site.notes'),
         ];
 
-        foreach ($headers as $label) {
-            $html .= '<th class="border p-2 whitespace-nowrap">' . e($label) . '</th>';
+        $rows = $details->map(function ($detail) use ($headers) {
+            return collect($headers)->keys()->map(function ($key) use ($detail) {
+                return $key === 'statement_id'
+                    ? $detail->statement->name ?? '-'
+                    : $detail->$key ?? '-';
+            })->toArray();
+        })->toArray();
+
+        return $this->buildTable(array_values($headers), $rows);
+    }
+
+    /**
+     * Format origin services horizontally.
+     */
+    protected function formatOriginServices(Collection $services): string
+    {
+        if ($services->isEmpty()) {
+            return __('site.no_data_found');
+        }
+
+        $attributes = [
+            'type_service_id' => __('site.type_service_id'),
+            'count'           => __('site.count'),
+        ];
+
+        $rows = [];
+        foreach ($attributes as $key => $label) {
+            $row = [$label];
+            foreach ($services as $service) {
+                $row[] = $key === 'type_service_id'
+                    ? $service->typeService->name ?? '-'
+                    : $service->$key ?? '-';
+            }
+            $rows[] = $row;
+        }
+
+        $headers = [];
+
+        return $this->buildTable($headers, $rows);
+    }
+
+    /**
+     * Generic HTML table builder.
+     */
+    protected function buildTable(array $headers, array $rows, bool $headerBg = false): string
+    {
+        $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
+            <table class="table-fixed min-w-full text-sm border text-center">
+                <thead>
+                    <tr>';
+
+        foreach ($headers as $header) {
+            $class = 'border p-2 whitespace-nowrap' . ($headerBg ? ' bg-gray-100' : '');
+            $html .= '<th class="' . $class . '">' . e($header) . '</th>';
         }
 
         $html .= '</tr></thead><tbody>';
 
-        foreach ($details as $detail) {
+        foreach ($rows as $row) {
             $html .= '<tr>';
-            foreach (array_keys($headers) as $key) {
-                $html .= '<td class="border p-2 whitespace-nowrap">' . e($detail->$key ?? '-') . '</td>';
+            foreach ($row as $cell) {
+                $html .= '<td class="border p-2 whitespace-nowrap">' . e($cell) . '</td>';
             }
             $html .= '</tr>';
         }
@@ -154,139 +208,106 @@ class Origin extends Model
         return $html;
     }
 
-    // User actions
+    /* =========================
+       Relationships
+       ========================= */
+
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-
     public function revisedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'revised_by');
     }
-
     public function completedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'completed_by');
     }
-
     public function coordinatedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'coordinated_by');
     }
 
-    // Other relationships
-    public function decisionType()
+    public function decisionType(): BelongsTo
     {
         return $this->belongsTo(DecisionType::class);
     }
-
-    public function project()
+    public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
-
-    public function statements()
-    {
-        return $this->belongsToMany(Statement::class);
-    }
-
-    public function government()
+    public function government(): BelongsTo
     {
         return $this->belongsTo(Government::class);
     }
-
-    public function city()
+    public function city(): BelongsTo
     {
         return $this->belongsTo(City::class);
     }
 
-    public function isLocked()
+    public function lockedOrigin(): HasOne
+    {
+        return $this->hasOne(LockedOrigin::class);
+    }
+    public function details(): HasMany
+    {
+        return $this->hasMany(OriginDetail::class);
+    }
+    public function services(): HasMany
+    {
+        return $this->hasMany(OriginService::class);
+    }
+
+    public function isLocked(): bool
     {
         return $this->lockedOrigin()->exists();
     }
 
-    public function lockedOrigin()
-    {
-        return $this->hasOne(LockedOrigin::class);
-    }
-
-    public function details()
-    {
-        return $this->hasMany(OriginDetail::class);
-    }
+    /* =========================
+       Scopes
+       ========================= */
 
     public function scopeSearch($query, $search, $governmentId, $cityId, $projectIds = [], $statementIds = [], $decisionTypeIds = [])
     {
-        // Basic column search
-        $query->when($search, function ($query) use ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('total_area_allocated', 'like', "%{$search}%")
-                    ->orWhere('total_area_coords', 'like', "%{$search}%")
-                    ->orWhere('decision_num', 'like', "%{$search}%")
-                    ->orWhere('decision_date', 'like', "%{$search}%")
-                    ->orWhere('location', 'like', "%{$search}%")
-                    ->orWhere('used_area', 'like', "%{$search}%")
-                    ->orWhere('executing_entity_num', 'like', "%{$search}%")
-                    ->orWhere('available_area', 'like', "%{$search}%")
-                    ->orWhere('vacant_buildings', 'like', "%{$search}%")
-                    ->orWhere('remaining_area', 'like', "%{$search}%")
-                    ->orWhere('sepated_services', 'like', "%{$search}%")
-                    ->orWhere('id', 'like', "%{$search}%")
-                    ->orWhereHas('createdBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                    ->orWhereHas('revisedBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
-                    ->orWhereHas('completedBy', fn($q) => $q->where('name', 'like', "%{$search}%"));
-            });
-        });
-
-        $query->when(!empty($governmentId), function ($q) use ($governmentId) {
-            $q->whereHas('government', function ($q2) use ($governmentId) {
-                $q2->where('id', $governmentId);
-            });
-        });
-
-        $query->when(!empty($cityId), function ($q) use ($cityId) {
-            $q->whereHas('city', function ($q2) use ($cityId) {
-                $q2->where('id', $cityId);
-            });
-        });
-
-        // Relation ID filters
-        $relations = [
-            'project' => $projectIds,
-            'statements' => $statementIds,
-            'decisionType' => $decisionTypeIds,
-        ];
-
-        foreach ($relations as $relation => $ids) {
-            $query->when(!empty($ids), function ($q) use ($relation, $ids) {
-                $q->whereHas($relation, function ($q2) use ($ids) {
-                    $q2->whereIn('id', $ids);
+        return $query
+            ->when($search, function ($q) use ($search) {
+                $q->where(function ($inner) use ($search) {
+                    $inner->where('total_area_allocated', 'like', "%{$search}%")
+                        ->orWhere('total_area_coords', 'like', "%{$search}%")
+                        ->orWhere('decision_num', 'like', "%{$search}%")
+                        ->orWhere('decision_date', 'like', "%{$search}%")
+                        ->orWhere('location', 'like', "%{$search}%")
+                        ->orWhere('used_area', 'like', "%{$search}%")
+                        ->orWhere('executing_entity_num', 'like', "%{$search}%")
+                        ->orWhere('available_area', 'like', "%{$search}%")
+                        ->orWhere('vacant_buildings', 'like', "%{$search}%")
+                        ->orWhere('remaining_area', 'like', "%{$search}%")
+                        ->orWhere('id', 'like', "%{$search}%")
+                        ->orWhereHas('createdBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                        ->orWhereHas('revisedBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
+                        ->orWhereHas('completedBy', fn($q) => $q->where('name', 'like', "%{$search}%"));
                 });
-            });
-        }
-
-        return $query;
+            })
+            ->when($governmentId, fn($q) => $q->whereHas('government', fn($q2) => $q2->where('id', $governmentId)))
+            ->when($cityId, fn($q) => $q->whereHas('city', fn($q2) => $q2->where('id', $cityId)))
+            ->when($projectIds, fn($q) => $q->whereHas('project', fn($q2) => $q2->whereIn('id', $projectIds)))
+            ->when($statementIds, fn($q) => $q->whereHas('statements', fn($q2) => $q2->whereIn('id', $statementIds)))
+            ->when($decisionTypeIds, fn($q) => $q->whereHas('decisionType', fn($q2) => $q2->whereIn('id', $decisionTypeIds)));
     }
 
     public function scopeFilterByOriginStatus($query, $status)
     {
-        return $query->when($status, function ($query) use ($status) {
-            $query->where('origin_status', $status);
-        });
+        return $query->when($status, fn($q) => $q->where('origin_status', $status));
     }
 
     public function scopeFilterByLocationStatus($query, $status)
     {
-        return $query->when($status, function ($query) use ($status) {
-            $query->where('location_status', $status);
-        });
+        return $query->when($status, fn($q) => $q->where('location_status', $status));
     }
 
     public function scopeFilterByRecordStatus($query, $status)
     {
-        return $query->when($status, function ($query) use ($status) {
-            $query->where('record_status', $status);
-        });
+        return $query->when($status, fn($q) => $q->where('record_status', $status));
     }
 }

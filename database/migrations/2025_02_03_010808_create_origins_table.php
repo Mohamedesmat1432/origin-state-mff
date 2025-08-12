@@ -33,7 +33,6 @@ return new class extends Migration
             $table->timestamps();
             // Foreign keys
             $table->uuid('project_id')->nullable();
-            $table->uuid('statement_id')->nullable();
             $table->uuid('government_id')->nullable();
             $table->uuid('city_id')->nullable();
             $table->uuid('created_by')->nullable();
@@ -42,7 +41,6 @@ return new class extends Migration
             // Foreign key constraints
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('decision_type_id')->references('id')->on('decision_types')->onDelete('cascade');
-            $table->foreign('statement_id')->references('id')->on('statements')->onDelete('cascade');
             $table->foreign('government_id')->references('id')->on('governments')->onDelete('cascade');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');

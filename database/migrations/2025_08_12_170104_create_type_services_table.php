@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('origins', function (Blueprint $table) {
-            $table->text('sepated_services')->nullable();
+        Schema::create('type_services', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('name')->unique();
+            $table->timestamps();
         });
     }
 
@@ -21,8 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('origins', function (Blueprint $table) {
-            $table->dropColumn('sepated_services');
-        });
+        Schema::dropIfExists('type_services');
     }
 };

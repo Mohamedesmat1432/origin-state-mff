@@ -15,6 +15,8 @@ class OriginDetail extends Model
 
     protected $fillable = [
         'origin_id',
+        'statement_id',
+        'used_area',
         'unit_area',
         'number_of_buildings_executed',
         'number_of_units',
@@ -22,10 +24,16 @@ class OriginDetail extends Model
         'administrative_units',
         'commercial_units',
         'commercial_shops',
+        'note',
     ];
 
     public function origin()
     {
         return $this->belongsTo(Origin::class);
+    }
+
+    public function statement()
+    {
+        return $this->belongsTo(Statement::class);
     }
 }

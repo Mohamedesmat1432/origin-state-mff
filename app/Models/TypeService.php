@@ -7,15 +7,15 @@ use App\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Statement extends Model
+class TypeService extends Model
 {
     use HasFactory, UuidTrait, LoggableTrait;
 
-    protected $table = 'statements';
+    protected $table = 'type_services';
 
     protected $fillable = [
         'name'
-    ];    
+    ];
 
     public function scopeSearch($query, $search)
     {

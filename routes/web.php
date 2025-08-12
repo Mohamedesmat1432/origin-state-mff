@@ -18,6 +18,7 @@ use App\Livewire\DecisionType\ListDecisionType;
 use App\Livewire\EditRequestOrigin\ListEditRequestOrigin;
 use App\Livewire\ListOriginNotifier;
 use App\Livewire\Statement\ListStatement;
+use App\Livewire\TypeService\ListTypeService;
 use App\Livewire\User\ListUser;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
@@ -48,6 +49,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
     Route::get('/departments', ListDepartment::class)->name('departments');
     Route::get('/companies', ListCompany::class)->name('companies');
     Route::get('/decision-types', ListDecisionType::class)->name('decision.types');
+    Route::get('/service-types', ListTypeService::class)->name('service.types');
     Route::get('/projects', ListProject::class)->name('projects');
     Route::get('/statements', ListStatement::class)->name('statements');
     Route::get('/origins', ListOrigin::class)->name('origins');

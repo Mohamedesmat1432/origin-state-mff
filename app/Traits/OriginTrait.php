@@ -2,7 +2,7 @@
 
 namespace App\Traits;
 
-use App\Models\{City, DecisionType, Origin, LockedOrigin, EditRequestOrigin, Government, Project, Statement, User};
+use App\Models\{City, DecisionType, Origin, LockedOrigin, EditRequestOrigin, Government, Project, Statement, TypeService, User};
 use App\Enums\{OriginStatus, LocationStatus, OriginRecordStatus};
 use App\Notifications\OriginNotification;
 use Livewire\WithPagination;
@@ -33,11 +33,12 @@ trait OriginTrait
     public array $statement_ids = [];
     public array  $details = [];
 
+    public array  $services = [];
+
     public array $relations = [
         'decisionType',
         'lockedOrigin',
         'project',
-        'statements',
         'government',
         'city',
         'createdBy',
@@ -45,6 +46,7 @@ trait OriginTrait
         'completedBy',
         'coordinatedBy',
         'details',
+        'services',
     ];
 
     public array $filters = [
@@ -167,7 +169,6 @@ trait OriginTrait
             'total_area_coords' => 'required|numeric',
             'executing_entity_num' => 'required|numeric',
             'used_area' => 'required|numeric',
-            'statement_ids' => 'required|array|exists:statements,id',
             'government_id' => 'required|string|exists:governments,id',
             'city_id' => 'required|string|exists:cities,id',
             'location' => 'nullable|string|max:500',
@@ -179,7 +180,8 @@ trait OriginTrait
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
             'record_status' => 'required|in:yes,no',
-            'sepated_services' => 'nullable|string',
+            'details.*.statement_id' => 'nullable|string',
+            'details.*.used_area' => 'nullable|numeric',
             'details.*.unit_area' => 'nullable|numeric',
             'details.*.number_of_buildings_executed' => 'nullable|integer',
             'details.*.number_of_units' => 'nullable|integer',
@@ -187,19 +189,33 @@ trait OriginTrait
             'details.*.administrative_units' => 'nullable|integer',
             'details.*.commercial_units' => 'nullable|integer',
             'details.*.commercial_shops' => 'nullable|integer',
+            'details.*.note' => 'nullable|string|min:2',
+            'services.*.type_service_id' => 'required|string',
+            'services.*.count' => 'required|integer',
         ];
     }
 
     public function addDetail()
     {
         $this->details[] = [
+            'statement_id' => '',
+            'used_area' => '',
             'unit_area' => '',
             'number_of_buildings_executed' => '',
             'number_of_units' => '',
             'residential_units' => '',
             'administrative_units' => '',
             'commercial_units' => '',
-            'commercial_shops' => ''
+            'commercial_shops' => '',
+            'note' => '',
+        ];
+    }
+
+    public function addService()
+    {
+        $this->services[] = [
+            'type_service_id' => null,
+            'count' => '',
         ];
     }
 
@@ -207,6 +223,12 @@ trait OriginTrait
     {
         unset($this->details[$index]);
         $this->details = array_values($this->details);
+    }
+
+    public function removeService($index)
+    {
+        unset($this->services[$index]);
+        $this->services = array_values($this->services);
     }
 
     public function getFilteredQuery()
@@ -268,6 +290,10 @@ trait OriginTrait
     public function projects()
     {
         return $this->getDropdownOptions(Project::class);
+    }
+    public function typeServices()
+    {
+        return $this->getDropdownOptions(TypeService::class);
     }
     public function decisionTypes()
     {
@@ -342,9 +368,7 @@ trait OriginTrait
                 'revised_by',
                 'completed_by',
                 'coordinated_by',
-                // 'coordinates',
                 'record_status',
-                'sepated_services',
             ] as $field
         ) {
             $this->$field = $this->origin->$field ?? null;
@@ -352,11 +376,12 @@ trait OriginTrait
 
         $this->old_decision_image = $this->origin->decision_image;
 
-        $this->statement_ids = $this->origin->statements?->pluck('id')->toArray();
-
         $this->details = $this->origin->details?->toArray();
 
+        $this->services = $this->origin->services?->toArray();
+
         $this->map_government = $this->origin->government->name;
+
         $this->map_city = $this->origin->city->name;
     }
 
@@ -370,9 +395,9 @@ trait OriginTrait
 
         try {
             $origin = Origin::create($data);
-            $this->syncStatements($origin);
             $this->lockOriginIfNeeded($origin);
             $this->createOrUpdateDetails($origin);
+            $this->createOrUpdateServices($origin);
             $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_created'));
@@ -419,9 +444,9 @@ trait OriginTrait
 
         try {
             $this->origin->update($data);
-            $this->syncStatements($this->origin);
             $this->lockOriginIfNeeded($this->origin);
             $this->createOrUpdateDetails($this->origin);
+            $this->createOrUpdateServices($this->origin);
             $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_updated'));
@@ -449,6 +474,22 @@ trait OriginTrait
         }
     }
 
+    private function createOrUpdateServices($origin)
+    {
+        if ($origin) {
+            $origin->services()->delete();
+        }
+
+        foreach ($this->services as $service) {
+            // Cast empty strings to null or zero as appropriate
+            $cleaned = collect($service)->map(function ($value, $key) {
+                return $value === '' ? null : $value;
+            })->toArray();
+
+            $origin->services()->create($cleaned);
+        }
+    }
+
     private function changeUserByOriginStatus(&$data, $status)
     {
         $map = [
@@ -459,15 +500,6 @@ trait OriginTrait
 
         if (isset($map[$status])) {
             $data[$map[$status]] = auth()->id();
-        }
-    }
-
-    private function syncStatements($origin): void
-    {
-        $origin->statements()->sync([]);
-
-        if (!empty($this->statement_ids)) {
-            $origin->statements()->sync($this->statement_ids);
         }
     }
 
@@ -491,8 +523,8 @@ trait OriginTrait
         try {
             $origin = Origin::findOrFail($id);
             $this->deleteImage($origin->decision_image);
-            $origin->statements()->sync([]);
             $origin->details()->delete();
+            $origin->services()->delete();
             // $this->notifyUsers($origin, __('site.delete_origin'), __('site.origin_deleted'));
             $origin->delete();
             $this->clearCache();
@@ -512,8 +544,8 @@ trait OriginTrait
             $this->bulkDeleteImages($origins->pluck('decision_image')->filter()->unique()->toArray());
 
             $origins->each(function ($origin) {
-                $origin->statements()->sync([]);
                 $origin->details()->delete();
+                $origin->services()->delete();
                 // $this->notifyUsers($origin, __('site.bulk_delete_origin'), __('site.origin_delete_all'));
             });
 

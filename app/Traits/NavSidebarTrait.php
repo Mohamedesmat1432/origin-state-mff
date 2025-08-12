@@ -84,6 +84,13 @@ trait NavSidebarTrait
                 'group' => 'program',
             ],
             [
+                'name' => 'service.types',
+                'value' => 'site.type_services',
+                'icon' => 'bolt',
+                'role' => 'view-type-service',
+                'group' => 'program',
+            ],
+            [
                 'name' => 'decision.types',
                 'value' => 'site.decision_types',
                 'icon' => 'bolt',

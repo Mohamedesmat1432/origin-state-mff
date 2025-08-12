@@ -1,3 +1,13 @@
+networks:
+  app_network_origins_state:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+volumes:
+  db_data:
+
 services:
   app:
     build:
@@ -21,7 +31,7 @@ services:
     working_dir: /var/www
     volumes:
       - .:/var/www
-      - ./docker/php.ini:/usr/local/etc/php/conf.d/custom.ini  # Fixed indentation here
+      - ./docker/php.ini:/usr/local/etc/php/conf.d/custom.ini
     networks:
       app_network_origins_state:
         ipv4_address: 172.28.0.10
@@ -43,17 +53,15 @@ services:
 
   db:
     image: mysql:8.0
-    # command: --skip-grant-tables
     container_name: origins_state_mysql
     restart: unless-stopped
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Set MySQL root password here
-      MYSQL_DATABASE: origins_state_db # The database Laravel will use
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD} # Keep only root password for existing data
+      # No MYSQL_DATABASE, MYSQL_USER, MYSQL_PASSWORD → prevents unwanted init
     volumes:
       - db_data:/var/lib/mysql
-      # - ./mysql-init:/docker-entrypoint-initdb.d
     networks:
       app_network_origins_state:
         ipv4_address: 172.28.0.20
@@ -82,13 +90,3 @@ services:
     networks:
       app_network_origins_state:
         ipv4_address: 172.28.0.60
-volumes:
-  db_data:
-
-
-networks:
-  app_network_origins_state:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.28.0.0/16
