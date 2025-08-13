@@ -116,7 +116,8 @@
                         placeholder="{{ __('site.statement_id') }}" />
 
                     <x-form.field label="{{ __('site.used_area') }}" model="details.{{ $index }}.used_area"
-                        type="number" placeholder="{{ __('site.used_area') }}" />
+                        type="number" placeholder="{{ __('site.used_area') }}"
+                        :extra="['wire:change' => 'recalculateRemainingArea']" />
 
                     <x-form.field label="{{ __('site.unit_area') }}" model="details.{{ $index }}.unit_area"
                         type="number" placeholder="{{ __('site.unit_area') }}" />

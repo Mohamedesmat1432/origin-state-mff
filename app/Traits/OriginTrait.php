@@ -2,9 +2,22 @@
 
 namespace App\Traits;
 
-use App\Models\{City, DecisionType, Origin, LockedOrigin, EditRequestOrigin, Government, Project, Statement, TypeService, User};
+use App\Models\{
+    City,
+    DecisionType,
+    Origin,
+    LockedOrigin,
+    EditRequestOrigin,
+    Government,
+    Project,
+    Statement,
+    TypeService,
+    User
+};
 use App\Enums\{OriginStatus, LocationStatus, OriginRecordStatus};
 use App\Notifications\OriginNotification;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Livewire\WithPagination;
 
 trait OriginTrait
@@ -30,9 +43,15 @@ trait OriginTrait
 
     public $coordinates = [];
 
-    public array  $details = [];
-    
-    public array  $services = [];
+    public array $details = [];
+    public array $services = [];
+
+    public function recalculateRemainingArea()
+    {
+        $this->used_area = collect($this->details)->sum('used_area');
+        $this->remaining_area = $this->total_area_allocated - $this->used_area;
+    }
+
 
     public array $relations = [
         'decisionType',
@@ -129,6 +148,7 @@ trait OriginTrait
             ],
         ];
     }
+
     public function sortByField($field)
     {
         $this->sort['asc'] = $field === $this->sort['by'] ? !$this->sort['asc'] : false;
@@ -212,6 +232,7 @@ trait OriginTrait
     {
         unset($this->details[$index]);
         $this->details = array_values($this->details);
+        $this->recalculateRemainingArea();
     }
 
     public function removeService($index)
@@ -319,6 +340,7 @@ trait OriginTrait
     {
         $this->origin = Origin::with($this->relations)->findOrFail($id);
 
+        // Keep original behavior (map_government set using city->name here)
         $this->map_government = $this->origin->city->name;
         $this->map_city = $this->origin->city->name;
         $this->coordinates = $this->origin->coordinates;
@@ -366,11 +388,9 @@ trait OriginTrait
         $this->old_decision_image = $this->origin->decision_image;
 
         $this->details = $this->origin->details?->toArray();
-
         $this->services = $this->origin->services?->toArray();
 
         $this->map_government = $this->origin->government->name;
-
         $this->map_city = $this->origin->city->name;
     }
 
@@ -378,22 +398,33 @@ trait OriginTrait
     {
         $data = $this->validate();
         $this->changeUserByOriginStatus($data, $this->origin_status);
+
         if ($this->decision_image) {
             $data['decision_image'] = $this->storeImage($this->decision_image, 'decision-images');
         }
 
+        DB::beginTransaction();
         try {
             $origin = Origin::create($data);
+
             $this->lockOriginIfNeeded($origin);
             $this->createOrUpdateDetails($origin);
             $this->createOrUpdateServices($origin);
+
+            DB::commit();
+
             $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_created'));
             $this->create_modal = false;
             // $this->notifyUsers($origin, __('site.create_origin'), __('site.origin_created'));
             $this->reset();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('storeOrigin failed', [
+                'message' => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
             $this->errorNotify($e->getMessage());
         }
     }
@@ -404,6 +435,7 @@ trait OriginTrait
 
         $this->validate(['coordinates' => 'required|array']);
 
+        DB::beginTransaction();
         try {
             $this->origin->update([
                 'coordinates' => $this->coordinates,
@@ -411,13 +443,20 @@ trait OriginTrait
                 'coordinated_by' => auth()->id()
             ]);
 
+            DB::commit();
+
             $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_updated'));
             $this->add_coodinates = false;
             $this->notifyUsers($this->origin, __('site.add_coordinates_origin'), __('site.origin_updated'));
             $this->reset();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('addCoordinates failed', [
+                'message' => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
             $this->errorNotify($e->getMessage());
         }
     }
@@ -429,33 +468,48 @@ trait OriginTrait
         $data = $this->validate();
         $data['decision_image'] = $this->updateImage($this->decision_image, $this->old_decision_image, 'decision-images');
 
-        $this->changeUserByOriginStatus($data, $this->origin_status->value);
+        // origin_status may be enum or string
+        $statusValue = is_object($this->origin_status) && property_exists($this->origin_status, 'value')
+            ? $this->origin_status->value
+            : $this->origin_status;
 
+        $this->changeUserByOriginStatus($data, $statusValue);
+
+        DB::beginTransaction();
         try {
             $this->origin->update($data);
+
             $this->lockOriginIfNeeded($this->origin);
             $this->createOrUpdateDetails($this->origin);
             $this->createOrUpdateServices($this->origin);
+
+            DB::commit();
+
             $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_updated'));
             $this->edit_modal = false;
             // $this->notifyUsers($this->origin, __('site.update_origin'), __('site.origin_updated'));
             $this->reset();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('updateOrigin failed', [
+                'message' => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
             $this->errorNotify($e->getMessage());
         }
     }
 
     private function createOrUpdateDetails($origin)
     {
+        // This method is always called inside a transaction by callers.
         if ($origin) {
             $origin->details()->delete();
         }
 
         foreach ($this->details as $detail) {
-            // Cast empty strings to null or zero as appropriate
-            $cleaned = collect($detail)->map(function ($value, $key) {
+            $cleaned = collect($detail)->map(function ($value) {
                 return $value === '' ? null : $value;
             })->toArray();
 
@@ -465,13 +519,13 @@ trait OriginTrait
 
     private function createOrUpdateServices($origin)
     {
+        // This method is always called inside a transaction by callers.
         if ($origin) {
             $origin->services()->delete();
         }
 
         foreach ($this->services as $service) {
-            // Cast empty strings to null or zero as appropriate
-            $cleaned = collect($service)->map(function ($value, $key) {
+            $cleaned = collect($service)->map(function ($value) {
                 return $value === '' ? null : $value;
             })->toArray();
 
@@ -494,10 +548,15 @@ trait OriginTrait
 
     private function lockOriginIfNeeded($origin): void
     {
-        if (in_array($origin->origin_status->value, [
+        $status = $origin->origin_status;
+
+        // Support enum or string at runtime
+        $value = is_object($status) && property_exists($status, 'value') ? $status->value : $status;
+
+        if (in_array($value, [
             OriginStatus::Revision->value,
             OriginStatus::Completed->value,
-        ])) {
+        ], true)) {
             LockedOrigin::firstOrCreate(['origin_id' => $origin->id]);
         }
     }
@@ -509,28 +568,42 @@ trait OriginTrait
 
     public function deleteOrigin($id)
     {
+        DB::beginTransaction();
         try {
             $origin = Origin::findOrFail($id);
+
             $this->deleteImage($origin->decision_image);
             $origin->details()->delete();
             $origin->services()->delete();
             // $this->notifyUsers($origin, __('site.delete_origin'), __('site.origin_deleted'));
             $origin->delete();
+
+            DB::commit();
+
             $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->successNotify(__('site.origin_deleted'));
             $this->delete_modal = false;
             $this->reset();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('deleteOrigin failed', [
+                'message' => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
             $this->errorNotify($e->getMessage());
         }
     }
 
     public function bulkDeleteOrigin($ids)
     {
+        DB::beginTransaction();
         try {
-            $origins = Origin::whereIn('id', $ids);
-            $this->bulkDeleteImages($origins->pluck('decision_image')->filter()->unique()->toArray());
+            $origins = Origin::whereIn('id', $ids)->get();
+
+            $this->bulkDeleteImages(
+                $origins->pluck('decision_image')->filter()->unique()->toArray()
+            );
 
             $origins->each(function ($origin) {
                 $origin->details()->delete();
@@ -538,14 +611,22 @@ trait OriginTrait
                 // $this->notifyUsers($origin, __('site.bulk_delete_origin'), __('site.origin_delete_all'));
             });
 
-            $origins->delete();
+            Origin::whereIn('id', $ids)->delete();
+
+            DB::commit();
+
             $this->clearCache();
             $this->dispatch('refresh-list-origin');
             $this->dispatch('checkbox-clear');
             $this->successNotify(__('site.origin_delete_all'));
             $this->bulk_delete_modal = false;
             $this->reset();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('bulkDeleteOrigin failed', [
+                'message' => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
             $this->errorNotify($e->getMessage());
         }
     }
@@ -560,6 +641,7 @@ trait OriginTrait
             return $this->infoNotify(__('site.edit_request_is_found'));
         }
 
+        DB::beginTransaction();
         try {
             EditRequestOrigin::create([
                 'origin_id' => $originId,
@@ -567,9 +649,16 @@ trait OriginTrait
                 'status' => 'pending',
             ]);
 
+            DB::commit();
+
             $this->clearCache();
             $this->successNotify(__('site.edit_request_success'));
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            Log::error('requestEdit failed', [
+                'message' => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
             $this->errorNotify($e->getMessage());
         }
     }

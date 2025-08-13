@@ -7,204 +7,171 @@
         </x-slot>
 
         <x-slot name="content">
-            {{-- =========================
-            BASIC INFO (Horizontal Table)
-            ========================== --}}
-            <div class="mt-4">
-                <x-label class="font-extrabold text-lg text-center block">{{ __('site.basic_info') }}</x-label>
 
-                <table class="w-full border-collapse border border-gray-300 text-sm mt-2 text-center">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="border px-4 py-2">{{ __('site.project_id') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.decision_type_id') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.decision_num') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.decision_date') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.government') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.city') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.location') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.notes') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border px-4 py-2">{{ $this->origin->project?->name ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->decisionType?->name ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->decision_num ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->decision_date ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->government?->name ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->city?->name ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->location ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->notes ?? '-' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            {{-- BASIC INFO --}}
+            <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ __('site.basic_info') }}</h3>
+            <x-table>
+                <x-slot name="thead">
+                    <tr class="bg-gray-100">
+                        <td class="px-4 py-2 border">{{ __('site.project_id') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.decision_type_id') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.decision_num') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.decision_date') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.government') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.city') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.location') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.notes') }}</td>
+                    </tr>
+                </x-slot>
+                <x-slot name="tbody">
+                    <tr>
+                        <td class="px-4 py-2 border">{{ $this->origin->project?->name ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->decisionType?->name ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->decision_num ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->decision_date ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->government?->name ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->city?->name ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->location ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->notes ?? '-' }}</td>
+                    </tr>
+                </x-slot>
+            </x-table>
 
+            {{-- STATUS & USERS INFO --}}
+            <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ __('site.status_users_info') }}</h3>
+            <x-table>
+                <x-slot name="thead">
+                    <tr class="bg-gray-100">
+                        <td class="px-4 py-2 border">{{ __('site.origin_status') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.location_status') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.record_status') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.created_by') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.revised_by') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.completed_by') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.coordinated_by') }}</td>
+                    </tr>
+                </x-slot>
+                <x-slot name="tbody">
+                    <tr>
+                        <td class="px-4 py-2 border">
+                            <span class="{{ $this->origin->origin_status?->color() }}">
+                                {{ $this->origin->origin_status?->label() }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <span class="{{ $this->origin->location_status?->color() }}">
+                                {{ $this->origin->location_status?->label() }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 border">
+                            <span class="{{ $this->origin->record_status?->color() }}">
+                                {{ $this->origin->record_status?->label() }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-2 border">{{ $this->origin->createdBy?->name ?? __('site.no_data_found') }}
+                        </td>
+                        <td class="px-4 py-2 border">{{ $this->origin->revisedBy?->name ?? __('site.no_data_found') }}
+                        </td>
+                        <td class="px-4 py-2 border">{{ $this->origin->completedBy?->name ?? __('site.no_data_found') }}
+                        </td>
+                        <td class="px-4 py-2 border">{{ $this->origin->coordinatedBy?->name ?? __('site.no_data_found')
+                            }}</td>
+                    </tr>
+                </x-slot>
+            </x-table>
 
-            {{-- =========================
-            STATUS & USERS INFO (Horizontal Table)
-            ========================== --}}
-            <div class="mt-4">
-                <x-label class="font-extrabold text-lg text-center block">{{ __('site.status_users_info') }}</x-label>
+            {{-- AREA INFO --}}
+            <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ __('site.area_info') }}</h3>
+            <x-table>
+                <x-slot name="thead">
+                    <tr class="bg-gray-100">
+                        <td class="px-4 py-2 border">{{ __('site.total_area_allocated') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.total_area_coords') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.used_area') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.executing_entity_num') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.available_area') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.vacant_buildings') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.remaining_area') }}</td>
+                    </tr>
+                </x-slot>
+                <x-slot name="tbody">
+                    <tr>
+                        <td class="px-4 py-2 border">{{ $this->origin->total_area_allocated ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->total_area_coords ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->used_area ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->executing_entity_num ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->available_area ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->vacant_buildings ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $this->origin->remaining_area ?? '-' }}</td>
+                    </tr>
+                </x-slot>
+            </x-table>
 
-                <table class="w-full border-collapse border border-gray-300 text-sm mt-2 text-center">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="border px-4 py-2">{{ __('site.origin_status') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.location_status') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.record_status') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.created_by') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.revised_by') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.completed_by') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.coordinated_by') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border px-4 py-2">
-                                <span class="{{ $this->origin->origin_status?->color() }}">
-                                    {{ $this->origin->origin_status?->label() }}
-                                </span>
-                            </td>
-                            <td class="border px-4 py-2">
-                                <span class="{{ $this->origin->location_status?->color() }}">
-                                    {{ $this->origin->location_status?->label() }}
-                                </span>
-                            </td>
-                            <td class="border px-4 py-2">
-                                <span class="{{ $this->origin->record_status?->color() }}">
-                                    {{ $this->origin->record_status?->label() }}
-                                </span>
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ $this->origin->createdBy?->name ?? __('site.no_data_found') }}
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ $this->origin->revisedBy?->name ?? __('site.no_data_found') }}
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ $this->origin->completedBy?->name ?? __('site.no_data_found') }}
-                            </td>
-                            <td class="border px-4 py-2">
-                                {{ $this->origin->coordinatedBy?->name ?? __('site.no_data_found') }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            {{-- DETAILS --}}
+            <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ __('site.details') }}</h3>
+            <x-table>
+                <x-slot name="thead">
+                    <tr class="bg-gray-100">
+                        <td class="px-4 py-2 border">{{ __('site.statement_id') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.used_area') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.unit_area') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.number_of_buildings_executed') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.number_of_units') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.residential_units') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.administrative_units') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.commercial_units') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.commercial_shops') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.notes') }}</td>
+                    </tr>
+                </x-slot>
+                <x-slot name="tbody">
+                    @forelse($this->origin->details as $detail)
+                    <tr>
+                        <td class="px-4 py-2 border">{{ $detail->statement?->name ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->used_area ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->unit_area ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->number_of_buildings_executed ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->number_of_units ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->residential_units ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->administrative_units ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->commercial_units ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->commercial_shops ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $detail->note ?? '-' }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="10" class="px-4 py-2 border text-center">{{ __('site.no_data_found') }}</td>
+                    </tr>
+                    @endforelse
+                </x-slot>
+            </x-table>
 
-            {{-- =========================
-            AREA INFO (Horizontal Table)
-            ========================== --}}
-            <div class="mt-4">
-                <x-label class="font-extrabold text-lg text-center block">{{ __('site.area_info') }}</x-label>
+            {{-- SERVICES --}}
+            <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ __('site.services') }}</h3>
+            <x-table>
+                <x-slot name="thead">
+                    <tr class="bg-gray-100">
+                        <td class="px-4 py-2 border">{{ __('site.type_service_id') }}</td>
+                        <td class="px-4 py-2 border">{{ __('site.count') }}</td>
+                    </tr>
+                </x-slot>
+                <x-slot name="tbody">
+                    @forelse($this->origin->services as $service)
+                    <tr>
+                        <td class="px-4 py-2 border">{{ $service->typeService?->name ?? '-' }}</td>
+                        <td class="px-4 py-2 border">{{ $service->count ?? '-' }}</td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="2" class="px-4 py-2 border text-center">{{ __('site.no_data_found') }}</td>
+                    </tr>
+                    @endforelse
+                </x-slot>
+            </x-table>
 
-                <table class="w-full border-collapse border border-gray-300 text-sm mt-2 text-center">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="border px-4 py-2">{{ __('site.total_area_allocated') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.total_area_coords') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.used_area') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.executing_entity_num') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.available_area') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.vacant_buildings') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.remaining_area') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="border px-4 py-2">{{ $this->origin->total_area_allocated ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->total_area_coords ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->used_area ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->executing_entity_num ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->available_area ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->vacant_buildings ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $this->origin->remaining_area ?? '-' }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-            {{-- =========================
-            DETAILS (Horizontal Table)
-            ========================== --}}
-            <div class="mt-4">
-                <x-label class="font-extrabold text-lg text-center block">{{ __('site.details') }}</x-label>
-
-                @if($this->origin->details->isNotEmpty())
-                <table class="w-full border-collapse border border-gray-300 text-sm mt-4 text-center">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="border px-4 py-2">{{ __('site.statement_id') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.used_area') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.unit_area') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.number_of_buildings_executed') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.number_of_units') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.residential_units') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.administrative_units') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.commercial_units') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.commercial_shops') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.notes') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($this->origin->details as $detail)
-                        <tr>
-                            <td class="border px-4 py-2">{{ $detail->statement?->name ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->used_area ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->unit_area ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->number_of_buildings_executed ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->number_of_units ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->residential_units ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->administrative_units ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->commercial_units ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->commercial_shops ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $detail->note ?? '-' }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                @else
-                <div class="mt-2 text-center text-gray-500">{{ __('site.no_data_found') }}</div>
-                @endif
-            </div>
-
-
-            {{-- =========================
-            SERVICES (Horizontal Table)
-            ========================== --}}
-            <div class="mt-4">
-                <x-label class="font-extrabold text-lg text-center block">{{ __('site.services') }}</x-label>
-
-                @if($this->origin->services->isNotEmpty())
-                <table class="w-full border-collapse border border-gray-300 text-sm mt-4 text-center">
-                    <thead class="bg-gray-100">
-                        <tr>
-                            <th class="border px-4 py-2">{{ __('site.type_service_id') }}</th>
-                            <th class="border px-4 py-2">{{ __('site.count') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($this->origin->services as $service)
-                        <tr>
-                            <td class="border px-4 py-2">{{ $service->typeService?->name ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $service->count ?? '-' }}</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                @else
-                <div class="mt-2 text-center text-gray-500">{{ __('site.no_data_found') }}</div>
-                @endif
-            </div>
-
-            {{-- =========================
-            COORDINATES MAP
-            ========================== --}}
-            <div class="mt-4 text-center">
-                <x-label class="font-extrabold text-lg text-center block">{{ __('site.coordinates') }}</x-label>
+            {{-- COORDINATES MAP --}}
+            <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ __('site.coordinates') }}</h3>
+            <div class="text-center">
                 @if (!empty($coordinates))
                 <div x-data="mapComponent(
                         @entangle('map_government'),
@@ -221,11 +188,9 @@
                 @endif
             </div>
 
-            {{-- =========================
-            DECISION IMAGE / FILE PREVIEW
-            ========================== --}}
-            <div class="mt-4 text-center">
-                <x-label class="font-extrabold text-lg text-center block">{{ __('site.decision_image') }}</x-label>
+            {{-- DECISION IMAGE / FILE PREVIEW --}}
+            <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ __('site.decision_image') }}</h3>
+            <div class="text-center">
                 @php
                 $file = Helper::getFilePreviewDetails($this->origin->decision_image);
                 @endphp
@@ -233,9 +198,7 @@
                 @if ($file)
                 <div class="mt-2 flex justify-center items-center">
                     <img src="{{ $file['iconUrl'] }}" alt="{{ $file['extension'] }} Icon" class="w-8 h-8 mr-2">
-                    <span class="truncate max-w-xs" title="{{ $file['fileName'] }}">
-                        {{ $file['fileName'] }}
-                    </span>
+                    <span class="truncate max-w-xs" title="{{ $file['fileName'] }}">{{ $file['fileName'] }}</span>
                 </div>
 
                 @if ($file['isPdf'])
@@ -254,6 +217,7 @@
                 <div class="mt-2">{{ __('site.no_data_found') }}</div>
                 @endif
             </div>
+
         </x-slot>
 
         <x-slot name="footer">

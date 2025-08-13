@@ -162,8 +162,9 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             @foreach ($columns as $col)
                             <div class="text-center md:col-span-4 grid grid-cols-subgrid gap-4">
-                                <div class="text-gray-900 text-lg">{{ $col['label'] }}</div>
-                                <div class="text-gray-900 font-medium">{!! $origin->getColumnValue($col['key']) !!}
+                                <h3 class="font-bold text-lg mt-4 mb-2 text-center">{{ $col['label'] }}</h3>
+                                <div class="text-gray-900 font-medium overflow-x-auto overflow-hidden">
+                                    {!! $origin->getColumnValue($col['key']) !!}
                                 </div>
                             </div>
                             @endforeach
@@ -193,7 +194,6 @@
                     <div class="text-center text-gray-600">{{ __('site.no_data_found') }}</div>
                     @endforelse
                 </div>
-
 
                 @if ($origins->hasPages())
                 <x-paginate :data-links="$origins->links()" :all="$count_all" />

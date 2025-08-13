@@ -101,7 +101,7 @@ class Origin extends Model
             rows: $rows,
             headerBg: true,
             horizontal: true,
-            allowHtmlColumns: [7],
+            // allowHtmlColumns: [7],
         );
     }
 
@@ -154,7 +154,6 @@ class Origin extends Model
             rows: $rows,
             headerBg: true,
             horizontal: true,
-            allowHtmlColumns: [0, 1, 2],
         );
     }
 
@@ -176,7 +175,7 @@ class Origin extends Model
             rows: [
                 ['Y', ...$yValues]
             ],
-            headerBg: true
+            headerBg: true,
         );
     }
 
@@ -186,35 +185,40 @@ class Origin extends Model
             return __('site.no_data_found');
         }
 
-        $attributes = [
-            'statement_id'                => __('site.statement_id'),
-            'used_area'                   => __('site.used_area'),
-            'unit_area'                   => __('site.unit_area'),
-            'number_of_buildings_executed' => __('site.number_of_buildings_executed'),
-            'number_of_units'             => __('site.number_of_units'),
-            'residential_units'           => __('site.residential_units'),
-            'administrative_units'        => __('site.administrative_units'),
-            'commercial_units'            => __('site.commercial_units'),
-            'commercial_shops'            => __('site.commercial_shops'),
-            'note'                        => __('site.notes'),
+        $headers = [
+            __('site.statement_id'),
+            __('site.used_area'),
+            __('site.unit_area'),
+            __('site.number_of_buildings_executed'),
+            __('site.number_of_units'),
+            __('site.residential_units'),
+            __('site.administrative_units'),
+            __('site.commercial_units'),
+            __('site.commercial_shops'),
+            __('site.notes'),
         ];
 
         $rows = [];
-        foreach ($attributes as $key => $label) {
-            $row = [$label];
-            foreach ($details as $detail) {
-                $row[] = $key === 'statement_id'
-                    ? $detail->statement->name ?? '-'
-                    : $detail->$key ?? '-';
-            }
-            $rows[] = $row;
+        foreach ($details as $detail) {
+            $rows[] = [
+                $detail->statement->name ?? '-',
+                $detail->used_area ?? '-',
+                $detail->unit_area ?? '-',
+                $detail->number_of_buildings_executed ?? '-',
+                $detail->number_of_units ?? '-',
+                $detail->residential_units ?? '-',
+                $detail->administrative_units ?? '-',
+                $detail->commercial_units ?? '-',
+                $detail->commercial_shops ?? '-',
+                $detail->note ?? '-',
+            ];
         }
 
         return $this->buildTable(
-            headers: [],
+            headers: $headers,
             rows: $rows,
             headerBg: true,
-            horizontal: true
+            horizontal: false
         );
     }
 
@@ -224,29 +228,27 @@ class Origin extends Model
             return __('site.no_data_found');
         }
 
-        $attributes = [
-            'type_service_id' => __('site.type_service_id'),
-            'count'           => __('site.count'),
+        $headers = [
+            __('site.type_service_id'),
+            __('site.count'),
         ];
 
         $rows = [];
-        foreach ($attributes as $key => $label) {
-            $row = [$label];
-            foreach ($services as $service) {
-                $row[] = $key === 'type_service_id'
-                    ? $service->typeService->name ?? '-'
-                    : $service->$key ?? '-';
-            }
-            $rows[] = $row;
+        foreach ($services as $service) {
+            $rows[] = [
+                $service->typeService->name ?? '-',
+                $service->count ?? '-',
+            ];
         }
 
         return $this->buildTable(
-            headers: [],
+            headers: $headers,
             rows: $rows,
             headerBg: true,
-            horizontal: true
+            horizontal: false  // horizontal=false so headers are the columns
         );
     }
+
 
     /**
      * Format status enums into HTML label.
@@ -259,54 +261,62 @@ class Origin extends Model
     /**
      * Generic HTML table builder.
      */
-    protected function buildTable(
+    private function buildTable(
         array $headers,
         array $rows,
-        bool $headerBg = false,
-        array $allowHtmlColumns = [],
-        bool $horizontal = false
+        bool $headerBg = true,
+        bool $horizontal = false,
+        string $mode = 'auto'
     ): string {
         if ($horizontal && !empty($rows)) {
-            // Convert the rows into columns
-            // Assume each row is [label, value]
-            $labels = array_column($rows, 0);
-            $values = array_column($rows, 1);
+            if ($mode === 'auto') {
+                $allTwoCols = collect($rows)->every(fn($row) => count($row) === 2);
+                $mode = $allTwoCols ? 'collapse' : 'matrix';
+            }
 
-            // In horizontal mode, headers are labels
-            $headers = $labels;
-            $rows = [$values]; // single row containing all values
+            if ($mode === 'collapse') {
+                $labels = array_column($rows, 0);
+                $values = array_column($rows, 1);
+                $headers = $labels;
+                $rows = [$values];
+            } elseif ($mode === 'matrix') {
+                $labels = array_column($rows, 0);
+                $colCount = count($rows[0]) - 1;
+                $headers = array_merge([''], range(1, $colCount));
+            }
         }
 
-        $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
-            <table class="table-fixed min-w-full text-sm border text-center">
-                <thead>
-                    <tr>';
+        $html = '<div class="flex flex-col overflow-x-auto">
+                    <div class="sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                            <table class="table-fixed min-w-full text-sm">';
 
-        foreach ($headers as $header) {
-            $class = 'border p-2 whitespace-nowrap' . ($headerBg ? ' bg-gray-100' : '');
-            $html .= '<th class="' . $class . '">' . e($header) . '</th>';
+        // Header
+        if (!empty($headers)) {
+            $html .= '<thead' . ($headerBg ? ' class="bg-gray-100"' : '') . '><tr>';
+            foreach ($headers as $header) {
+                $html .= '<th class="border px-4 py-2">' . $header . '</th>';
+            }
+            $html .= '</tr></thead>';
         }
 
-        $html .= '</tr></thead><tbody>';
-
+        // Body
+        $html .= '<tbody>';
         foreach ($rows as $row) {
             $html .= '<tr>';
-            foreach ($row as $index => $cell) {
-                $html .= '<td class="border p-2 whitespace-nowrap">';
-                if (in_array($index, $allowHtmlColumns)) {
-                    $html .= $cell; // Render raw HTML
-                } else {
-                    $html .= e($cell);
-                }
-                $html .= '</td>';
+            foreach ($row as $cell) {
+                $html .= '<td class="border px-4 py-2">' . $cell . '</td>';
             }
             $html .= '</tr>';
         }
+        $html .= '</tbody>';
 
-        $html .= '</tbody></table></div>';
+        $html .= '</table></div></div></div>';
 
         return $html;
     }
+
+
 
     /* =========================
        Relationships
