@@ -62,25 +62,114 @@ class Origin extends Model
         $file = Helper::getFilePreviewDetails($this->decision_image);
 
         return match ($key) {
-            'project_id'        => $this->project?->name,
-            'decision_type_id'  => $this->decisionType?->name,
-            'government_id'     => $this->government?->name,
-            'city_id'           => $this->city?->name,
-            'location_status'   => $this->formatStatus($this->location_status),
-            'origin_status'     => $this->formatStatus($this->origin_status),
-            'record_status'     => $this->formatStatus($this->record_status),
-            'created_by'        => $this->createdBy?->name ?? __('site.no_data_found'),
-            'revised_by'        => $this->revisedBy?->name ?? __('site.no_data_found'),
-            'completed_by'      => $this->completedBy?->name ?? __('site.no_data_found'),
-            'coordinated_by'    => $this->coordinatedBy?->name ?? __('site.no_data_found'),
-            'notes'             => $this->notes ?? __('site.no_data_found'),
+            'basic_info'        => $this->formatOriginBasicInfo(),
+            'area_info'         => $this->formatOriginAreaInfo(),
+            'status_info'       => $this->formatOriginStatuses(),
+            'users_info'        => $this->formatOriginUsers(),
+            'notes'             => $this->notes ?? '-',
             'coordinates'       => $this->formatCoordinates($this->coordinates ?? []),
             'details'           => $this->formatOriginDetails($this->details ?? collect()),
             'services'          => $this->formatOriginServices($this->services ?? collect()),
-            'decision_image'    => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display:inline-block"/>' : __('site.no_data_found'),
+            'decision_image'    => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display:inline-block"/>' : '-',
             default             => e(data_get($this, $key)),
         };
     }
+
+    protected function formatOriginStatuses(): string
+    {
+        $statuses = [
+            __('site.location_status') => $this->formatStatus($this->location_status),
+            __('site.origin_status')   => $this->formatStatus($this->origin_status),
+            __('site.record_status')   => $this->formatStatus($this->record_status),
+        ];
+
+        $rows = [];
+        foreach ($statuses as $label => $value) {
+            // Don't escape HTML here because formatStatus already returns HTML
+            $rows[] = [
+                e($label),
+                $value
+            ];
+        }
+
+        return $this->buildTable(
+            headers: [],
+            rows: $rows,
+            allowHtmlColumns: [1]
+        );
+    }
+
+    protected function formatOriginUsers(): string
+    {
+        $headers = [
+            __('site.created_by')     => $this->createdBy?->name ?? '-',
+            __('site.revised_by')     => $this->revisedBy?->name ?? '-',
+            __('site.completed_by')   => $this->completedBy?->name ?? '-',
+            __('site.coordinated_by') => $this->coordinatedBy?->name ?? '-',
+        ];
+
+        // Convert key/value to table rows
+        $rows = [];
+        foreach ($headers as $label => $value) {
+            $rows[] = [$label, $value];
+        }
+
+        return $this->buildTable(
+            headers: [],
+            rows: $rows
+        );
+    }
+
+    protected function formatOriginBasicInfo(): string
+    {
+        $headers = [
+            __('site.id')         => $this->id ?? '-',
+            __('site.project')         => $this->project?->name ?? '-',
+            __('site.decision_type_id')   => $this->decisionType?->name ?? '-',
+            __('site.decision_num')   => $this->decision_num ?? '-',
+            __('site.decision_date')   => $this->decision_date ?? '-',
+            __('site.government')      => $this->government?->name ?? '-',
+            __('site.city')            => $this->city?->name ?? '-',
+            __('site.location')        => $this->location ?? '-',
+        ];
+
+        $rows = [];
+        foreach ($headers as $label => $value) {
+            $rows[] = [$label, $value];
+        }
+
+        // Build 2-column table: Label | Value
+        return $this->buildTable(
+            headers: [],
+            rows: $rows
+        );
+    }
+
+    protected function formatOriginAreaInfo(): string
+    {
+        $headers = [
+            __('site.total_area_allocated')   => $this->total_area_allocated ?? '-',
+            __('site.total_area_coords')      => $this->total_area_coords ?? '-',
+            __('site.used_area')              => $this->used_area ?? '-',
+            __('site.executing_entity_num')   => $this->executing_entity_num ?? '-',
+            __('site.available_area')         => $this->available_area ?? '-',
+            __('site.vacant_buildings')       => $this->vacant_buildings ?? '-',
+            __('site.remaining_area')         => $this->remaining_area ?? '-',
+        ];
+
+        // Turn key/value into rows: Label | Value
+        $rows = [];
+        foreach ($headers as $label => $value) {
+            $rows[] = [$label, $value];
+        }
+
+        return $this->buildTable(
+            headers: [],
+            rows: $rows,
+        );
+    }
+
+
 
     /**
      * Format status enums into HTML label.
@@ -121,7 +210,7 @@ class Origin extends Model
     protected function formatOriginDetails(Collection $details): string
     {
         if ($details->isEmpty()) {
-            return __('site.no_data_found');
+            return '-';
         }
 
         $headers = [
@@ -154,7 +243,7 @@ class Origin extends Model
     protected function formatOriginServices(Collection $services): string
     {
         if ($services->isEmpty()) {
-            return __('site.no_data_found');
+            return '-';
         }
 
         $attributes = [
@@ -181,7 +270,7 @@ class Origin extends Model
     /**
      * Generic HTML table builder.
      */
-    protected function buildTable(array $headers, array $rows, bool $headerBg = false): string
+    protected function buildTable(array $headers, array $rows, bool $headerBg = false, array $allowHtmlColumns = []): string
     {
         $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
             <table class="table-fixed min-w-full text-sm border text-center">
@@ -197,8 +286,14 @@ class Origin extends Model
 
         foreach ($rows as $row) {
             $html .= '<tr>';
-            foreach ($row as $cell) {
-                $html .= '<td class="border p-2 whitespace-nowrap">' . e($cell) . '</td>';
+            foreach ($row as $index => $cell) {
+                $html .= '<td class="border p-2 whitespace-nowrap">';
+                if (in_array($index, $allowHtmlColumns)) {
+                    $html .= $cell; // Render raw HTML
+                } else {
+                    $html .= e($cell);
+                }
+                $html .= '</td>';
             }
             $html .= '</tr>';
         }
@@ -207,6 +302,7 @@ class Origin extends Model
 
         return $html;
     }
+
 
     /* =========================
        Relationships

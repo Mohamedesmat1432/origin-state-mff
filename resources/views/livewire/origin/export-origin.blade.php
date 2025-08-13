@@ -9,14 +9,17 @@
         <x-slot name="content">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
+                {{-- Search --}}
                 <x-form.field label="{{ __('site.search') }}" model="filters.search"
                     placeholder="{{ __('site.search') }}" type="search"
                     :extra="['wire:model.live.debounce.300ms' => 'filters.search']" />
 
+                {{-- File extension --}}
                 <x-form.dynamic-select label="{{ __('site.extension') }}" model="extension"
-                    :options="['xlsx' => 'xlsx', 'csv' => 'csv', 'xsl' => 'xls']"
+                    :options="['xlsx' => 'xlsx', 'csv' => 'csv', 'xls' => 'xls']"
                     placeholder="{{ __('site.extension') }}" />
 
+                {{-- Filters --}}
                 <x-form.dynamic-select label="{{ __('site.government_id') }}" model="filters.government_id"
                     :options="$this->governments()" placeholder="{{ __('site.government_id') }}"
                     :extra="['wire:model.live.debounce.200ms' => 'filters.government_id']" />
@@ -26,9 +29,9 @@
                     :extra="['wire:model.live.debounce.200ms' => 'filters.city_id']"
                     loading-target="filters.government_id" />
 
-                <x-form.dynamic-select label="{{ __('site.statement_id') }}" model="filters.statement_ids"
+                {{-- <x-form.dynamic-select label="{{ __('site.statement_id') }}" model="filters.statement_ids"
                     :options="$this->statements()" placeholder="{{ __('site.statement_id') }}"
-                    :extra="['wire:model.live.debounce.200ms' => 'filters.statement_ids', 'multiple' => true]" />
+                    :extra="['wire:model.live.debounce.200ms' => 'filters.statement_ids', 'multiple' => true]" /> --}}
 
                 <x-form.dynamic-select label="{{ __('site.project_id') }}" model="filters.project_ids"
                     :options="$this->projects()" placeholder="{{ __('site.project_id') }}"
@@ -57,6 +60,20 @@
                     </div>
                 </div>
 
+                {{-- Extra export options for relations --}}
+                <div class="mt-4 border-t pt-3 col-span-2">
+                    <label class="inline-flex items-center gap-x-2">
+                        <x-input type="checkbox" wire:model="export_details" />
+                        <span>{{ __('site.details') }}</span>
+                    </label>
+
+                    <label class="inline-flex items-center gap-x-2 ml-4">
+                        <x-input type="checkbox" wire:model="export_services" />
+                        <span>{{ __('site.sepated_services') }}</span>
+                    </label>
+                </div>
+
+                {{-- Enum Filters --}}
                 <x-form.enum-group label="{{ __('site.origin_status') }}" model="enums.origin_status"
                     :extra="['wire:model.live.debounce.200ms' => 'enums.origin_status']"
                     :enum="\App\Enums\OriginStatus::class" filter-status="true" :filter-count="$this->originsCount()" />
@@ -72,7 +89,7 @@
                     :filter-count="$this->originsCount()" />
 
                 {{-- Export Mode --}}
-                <div class="mt-2">
+                <div class="mt-2 col-span-2">
                     <x-label :value="__('site.status')" class="block" />
                     <label class="inline-flex items-center mt-2 gap-x-2">
                         <x-input type="checkbox" wire:model.live.debounce.100ms="export_status" />

@@ -168,7 +168,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             @foreach ($columns as $col)
                             <div
-                                class="{{ in_array($col['key'],['coordinates', 'details']) ? 'md:col-span-4 grid grid-cols-subgrid gap-4' : ''}}">
+                                class="{{ !in_array($col['key'],['status_info','users_info','decision_image', 'notes']) ? 'md:col-span-4 grid grid-cols-subgrid gap-4' : 'md:col-span-2 grid grid-cols-subgrid gap-4'}}">
                                 <div class="text-gray-500 text-sm">{{ $col['label'] }}</div>
                                 <div class="text-gray-900 font-medium mt-1">{!! $origin->getColumnValue($col['key']) !!}
                                 </div>

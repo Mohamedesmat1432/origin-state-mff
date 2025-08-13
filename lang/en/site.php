@@ -514,6 +514,7 @@ return [
     'commercial_units' => 'Commercial Units',
     'commercial_shops' => 'Commercial Shops',
     'add_details' => 'Add Details',
-    'sepated_services' => 'Sepated Services',
+    'sepated_services' => 'Separated Services',
+    'services' => 'Separated Services',
     'type_service_id' => 'Service Type',
 ];

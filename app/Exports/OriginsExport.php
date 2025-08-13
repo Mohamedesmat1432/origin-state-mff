@@ -19,99 +19,112 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
     protected array $columns;
     protected bool $exportStatus = false;
 
-    /**
-     * @param Builder $query         // Eloquent query passed from controller or Livewire
-     * @param array $columns         // Selected columns to export
-     * @param bool $exportStatus     // If true, use raw values (not labels) and translate headings
-     */
     public function __construct(Builder $query, array $columns, bool $exportStatus = false)
     {
         $this->query = $query;
-        $this->columns = count($columns) ? $columns : ['id']; // fallback to id or default column
+        $this->columns = count($columns) ? $columns : ['id'];
         $this->exportStatus = $exportStatus;
     }
 
-    /**
-     * Set whether to export raw enum values instead of labels.
-     */
     public function withRawStatus(bool $value = true): self
     {
         $this->exportStatus = $value;
         return $this;
     }
 
-    /**
-     * Define the query for export.
-     */
     public function query(): Builder
     {
         return $this->query;
     }
 
-    /**
-     * Define column headings.
-     */
     public function headings(): array
     {
-        return $this->exportStatus
-            ? array_map(fn($column) => __('site.' . $column), $this->columns)
-            : $this->columns;
+        return array_map(fn($column) => __('site.' . $column), $this->columns);
     }
 
-    /**
-     * Map each row.
-     */
     public function map($origin): array
     {
         $row = [];
 
         foreach ($this->columns as $column) {
             $row[] = match ($column) {
-                'project_id'            => $origin->project?->name,
-                'decision_num'          => $origin->decision_num,
-                'decision_date'         => $origin->decision_date,
-                'decision_type_id'      => $origin->decisionType?->name,
-                'total_area_allocated'  => $origin->total_area_allocated,
-                'total_area_coords'     => $origin->total_area_coords,
-                'statement_id'          => $origin->statement?->name,
-                'government_id'         => $origin->government?->name,
-                'city_id'               => $origin->city?->name,
-                'executing_entity_num'  => $origin->executing_entity_num,
-                'used_area'             => $origin->used_area,
-                'location'              => $origin->location,
-                'available_area'        => $origin->available_area,
-                'vacant_buildings'      => $origin->vacant_buildings,
-                'remaining_area'        => $origin->remaining_area,
+                'project_id'           => $origin->project?->name,
+                'decision_num'         => $origin->decision_num,
+                'decision_date'        => $origin->decision_date,
+                'decision_type_id'     => $origin->decisionType?->name,
+                'total_area_allocated' => $origin->total_area_allocated,
+                'total_area_coords'    => $origin->total_area_coords,
+                'government_id'        => $origin->government?->name,
+                'city_id'              => $origin->city?->name,
+                'executing_entity_num' => $origin->executing_entity_num,
+                'used_area'            => $origin->used_area,
+                'location'             => $origin->location,
+                'available_area'       => $origin->available_area,
+                'vacant_buildings'     => $origin->vacant_buildings,
+                'remaining_area'       => $origin->remaining_area,
 
-                // Toggle between value and label for enum fields
-                'location_status'       => $this->exportStatus
+                'location_status'      => $this->exportStatus
                     ? $origin->location_status->label()
                     : $origin->location_status->value,
-                'origin_status'         => $this->exportStatus
+
+                'origin_status'        => $this->exportStatus
                     ? $origin->origin_status->label()
                     : $origin->origin_status->value,
-                'record_status' => $this->exportStatus
+
+                'record_status'        => $this->exportStatus
                     ? $origin->record_status->label()
                     : $origin->record_status->value,
 
-                'notes'                 => $origin->notes,
+                'notes'                => $origin->notes,
 
-                'created_by'            => $this->exportStatus
+                'created_by'           => $this->exportStatus
                     ? $origin->createdBy?->name
                     : $origin->createdBy?->id,
-                'revised_by'            => $this->exportStatus
+
+                'revised_by'           => $this->exportStatus
                     ? $origin->revisedBy?->name
                     : $origin->revisedBy?->id,
-                'completed_by'          => $this->exportStatus
+
+                'completed_by'         => $this->exportStatus
                     ? $origin->completedBy?->name
                     : $origin->completedBy?->id,
-                'coordinated_by'          => $this->exportStatus
+
+                'coordinated_by'       => $this->exportStatus
                     ? $origin->coordinatedBy?->name
                     : $origin->coordinatedBy?->id,
 
-                'decision_image'        => $origin->decision_image,
-                'coordinates'           => json_encode($origin->coordinates ?? []),
-                default                 => '',
+                'decision_image'       => $origin->decision_image,
+                'coordinates'          => json_encode($origin->coordinates ?? []),
+
+                // Multi-line details in a single cell
+                'details' => $origin->details
+                    ->map(function ($d) {
+                        return implode(' | ', [
+                            __('site.statement') . ': ' . ($d->statement?->name ?? $d->statement_id),
+                            __('site.used_area') . ': ' . $d->used_area,
+                            __('site.unit_area') . ': ' . $d->unit_area,
+                            __('site.number_of_buildings_executed') . ': ' . $d->number_of_buildings_executed,
+                            __('site.number_of_units') . ': ' . $d->number_of_units,
+                            __('site.residential_units') . ': ' . $d->residential_units,
+                            __('site.administrative_units') . ': ' . $d->administrative_units,
+                            __('site.commercial_units') . ': ' . $d->commercial_units,
+                            __('site.commercial_shops') . ': ' . $d->commercial_shops,
+                            __('site.note') . ': ' . $d->note,
+                        ]);
+                    })
+                    ->implode("\n"),
+
+                // Multi-line services in a single cell
+                'services' => $origin->services
+                    ->map(function ($s) {
+                        return implode(' | ', [
+                            __('site.type_service_id') . ': ' . ($s->typeService?->name ?? ''),
+                            __('site.count') . ': ' . $s->count,
+                        ]);
+                    })
+                    ->implode("\n"),
+
+                default => $origin->{$column} ?? '',
             };
         }
 
@@ -121,7 +134,7 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
     public function styles(Worksheet $sheet)
     {
         $columnCount = count($this->columns);
-        $rowCount = $sheet->getHighestRow(); // This includes the header row
+        $rowCount = $sheet->getHighestRow();
 
         if ($columnCount === 0 || $rowCount === 0) {
             return [];
@@ -129,13 +142,23 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
 
         $lastColLetter = $this->getExcelColumnLetter($columnCount);
 
-        // Apply horizontal center alignment to the entire table range
+        // Center headers & make bold
+        $sheet->getStyle("A1:{$lastColLetter}1")->getFont()->setBold(true);
         $sheet->getStyle("A1:{$lastColLetter}{$rowCount}")
             ->getAlignment()
-            ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER)
+            ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
 
-        // Make the header row bold
-        $sheet->getStyle("A1:{$lastColLetter}1")->getFont()->setBold(true);
+        // Enable wrap text for origin_details & origin_services columns
+        foreach (['details', 'services'] as $colName) {
+            $colIndex = array_search($colName, $this->columns) + 1;
+            if ($colIndex > 0) {
+                $colLetter = $this->getExcelColumnLetter($colIndex);
+                $sheet->getStyle("{$colLetter}1:{$colLetter}{$rowCount}")
+                    ->getAlignment()
+                    ->setWrapText(true);
+            }
+        }
 
         return [];
     }

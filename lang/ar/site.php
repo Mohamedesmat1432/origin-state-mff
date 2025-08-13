@@ -535,5 +535,6 @@ return [
     'commercial_shops' => 'المحلات التجارية',
     'add_details' => 'اضافة تفاصيل',
     'sepated_services' => 'خدمات منفصلة',
+    'services' => 'خدمات منفصلة',
     'type_service_id' => 'نوع الخدمة',
 ];

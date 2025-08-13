@@ -14,15 +14,15 @@ class ExportOrigin extends Component
     use OriginTrait;
 
     public $selected_columns = [];
-
     public $export_status = false;
+    public $export_details = false;
+    public $export_services = false;
 
     public $available_columns = [
         'decision_num',
         'decision_date',
         'project_id',
         'decision_type_id',
-        'statement_id',
         'government_id',
         'city_id',
         'total_area_allocated',
@@ -54,21 +54,30 @@ class ExportOrigin extends Component
 
     public function selectAllColumns()
     {
-        $this->selected_columns =  $this->checkbox_status ? $this->available_columns : [];
+        $this->selected_columns = $this->checkbox_status ? $this->available_columns : [];
     }
 
     public function export()
     {
         try {
-            // Ensure at least one column is selected
-            if (empty($this->selected_columns)) {
+            if (empty($this->selected_columns) && !$this->export_details && !$this->export_services) {
                 $this->errorNotify(__('site.please_select_at_least_one_column'));
                 return;
             }
 
-            $query = $this->getFilteredQuery();
+            $query = $this->getFilteredQuery()->with([
+                'project',
+                'decisionType',
+                'government',
+                'city',
+                'createdBy',
+                'revisedBy',
+                'completedBy',
+                'coordinatedBy',
+                'details',
+                'services'
+            ]);
 
-            // Check if any records exist before exporting
             if ($query->count() === 0) {
                 $this->errorNotify(__('site.no_data_found_for_export'));
                 return;
@@ -76,17 +85,15 @@ class ExportOrigin extends Component
 
             $columns = $this->selected_columns ?: $this->available_columns;
 
-            // Export and return
-            $file = (new OriginsExport($query, $columns, $this->export_status))
+            if ($this->export_details) {
+                $columns[] = 'details';
+            }
+            if ($this->export_services) {
+                $columns[] = 'services';
+            }
+
+            return (new OriginsExport($query, $columns, $this->export_status))
                 ->download('origins_export.' . $this->extension);
-
-            $this->resetForm();
-
-            $this->export_modal = false;
-            $this->dispatch('refresh-list-origin');
-            $this->successNotify(__('site.origin_exported'));
-
-            return $file;
         } catch (\Throwable $e) {
             $this->errorNotify($e->getMessage());
         }
@@ -96,9 +103,10 @@ class ExportOrigin extends Component
     {
         $this->reset([
             'selected_columns',
-            'available_columns',
             'extension',
             'export_status',
+            'export_details',
+            'export_services',
             'checkbox_status',
             'filters',
         ]);
@@ -108,6 +116,8 @@ class ExportOrigin extends Component
     {
         $this->authorize('export-origin');
 
-        return view('livewire.origin.export-origin');
+        return view('livewire.origin.export-origin', [
+            'available_columns' => $this->available_columns,
+        ]);
     }
 }
