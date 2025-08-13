@@ -7,387 +7,252 @@
         </x-slot>
 
         <x-slot name="content">
-            <div class="grid grid-cols-1 md:grid-cols-1">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="project_id" value="{{ __('site.project_id') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->project?->name }}
-                        </div>
-                    </div>
+            {{-- =========================
+            BASIC INFO (Horizontal Table)
+            ========================== --}}
+            <div class="mt-4">
+                <x-label class="font-extrabold text-lg text-center block">{{ __('site.basic_info') }}</x-label>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="decision_num"
-                            value="{{ __('site.decision_num') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->decision_num }}
-                        </div>
-                    </div>
+                <table class="w-full border-collapse border border-gray-300 text-sm mt-2 text-center">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2">{{ __('site.project_id') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.decision_type_id') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.decision_num') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.decision_date') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.government') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.city') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.location') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.notes') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border px-4 py-2">{{ $this->origin->project?->name ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->decisionType?->name ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->decision_num ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->decision_date ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->government?->name ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->city?->name ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->location ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->notes ?? '-' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="decision_date"
-                            value="{{ __('site.decision_date') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->decision_date }}
-                        </div>
-                    </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="decision_type_id"
-                            value="{{ __('site.decision_type_id') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->decisionType?->name }}
-                        </div>
-                    </div>
+            {{-- =========================
+            STATUS & USERS INFO (Horizontal Table)
+            ========================== --}}
+            <div class="mt-4">
+                <x-label class="font-extrabold text-lg text-center block">{{ __('site.status_users_info') }}</x-label>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="total_area_allocated"
-                            value="{{ __('site.total_area_allocated') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->total_area_allocated }}
-                        </div>
-                    </div>
+                <table class="w-full border-collapse border border-gray-300 text-sm mt-2 text-center">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2">{{ __('site.origin_status') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.location_status') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.record_status') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.created_by') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.revised_by') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.completed_by') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.coordinated_by') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border px-4 py-2">
+                                <span class="{{ $this->origin->origin_status?->color() }}">
+                                    {{ $this->origin->origin_status?->label() }}
+                                </span>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <span class="{{ $this->origin->location_status?->color() }}">
+                                    {{ $this->origin->location_status?->label() }}
+                                </span>
+                            </td>
+                            <td class="border px-4 py-2">
+                                <span class="{{ $this->origin->record_status?->color() }}">
+                                    {{ $this->origin->record_status?->label() }}
+                                </span>
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ $this->origin->createdBy?->name ?? __('site.no_data_found') }}
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ $this->origin->revisedBy?->name ?? __('site.no_data_found') }}
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ $this->origin->completedBy?->name ?? __('site.no_data_found') }}
+                            </td>
+                            <td class="border px-4 py-2">
+                                {{ $this->origin->coordinatedBy?->name ?? __('site.no_data_found') }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="total_area_coords"
-                            value="{{ __('site.total_area_coords') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->total_area_coords }}
-                        </div>
-                    </div>
+            {{-- =========================
+            AREA INFO (Horizontal Table)
+            ========================== --}}
+            <div class="mt-4">
+                <x-label class="font-extrabold text-lg text-center block">{{ __('site.area_info') }}</x-label>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="government_id"
-                            value="{{ __('site.government_id') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->government?->name }}
-                        </div>
-                    </div>
+                <table class="w-full border-collapse border border-gray-300 text-sm mt-2 text-center">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2">{{ __('site.total_area_allocated') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.total_area_coords') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.used_area') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.executing_entity_num') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.available_area') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.vacant_buildings') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.remaining_area') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border px-4 py-2">{{ $this->origin->total_area_allocated ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->total_area_coords ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->used_area ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->executing_entity_num ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->available_area ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->vacant_buildings ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $this->origin->remaining_area ?? '-' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="city_id" value="{{ __('site.city_id') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->city?->name }}
-                        </div>
-                    </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="location" value="{{ __('site.location') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->location }}
-                        </div>
-                    </div>
+            {{-- =========================
+            DETAILS (Horizontal Table)
+            ========================== --}}
+            <div class="mt-4">
+                <x-label class="font-extrabold text-lg text-center block">{{ __('site.details') }}</x-label>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="used_area" value="{{ __('site.used_area') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->used_area }}
-                        </div>
-                    </div>
+                @if($this->origin->details->isNotEmpty())
+                <table class="w-full border-collapse border border-gray-300 text-sm mt-4 text-center">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2">{{ __('site.statement_id') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.used_area') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.unit_area') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.number_of_buildings_executed') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.number_of_units') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.residential_units') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.administrative_units') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.commercial_units') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.commercial_shops') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.notes') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($this->origin->details as $detail)
+                        <tr>
+                            <td class="border px-4 py-2">{{ $detail->statement?->name ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->used_area ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->unit_area ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->number_of_buildings_executed ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->number_of_units ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->residential_units ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->administrative_units ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->commercial_units ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->commercial_shops ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $detail->note ?? '-' }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @else
+                <div class="mt-2 text-center text-gray-500">{{ __('site.no_data_found') }}</div>
+                @endif
+            </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="executing_entity_num"
-                            value="{{ __('site.executing_entity_num') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->executing_entity_num }}
-                        </div>
-                    </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="available_area"
-                            value="{{ __('site.available_area') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->available_area }}
-                        </div>
-                    </div>
+            {{-- =========================
+            SERVICES (Horizontal Table)
+            ========================== --}}
+            <div class="mt-4">
+                <x-label class="font-extrabold text-lg text-center block">{{ __('site.services') }}</x-label>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="vacant_buildings"
-                            value="{{ __('site.vacant_buildings') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->vacant_buildings }}
-                        </div>
-                    </div>
+                @if($this->origin->services->isNotEmpty())
+                <table class="w-full border-collapse border border-gray-300 text-sm mt-4 text-center">
+                    <thead class="bg-gray-100">
+                        <tr>
+                            <th class="border px-4 py-2">{{ __('site.type_service_id') }}</th>
+                            <th class="border px-4 py-2">{{ __('site.count') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($this->origin->services as $service)
+                        <tr>
+                            <td class="border px-4 py-2">{{ $service->typeService?->name ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $service->count ?? '-' }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @else
+                <div class="mt-2 text-center text-gray-500">{{ __('site.no_data_found') }}</div>
+                @endif
+            </div>
 
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="remaining_area"
-                            value="{{ __('site.remaining_area') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->remaining_area }}
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="location_status"
-                            value="{{ __('site.location_status') }}" />
-                        <div class="mt-1 block w-full">
-                            <span class="rounded {{ $this->origin->location_status->color() }}">
-                                {{ $this->origin->location_status->label() }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="origin_status"
-                            value="{{ __('site.origin_status') }}" />
-                        <div class="mt-1 block w-full">
-                            <span class="rounded {{ $this->origin->origin_status->color() }}">
-                                {{ $this->origin->origin_status->label() }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="record_status"
-                            value="{{ __('site.record_status') }}" />
-                        <div class="mt-1 block w-full">
-                            <span class="rounded {{ $this->origin->record_status->color() }}">
-                                {{ $this->origin->record_status->label() }}
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="created_by" value="{{ __('site.created_by') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->createdBy?->name ?? __('site.no_data_found') }}
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="revised_by" value="{{ __('site.revised_by') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->revisedBy?->name ?? __('site.no_data_found') }}
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="completed_by"
-                            value="{{ __('site.completed_by') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->completedBy?->name ?? __('site.no_data_found') }}
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="coordinated_by"
-                            value="{{ __('site.coordinated_by') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->coordinatedBy?->name ?? __('site.no_data_found') }}
-                        </div>
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="notes" value="{{ __('site.notes') }}" />
-                        <div class="mt-1 block w-full">
-                            {{ $this->origin->notes }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="gap-x-4">
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="details" value="{{ __('site.details') }}" />
-
-                        @if (!empty($this->origin->details?->toArray()))
-                        <x-table>
-                            <x-slot name="thead">
-                                <tr>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.statement_id') }}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.used_area') }}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.unit_area') }}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.number_of_buildings_executed') }}
-
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.number_of_units') }}
-
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.residential_units') }}
-
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.administrative_units') }}
-
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.commercial_units') }}
-
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.commercial_shops') }}
-
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.notes') }}
-
-                                        </div>
-                                    </td>
-                                </tr>
-                            </x-slot>
-                            <x-slot name="tbody">
-                                @foreach ($this->origin->details as $detail)
-                                <tr wire:key="detail-{{ $detail->id }}" class="odd:bg-gray-100">
-                                    <td class="p-2 border">
-                                        {{ $detail->statement?->name }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->used_area }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->unit_area }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->number_of_buildings_executed }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->number_of_units }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->residential_units }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->administrative_units }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->commercial_units }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->commercial_shops }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $detail->note }}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </x-slot>
-                        </x-table>
-                        @else
-                        <div class="mt-2">
-                            {{ __('site.no_data_found') }}
-                        </div>
-                        @endif
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="details" value="{{ __('site.sepated_services') }}" />
-
-                        @if (!empty($this->origin->services?->toArray()))
-                        <x-table>
-                            <x-slot name="thead">
-                                <tr>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.type_service_id') }}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-2 border">
-                                        <div class="flex justify-center">
-                                            {{ __('site.count') }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            </x-slot>
-                            <x-slot name="tbody">
-                                @foreach ($this->origin->services as $service)
-                                <tr wire:key="service-{{ $service->id }}" class="odd:bg-gray-100">
-                                    <td class="p-2 border">
-                                        {{ $service->typeService?->name }}
-                                    </td>
-                                    <td class="p-2 border">
-                                        {{ $service->count }}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </x-slot>
-                        </x-table>
-                        @else
-                        <div class="mt-2">
-                            {{ __('site.no_data_found') }}
-                        </div>
-                        @endif
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="coordinates"
-                            value="{{ __('site.coordinates') }}" />
-
-                        @if (!empty($coordinates))
-                        <div x-data="mapComponent(@entangle('map_government'), @entangle('map_city'), @js($coordinates), @entangle('total_area_coords'))"
-                            x-init="init();
-                                    Livewire.hook('message.processed', () => run())">
-                            <div class="relative w-full" wire:ignore>
-                                <div id="map" x-ref="map" class="h-96 rounded my-2"></div>
-                            </div>
-                        </div>
-                        @else
-                        <div class="mt-2">
-                            {{ __('site.no_data_found') }}
-                        </div>
-                        @endif
-                    </div>
-
-                    <div class="mt-2">
-                        <x-label class="font-extrabold text-lg" for="decision_image"
-                            value="{{ __('site.decision_image') }}" />
-                        @php
-                        $file = Helper::getFilePreviewDetails($this->origin->decision_image);
-                        @endphp
-
-                        @if ($file)
-                        <div class="mt-2 flex items-center">
-                            <img src="{{ $file['iconUrl'] }}" alt="{{ $file['extension'] }} Icon" class="w-8 h-8 mr-2">
-                            <span class="truncate max-w-xs" title="{{ $file['fileName'] }}">
-                                {{ $file['fileName'] }}
-                            </span>
-                        </div>
-
-                        @if ($file['isPdf'])
-                        <div class="mt-2">
-                            <iframe src="{{ $file['fileUrl'] }}" width="100%" height="600px"
-                                class="border rounded shadow"></iframe>
-                        </div>
-                        @endif
-
-                        @if ($file['isImage'])
-                        <div class="mt-2">
-                            <img src="{{ $file['fileUrl'] }}" alt="Preview of Uploaded" width="100%" height="600px">
-                        </div>
-                        @endif
-                        @else
-                        <div class="mt-2">
-                            {{ __('site.no_data_found') }}
-                        </div>
-                        @endif
+            {{-- =========================
+            COORDINATES MAP
+            ========================== --}}
+            <div class="mt-4 text-center">
+                <x-label class="font-extrabold text-lg text-center block">{{ __('site.coordinates') }}</x-label>
+                @if (!empty($coordinates))
+                <div x-data="mapComponent(
+                        @entangle('map_government'),
+                        @entangle('map_city'),
+                        @js($coordinates),
+                        @entangle('total_area_coords')
+                    )" x-init="init(); Livewire.hook('message.processed', () => run())">
+                    <div class="relative w-full" wire:ignore>
+                        <div id="map" x-ref="map" class="h-96 rounded my-2"></div>
                     </div>
                 </div>
+                @else
+                <div class="mt-2">{{ __('site.no_data_found') }}</div>
+                @endif
+            </div>
+
+            {{-- =========================
+            DECISION IMAGE / FILE PREVIEW
+            ========================== --}}
+            <div class="mt-4 text-center">
+                <x-label class="font-extrabold text-lg text-center block">{{ __('site.decision_image') }}</x-label>
+                @php
+                $file = Helper::getFilePreviewDetails($this->origin->decision_image);
+                @endphp
+
+                @if ($file)
+                <div class="mt-2 flex justify-center items-center">
+                    <img src="{{ $file['iconUrl'] }}" alt="{{ $file['extension'] }} Icon" class="w-8 h-8 mr-2">
+                    <span class="truncate max-w-xs" title="{{ $file['fileName'] }}">
+                        {{ $file['fileName'] }}
+                    </span>
+                </div>
+
+                @if ($file['isPdf'])
+                <div class="mt-2">
+                    <iframe src="{{ $file['fileUrl'] }}" width="100%" height="600px"
+                        class="border rounded shadow"></iframe>
+                </div>
+                @endif
+
+                @if ($file['isImage'])
+                <div class="mt-2">
+                    <img src="{{ $file['fileUrl'] }}" alt="Preview of Uploaded" width="100%" height="600px">
+                </div>
+                @endif
+                @else
+                <div class="mt-2">{{ __('site.no_data_found') }}</div>
+                @endif
             </div>
         </x-slot>
 

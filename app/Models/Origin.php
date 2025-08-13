@@ -59,89 +59,49 @@ class Origin extends Model
      */
     public function getColumnValue(string $key): mixed
     {
-        $file = Helper::getFilePreviewDetails($this->decision_image);
-
         return match ($key) {
             'basic_info'        => $this->formatOriginBasicInfo(),
             'area_info'         => $this->formatOriginAreaInfo(),
-            'status_info'       => $this->formatOriginStatuses(),
-            'users_info'        => $this->formatOriginUsers(),
-            'notes'             => $this->notes ?? '-',
+            'status_users_info' => $this->formatOriginStatusAndUsers(),
             'coordinates'       => $this->formatCoordinates($this->coordinates ?? []),
             'details'           => $this->formatOriginDetails($this->details ?? collect()),
             'services'          => $this->formatOriginServices($this->services ?? collect()),
-            'decision_image'    => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display:inline-block"/>' : '-',
             default             => e(data_get($this, $key)),
         };
     }
 
-    protected function formatOriginStatuses(): string
+    /**
+     * Format Tables.
+     */
+
+    protected function formatOriginBasicInfo(): string
     {
-        $statuses = [
-            __('site.location_status') => $this->formatStatus($this->location_status),
-            __('site.origin_status')   => $this->formatStatus($this->origin_status),
-            __('site.record_status')   => $this->formatStatus($this->record_status),
+        $file = Helper::getFilePreviewDetails($this->decision_image);
+
+        $headers = [
+            __('site.project')          => $this->project?->name ?? '-',
+            __('site.decision_type_id') => $this->decisionType?->name ?? '-',
+            __('site.decision_num')     => $this->decision_num ?? '-',
+            __('site.decision_date')    => $this->decision_date ?? '-',
+            __('site.government')       => $this->government?->name ?? '-',
+            __('site.city')             => $this->city?->name ?? '-',
+            __('site.location')         => $this->location ?? '-',
+            __('site.decision_image')   => $file ? '<img src="' . $file['iconUrl'] . '" alt="' . e($file['fileName']) . '" style="max-height:100px; display:inline-block"/>' : '-',
+            __('site.notes')            => $this->notes ?? '-',
+
         ];
 
         $rows = [];
-        foreach ($statuses as $label => $value) {
-            // Don't escape HTML here because formatStatus already returns HTML
-            $rows[] = [
-                e($label),
-                $value
-            ];
+        foreach ($headers as $label => $value) {
+            $rows[] = [$label, $value];
         }
 
         return $this->buildTable(
             headers: [],
             rows: $rows,
-            allowHtmlColumns: [1]
-        );
-    }
-
-    protected function formatOriginUsers(): string
-    {
-        $headers = [
-            __('site.created_by')     => $this->createdBy?->name ?? '-',
-            __('site.revised_by')     => $this->revisedBy?->name ?? '-',
-            __('site.completed_by')   => $this->completedBy?->name ?? '-',
-            __('site.coordinated_by') => $this->coordinatedBy?->name ?? '-',
-        ];
-
-        // Convert key/value to table rows
-        $rows = [];
-        foreach ($headers as $label => $value) {
-            $rows[] = [$label, $value];
-        }
-
-        return $this->buildTable(
-            headers: [],
-            rows: $rows
-        );
-    }
-
-    protected function formatOriginBasicInfo(): string
-    {
-        $headers = [
-            __('site.id')         => $this->id ?? '-',
-            __('site.project')         => $this->project?->name ?? '-',
-            __('site.decision_type_id')   => $this->decisionType?->name ?? '-',
-            __('site.decision_num')   => $this->decision_num ?? '-',
-            __('site.decision_date')   => $this->decision_date ?? '-',
-            __('site.government')      => $this->government?->name ?? '-',
-            __('site.city')            => $this->city?->name ?? '-',
-            __('site.location')        => $this->location ?? '-',
-        ];
-
-        $rows = [];
-        foreach ($headers as $label => $value) {
-            $rows[] = [$label, $value];
-        }
-
-        // Build 2-column table: Label | Value
-        return $this->buildTable(
-            headers: [],
-            rows: $rows
+            headerBg: true,
+            horizontal: true,
+            allowHtmlColumns: [7],
         );
     }
 
@@ -166,26 +126,42 @@ class Origin extends Model
         return $this->buildTable(
             headers: [],
             rows: $rows,
+            headerBg: true,
+            horizontal: true
         );
     }
 
-
-
-    /**
-     * Format status enums into HTML label.
-     */
-    protected function formatStatus($status): string
+    protected function formatOriginStatusAndUsers(): string
     {
-        return '<div class="' . $status->color() . '">' . $status->label() . '</div>';
+        $headers = [
+            __('site.location_status') => $this->formatStatus($this->location_status),
+            __('site.origin_status')   => $this->formatStatus($this->origin_status),
+            __('site.record_status')   => $this->formatStatus($this->record_status),
+            __('site.created_by')     => $this->createdBy?->name ?? '-',
+            __('site.revised_by')     => $this->revisedBy?->name ?? '-',
+            __('site.completed_by')   => $this->completedBy?->name ?? '-',
+            __('site.coordinated_by') => $this->coordinatedBy?->name ?? '-',
+        ];
+
+        // Convert key/value to table rows
+        $rows = [];
+        foreach ($headers as $label => $value) {
+            $rows[] = [e($label), $value];
+        }
+
+        return $this->buildTable(
+            headers: [],
+            rows: $rows,
+            headerBg: true,
+            horizontal: true,
+            allowHtmlColumns: [0, 1, 2],
+        );
     }
 
-    /**
-     * Format coordinates into a table.
-     */
     protected function formatCoordinates(array $coordinates): string
     {
         if (empty($coordinates[0])) {
-            return __('site.no_coordinates');
+            return __('site.no_data_found');
         }
 
         $xValues = [];
@@ -204,16 +180,13 @@ class Origin extends Model
         );
     }
 
-    /**
-     * Format origin details into a table.
-     */
     protected function formatOriginDetails(Collection $details): string
     {
         if ($details->isEmpty()) {
-            return '-';
+            return __('site.no_data_found');
         }
 
-        $headers = [
+        $attributes = [
             'statement_id'                => __('site.statement_id'),
             'used_area'                   => __('site.used_area'),
             'unit_area'                   => __('site.unit_area'),
@@ -226,24 +199,29 @@ class Origin extends Model
             'note'                        => __('site.notes'),
         ];
 
-        $rows = $details->map(function ($detail) use ($headers) {
-            return collect($headers)->keys()->map(function ($key) use ($detail) {
-                return $key === 'statement_id'
+        $rows = [];
+        foreach ($attributes as $key => $label) {
+            $row = [$label];
+            foreach ($details as $detail) {
+                $row[] = $key === 'statement_id'
                     ? $detail->statement->name ?? '-'
                     : $detail->$key ?? '-';
-            })->toArray();
-        })->toArray();
+            }
+            $rows[] = $row;
+        }
 
-        return $this->buildTable(array_values($headers), $rows);
+        return $this->buildTable(
+            headers: [],
+            rows: $rows,
+            headerBg: true,
+            horizontal: true
+        );
     }
 
-    /**
-     * Format origin services horizontally.
-     */
     protected function formatOriginServices(Collection $services): string
     {
         if ($services->isEmpty()) {
-            return '-';
+            return __('site.no_data_found');
         }
 
         $attributes = [
@@ -262,16 +240,43 @@ class Origin extends Model
             $rows[] = $row;
         }
 
-        $headers = [];
+        return $this->buildTable(
+            headers: [],
+            rows: $rows,
+            headerBg: true,
+            horizontal: true
+        );
+    }
 
-        return $this->buildTable($headers, $rows);
+    /**
+     * Format status enums into HTML label.
+     */
+    protected function formatStatus($status): string
+    {
+        return '<div class="' . $status->color() . '">' . $status->label() . '</div>';
     }
 
     /**
      * Generic HTML table builder.
      */
-    protected function buildTable(array $headers, array $rows, bool $headerBg = false, array $allowHtmlColumns = []): string
-    {
+    protected function buildTable(
+        array $headers,
+        array $rows,
+        bool $headerBg = false,
+        array $allowHtmlColumns = [],
+        bool $horizontal = false
+    ): string {
+        if ($horizontal && !empty($rows)) {
+            // Convert the rows into columns
+            // Assume each row is [label, value]
+            $labels = array_column($rows, 0);
+            $values = array_column($rows, 1);
+
+            // In horizontal mode, headers are labels
+            $headers = $labels;
+            $rows = [$values]; // single row containing all values
+        }
+
         $html = '<div class="overflow-x-auto col-span-3 grid grid-cols-subgrid gap-4">
             <table class="table-fixed min-w-full text-sm border text-center">
                 <thead>
@@ -302,7 +307,6 @@ class Origin extends Model
 
         return $html;
     }
-
 
     /* =========================
        Relationships
@@ -364,7 +368,7 @@ class Origin extends Model
        Scopes
        ========================= */
 
-    public function scopeSearch($query, $search, $governmentId, $cityId, $projectIds = [], $statementIds = [], $decisionTypeIds = [])
+    public function scopeSearch($query, $search, $governmentId, $cityId, $projectIds = [], $decisionTypeIds = [])
     {
         return $query
             ->when($search, function ($q) use ($search) {
@@ -388,7 +392,6 @@ class Origin extends Model
             ->when($governmentId, fn($q) => $q->whereHas('government', fn($q2) => $q2->where('id', $governmentId)))
             ->when($cityId, fn($q) => $q->whereHas('city', fn($q2) => $q2->where('id', $cityId)))
             ->when($projectIds, fn($q) => $q->whereHas('project', fn($q2) => $q2->whereIn('id', $projectIds)))
-            ->when($statementIds, fn($q) => $q->whereHas('statements', fn($q2) => $q2->whereIn('id', $statementIds)))
             ->when($decisionTypeIds, fn($q) => $q->whereHas('decisionType', fn($q2) => $q2->whereIn('id', $decisionTypeIds)));
     }
 

@@ -25,13 +25,10 @@ class ListOrigin extends Component
         return [
             ['key' => 'basic_info', 'label' => __('site.basic_info')],
             ['key' => 'area_info', 'label' => __('site.area_info')],
-            ['key' => 'status_info', 'label' => __('site.status_info')],
-            ['key' => 'users_info', 'label' => __('site.users_info')],
+            ['key' => 'status_users_info', 'label' => __('site.status_users_info')],
             ['key' => 'details', 'label' => __('site.details')],
             ['key' => 'services', 'label' => __('site.sepated_services')],
             ['key' => 'coordinates', 'label' => __('site.coordinates')],
-            ['key' => 'decision_image', 'label' => __('site.decision_image')],
-            ['key' => 'notes', 'label' => __('site.notes')],
         ];
     }
 

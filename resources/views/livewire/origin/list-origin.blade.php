@@ -77,25 +77,6 @@
                                 :extra="['wire:model.live.debounce.200ms' => 'filters.city_id']"
                                 loading-target="filters.government_id" />
 
-                            <x-form.dynamic-select label="{{ __('site.statement_id') }}" model="filters.statement_ids"
-                                :options="$this->statements()" placeholder="{{ __('site.statement_id') }}" :extra="[
-                                        'wire:model.live.debounce.200ms' => 'filters.statement_ids',
-                                        'multiple' => true,
-                                    ]" />
-
-                            <x-form.dynamic-select label="{{ __('site.project_id') }}" model="filters.project_ids"
-                                :options="$this->projects()" placeholder="{{ __('site.project_id') }}" :extra="[
-                                        'wire:model.live.debounce.200ms' => 'filters.project_ids',
-                                        'multiple' => true,
-                                    ]" />
-
-                            <x-form.dynamic-select label="{{ __('site.decision_type_id') }}"
-                                model="filters.decision_type_ids" :options="$this->decisionTypes()"
-                                placeholder="{{ __('site.decision_type_id') }}" :extra="[
-                                        'wire:model.live.debounce.200ms' => 'filters.decision_type_ids',
-                                        'multiple' => true,
-                                    ]" />
-
                             <x-form.enum-group label="{{ __('site.origin_status') }}" model="enums.origin_status"
                                 :extra="['wire:model.live.debounce.200ms' => 'enums.origin_status']"
                                 :enum="\App\Enums\OriginStatus::class" filter-status="true"
@@ -110,6 +91,19 @@
                                 :extra="['wire:model.live.debounce.200ms' => 'enums.record_status']"
                                 :enum="\App\Enums\OriginRecordStatus::class" filter-status="true"
                                 :filter-count="$this->originsCount()" />
+
+                            <x-form.dynamic-select label="{{ __('site.project_id') }}" model="filters.project_ids"
+                                :options="$this->projects()" placeholder="{{ __('site.project_id') }}" :extra="[
+                                    'wire:model.live.debounce.200ms' => 'filters.project_ids',
+                                    'multiple' => true,
+                                ]" />
+
+                            <x-form.dynamic-select label="{{ __('site.decision_type_id') }}"
+                                model="filters.decision_type_ids" :options="$this->decisionTypes()"
+                                placeholder="{{ __('site.decision_type_id') }}" :extra="[
+                                    'wire:model.live.debounce.200ms' => 'filters.decision_type_ids',
+                                    'multiple' => true,
+                                ]" />
                         </div>
 
                         {{-- Apply / Clear Buttons --}}
@@ -160,17 +154,16 @@
                         @can('bulk-delete-origin')
                         <div class="flex justify-between mb-2">
                             <x-checkbox wire:model.live="checkbox_arr" value="{{ $origin->id }}" />
-                            <span class="text-sm text-gray-600">{{ __('site.origin_id') }}: {{ $origin->id }}</span>
+                            <span class="text-lg text-gray-900">{{ __('site.origin_id') }}: {{ $origin->id }}</span>
                         </div>
                         @endcan
 
                         {{-- Display origin data in rows with 3 columns --}}
                         <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                             @foreach ($columns as $col)
-                            <div
-                                class="{{ !in_array($col['key'],['status_info','users_info','decision_image', 'notes']) ? 'md:col-span-4 grid grid-cols-subgrid gap-4' : 'md:col-span-2 grid grid-cols-subgrid gap-4'}}">
-                                <div class="text-gray-500 text-sm">{{ $col['label'] }}</div>
-                                <div class="text-gray-900 font-medium mt-1">{!! $origin->getColumnValue($col['key']) !!}
+                            <div class="text-center md:col-span-4 grid grid-cols-subgrid gap-4">
+                                <div class="text-gray-900 text-lg">{{ $col['label'] }}</div>
+                                <div class="text-gray-900 font-medium">{!! $origin->getColumnValue($col['key']) !!}
                                 </div>
                             </div>
                             @endforeach

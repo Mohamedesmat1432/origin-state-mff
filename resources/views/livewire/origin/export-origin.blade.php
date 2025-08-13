@@ -29,10 +29,6 @@
                     :extra="['wire:model.live.debounce.200ms' => 'filters.city_id']"
                     loading-target="filters.government_id" />
 
-                {{-- <x-form.dynamic-select label="{{ __('site.statement_id') }}" model="filters.statement_ids"
-                    :options="$this->statements()" placeholder="{{ __('site.statement_id') }}"
-                    :extra="['wire:model.live.debounce.200ms' => 'filters.statement_ids', 'multiple' => true]" /> --}}
-
                 <x-form.dynamic-select label="{{ __('site.project_id') }}" model="filters.project_ids"
                     :options="$this->projects()" placeholder="{{ __('site.project_id') }}"
                     :extra="['wire:model.live.debounce.200ms' => 'filters.project_ids', 'multiple' => true]" />
@@ -58,19 +54,6 @@
                         </label>
                         @endforeach
                     </div>
-                </div>
-
-                {{-- Extra export options for relations --}}
-                <div class="mt-4 border-t pt-3 col-span-2">
-                    <label class="inline-flex items-center gap-x-2">
-                        <x-input type="checkbox" wire:model="export_details" />
-                        <span>{{ __('site.details') }}</span>
-                    </label>
-
-                    <label class="inline-flex items-center gap-x-2 ml-4">
-                        <x-input type="checkbox" wire:model="export_services" />
-                        <span>{{ __('site.sepated_services') }}</span>
-                    </label>
                 </div>
 
                 {{-- Enum Filters --}}

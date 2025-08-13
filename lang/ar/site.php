@@ -537,4 +537,7 @@ return [
     'sepated_services' => 'خدمات منفصلة',
     'services' => 'خدمات منفصلة',
     'type_service_id' => 'نوع الخدمة',
+    'basic_info'        => 'المعلومات الأساسية',
+    'status_users_info' => 'حالة ومعلومات المستخدمين',
+    'area_info'         => 'معلومات المساحة',
 ];

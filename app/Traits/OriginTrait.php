@@ -30,9 +30,8 @@ trait OriginTrait
 
     public $coordinates = [];
 
-    public array $statement_ids = [];
     public array  $details = [];
-
+    
     public array  $services = [];
 
     public array $relations = [
@@ -54,7 +53,6 @@ trait OriginTrait
         'government_id' => '',
         'city_id' => '',
         'project_ids' => [],
-        'statement_ids' => [],
         'decision_type_ids' => []
     ];
 
@@ -100,15 +98,6 @@ trait OriginTrait
                     JSON_UNESCAPED_UNICODE
                 ),
                 'clear' => "filters.decision_type_ids",
-                'isArray' => true
-            ],
-            [
-                'value' => $this->filters['statement_ids'],
-                'label' => json_encode(
-                    Statement::whereIn('id', $this->filters['statement_ids'])->pluck('name')->values()->all(),
-                    JSON_UNESCAPED_UNICODE
-                ),
-                'clear' => "filters.statement_ids",
                 'isArray' => true
             ],
             [
@@ -180,7 +169,7 @@ trait OriginTrait
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
             'record_status' => 'required|in:yes,no',
-            'details.*.statement_id' => 'nullable|string',
+            'details.*.statement_id' => 'required|string',
             'details.*.used_area' => 'nullable|numeric',
             'details.*.unit_area' => 'nullable|numeric',
             'details.*.number_of_buildings_executed' => 'nullable|integer',

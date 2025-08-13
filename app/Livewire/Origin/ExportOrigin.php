@@ -14,9 +14,8 @@ class ExportOrigin extends Component
     use OriginTrait;
 
     public $selected_columns = [];
+
     public $export_status = false;
-    public $export_details = false;
-    public $export_services = false;
 
     public $available_columns = [
         'decision_num',
@@ -43,6 +42,8 @@ class ExportOrigin extends Component
         'completed_by',
         'coordinated_by',
         'coordinates',
+        'details',
+        'services'
     ];
 
     #[On('export-modal')]
@@ -60,7 +61,7 @@ class ExportOrigin extends Component
     public function export()
     {
         try {
-            if (empty($this->selected_columns) && !$this->export_details && !$this->export_services) {
+            if (empty($this->selected_columns)) {
                 $this->errorNotify(__('site.please_select_at_least_one_column'));
                 return;
             }
@@ -85,13 +86,6 @@ class ExportOrigin extends Component
 
             $columns = $this->selected_columns ?: $this->available_columns;
 
-            if ($this->export_details) {
-                $columns[] = 'details';
-            }
-            if ($this->export_services) {
-                $columns[] = 'services';
-            }
-
             return (new OriginsExport($query, $columns, $this->export_status))
                 ->download('origins_export.' . $this->extension);
         } catch (\Throwable $e) {
@@ -105,8 +99,6 @@ class ExportOrigin extends Component
             'selected_columns',
             'extension',
             'export_status',
-            'export_details',
-            'export_services',
             'checkbox_status',
             'filters',
         ]);

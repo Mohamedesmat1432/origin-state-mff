@@ -517,4 +517,7 @@ return [
     'sepated_services' => 'Separated Services',
     'services' => 'Separated Services',
     'type_service_id' => 'Service Type',
+    'basic_info'        => 'Basic Information',
+    'status_users_info' => 'Status & Users Information',
+    'area_info'         => 'Area Information',
 ];
