@@ -520,4 +520,5 @@ return [
     'basic_info'        => 'Basic Information',
     'status_users_info' => 'Status & Users Information',
     'area_info'         => 'Area Information',
+    'statuses_info' => 'Status Infromation',
 ];

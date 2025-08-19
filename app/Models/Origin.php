@@ -62,7 +62,7 @@ class Origin extends Model
         return match ($key) {
             'basic_info'        => $this->formatOriginBasicInfo(),
             'area_info'         => $this->formatOriginAreaInfo(),
-            'status_users_info' => $this->formatOriginStatusAndUsers(),
+            'statuses_info' => $this->formatOriginStatusAndUsers(),
             'coordinates'       => $this->formatCoordinates($this->coordinates ?? []),
             'details'           => $this->formatOriginDetails($this->details ?? collect()),
             'services'          => $this->formatOriginServices($this->services ?? collect()),
@@ -137,10 +137,10 @@ class Origin extends Model
             __('site.location_status') => $this->formatStatus($this->location_status),
             __('site.origin_status')   => $this->formatStatus($this->origin_status),
             __('site.record_status')   => $this->formatStatus($this->record_status),
-            __('site.created_by')     => $this->createdBy?->name ?? '-',
-            __('site.revised_by')     => $this->revisedBy?->name ?? '-',
-            __('site.completed_by')   => $this->completedBy?->name ?? '-',
-            __('site.coordinated_by') => $this->coordinatedBy?->name ?? '-',
+            // __('site.created_by')     => $this->createdBy?->name ?? '-',
+            // __('site.revised_by')     => $this->revisedBy?->name ?? '-',
+            // __('site.completed_by')   => $this->completedBy?->name ?? '-',
+            // __('site.coordinated_by') => $this->coordinatedBy?->name ?? '-',
         ];
 
         // Convert key/value to table rows
@@ -231,6 +231,7 @@ class Origin extends Model
         $headers = [
             __('site.type_service_id'),
             __('site.count'),
+            __('site.note'),
         ];
 
         $rows = [];
@@ -238,6 +239,7 @@ class Origin extends Model
             $rows[] = [
                 $service->typeService->name ?? '-',
                 $service->count ?? '-',
+                $service->note ?? '-',
             ];
         }
 

@@ -192,30 +192,31 @@ trait OriginTrait
             'details.*.statement_id' => 'required|string',
             'details.*.used_area' => 'nullable|numeric',
             'details.*.unit_area' => 'nullable|numeric',
-            'details.*.number_of_buildings_executed' => 'nullable|integer',
-            'details.*.number_of_units' => 'nullable|integer',
-            'details.*.residential_units' => 'nullable|integer',
-            'details.*.administrative_units' => 'nullable|integer',
-            'details.*.commercial_units' => 'nullable|integer',
-            'details.*.commercial_shops' => 'nullable|integer',
+            'details.*.number_of_buildings_executed' => 'nullable|numeric',
+            'details.*.number_of_units' => 'nullable|numeric',
+            'details.*.residential_units' => 'nullable|numeric',
+            'details.*.administrative_units' => 'nullable|numeric',
+            'details.*.commercial_units' => 'nullable|numeric',
+            'details.*.commercial_shops' => 'nullable|numeric',
             'details.*.note' => 'nullable|string|min:2',
             'services.*.type_service_id' => 'required|string',
-            'services.*.count' => 'required|integer',
+            'services.*.count' => 'required|numeric',
+            'services.*.note' => 'nullable|string|min:2',
         ];
     }
 
     public function addDetail()
     {
         $this->details[] = [
-            'statement_id' => '',
-            'used_area' => '',
-            'unit_area' => '',
-            'number_of_buildings_executed' => '',
-            'number_of_units' => '',
-            'residential_units' => '',
-            'administrative_units' => '',
-            'commercial_units' => '',
-            'commercial_shops' => '',
+            'statement_id' => null,
+            'used_area' => 0,
+            'unit_area' => 0,
+            'number_of_buildings_executed' => 0,
+            'number_of_units' => 0,
+            'residential_units' => 0,
+            'administrative_units' => 0,
+            'commercial_units' => 0,
+            'commercial_shops' => 0,
             'note' => '',
         ];
     }
@@ -224,7 +225,8 @@ trait OriginTrait
     {
         $this->services[] = [
             'type_service_id' => null,
-            'count' => '',
+            'count' => 0,
+            'note' => '',
         ];
     }
 
@@ -510,7 +512,7 @@ trait OriginTrait
 
         foreach ($this->details as $detail) {
             $cleaned = collect($detail)->map(function ($value) {
-                return $value === '' ? null : $value;
+                return $value === '' ? 0 : $value;
             })->toArray();
 
             $origin->details()->create($cleaned);
@@ -526,7 +528,7 @@ trait OriginTrait
 
         foreach ($this->services as $service) {
             $cleaned = collect($service)->map(function ($value) {
-                return $value === '' ? null : $value;
+                return $value === '' ? 0 : $value;
             })->toArray();
 
             $origin->services()->create($cleaned);
