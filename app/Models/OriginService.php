@@ -18,6 +18,7 @@ class OriginService extends Model
         'type_service_id',
         'count',
         'note',
+        'used_area',
     ];
 
     public function origin()

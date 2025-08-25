@@ -157,6 +157,7 @@
                         <x-slot name="thead">
                             <tr class="bg-gray-100">
                                 <td class="px-4 py-2 border">{{ __('site.type_service_id') }}</td>
+                                <td class="px-4 py-2 border">{{ __('site.used_area') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.count') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.note') }}</td>
                             </tr>
@@ -165,6 +166,7 @@
                             @forelse($this->origin->services as $service)
                                 <tr>
                                     <td class="px-4 py-2 border">{{ $service->typeService?->name ?? '-' }}</td>
+                                    <td class="px-4 py-2 border">{{ $service->used_area ?? '-' }}</td>
                                     <td class="px-4 py-2 border">{{ $service->count ?? '-' }}</td>
                                     <td class="px-4 py-2 border">{{ $service->note ?? '-' }}</td>
                                 </tr>

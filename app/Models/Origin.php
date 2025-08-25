@@ -230,6 +230,7 @@ class Origin extends Model
 
         $headers = [
             __('site.type_service_id'),
+            __('site.used_area'),
             __('site.count'),
             __('site.note'),
         ];
@@ -238,6 +239,7 @@ class Origin extends Model
         foreach ($services as $service) {
             $rows[] = [
                 $service->typeService->name ?? '-',
+                $service->used_area ?? '-',
                 $service->count ?? '-',
                 $service->note ?? '-',
             ];

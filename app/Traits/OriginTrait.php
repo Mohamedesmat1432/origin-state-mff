@@ -48,8 +48,11 @@ trait OriginTrait
 
     public function recalculateRemainingArea()
     {
-        $this->used_area = collect($this->details)->sum('used_area');
-        $this->remaining_area = $this->total_area_allocated - $this->used_area;
+        $used_area_details = collect($this->details ?? [])->sum('used_area');
+        $used_area_services = collect($this->services ?? [])->sum('used_area');
+        $this->used_area = $used_area_details + $used_area_services;
+        $this->remaining_area = max(0, $this->total_area_allocated - $this->used_area);
+        $this->available_area = $this->remaining_area;
     }
 
 
@@ -198,10 +201,11 @@ trait OriginTrait
             'details.*.administrative_units' => 'nullable|numeric',
             'details.*.commercial_units' => 'nullable|numeric',
             'details.*.commercial_shops' => 'nullable|numeric',
-            'details.*.note' => 'nullable|string|min:2',
+            'details.*.note' => 'nullable|string|max:500',
             'services.*.type_service_id' => 'required|string',
             'services.*.count' => 'required|numeric',
-            'services.*.note' => 'nullable|string|min:2',
+            'services.*.used_area' => 'nullable|numeric',
+            'services.*.note' => 'nullable|string|max:500',
         ];
     }
 
@@ -226,6 +230,7 @@ trait OriginTrait
         $this->services[] = [
             'type_service_id' => null,
             'count' => 0,
+            'used_area' => 0,
             'note' => '',
         ];
     }
@@ -510,14 +515,31 @@ trait OriginTrait
             $origin->details()->delete();
         }
 
+        // Define numeric columns
+        $numericFields = [
+            'used_area',
+            'unit_area',
+            'number_of_buildings_executed',
+            'number_of_units',
+            'residential_units',
+            'administrative_units',
+            'commercial_units',
+            'commercial_shops'
+        ];
+
         foreach ($this->details as $detail) {
-            $cleaned = collect($detail)->map(function ($value) {
-                return $value === '' ? 0 : $value;
+            $cleaned = collect($detail)->map(function ($value, $key) use ($numericFields) {
+                if ($value === '') {
+                    return in_array($key, $numericFields) ? 0 : null;
+                }
+
+                return is_string($value) ? trim($value) : $value;
             })->toArray();
 
             $origin->details()->create($cleaned);
         }
     }
+
 
     private function createOrUpdateServices($origin)
     {
@@ -526,9 +548,18 @@ trait OriginTrait
             $origin->services()->delete();
         }
 
+        $numericFields = [
+            'count',
+            'used_area',
+        ];
+
         foreach ($this->services as $service) {
-            $cleaned = collect($service)->map(function ($value) {
-                return $value === '' ? 0 : $value;
+            $cleaned = collect($service)->map(function ($value, $key) use ($numericFields) {
+                if ($value === '') {
+                    return in_array($key, $numericFields) ? 0 : null;
+                }
+
+                return is_string($value) ? trim($value) : $value;
             })->toArray();
 
             $origin->services()->create($cleaned);
