@@ -65,7 +65,7 @@ return [
 
     'temporary_file_upload' => [
         'disk' => env('LIVEWIRE_UPLOAD_DISK', 'public'), 
-        'rules' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf,doc,docx,odt,xlsx,xls,csv,txt,mp3,mp4', 'max:2048'],
+        'rules' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp,pdf,doc,docx,odt,xlsx,xls,csv,txt,mp3,mp4', 'max:5120'],
         'directory' => env('LIVEWIRE_UPLOAD_DIRECTORY', 'livewire-tmp'),
         'middleware' => ['web', 'throttle:30,1'],
         'preview_mimes' => [   // Supported file types for temporary pre-signed file URLs...

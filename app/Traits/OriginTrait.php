@@ -188,7 +188,7 @@ trait OriginTrait
             'available_area' => 'required|numeric',
             'vacant_buildings' => 'required|numeric',
             'remaining_area' => 'required|numeric',
-            'decision_image' => 'nullable|file|max:2048|mimes:pdf,jpg,jpeg,png,xlsx,doc,docx,csv,odt,xls,webp',
+            'decision_image' => 'nullable|file|max:5120|mimes:pdf,jpg,jpeg,png,xlsx,doc,docx,csv,odt,xls,webp',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
             'record_status' => 'required|in:yes,no',
