@@ -48,12 +48,22 @@ trait OriginTrait
 
     public function recalculateRemainingArea()
     {
-        $used_area_details = collect($this->details ?? [])->sum('used_area');
-        $used_area_services = collect($this->services ?? [])->sum('used_area');
+        $used_area_details = collect($this->details ?? [])->sum(function ($item) {
+            return floatval($item['used_area'] ?? 0);
+        });
+
+        $used_area_services = collect($this->services ?? [])->sum(function ($item) {
+            return floatval($item['used_area'] ?? 0);
+        });
+
         $this->used_area = $used_area_details + $used_area_services;
-        $this->remaining_area = max(0, $this->total_area_allocated - $this->used_area);
+
+        $total_allocated = floatval($this->total_area_allocated ?? 0);
+
+        $this->remaining_area = max(0, $total_allocated - $this->used_area);
         $this->available_area = $this->remaining_area;
     }
+
 
 
     public array $relations = [
@@ -246,6 +256,7 @@ trait OriginTrait
     {
         unset($this->services[$index]);
         $this->services = array_values($this->services);
+        $this->recalculateRemainingArea();
     }
 
     public function getFilteredQuery()
