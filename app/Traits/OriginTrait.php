@@ -31,9 +31,9 @@ trait OriginTrait
         $created_by = null, $revised_by = null, $completed_by = null, $coordinated_by = null,
         $decision_num = null, $location = null, $notes = null,
         $total_area_allocated = null, $total_area_coords = null,
-        $used_area = null, $available_area = null, $remaining_area = null, $sepated_services = null;
+        $used_area = null, $remaining_area = null, $sepated_services = null;
 
-    public ?int $decision_date = null, $executing_entity_num = null, $vacant_buildings = null;
+    public ?int $decision_date = null, $executing_entity_num = null;
 
     public mixed $origin_status = 'inprogress', $location_status = 'accept', $record_status = 'no';
 
@@ -46,25 +46,17 @@ trait OriginTrait
     public array $details = [];
     public array $services = [];
 
-    public function recalculateRemainingArea()
+     public function calculateTotalArea()
     {
-        $used_area_details = collect($this->details ?? [])->sum(function ($item) {
-            return floatval($item['used_area'] ?? 0);
-        });
-
-        $used_area_services = collect($this->services ?? [])->sum(function ($item) {
-            return floatval($item['used_area'] ?? 0);
-        });
-
-        $this->used_area = $used_area_details + $used_area_services;
-
-        $total_allocated = floatval($this->total_area_allocated ?? 0);
-
-        $this->remaining_area = max(0, $total_allocated - $this->used_area);
-        $this->available_area = $this->remaining_area;
+        $this->remaining_area = floatval($this->total_area_allocated ?? 0);
+        $this->used_area = 0;
     }
 
-
+    public function calculateRemainingArea()
+    {
+        $total_allocated = floatval($this->total_area_allocated ?? 0);
+        $this->remaining_area = max(0, $total_allocated - $this->used_area);
+    }
 
     public array $relations = [
         'decisionType',
@@ -195,15 +187,12 @@ trait OriginTrait
             'city_id' => 'required|string|exists:cities,id',
             'location' => 'nullable|string|max:500',
             'location_status' => 'required|in:accept,good,very_good,excellent',
-            'available_area' => 'required|numeric',
-            'vacant_buildings' => 'required|numeric',
             'remaining_area' => 'required|numeric',
             'decision_image' => 'nullable|file|max:5120|mimes:pdf,jpg,jpeg,png,xlsx,doc,docx,csv,odt,xls,webp',
             'notes' => 'nullable|string',
             'origin_status' => 'required|in:inprogress,revision,completed',
             'record_status' => 'required|in:yes,no',
             'details.*.statement_id' => 'required|string',
-            'details.*.used_area' => 'nullable|numeric',
             'details.*.unit_area' => 'nullable|numeric',
             'details.*.number_of_buildings_executed' => 'nullable|numeric',
             'details.*.number_of_units' => 'nullable|numeric',
@@ -223,7 +212,6 @@ trait OriginTrait
     {
         $this->details[] = [
             'statement_id' => null,
-            'used_area' => 0,
             'unit_area' => 0,
             'number_of_buildings_executed' => 0,
             'number_of_units' => 0,
@@ -249,14 +237,12 @@ trait OriginTrait
     {
         unset($this->details[$index]);
         $this->details = array_values($this->details);
-        $this->recalculateRemainingArea();
     }
 
     public function removeService($index)
     {
         unset($this->services[$index]);
         $this->services = array_values($this->services);
-        $this->recalculateRemainingArea();
     }
 
     public function getFilteredQuery()
@@ -389,8 +375,6 @@ trait OriginTrait
                 'location',
                 'location_status',
                 'origin_status',
-                'available_area',
-                'vacant_buildings',
                 'remaining_area',
                 'notes',
                 'created_by',

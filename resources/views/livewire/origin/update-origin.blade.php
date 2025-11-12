@@ -22,7 +22,7 @@
                                 :options="$this->decisionTypes()" placeholder="{{ __('site.decision_type_id') }}" />
 
                             <x-form.field label="{{ __('site.total_area_allocated') }}" model="total_area_allocated"
-                                placeholder="{{ __('site.total_area_allocated') }}" :extra="['wire:keyup' => 'recalculateRemainingArea']" />
+                                placeholder="{{ __('site.total_area_allocated') }}" :extra="['wire:keyup' => 'calculateTotalArea']" />
 
                             <x-form.field label="{{ __('site.total_area_coords') }}" model="total_area_coords"
                                 placeholder="{{ __('site.total_area_coords') }}" />
@@ -37,16 +37,10 @@
                                 placeholder="{{ __('site.location') }}" />
 
                             <x-form.field label="{{ __('site.used_area') }}" model="used_area"
-                                placeholder="{{ __('site.used_area') }}" disabled />
+                                placeholder="{{ __('site.used_area') }}" :extra="['wire:keyup' => 'calculateRemainingArea']" />
 
                             <x-form.field label="{{ __('site.executing_entity_num') }}" model="executing_entity_num"
                                 placeholder="{{ __('site.executing_entity_num') }}" />
-
-                            <x-form.field label="{{ __('site.available_area') }}" model="available_area"
-                                placeholder="{{ __('site.available_area') }}" disabled />
-
-                            <x-form.field label="{{ __('site.vacant_buildings') }}" model="vacant_buildings"
-                                placeholder="{{ __('site.vacant_buildings') }}" />
 
                             <x-form.field label="{{ __('site.remaining_area') }}" model="remaining_area"
                                 placeholder="{{ __('site.remaining_area') }}" disabled />
@@ -116,10 +110,6 @@
                                     model="details.{{ $index }}.statement_id" :options="$this->statements()"
                                     placeholder="{{ __('site.statement_id') }}" />
 
-                                <x-form.field label="{{ __('site.used_area') }}"
-                                    model="details.{{ $index }}.used_area" type="number"
-                                    placeholder="{{ __('site.used_area') }}" :extra="['wire:keyup' => 'recalculateRemainingArea']" />
-
                                 <x-form.field label="{{ __('site.unit_area') }}"
                                     model="details.{{ $index }}.unit_area" type="number"
                                     placeholder="{{ __('site.unit_area') }}" />
@@ -183,7 +173,7 @@
 
                                 <x-form.field label="{{ __('site.used_area') }}"
                                     model="services.{{ $index }}.used_area" type="number"
-                                    placeholder="{{ __('site.used_area') }}" :extra="['wire:keyup' => 'recalculateRemainingArea']" />
+                                    placeholder="{{ __('site.used_area') }}" />
 
                                 <x-form.field label="{{ __('site.count') }}" model="services.{{ $index }}.count"
                                     type="number" placeholder="{{ __('site.count') }}" />

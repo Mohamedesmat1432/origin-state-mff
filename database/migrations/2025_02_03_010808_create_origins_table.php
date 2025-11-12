@@ -22,9 +22,7 @@ return new class extends Migration
             $table->string('total_area_allocated')->nullable();
             $table->string('total_area_coords')->nullable();
             $table->string('used_area')->nullable();
-            $table->string('available_area')->nullable();
             $table->string('remaining_area')->nullable();
-            $table->string('vacant_buildings')->nullable();
             $table->string('executing_entity_num')->nullable();
             $table->text('location')->nullable();
             $table->enum('location_status', ['accept', 'good', 'very_good', 'excellent'])->default('accept');

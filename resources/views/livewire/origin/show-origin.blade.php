@@ -93,8 +93,6 @@
                                 <td class="px-4 py-2 border">{{ __('site.total_area_coords') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.used_area') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.executing_entity_num') }}</td>
-                                <td class="px-4 py-2 border">{{ __('site.available_area') }}</td>
-                                <td class="px-4 py-2 border">{{ __('site.vacant_buildings') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.remaining_area') }}</td>
                             </tr>
                         </x-slot>
@@ -104,8 +102,6 @@
                                 <td class="px-4 py-2 border">{{ $this->origin->total_area_coords ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $this->origin->used_area ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $this->origin->executing_entity_num ?? '-' }}</td>
-                                <td class="px-4 py-2 border">{{ $this->origin->available_area ?? '-' }}</td>
-                                <td class="px-4 py-2 border">{{ $this->origin->vacant_buildings ?? '-' }}</td>
                                 <td class="px-4 py-2 border">{{ $this->origin->remaining_area ?? '-' }}</td>
                             </tr>
                         </x-slot>
@@ -117,7 +113,6 @@
                         <x-slot name="thead">
                             <tr class="bg-gray-100">
                                 <td class="px-4 py-2 border">{{ __('site.statement_id') }}</td>
-                                <td class="px-4 py-2 border">{{ __('site.used_area') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.unit_area') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.number_of_buildings_executed') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.number_of_units') }}</td>
@@ -132,7 +127,6 @@
                             @forelse($this->origin->details as $detail)
                                 <tr>
                                     <td class="px-4 py-2 border">{{ $detail->statement?->name ?? '-' }}</td>
-                                    <td class="px-4 py-2 border">{{ $detail->used_area ?? '-' }}</td>
                                     <td class="px-4 py-2 border">{{ $detail->unit_area ?? '-' }}</td>
                                     <td class="px-4 py-2 border">{{ $detail->number_of_buildings_executed ?? '-' }}</td>
                                     <td class="px-4 py-2 border">{{ $detail->number_of_units ?? '-' }}</td>

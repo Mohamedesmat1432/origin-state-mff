@@ -59,8 +59,6 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
                 'executing_entity_num' => $origin->executing_entity_num,
                 'used_area'            => $origin->used_area,
                 'location'             => $origin->location,
-                'available_area'       => $origin->available_area,
-                'vacant_buildings'     => $origin->vacant_buildings,
                 'remaining_area'       => $origin->remaining_area,
 
                 'location_status'      => $this->exportStatus
@@ -101,7 +99,6 @@ class OriginsExport implements FromQuery, WithHeadings, WithMapping, WithStyles,
                     ->map(function ($d) {
                         return implode(' | ', [
                             __('site.statement') . ': ' . ($d->statement?->name ?? $d->statement_id),
-                            __('site.used_area') . ': ' . $d->used_area,
                             __('site.unit_area') . ': ' . $d->unit_area,
                             __('site.number_of_buildings_executed') . ': ' . $d->number_of_buildings_executed,
                             __('site.number_of_units') . ': ' . $d->number_of_units,

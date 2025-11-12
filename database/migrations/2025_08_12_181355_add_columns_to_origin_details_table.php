@@ -18,10 +18,6 @@ return new class extends Migration
                     ->onDelete('cascade');
             }
 
-            if (!Schema::hasColumn('origin_details', 'used_area')) {
-                $table->decimal('used_area')->nullable()->after('statement_id');
-            }
-
             if (!Schema::hasColumn('origin_details', 'note')) {
                 $table->text('note')->nullable()->after('used_area');
             }
@@ -45,10 +41,6 @@ return new class extends Migration
 
             if (Schema::hasColumn('origin_details', 'statement_id')) {
                 $table->dropColumn('statement_id');
-            }
-
-            if (Schema::hasColumn('origin_details', 'used_area')) {
-                $table->dropColumn('used_area');
             }
 
             if (Schema::hasColumn('origin_details', 'note')) {

@@ -29,8 +29,6 @@ class ExportOrigin extends Component
         'used_area',
         'executing_entity_num',
         'location',
-        'available_area',
-        'vacant_buildings',
         'remaining_area',
         'notes',
         'location_status',

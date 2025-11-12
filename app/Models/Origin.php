@@ -32,8 +32,6 @@ class Origin extends Model
         'location',
         'location_status',
         'origin_status',
-        'available_area',
-        'vacant_buildings',
         'remaining_area',
         'notes',
         'decision_image',
@@ -112,8 +110,6 @@ class Origin extends Model
             __('site.total_area_coords')      => $this->total_area_coords ?? '-',
             __('site.used_area')              => $this->used_area ?? '-',
             __('site.executing_entity_num')   => $this->executing_entity_num ?? '-',
-            __('site.available_area')         => $this->available_area ?? '-',
-            __('site.vacant_buildings')       => $this->vacant_buildings ?? '-',
             __('site.remaining_area')         => $this->remaining_area ?? '-',
         ];
 
@@ -187,7 +183,6 @@ class Origin extends Model
 
         $headers = [
             __('site.statement_id'),
-            __('site.used_area'),
             __('site.unit_area'),
             __('site.number_of_buildings_executed'),
             __('site.number_of_units'),
@@ -202,7 +197,7 @@ class Origin extends Model
         foreach ($details as $detail) {
             $rows[] = [
                 $detail->statement->name ?? '-',
-                $detail->used_area ?? '-',
+                // $detail->used_area ?? '-',
                 $detail->unit_area ?? '-',
                 $detail->number_of_buildings_executed ?? '-',
                 $detail->number_of_units ?? '-',
@@ -394,8 +389,8 @@ class Origin extends Model
                         ->orWhere('location', 'like', "%{$search}%")
                         ->orWhere('used_area', 'like', "%{$search}%")
                         ->orWhere('executing_entity_num', 'like', "%{$search}%")
-                        ->orWhere('available_area', 'like', "%{$search}%")
-                        ->orWhere('vacant_buildings', 'like', "%{$search}%")
+                        // ->orWhere('available_area', 'like', "%{$search}%")
+                        // ->orWhere('vacant_buildings', 'like', "%{$search}%")
                         ->orWhere('remaining_area', 'like', "%{$search}%")
                         ->orWhere('id', 'like', "%{$search}%")
                         ->orWhereHas('createdBy', fn($q) => $q->where('name', 'like', "%{$search}%"))
