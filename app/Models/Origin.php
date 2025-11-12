@@ -225,7 +225,7 @@ class Origin extends Model
 
         $headers = [
             __('site.type_service_id'),
-            __('site.used_area'),
+            __('site.area'),
             __('site.count'),
             __('site.note'),
         ];

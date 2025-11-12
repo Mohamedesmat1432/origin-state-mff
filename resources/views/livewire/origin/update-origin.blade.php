@@ -105,7 +105,7 @@
 
                     <div class="mt-2">
                         @foreach ($details as $index => $detail)
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-center">
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 items-center">
                                 <x-form.dynamic-select label="{{ __('site.statement_id') }}"
                                     model="details.{{ $index }}.statement_id" :options="$this->statements()"
                                     placeholder="{{ __('site.statement_id') }}" />
@@ -171,9 +171,9 @@
                                     model="services.{{ $index }}.type_service_id" :options="$this->typeServices()"
                                     placeholder="{{ __('site.type_service_id') }}" />
 
-                                <x-form.field label="{{ __('site.used_area') }}"
+                                <x-form.field label="{{ __('site.area') }}"
                                     model="services.{{ $index }}.used_area" type="number"
-                                    placeholder="{{ __('site.used_area') }}" />
+                                    placeholder="{{ __('site.area') }}" />
 
                                 <x-form.field label="{{ __('site.count') }}" model="services.{{ $index }}.count"
                                     type="number" placeholder="{{ __('site.count') }}" />

@@ -151,7 +151,7 @@
                         <x-slot name="thead">
                             <tr class="bg-gray-100">
                                 <td class="px-4 py-2 border">{{ __('site.type_service_id') }}</td>
-                                <td class="px-4 py-2 border">{{ __('site.used_area') }}</td>
+                                <td class="px-4 py-2 border">{{ __('site.area') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.count') }}</td>
                                 <td class="px-4 py-2 border">{{ __('site.note') }}</td>
                             </tr>
