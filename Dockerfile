@@ -41,6 +41,11 @@ WORKDIR /var/www
 # Copy project files
 COPY . .
 
+# Laravel cache paths exist
+RUN mkdir -p storage/framework/{cache,sessions,views} \
+    && mkdir -p bootstrap/cache \
+    && chmod -R 777 storage bootstrap/cache
+
 # Install composer dependencies (if composer.json exists)
 RUN if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
 
