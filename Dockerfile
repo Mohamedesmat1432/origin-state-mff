@@ -47,8 +47,10 @@ RUN mkdir -p storage/framework/{cache,sessions,views} \
     && chmod -R 777 storage bootstrap/cache
 
 # Install composer dependencies (if composer.json exists)
-RUN if [ -f composer.json ]; then composer install --no-dev --optimize-autoloader; fi
-
+RUN if [ -f composer.json ]; then \
+        COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader; \
+    fi
+    
 # Install npm dependencies (if package.json exists)
 RUN if [ -f package.json ]; then npm install && npm run build; fi
 
